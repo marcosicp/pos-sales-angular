@@ -1,0 +1,37 @@
+<mat-card class="add-margin">
+  <!-- Header and description -->
+  <mat-card-title>Historial de transacciones</mat-card-title>
+  <mat-card-subtitle>Ver todas las transacciones realizadas hasta el momento.</mat-card-subtitle>    
+  <mat-form-field>
+    <mat-select placeholder="Mostrar filas:" [(ngModel)]="displayRows" (ngModelChange)="renderNewRows()">
+      <mat-option *ngFor="let option of rowOptions" [value]="option">{{option}}</mat-option>      
+    </mat-select>
+  </mat-form-field>
+  
+  <!-- Table -->
+  <mat-card-content>
+    <table class="items">
+      <!-- Table headers -->
+      <tr class="table-header">
+        <th>Transaccion #</th>
+        <th>Productos</th>
+        <th>Total</th>
+        <th>Borrar</th>
+      </tr>
+      <!-- Iterate over history -->
+      <tr *ngFor="let order of history | async" class="item">
+        <td (click)="openDialog(order)">{{order.orderNumber | date:'short'}}</td>
+        <td (click)="openDialog(order)">
+          <li *ngFor="let item of order.items; let i=index">
+            <p *ngIf="i < 2">{{item.name}}</p>
+          </li>
+          <li>...</li>
+        </td>
+        <td (click)="openDialog(order)">{{order.cartTotal | currency:'USD':true}}</td>
+        <td>
+          <mat-icon class="del" (click)="deleteOrder(order.id)">cancel</mat-icon>
+        </td>
+      </tr>
+    </table>
+  </mat-card-content>
+</mat-card>
