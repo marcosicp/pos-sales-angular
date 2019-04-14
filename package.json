@@ -1,12 +1,11 @@
 {
-  "name": "dummy-pos",
+  "name": "tesisconstruccion",
   "version": "0.0.0",
   "license": "MIT",
   "scripts": {
     "ng": "ng",
     "start": "ng serve",
-    "build": "ng build",
-    "heroku-postbuild": "ng build --prod",
+    "build": "ng build --prod --aot --vendor-chunk --common-chunk --delete-output-path --buildOptimizer",
     "test": "ng test",
     "lint": "ng lint",
     "e2e": "ng e2e"
