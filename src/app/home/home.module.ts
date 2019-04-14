@@ -15,7 +15,7 @@ import {MatIconModule, MatButtonModule, MatTabsModule, MatCardModule, MatDialogM
 import { ReportsComponent } from './reports/reports.component';
 import { LineChartComponent } from './reports/line-chart/line-chart.component';
 
-import { ChartsModule } from 'ng2-charts/ng2-charts';
+// import { ChartsModule } from 'ng2-charts/ng2-charts';
 
 @NgModule({
   imports: [
@@ -27,8 +27,7 @@ import { ChartsModule } from 'ng2-charts/ng2-charts';
     MatTabsModule,
     MatSelectModule,
     AppRoutingModule,
-    FormsModule,
-    ChartsModule
+    FormsModule
   ],
   declarations: [
     HomeComponent,

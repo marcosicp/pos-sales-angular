@@ -7,7 +7,8 @@ import { HomeModule } from './home/home.module';
 import { AdminModule } from './admin/admin.module';
 
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
-import {MatMenuModule, MatIconModule, MatButtonModule, MatCardModule, MatInputModule, MatFormFieldModule} from '@angular/material';
+import { MaterialModule } from '../material/material.module';
+// import {MatMenuModule, MatIconModule, MatButtonModule, MatCardModule, MatInputModule, MatFormFieldModule} from '@angular/material';
 
 import { AppComponent } from './app.component';
 import { NavComponent } from './nav/nav.component';
@@ -39,19 +40,11 @@ import { NotificationComponent } from './notification/notification.component';
   imports: [
     AppRoutingModule,
     BrowserModule,
-    MatIconModule,
-    MatButtonModule,
     BrowserAnimationsModule,
-    MatCardModule,
-    MatMenuModule,
-    MatInputModule,
-    MatFormFieldModule,
-    // AngularFireModule.initializeApp(firebaseConfig),
-    // AngularFireAuthModule,
+    MaterialModule,
     CoreModule,
     FormsModule,
     ReactiveFormsModule,
-    // AngularFirestoreModule,
     HomeModule,
     AdminModule
   ],
