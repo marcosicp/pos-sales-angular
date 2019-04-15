@@ -3,7 +3,7 @@ import { Component, OnInit } from '@angular/core';
 import { Order, Item } from '../../item';
 import { LineItemModalComponent } from './line-item-modal/line-item-modal.component';
 
-import {MatDialog, MatDialogRef, MAT_DIALOG_DATA} from '@angular/material';
+import {MatDialog,MatListModule, MatDialogRef, MAT_DIALOG_DATA} from '@angular/material';
 
 @Component({
   selector: 'app-history',

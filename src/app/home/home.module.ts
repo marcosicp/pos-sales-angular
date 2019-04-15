@@ -13,7 +13,7 @@ import { TransactionsComponent } from './transactions/transactions.component';
 
 import {MatIconModule, MatButtonModule, MatTabsModule, MatCardModule, MatDialogModule, MatSelectModule} from '@angular/material';
 import { ReportsComponent } from './reports/reports.component';
-import { LineChartComponent } from './reports/line-chart/line-chart.component';
+// import { LineChartComponent } from './reports/line-chart/line-chart.component';
 
 // import { ChartsModule } from 'ng2-charts/ng2-charts';
 
@@ -36,8 +36,8 @@ import { LineChartComponent } from './reports/line-chart/line-chart.component';
     PosComponent,
     HistoryComponent,
     TransactionsComponent,
-    ReportsComponent,
-    LineChartComponent
+    ReportsComponent
+    // LineChartComponent
   ],
   entryComponents: [LineItemModalComponent]
 })

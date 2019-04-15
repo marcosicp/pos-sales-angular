@@ -5,7 +5,7 @@ import { CoreModule } from './core/core.module';
 import { AppRoutingModule } from './core/app-routing.module';
 import { HomeModule } from './home/home.module';
 import { AdminModule } from './admin/admin.module';
-
+import { ChartsModule } from 'ng2-charts';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import { MaterialModule } from '../material/material.module';
 // import {MatMenuModule, MatIconModule, MatButtonModule, MatCardModule, MatInputModule, MatFormFieldModule} from '@angular/material';
@@ -44,6 +44,7 @@ import { NotificationComponent } from './notification/notification.component';
     MaterialModule,
     CoreModule,
     FormsModule,
+    ChartsModule,
     ReactiveFormsModule,
     HomeModule,
     AdminModule
