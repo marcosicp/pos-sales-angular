@@ -18,6 +18,7 @@ import { PosService } from './pos.service';
 import { AuthService } from './core/auth.service';
 
 import { environment } from '../environments/environment';
+
 // import { DatabaseService } from './database.service';
 import { WelcomeComponent } from './welcome/welcome.component';
 import { PageNotFoundComponent } from './page-not-found/page-not-found.component';
