@@ -2,6 +2,8 @@ import { Component, OnInit } from '@angular/core';
 // 
 import { AuthService } from '../../core/auth.service';
 import { ParseUserRolePipe } from './parse-user-role.pipe';
+import { DataService } from '../../services/data.service';
+import { Usuarios } from '../../models/usuarios';
 
 @Component({
   selector: 'app-users',
@@ -15,14 +17,41 @@ export class UsersComponent implements OnInit {
   newUserEmail: string;
   newUserPassword: string;
 
-  users;
+  users: Usuarios[];
+  // usuarios: Usuarios[];
+  roles = ['Usuario', 'Admin'];
 
-  roles = ['Cashier', 'Admin'];
-
-  constructor( private authService: AuthService) {  }
+  constructor(private dataService: DataService, private authService: AuthService) {  }
 
   ngOnInit() {
-    // this.users = this.db.getUsers();
+    if (this.dataService.usuarios.length) {
+      this.users = this.dataService.usuarios;
+      this.loadUsuarios();
+    } else {
+      this.getUsuarios();
+    }
+  }
+
+  getUsuarios() {
+    // this.isLoading = true;
+    this.dataService.getAsync('usuarios/', this.dataService.usuarios).subscribe(
+      data => {
+        // this.usuarios = data;
+        this.loadUsuarios();
+      },
+      error => {
+        console.log(error);
+        // this.isLoading = false;
+      }
+    );
+  }
+
+  loadUsuarios() {
+    // this.dataSource = new MatTableDataSource<Usuarios>();
+    // this.dataSource.data = this.usuarios;
+    // this.dataSource.paginator = this.paginator;
+    // this.dataSource.sort = this.sort;
+    // this.isLoading = false;
   }
 
   addUserToggle() {
