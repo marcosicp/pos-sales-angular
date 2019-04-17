@@ -7,6 +7,10 @@ import { BehaviorSubject } from 'rxjs/BehaviorSubject';
 import 'rxjs/add/observable/of';
 import 'rxjs/add/operator/switchMap';
 import { User } from './user';
+import { HttpClient, HttpClientModule  } from '@angular/common/http';
+import { map } from 'rxjs/operators';
+import { stringify } from '@angular/core/src/render3/util';
+import { nullSafeIsEquivalent } from '@angular/compiler/src/output/output_ast';
 
 
 @Injectable()
@@ -14,25 +18,13 @@ export class AuthService {
 
   authState: any = null;
   user: BehaviorSubject<User> = new BehaviorSubject(null);
-
+  //private baseUrl = 'https://narizpizaangular.herokuapp.com/api';
+  private baseUrl = 'http://localhost:53617/api';
   currentUID: string;
   admin: boolean;
 
-  constructor( private router: Router) {
-    // Get auth data, then get Firestore user document, else null
-    // this.afAuth.authState
-    // .switchMap(auth => {
-    //   if (auth) {
-    //     /// signed in
-    //     return this.afs.doc<User>('users/' + auth.uid).valueChanges();
-    //   } else {
-    //     /// not signed in
-    //     return Observable.of(null);
-    //   }
-    // })
-    // .subscribe(user => {
-    //   this.user.next(user);
-    // });
+  constructor( private router: Router, private http: HttpClient) {
+
   }
 
   signup(email: string, password: string) {
@@ -44,19 +36,33 @@ export class AuthService {
   }
 
   emailLogin(email: string, password: string) {
-    return null;
+    debugger;
+    return this.http.post<any>(this.baseUrl+'/usuarios/login', { email: email, pass: password })
+            .pipe(map(user => {
+              debugger;
+                if (user) {
+                  if( user.email==null ||user.email==""){
+                    //password incorrecta
+                    return "Verifique su password";
+                  }
+                    // store user details and jwt token in local storage to keep user logged in between page refreshes
+                    localStorage.setItem('currentUser', JSON.stringify(user));
+                }else{
+                   return "Usuario no encontrado";
+                }
+            }));
+    // return null;
   }
 
-  anonymousLogin() {
-    return null;
-    //  this.afAuth.auth.signInAnonymously()
-    //   .then((user) => {
-    //     this.authState = user;
-    //     console.log('Login success');
-    //     this.currentUID = 'guest';
-    //     this.checkAdmin(this.currentUID);
-    //     this.router.navigate(['/welcome']);
-    //   });
+  public isAuthenticated(): boolean {
+    const user = localStorage.getItem('currentUser');
+    // Check whether the token is expired and return
+    // true or false
+    if (user!=null){
+      return true;
+    }else{
+      return false;
+    }
   }
 
   resetPassword(email: string) {

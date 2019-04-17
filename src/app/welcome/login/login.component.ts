@@ -23,17 +23,19 @@ export class LoginComponent implements OnInit {
     Validators.required,
     Validators.pattern(EMAIL_REGEX)]);
 
-  constructor(private auth: AuthService, private router: Router) { }
+  constructor(private authService: AuthService, private router: Router) { }
 
   ngOnInit() {
   }
 
-  guestLogin() {
-    this.auth.anonymousLogin();
-  }
 
   userLogin(email, password) {
-    this.auth.emailLogin(email, password).catch(error => this.success = false);
+    this.authService.emailLogin(email, password).subscribe(
+      error => 
+      {
+        debugger;
+        this.success = false
+        this.router.navigate(['/welcome']);
+      });
   }
-
 }

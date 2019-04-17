@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterModule, Routes, CanActivate } from '@angular/router';
-// import { AuthGuard } from './auth.guard';
+import { AuthGuard } from './auth.guard';
 import { AdminGuard } from './admin.guard';
 
 import { WelcomeComponent } from '../welcome/welcome.component';
@@ -20,13 +20,13 @@ const appRoutes: Routes = [
   { path: '', redirectTo: '/welcome', pathMatch: 'full' },
   { path: 'login', component: LoginComponent },
   { path: 'resetpassword', component: ResetpasswordComponent },
-  { path: 'welcome', component: WelcomeComponent },
-  { path: 'home', component: HomeComponent },
-  { path: 'admin', component: AdminComponent, children: [
+  { path: 'welcome', component: WelcomeComponent, canActivate: [AuthGuard] },
+  { path: 'home', component: HomeComponent ,canActivate: [AuthGuard]},
+  { path: 'admin', component: AdminComponent, canActivate: [AuthGuard], children: [
     { path: 'users', component: UsersComponent },
     { path: 'items', component: ItemsComponent }
   ] },
-  { path: 'reports', component: ReportsComponent },
+  { path: 'reports', component: ReportsComponent, canActivate: [AuthGuard] },
   { path: '**', component: PageNotFoundComponent }
 ];
 
@@ -35,7 +35,7 @@ const appRoutes: Routes = [
     CommonModule,
     RouterModule.forRoot(appRoutes),
   ],
-  providers: [ AdminGuard],
+  providers: [AuthGuard, AdminGuard],
   exports: [RouterModule],
   declarations: []
 })

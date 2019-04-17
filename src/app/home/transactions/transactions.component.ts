@@ -1,6 +1,5 @@
 import { Component, OnInit } from '@angular/core';
 
-import { Order, Item } from '../../item';
 import { LineItemModalComponent } from '../../home/history/line-item-modal/line-item-modal.component';
 import { AuthService } from '../../core/auth.service';
 
@@ -31,15 +30,15 @@ export class TransactionsComponent implements OnInit {
     // this.history = this.db.getSnapshot();
   }
 
-  openDialog(lineItem: Order): void {
-    const dialogRef = this.dialog.open(LineItemModalComponent, {
-      width: '300px',
-      data: { numItems: lineItem.cartNumItems,
-        orderNumber: lineItem.orderNumber,
-        items: lineItem.items,
-        total: lineItem.cartTotal }
-    });
-  }
+  // openDialog(lineItem: Order): void {
+  //   const dialogRef = this.dialog.open(LineItemModalComponent, {
+  //     width: '300px',
+  //     data: { numItems: lineItem.cartNumItems,
+  //       orderNumber: lineItem.orderNumber,
+  //       items: lineItem.items,
+  //       total: lineItem.cartTotal }
+  //   });
+  // }
 
   deleteOrder(id) {
     if (this.authService.admin) {

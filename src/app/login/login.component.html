@@ -1,0 +1,21 @@
+<div id="login-container" fxLayoutAlign="center center">
+  <div id="login-box" fxLayout="column" fxLayoutAlign="center center">
+    <div fxLayout="column" fxLayoutAlign="center center">
+      <span class="bold-font">Iniciar Sesión</span>
+      <mat-form-field class="full-width">
+        <input matInput placeholder="Correo electrónico" [(ngModel)]="emailLogin">
+        <mat-icon matSuffix>email</mat-icon>
+      </mat-form-field>
+      <mat-form-field class="full-width">
+        <input matInput placeholder="Contraseña" type="password" [(ngModel)]="passwordLogin">
+        <mat-icon matSuffix>lock</mat-icon>
+      </mat-form-field>
+      <button mat-raised-button color="primary" (click)="login()" [disabled]="!emailLogin || !passwordLogin" class="full-width">ENTRAR</button>
+      <br/><br/>
+      <span class="red-text">{{loginError}}</span>
+      <br/><br/>
+      <span><a  routerLink="">Home</a></span>
+      <!-- <span><a (click)="resetPassword()" class="link">Olvidé mi contraseña</a></span> -->
+    </div>
+  </div>
+</div>

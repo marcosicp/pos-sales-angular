@@ -9,12 +9,13 @@ import { ChartsModule } from 'ng2-charts';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import { MaterialModule } from '../material/material.module';
 // import {MatMenuModule, MatIconModule, MatButtonModule, MatCardModule, MatInputModule, MatFormFieldModule} from '@angular/material';
-
+// import { AuthService } from './services/auth.service';
 import { AppComponent } from './app.component';
 import { NavComponent } from './nav/nav.component';
-
-
-import { PosService } from './pos.service';
+import { DataService } from './services/data.service';
+import { HttpModule } from '@angular/http';
+import { HttpClientModule } from '@angular/common/http';
+// import { PosService } from './pos.service';
 import { AuthService } from './core/auth.service';
 
 import { environment } from '../environments/environment';
@@ -44,13 +45,16 @@ import { NotificationComponent } from './notification/notification.component';
     BrowserAnimationsModule,
     MaterialModule,
     CoreModule,
+    HttpModule,
+    HttpClientModule,
     FormsModule,
     ChartsModule,
     ReactiveFormsModule,
     HomeModule,
     AdminModule
   ],
-  providers: [PosService, AuthService],
+  providers: [ AuthService,
+    DataService],
   bootstrap: [AppComponent],
 })
 export class AppModule { }

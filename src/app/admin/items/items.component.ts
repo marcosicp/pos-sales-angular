@@ -1,6 +1,5 @@
 import { Component, OnInit } from '@angular/core';
 
-import { Upload } from '../../item';
 
 @Component({
   selector: 'app-items',
@@ -21,7 +20,7 @@ export class ItemsComponent implements OnInit {
   food;
   drink;
   selectedFiles: FileList;
-  currentUpload: Upload;
+  // currentUpload: Upload;
 
   constructor() { }
 
@@ -44,7 +43,7 @@ export class ItemsComponent implements OnInit {
 
   addItem() {
     const file = this.selectedFiles.item(0);
-    this.currentUpload = new Upload(file);
+    // this.currentUpload = new Upload(file);
     // this.db.pushUpload(this.newItemName, this.newItemPrice, this.newItemType, this.currentUpload);
     this.newItemName = null;
     this.newItemPrice = null;

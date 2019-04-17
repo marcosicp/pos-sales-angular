@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 
-import { Order, Item } from '../../item';
+// import { Order, Item } from '../../item';
 import { LineItemModalComponent } from './line-item-modal/line-item-modal.component';
 
 import {MatDialog,MatListModule, MatDialogRef, MAT_DIALOG_DATA} from '@angular/material';
@@ -23,14 +23,14 @@ export class HistoryComponent implements OnInit {
     // this.history = this.db.getSnapshot();
   }
 
-  openDialog(lineItem: Order): void {
-    const dialogRef = this.dialog.open(LineItemModalComponent, {
-      width: '300px',
-      data: { numItems: lineItem.cartNumItems,
-        orderNumber: lineItem.orderNumber,
-        items: lineItem.items,
-        total: lineItem.cartTotal }
-    });
-  }
+  // openDialog(lineItem: Order): void {
+  //   const dialogRef = this.dialog.open(LineItemModalComponent, {
+  //     width: '300px',
+  //     data: { numItems: lineItem.cartNumItems,
+  //       orderNumber: lineItem.orderNumber,
+  //       items: lineItem.items,
+  //       total: lineItem.cartTotal }
+  //   });
+  // }
 
 }
