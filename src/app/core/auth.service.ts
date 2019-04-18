@@ -84,13 +84,11 @@ export class AuthService {
   }
 
   signOut(): void {
-    // this.afAuth.auth.signOut().then(() => {
-    //   this.router.navigate(['/']);
-    //   this.authState = null;
-    //   this.currentUID = null;
-    //   this.admin = false;
-    // });
     console.log('Logged out');
+    // remove user from local storage to log user out
+    localStorage.removeItem('currentUser');
+    if(!this.isAuthenticated()){
+     this.router.navigate(['login']);
+    }
   }
-
 }
