@@ -12,6 +12,7 @@ export class DataService {
 
   public ventas: any[] = [];
   public productos: any[] = [];
+  public pedidos: any[] = [];
   public usuarios: any[] = [];
 
   constructor(private http: HttpClient) { }

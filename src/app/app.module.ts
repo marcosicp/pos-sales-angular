@@ -15,7 +15,7 @@ import { NavComponent } from './nav/nav.component';
 import { DataService } from './services/data.service';
 import { HttpModule } from '@angular/http';
 import { HttpClientModule } from '@angular/common/http';
-// import { PosService } from './pos.service';
+//import { PosService } from './pos.service';
 import { AuthService } from './core/auth.service';
 
 import { environment } from '../environments/environment';
@@ -26,6 +26,7 @@ import { PageNotFoundComponent } from './page-not-found/page-not-found.component
 import { LoginComponent } from './welcome/login/login.component';
 import { ResetpasswordComponent } from './welcome/resetpassword/resetpassword.component';
 import { NotificationComponent } from './notification/notification.component';
+import { PosService } from './pos.service';
 
 // export const firebaseConfig = environment.firebaseConfig;
 
@@ -53,7 +54,7 @@ import { NotificationComponent } from './notification/notification.component';
     HomeModule,
     AdminModule
   ],
-  providers: [ AuthService,
+  providers: [ AuthService, PosService,
     DataService],
   bootstrap: [AppComponent],
 })
