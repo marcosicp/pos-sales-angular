@@ -31,11 +31,17 @@ export class LoginComponent implements OnInit {
 
   userLogin(email, password) {
     this.authService.emailLogin(email, password).subscribe(
-      error => 
+      val => 
       {
-        debugger;
-        this.success = false
-        this.router.navigate(['/welcome']);
+        if (val=="Usuario no encontrado") {
+          this.success = false;
+        }else if(val=="Verifique su password"){
+          this.success = false;
+        }else if(val== true){
+          debugger;
+          
+          this.router.navigate(['/welcome']);
+        }
       });
   }
 }
