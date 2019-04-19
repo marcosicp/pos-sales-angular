@@ -7,8 +7,8 @@ import { HttpClient } from '@angular/common/http'; import { HttpModule } from '@
 })
 export class DataService {
 
-  //private baseUrl = 'https://narizpizaangular.herokuapp.com/api';
-  private baseUrl = 'http://localhost:53617/api';
+  private baseUrl = 'https://api-tesis-clincker.herokuapp.com/api';
+  //private baseUrl = 'http://localhost:53617/api';
 
   public ventas: any[] = [];
   public productos: any[] = [];
