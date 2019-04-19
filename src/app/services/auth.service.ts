@@ -12,8 +12,8 @@ import { DataService } from '../../app/services/data.service';
 
 export class AuthService {
   user: any;
-  //private baseUrl = 'https://narizpizaangular.herokuapp.com/api';
-  private baseUrl = 'http://localhost:5000/api';
+  private baseUrl = 'https://api-tesis-clincker.herokuapp.com/api';
+  //private baseUrl = 'http://localhost:5000/api';
   private jwtHelper = new JwtHelperService()
 
   constructor(private dataService: DataService, private router: Router, private http: HttpClient) {
