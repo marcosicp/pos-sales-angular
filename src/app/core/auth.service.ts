@@ -18,8 +18,8 @@ export class AuthService {
 
   authState: any = null;
   user: BehaviorSubject<User> = new BehaviorSubject(null);
-  //private baseUrl = 'https://narizpizaangular.herokuapp.com/api';
-  private baseUrl = 'http://localhost:53617/api';
+  private baseUrl = 'https://api-tesis-clincker.herokuapp.com/api';
+  //private baseUrl = 'http://localhost:53617/api';
   currentUID: string;
   admin: boolean;
 
