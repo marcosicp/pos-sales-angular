@@ -6,9 +6,9 @@
       <form class="login-form">
         <mat-form-field>
           <input matInput #email placeholder="Email" type="email" [formControl]="emailFormControl">
-          <mat-error *ngIf="emailFormControl.hasError('pattern')">
+          <!-- <mat-error *ngIf="emailFormControl.hasError('pattern')">
             Por favor ingresar password valido
-          </mat-error>
+          </mat-error> -->
         </mat-form-field>
         <mat-form-field>
           <input matInput #password placeholder="Password" type="password">
