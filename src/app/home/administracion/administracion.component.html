@@ -1,0 +1,30 @@
+<div class="container">
+    <mat-grid-list cols="4" rowHeight="8:7">
+      <mat-grid-tile>
+        <mat-card class="module-card" (click)="abrirCaja()" fxLayout="column">
+          <mat-icon class="module-icon">shopping_cart</mat-icon>
+          <h1 class="module-title">Abrir Caja</h1>
+        </mat-card>
+      </mat-grid-tile>
+      <mat-grid-tile>
+        <mat-card class="module-card" (click)="cerrarCaja()" fxLayout="column">
+          <mat-icon class="module-icon">history</mat-icon>
+          <h1 class="module-title">Cerrar Caja</h1>
+        </mat-card>
+      </mat-grid-tile>
+      <mat-grid-tile>
+        <mat-card class="module-card" (click)="egreso()" fxLayout="column">
+          <mat-icon class="module-icon">assessment</mat-icon>
+          <h1 class="module-title">Retiro</h1>
+        </mat-card>
+      </mat-grid-tile>
+      <mat-grid-tile>
+        <mat-card class="module-card" routerLink="movimientos" fxLayout="column">
+          <mat-icon class="module-icon">insert_chart</mat-icon>
+          <h1 class="module-title">Movimientos</h1>
+        </mat-card>
+      </mat-grid-tile>
+      
+    </mat-grid-list>
+  </div>
+  

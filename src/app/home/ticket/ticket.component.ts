@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import { Productos } from '../../models/productos';
+import { Productos } from '../../models/producto.model';
 import { PosService } from '../../pos.service';
-import { DataService } from '../../services/data.service';
+import { DataService } from '../../core/services/data.service';
 
 
 @Component({

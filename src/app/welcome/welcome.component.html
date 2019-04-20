@@ -1,6 +1,53 @@
 <app-notification></app-notification>
-<div class="flex align-items-center justify-center container">
+<!-- <div class="flex align-items-center justify-center container">
   <button mat-raised-button routerLink="/home" color="primary" class="add-margin">Punto de Venta</button>
   <button mat-raised-button routerLink="/admin/items" color="warn" class="add-margin">Administracion</button>
   <button mat-raised-button routerLink="/transactions" color="accent" class="add-margin">Transacciones</button>  
+</div> -->
+
+<div class="container">
+  <mat-grid-list cols="4" rowHeight="8:7">
+    <mat-grid-tile>
+      <mat-card class="module-card" *ngIf="verEstado(); else notShow" routerLink="/home" fxLayout="column">
+        
+        <mat-icon fxLayout fxLayout.xs="column"
+        fxLayoutAlign="center" class="module-icon">shopping_cart</mat-icon>
+        <h1 class="module-title">Caja</h1>
+      </mat-card>
+      <ng-template #notShow>
+        <mat-card class="module-card" (click)="cajaCerrada()" fxLayout="column">
+          <mat-icon class="module-icon">cancel</mat-icon>
+          <h1 class="module-title">Caja Cerrada</h1>
+        </mat-card>
+      </ng-template>
+    </mat-grid-tile>
+    <mat-grid-tile>
+      <mat-card class="module-card" routerLink="historial" fxLayout="column">
+        <mat-icon class="module-icon">history</mat-icon>
+        <h1 class="module-title">Historial</h1>
+      </mat-card>
+    </mat-grid-tile>
+    <mat-grid-tile>
+      <mat-card class="module-card" routerLink="reportes" fxLayout="column">
+        <mat-icon class="module-icon">assessment</mat-icon>
+        <h1 class="module-title">Reportes</h1>
+      </mat-card>
+    </mat-grid-tile>
+    <mat-grid-tile>
+      <mat-card class="module-card" routerLink="stock" fxLayout="column">
+        <mat-icon class="module-icon">category</mat-icon>
+        <h1 class="module-title">Stock</h1>
+      </mat-card>
+    </mat-grid-tile>
+  </mat-grid-list>
+
+  <mat-grid-list cols="4" rowHeight="8:7">
+    <mat-grid-tile>
+      <mat-card class="module-card" routerLink="/administracion" fxLayout="column">
+        <mat-icon class="module-icon">business</mat-icon>
+        <h1 class="module-title">Administración</h1>
+      </mat-card>
+    </mat-grid-tile>
+  </mat-grid-list>
+
 </div>

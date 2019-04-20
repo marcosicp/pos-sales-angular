@@ -11,6 +11,7 @@ import { AdminComponent } from '../admin/admin/admin.component';
 import { PageNotFoundComponent } from '../page-not-found/page-not-found.component';
 import { LoginComponent } from '../welcome/login/login.component';
 import { ResetpasswordComponent } from '../welcome/resetpassword/resetpassword.component';
+import { AdministracionComponent  } from '../../app/home/administracion/administracion.component';
 import { UsersComponent  } from '../admin/users/users.component';
 import { ItemsComponent } from '../admin/items/items.component';
 
@@ -22,6 +23,7 @@ const appRoutes: Routes = [
   { path: 'resetpassword', component: ResetpasswordComponent },
   { path: 'welcome', component: WelcomeComponent, canActivate: [AuthGuard] },
   { path: 'home', component: HomeComponent ,canActivate: [AuthGuard]},
+  { path: 'administracion', component: AdministracionComponent ,canActivate: [AuthGuard]},
   { path: 'admin', component: AdminComponent, canActivate: [AuthGuard], children: [
     { path: 'users', component: UsersComponent },
     { path: 'items', component: ItemsComponent }

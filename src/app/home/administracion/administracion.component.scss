@@ -1,0 +1,30 @@
+.tituloCard {
+    text-align: center;
+  }
+  
+  .module-card {
+    width: 80%;
+    background-color: #C3C8EA;
+    display: flex;
+    align-items: center;
+    cursor: pointer;
+  }
+  
+  .module-card:hover {
+    opacity: 0.8;
+  }
+  
+  .module-icon {
+    padding-top: 20px;
+    padding-bottom: 20px;
+    padding-right: 30px;
+    padding-left: 0px;
+    color: white;
+    font-size: 60px;
+  }
+  
+  .module-title {
+    margin-top: 40px;
+    font-size: 1.6em;
+  }
+  
