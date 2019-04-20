@@ -35,6 +35,16 @@ export class AuthService {
 
   }
 
+  getUser = Observable.create(observer => {
+    if (this.user) {
+      debugger;
+      observer.next(localStorage.getItem('currentUser'));
+    } else {
+      observer.next(null);
+    }
+    observer.complete();
+  });
+
   emailLogin(email: string, password: string) {
     debugger;
     return this.http.post<any>(this.baseUrl+'/usuarios/login', { email: email, pass: password })
@@ -91,5 +101,5 @@ export class AuthService {
     if(!this.isAuthenticated()){
      this.router.navigate(['login']);
     }
-  }
+  } 
 }

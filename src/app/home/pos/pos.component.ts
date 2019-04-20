@@ -1,7 +1,7 @@
 import { Component, OnInit, EventEmitter, Output } from '@angular/core';
-import { Productos } from '../../models/productos';
+import { Productos } from '../../models/producto.model';
 import { PosService } from '../../../app/pos.service';
-import { DataService } from '../../services/data.service';
+import { DataService } from '../../core/services/data.service';
 import {MatTabsModule} from '@angular/material';
 import { DebugRenderer2 } from '@angular/core/src/view/services';
 

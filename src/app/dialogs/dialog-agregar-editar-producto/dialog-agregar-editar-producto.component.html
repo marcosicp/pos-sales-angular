@@ -1,0 +1,29 @@
+<h1 mat-dialog-title>{{producto.id ? 'Editar producto' : 'Añadir producto'}}</h1>
+<div mat-dialog-content fxLayout="column">
+  <mat-form-field class="full-width">
+    <input matInput type="text" placeholder="Nombre del producto *" [(ngModel)]="producto.producto">
+  </mat-form-field>
+  <mat-form-field class="full-width">
+    <input matInput type="text" placeholder="Código *" [(ngModel)]="producto.codigo">
+  </mat-form-field>
+  <mat-form-field class="full-width">
+    <input matInput type="number" placeholder="Stock *" [(ngModel)]="producto.cantidad">
+  </mat-form-field>
+  <div fxLayout="row" fxLayoutGap="15px" fxLayoutAlign="space-around">
+    <mat-form-field>
+      <input matInput type="number" placeholder="Precio Costo" [(ngModel)]="producto.precioCosto">
+    </mat-form-field>
+    <mat-form-field>
+      <input matInput type="number" placeholder="Precio Venta *" [(ngModel)]="producto.precioVenta">
+    </mat-form-field>
+  </div>
+  <mat-form-field class="full-width">
+    <input matInput type="text" placeholder="Marca" [(ngModel)]="producto.marca">
+  </mat-form-field>
+</div>
+<div mat-dialog-actions>
+  <button mat-button (click)="onSaveUpdate()" [disabled]="!producto.producto || !producto.codigo || !producto.cantidad || !producto.marca || !producto.precioVenta || !producto.precioCosto">
+    {{producto.producto ? 'Actualizar' : 'Guardar'}}
+  </button>
+  <button mat-button (click)="onNoClick()">Cancelar</button>
+</div>

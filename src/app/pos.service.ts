@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { BehaviorSubject } from 'rxjs/BehaviorSubject';
-import { Productos } from './models/productos';
+import { Productos } from './models/producto.model';
 
 @Injectable()
 export class PosService {

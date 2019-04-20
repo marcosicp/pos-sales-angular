@@ -3,16 +3,24 @@
 }
 
 .module-card {
-  width: 70%;
-  height: 50%;
-  display: flex;
-  background-color: #C3C8EA;
-  align-items: center;
+  width: 100%;
+  background-color: #FFCA05;
+  // display: flex;
+  // align-items: center;
   cursor: pointer;
+}
+
+.clave-card {
+  padding: 0px;
 }
 
 .module-card:hover {
   opacity: 0.8;
+}
+
+.module-tile {
+  width: 150px;
+  height: 150px;
 }
 
 .module-icon {

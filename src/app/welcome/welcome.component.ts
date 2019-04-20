@@ -1,4 +1,8 @@
 import { Component, OnInit } from '@angular/core';
+import { EstadoCaja } from '../../app/models/estado-caja.model';
+import { DataService } from '../core/services/data.service';
+import { MatDialog  } from '@angular/material';
+import { DialogSinConexionComponent } from '../dialogs/dialog-sin-conexion/dialog-sin-conexion.component';
 
 @Component({
   selector: 'app-welcome',
@@ -7,9 +11,43 @@ import { Component, OnInit } from '@angular/core';
 })
 export class WelcomeComponent implements OnInit {
 
-  constructor() { }
+  result: EstadoCaja[]= [];
+  estadoCaja: EstadoCaja = new EstadoCaja();
+  usuario= '';
+  
+  constructor( private dialog: MatDialog, private comerciosService: DataService) {
+    this.comerciosService.getAsync('movimientos/EstadoCaja', this.result).subscribe(
+      data => {
+        if(data[0]==true){
+          this.estadoCaja.estado = "ABIERTA";
+        }
+      },
+      error => {
+        const dialogRef = this.dialog.open(DialogSinConexionComponent, { width: '600px' });
+          dialogRef.afterClosed().subscribe(result => {
+        });
+        console.log(error);
+      }
+    );
+   }
 
   ngOnInit() {
+
+  }
+
+  verEstado() {
+    try {
+      if(this.estadoCaja.estado === "ABIERTA"){
+        return true;
+      }
+      return false;
+    } catch (error) {
+      return false;
+    }
+  }
+
+  cajaCerrada(){
+
   }
 
 }

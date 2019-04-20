@@ -1,9 +1,8 @@
 import { Component, OnInit } from '@angular/core';
-// 
 import { AuthService } from '../../core/auth.service';
 import { ParseUserRolePipe } from './parse-user-role.pipe';
-import { DataService } from '../../services/data.service';
-import { Usuarios } from '../../models/usuarios';
+import { DataService } from '../../core/services/data.service';
+import { Usuarios } from '../../models/usuarios.model';
 
 @Component({
   selector: 'app-users',
