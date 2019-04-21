@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
-import { AperturaCaja } from '../../models/apertura-caja.model';
+import { AperturaCaja } from '../../shared/models/apertura-caja.model';
 import { MatDialogRef, MatDialog  } from '@angular/material';
-import { DataService } from '../../../app/core/services/data.service';;
-import { AuthService } from '../../core/auth.service';
+import { DataService } from '../../../app/core/services/data.service';
+import { AuthService } from '../../core/services/auth.service';
 import { DialogSinConexionComponent } from '../dialog-sin-conexion/dialog-sin-conexion.component';
 import { DialogOperacionOkComponent } from '../dialog-operacion-ok/dialog-operacion-ok.component';
 
@@ -14,23 +14,27 @@ import { DialogOperacionOkComponent } from '../dialog-operacion-ok/dialog-operac
 export class DialogAbrirCajaComponent implements OnInit {
   aperturaCaja: AperturaCaja = new AperturaCaja();
   result: AperturaCaja[] = [];
-  usuario= '';
+  usuario = '';
 
-  constructor(private auth: AuthService, public dialogRef: MatDialogRef<DialogAbrirCajaComponent>, private dialog: MatDialog, private comerciosService: DataService) {
+  constructor(
+    private auth: AuthService,
+    public dialogRef: MatDialogRef<DialogAbrirCajaComponent>,
+    private dialog: MatDialog,
+    private comerciosService: DataService) {
     this.auth.getUser.subscribe((data: any) => {
       this.usuario = data;
     });
    }
-  
+
   ngOnInit() {
-    
+
   }
 
   guardar() {
-    this.aperturaCaja.usuario =this.usuario;
+    this.aperturaCaja.usuario = this.usuario;
     this.aperturaCaja.fechaMovimiento = new Date();
-    this.aperturaCaja.fechaMovimiento.setHours(this.aperturaCaja.fechaMovimiento.getHours() - 3)
-    this.aperturaCaja.tipo = "APERTURA";
+    this.aperturaCaja.fechaMovimiento.setHours(this.aperturaCaja.fechaMovimiento.getHours() - 3);
+    this.aperturaCaja.tipo = 'APERTURA';
     this.comerciosService.createAsync('movimientos/AbrirCaja', this.aperturaCaja, this.result).subscribe(
       data => {
         const dialogRef = this.dialog.open(DialogOperacionOkComponent, { width: '600px' });

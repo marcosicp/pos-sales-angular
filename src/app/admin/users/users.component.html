@@ -31,15 +31,15 @@
   <!-- List of users in database -->
   <mat-accordion class="add-margin">
     <!-- User Panel -->
-    <mat-expansion-panel *ngFor="let user of users | async">
+    <mat-expansion-panel *ngFor="let user of users">
       <mat-expansion-panel-header>
-        <mat-panel-title>{{user.email}}</mat-panel-title>
+        <mat-panel-title>{{user.nombre}}</mat-panel-title>
       </mat-expansion-panel-header>
       <!-- Edit form -->
       <form>
         <mat-form-field>
           <!-- <h3>Permissions</h3> -->
-          <mat-select #admin placeholder="{{user.admin | parseUserRole}}">
+          <mat-select #admin placeholder="{{user.admin | parseUserRole }}">
             <mat-option *ngFor="let role of roles" [value]="role">
               {{role}}
             </mat-option>
@@ -51,7 +51,7 @@
       </form>
       <!-- Guardar/Borrar buttons -->
       <mat-action-row>
-        <button mat-button (click)="updateUser(user.id, admin.value)">Guardar</button>
+        <button mat-button (click)="updateUser(user._id , admin.value)">Guardar</button>
         <button mat-button color="warn">Borrar</button>
       </mat-action-row>
     </mat-expansion-panel>

@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { RetiroCaja } from '../../models/retiro-caja.model';
+import { RetiroCaja } from '../../shared/models/retiro-caja.model';
 
 @Component({
   selector: 'app-dialog-ingreso-caja',

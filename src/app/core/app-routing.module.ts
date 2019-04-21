@@ -1,9 +1,10 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterModule, Routes, CanActivate } from '@angular/router';
-import { AuthGuard } from './auth.guard';
-import { AdminGuard } from './admin.guard';
-
+// GUARDAS
+import { AuthGuard } from './guards/auth.guard';
+import { AdminGuard } from './guards/admin.guard';
+// COMPONENTES
 import { WelcomeComponent } from '../welcome/welcome.component';
 import { HomeComponent } from '../home/home.component';
 import { TransactionsComponent } from '../home/transactions/transactions.component';
@@ -14,22 +15,52 @@ import { ResetpasswordComponent } from '../welcome/resetpassword/resetpassword.c
 import { AdministracionComponent  } from '../../app/home/administracion/administracion.component';
 import { UsersComponent  } from '../admin/users/users.component';
 import { ItemsComponent } from '../admin/items/items.component';
-
 import { ReportsComponent } from '../home/reports/reports.component';
 
 const appRoutes: Routes = [
-  { path: '', redirectTo: '/welcome', pathMatch: 'full' },
-  { path: 'login', component: LoginComponent },
-  { path: 'resetpassword', component: ResetpasswordComponent },
-  { path: 'welcome', component: WelcomeComponent, canActivate: [AuthGuard] },
-  { path: 'home', component: HomeComponent ,canActivate: [AuthGuard]},
-  { path: 'administracion', component: AdministracionComponent ,canActivate: [AuthGuard]},
-  { path: 'admin', component: AdminComponent, canActivate: [AuthGuard], children: [
-    { path: 'users', component: UsersComponent },
-    { path: 'items', component: ItemsComponent }
-  ] },
-  { path: 'reports', component: ReportsComponent, canActivate: [AuthGuard] },
-  { path: '**', component: PageNotFoundComponent }
+  {
+    path: '',
+    redirectTo: '/welcome',
+    pathMatch: 'full'
+  }, {
+    path: 'login',
+    component: LoginComponent
+  }, {
+    path: 'resetpassword',
+    component: ResetpasswordComponent
+  }, {
+    path: 'welcome',
+    component: WelcomeComponent,
+    canActivate: [AuthGuard]
+  }, {
+    path: 'home',
+    component: HomeComponent ,
+    canActivate: [AuthGuard]
+  }, {
+    path: 'administracion',
+    component: AdministracionComponent ,
+    canActivate: [AuthGuard]
+  }, {
+    path: 'admin',
+    component: AdminComponent,
+    canActivate: [AuthGuard],
+    children: [
+      {
+        path: 'users',
+        component: UsersComponent
+      }, {
+        path: 'items',
+        component: ItemsComponent
+      }
+    ]
+  }, {
+    path: 'reports',
+    component: ReportsComponent,
+    canActivate: [AuthGuard]
+  }, {
+    path: '**',
+    component: PageNotFoundComponent
+  }
 ];
 
 @NgModule({
@@ -37,8 +68,13 @@ const appRoutes: Routes = [
     CommonModule,
     RouterModule.forRoot(appRoutes),
   ],
-  providers: [AuthGuard, AdminGuard],
-  exports: [RouterModule],
+  providers: [
+    AuthGuard,
+    AdminGuard
+  ],
+  exports: [
+    RouterModule
+  ],
   declarations: []
 })
 export class AppRoutingModule { }

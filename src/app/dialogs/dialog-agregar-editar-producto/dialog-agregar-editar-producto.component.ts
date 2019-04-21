@@ -1,6 +1,6 @@
 import { Component, Inject } from '@angular/core';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
-import { Productos } from '../../../app/models/producto.model';
+import { Productos } from '../../shared/models/producto.model';
 
 @Component({
   selector: 'app-dialog-agregar-editar-producto',
@@ -9,7 +9,7 @@ import { Productos } from '../../../app/models/producto.model';
 })
 export class DialogAgregarEditarProductoComponent {
   public producto: Productos = new Productos();
- 
+
 
   constructor(public dialogRef: MatDialogRef<DialogAgregarEditarProductoComponent>, @Inject(MAT_DIALOG_DATA) public data: Productos) {
     if (data) {

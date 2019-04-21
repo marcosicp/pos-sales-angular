@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { AuthService } from '../../core/auth.service';
+import { AuthService } from '../../core/services/auth.service';
 import { Router } from '@angular/router';
 
 import { FormControl, Validators } from '@angular/forms';
@@ -25,21 +25,17 @@ export class LoginComponent implements OnInit {
 
   constructor(private authService: AuthService, private router: Router) { }
 
-  ngOnInit() {
-  }
-
+  ngOnInit() { }
 
   userLogin(email, password) {
     this.authService.emailLogin(email, password).subscribe(
-      val => 
-      {
-        if (val=="Usuario no encontrado") {
+      val => {
+        if (val === 'Usuario no encontrado') {
           this.success = false;
-        }else if(val=="Verifique su password"){
+        } else if (val === 'Verifique su password') {
           this.success = false;
-        }else if(val== true){
+        } else if (val === true) {
           debugger;
-          
           this.router.navigate(['/welcome']);
         }
       });

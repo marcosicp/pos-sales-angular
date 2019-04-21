@@ -1,14 +1,14 @@
 import { Component, OnInit } from '@angular/core';
-import { Productos } from '../../models/producto.model';
-import { PosService } from '../../pos.service';
+import { Productos } from '../../shared/models/producto.model';
+import { PosService } from '../../core/services/pos.service';
 import { DataService } from '../../core/services/data.service';
 import { DialogCajaCerradaComponent } from '../../dialogs/dialog-caja-cerrada/dialog-caja-cerrada.component';
 import { DialogBuscarProductoComponent } from '../../dialogs/dialog-buscar-producto/dialog-buscar-producto.component';
 import { DialogSinConexionComponent } from '../../dialogs/dialog-sin-conexion/dialog-sin-conexion.component';
 import { DialogOperacionOkComponent } from '../../dialogs/dialog-operacion-ok/dialog-operacion-ok.component';
-import { Pedido } from '../../models/pedido.model';
+import { Pedido } from '../../shared/models/pedido.model';
 import { MatDialog, MatTableDataSource, MatSnackBar } from '@angular/material';
-import { ProductoPedido } from '../../models/producto-venta.model';
+import { ProductoPedido } from '../../shared/models/producto-venta.model';
 
 @Component({
   selector: 'app-ticket',

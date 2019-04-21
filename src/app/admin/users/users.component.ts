@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
-import { AuthService } from '../../core/auth.service';
-import { ParseUserRolePipe } from './parse-user-role.pipe';
+import { AuthService } from '../../core/services/auth.service';
+import { ParseUserRolePipe } from '../../shared/pipes/parse-user-role.pipe';
 import { DataService } from '../../core/services/data.service';
-import { Usuarios } from '../../models/usuarios.model';
+import { Usuarios } from '../../shared/models/usuarios.model';
 
 @Component({
   selector: 'app-users',
@@ -10,7 +10,6 @@ import { Usuarios } from '../../models/usuarios.model';
   styleUrls: ['./users.component.scss']
 })
 export class UsersComponent implements OnInit {
-
   addUserActive = false;
 
   newUserEmail: string;
@@ -20,7 +19,9 @@ export class UsersComponent implements OnInit {
   // usuarios: Usuarios[];
   roles = ['Usuario', 'Admin'];
 
-  constructor(private dataService: DataService, private authService: AuthService) {  }
+  constructor(
+    private dataService: DataService, private authService: AuthService
+    ) {  }
 
   ngOnInit() {
     if (this.dataService.usuarios.length) {
@@ -35,7 +36,9 @@ export class UsersComponent implements OnInit {
     // this.isLoading = true;
     this.dataService.getAsync('usuarios/', this.dataService.usuarios).subscribe(
       data => {
-        // this.usuarios = data;
+        console.warn(data);
+        this.users = data;
+        console.warn('usuarios en angular', this.users);
         this.loadUsuarios();
       },
       error => {

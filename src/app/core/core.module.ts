@@ -1,12 +1,13 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-
-import { AuthService } from './auth.service';
 // import { AngularFireAuthModule } from 'angularfire2/auth';
+// MODULOS
 import { AppRoutingModule } from './app-routing.module';
-import { AdminGuard } from './admin.guard';
-
-import { NotifyService } from './notify.service';
+// GUARDAS
+import { AdminGuard } from './guards/admin.guard';
+// SERVICIOS
+import { AuthService } from './services/auth.service';
+import { NotifyService } from './services/notify.service';
 
 @NgModule({
   imports: [
@@ -14,6 +15,9 @@ import { NotifyService } from './notify.service';
     AppRoutingModule
   ],
   declarations: [],
-  providers: [AuthService, NotifyService]
+  providers: [
+    AuthService,
+    NotifyService
+  ]
 })
 export class CoreModule { }
