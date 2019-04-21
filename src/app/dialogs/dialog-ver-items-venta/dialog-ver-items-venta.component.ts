@@ -1,6 +1,6 @@
 import { Component, OnInit, Inject } from '@angular/core';
 import { DataService } from '../../../app/core/services/data.service';
-import { ProductoVenta } from '../../models/producto-venta.model';
+import { ProductoPedido } from '../../models/producto-venta.model';
 import { MAT_DIALOG_DATA, MatTableDataSource } from '../../../../node_modules/@angular/material';
 
 
@@ -9,18 +9,18 @@ import { MAT_DIALOG_DATA, MatTableDataSource } from '../../../../node_modules/@a
   templateUrl: './dialog-ver-items-venta.component.html',
   styleUrls: ['./dialog-ver-items-venta.component.scss']
 })
-export class DialogVerItemsVentaComponent implements OnInit {
-  productosVenta: ProductoVenta[] = [];
+export class DialogVerItemsPedidoComponent implements OnInit {
+  productosPedido: ProductoPedido[] = [];
   item: any;
-  dataSource = new MatTableDataSource<ProductoVenta>();
+  dataSource = new MatTableDataSource<ProductoPedido>();
   displayedColumns: string[] = ['producto', 'cantidad', 'precioVenta'];
 
   constructor(private comerciosService: DataService,  @Inject(MAT_DIALOG_DATA) public data: any) { 
     debugger;
-    this.comerciosService.getAsync('ventas/productosVenta?id=' + data.item.id, this.productosVenta).subscribe(
+    this.comerciosService.getAsync('ventas/productosPedido?id=' + data.item.id, this.productosPedido).subscribe(
       data => {
-        // this.productosVenta.forEach(function(item) {
-          this.dataSource.data = this.productosVenta;
+        // this.productosPedido.forEach(function(item) {
+          this.dataSource.data = this.productosPedido;
         // });
       }
     );

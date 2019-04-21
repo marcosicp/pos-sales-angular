@@ -1,20 +1,20 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { DialogVerItemsVentaComponent } from './dialog-ver-items-venta.component';
+import { DialogVerItemsPedidoComponent } from './dialog-ver-items-venta.component';
 
-describe('DialogVerItemsVentaComponent', () => {
-  let component: DialogVerItemsVentaComponent;
-  let fixture: ComponentFixture<DialogVerItemsVentaComponent>;
+describe('DialogVerItemsPedidoComponent', () => {
+  let component: DialogVerItemsPedidoComponent;
+  let fixture: ComponentFixture<DialogVerItemsPedidoComponent>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ DialogVerItemsVentaComponent ]
+      declarations: [ DialogVerItemsPedidoComponent ]
     })
     .compileComponents();
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(DialogVerItemsVentaComponent);
+    fixture = TestBed.createComponent(DialogVerItemsPedidoComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

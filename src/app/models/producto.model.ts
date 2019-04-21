@@ -3,8 +3,8 @@ export class Productos {
     producto: string;
     codigo: string;
     idProducto: string;
+    precioCompra: number;
     precioVenta: number;
-    precioCosto: number;
     cantidad: number;
     marca: string;
     fechaModificacionPrecio: Date;

@@ -29,7 +29,7 @@ import { DialogAbrirCajaComponent } from './dialogs/dialog-abrir-caja/dialog-abr
 import { DialogEgresoCajaComponent } from './dialogs/dialog-egreso-caja/dialog-egreso-caja.component';
 import { DialogIngresoCajaComponent } from './dialogs/dialog-ingreso-caja/dialog-ingreso-caja.component';
 import { AdministracionComponent } from '../app/home/administracion/administracion.component';
-import { DialogVerItemsVentaComponent } from './dialogs/dialog-ver-items-venta/dialog-ver-items-venta.component';
+import { DialogVerItemsPedidoComponent } from './dialogs/dialog-ver-items-venta/dialog-ver-items-venta.component';
 import { WelcomeComponent } from './welcome/welcome.component';
 import { PageNotFoundComponent } from './page-not-found/page-not-found.component';
 import { LoginComponent } from './welcome/login/login.component';
@@ -58,7 +58,7 @@ import { PosService } from './pos.service';
     DialogIngresoCajaComponent,
     AdministracionComponent,
     ConfirmComponent,
-    DialogVerItemsVentaComponent,
+    DialogVerItemsPedidoComponent,
     NotificationComponent
   ],
   imports: [
@@ -89,7 +89,7 @@ import { PosService } from './pos.service';
     DialogOperacionOkComponent,
     DialogEgresoCajaComponent,
     DialogIngresoCajaComponent,
-    DialogVerItemsVentaComponent,
+    DialogVerItemsPedidoComponent,
     ConfirmComponent
   ]
 })

@@ -4,6 +4,6 @@ export class CierreCaja {
     fechaMovimiento: Date;
     usuario: string;
     totalCierreCaja: number;
-    totalPrecioVenta: number;
+    totalPrecioPedido: number;
     descripcion: string;
 }
