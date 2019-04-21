@@ -11,7 +11,7 @@
   </mat-form-field>
   <div fxLayout="row" fxLayoutGap="15px" fxLayoutAlign="space-around">
     <mat-form-field>
-      <input matInput type="number" placeholder="Precio Costo" [(ngModel)]="producto.precioCosto">
+      <input matInput type="number" placeholder="Precio Compra" [(ngModel)]="producto.precioCompra">
     </mat-form-field>
     <mat-form-field>
       <input matInput type="number" placeholder="Precio Pedido *" [(ngModel)]="producto.precioVenta">
@@ -22,7 +22,7 @@
   </mat-form-field>
 </div>
 <div mat-dialog-actions>
-  <button mat-button (click)="onSaveUpdate()" [disabled]="!producto.producto || !producto.codigo || !producto.cantidad || !producto.marca || !producto.precioVenta || !producto.precioCosto">
+  <button mat-button (click)="onSaveUpdate()" [disabled]="!producto.producto || !producto.codigo || !producto.cantidad || !producto.marca || !producto.precioVenta || !producto.precioCompra">
     {{producto.producto ? 'Actualizar' : 'Guardar'}}
   </button>
   <button mat-button (click)="onNoClick()">Cancelar</button>

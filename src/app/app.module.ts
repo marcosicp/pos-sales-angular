@@ -9,7 +9,7 @@ import { ChartsModule } from 'ng2-charts';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import { MaterialModule } from './material/material.module';
 // import {MatMenuModule, MatIconModule, MatButtonModule, MatCardModule, MatInputModule, MatFormFieldModule} from '@angular/material';
-// import { AuthService } from './services/auth.service';
+import { LineChartComponent } from '../app/home/reports/line-chart/line-chart.component';
 import { AppComponent } from './app.component';
 import { NavComponent } from './nav/nav.component';
 import { DataService } from './core/services/data.service';
@@ -59,7 +59,8 @@ import { PosService } from './core/services/pos.service';
     AdministracionComponent,
     ConfirmComponent,
     DialogVerItemsPedidoComponent,
-    NotificationComponent
+    NotificationComponent,
+    LineChartComponent
   ],
   imports: [
     AppRoutingModule,
