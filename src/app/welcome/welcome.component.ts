@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { EstadoCaja } from '../../app/models/estado-caja.model';
+import { EstadoCaja } from '../shared/models/estado-caja.model';
 import { DataService } from '../core/services/data.service';
 import { MatDialog  } from '@angular/material';
 import { DialogSinConexionComponent } from '../dialogs/dialog-sin-conexion/dialog-sin-conexion.component';
@@ -14,7 +14,7 @@ export class WelcomeComponent implements OnInit {
   result: EstadoCaja[]= [];
   estadoCaja: EstadoCaja = new EstadoCaja();
   usuario= '';
-  
+
   constructor( private dialog: MatDialog, private comerciosService: DataService) {
     this.comerciosService.getAsync('movimientos/EstadoCaja', this.result).subscribe(
       data => {

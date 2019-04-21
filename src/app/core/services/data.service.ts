@@ -1,21 +1,23 @@
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
-import { HttpClient } from '@angular/common/http'; import { HttpModule } from '@angular/http';
+import { HttpClient } from '@angular/common/http';
+import { HttpModule } from '@angular/http';
 
 @Injectable({
   providedIn: 'root'
 })
 export class DataService {
-
   private baseUrl = 'https://api-tesis-clincker.herokuapp.com/api';
-  //private baseUrl = 'http://localhost:53617/api';
+  // private baseUrl = 'http://localhost:53617/api';
 
   public ventas: any[] = [];
   public productos: any[] = [];
   public pedidos: any[] = [];
   public usuarios: any[] = [];
 
-  constructor(private http: HttpClient) { }
+  constructor(
+    private http: HttpClient
+  ) { }
 
   getAsync = (uri: string, dataCollection: any[]) => Observable.create(observer => {
     this.http.get(`${this.baseUrl}/${uri}`)

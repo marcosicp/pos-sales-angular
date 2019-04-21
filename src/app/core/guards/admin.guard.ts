@@ -1,16 +1,19 @@
 import { Injectable } from '@angular/core';
 import { CanActivate, ActivatedRouteSnapshot, RouterStateSnapshot } from '@angular/router';
 import { Observable } from 'rxjs/Observable';
-import { AuthService } from './auth.service';
+// SERVICIOS
+import { AuthService } from '../services/auth.service';
+import { NotifyService } from '../services/notify.service';
 // import { AngularFireAuth } from 'angularfire2/auth';
-import { User } from './user';
-
-import { NotifyService } from './notify.service';
+// MODELOS
+import { Usuarios } from '../../shared/models/usuarios.model';
 
 @Injectable()
 export class AdminGuard implements CanActivate {
 
-  constructor(private authService: AuthService, private notify: NotifyService) {
+  constructor(
+    private authService: AuthService,
+    private notify: NotifyService) {
 
   }
 

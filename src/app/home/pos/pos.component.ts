@@ -1,6 +1,6 @@
 import { Component, OnInit, EventEmitter, Output } from '@angular/core';
-import { Productos } from '../../models/producto.model';
-import { PosService } from '../../../app/pos.service';
+import { Productos } from '../../shared/models/producto.model';
+import { PosService } from '../../core/services/pos.service';
 import { DataService } from '../../core/services/data.service';
 import {MatTabsModule} from '@angular/material';
 import { DebugRenderer2 } from '@angular/core/src/view/services';
@@ -43,7 +43,7 @@ export class PosComponent implements OnInit {
       data => {
         this.products[0]=[];
         data.forEach(element => {
-          
+
           this.products[0].push(element);
         });
         // this.products[0] = data;

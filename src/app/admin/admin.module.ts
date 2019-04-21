@@ -8,11 +8,11 @@ import { ItemsComponent } from './items/items.component';
 import { UsersComponent } from './users/users.component';
 import { AdminComponent } from './admin/admin.component';
 
-import {MatIconModule, MatButtonModule, MatCardModule, MatExpansionModule, 
+import {MatIconModule, MatButtonModule, MatCardModule, MatExpansionModule,
 MatInputModule, MatSelectModule, MatCheckboxModule} from '@angular/material';
 
-import { AuthService } from '../core/auth.service';
-import { ParseUserRolePipe } from './users/parse-user-role.pipe';
+import { AuthService } from '../core/services/auth.service';
+import { ParseUserRolePipe } from '../shared/pipes/parse-user-role.pipe';
 
 @NgModule({
   imports: [

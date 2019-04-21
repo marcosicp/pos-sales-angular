@@ -1,9 +1,9 @@
 import { Component } from '@angular/core';
 import { MatDialogRef, MatDialog } from '@angular/material';
-import { DataService } from '../../../app/core/services/data.service';;
-import { CierreCaja } from '../../models/cierre-caja.model';
-import { AperturaCaja } from '../../models/apertura-caja.model';
-import { AuthService } from '../../core/auth.service';
+import { DataService } from '../../../app/core/services/data.service';
+import { CierreCaja } from '../../shared/models/cierre-caja.model';
+import { AperturaCaja } from '../../shared/models/apertura-caja.model';
+import { AuthService } from '../../core/services/auth.service';
 import { DialogSinConexionComponent } from '../dialog-sin-conexion/dialog-sin-conexion.component';
 import { DialogOperacionOkComponent } from '../dialog-operacion-ok/dialog-operacion-ok.component';
 

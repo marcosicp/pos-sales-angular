@@ -1,6 +1,6 @@
 import { Component, OnInit, Inject } from '@angular/core';
 import { DataService } from '../../../app/core/services/data.service';
-import { ProductoVenta } from '../../models/producto-venta.model';
+import { ProductoVenta } from '../../shared/models/producto-venta.model';
 import { MAT_DIALOG_DATA, MatTableDataSource } from '../../../../node_modules/@angular/material';
 
 
@@ -15,7 +15,7 @@ export class DialogVerItemsVentaComponent implements OnInit {
   dataSource = new MatTableDataSource<ProductoVenta>();
   displayedColumns: string[] = ['producto', 'cantidad', 'precioVenta'];
 
-  constructor(private comerciosService: DataService,  @Inject(MAT_DIALOG_DATA) public data: any) { 
+  constructor(private comerciosService: DataService,  @Inject(MAT_DIALOG_DATA) public data: any) {
     debugger;
     this.comerciosService.getAsync('ventas/productosVenta?id=' + data.item.id, this.productosVenta).subscribe(
       data => {

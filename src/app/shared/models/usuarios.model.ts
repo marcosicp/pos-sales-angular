@@ -8,8 +8,7 @@ export class Usuarios {
   apellido: String;
   email: String;
   telefono: String;
-  cel: String;
   admin: Boolean;
   created_at: { type: Date };
-  updated_at: { type: Date }
+  updated_at: { type: Date };
 }
