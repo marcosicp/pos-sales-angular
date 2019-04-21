@@ -1,5 +1,9 @@
 <mat-card class="pos-section">
-  <mat-card-title class="add-padding heading">Selecionar Producto</mat-card-title>
+  <mat-card-title class="add-padding heading">Selecionar Producto
+      <button mat-button (click)="buscarProducto()">
+        <mat-icon>search</mat-icon>
+      </button>
+  </mat-card-title>
 
   <mat-tab-group>
     <mat-tab *ngFor="let type of products; let i = index" label="{{productTypes[i]}}">

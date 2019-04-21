@@ -34,7 +34,7 @@ export class DialogCerrarCajaComponent {
           data2 => {
             debugger;
             this.cierreCaja = data2[0];
-            this.cierreCaja.totalCierreCaja = this.apertura.montoApertura + this.cierreCaja.totalPrecioVenta;
+            this.cierreCaja.totalCierreCaja = this.apertura.montoApertura + this.cierreCaja.totalPrecioPedido;
           },
           error => {
             const dialogRef2 = this.dialog.open(DialogSinConexionComponent, { width: '600px' });
