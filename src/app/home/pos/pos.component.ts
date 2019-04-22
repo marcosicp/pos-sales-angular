@@ -51,7 +51,7 @@ export class PosComponent implements OnInit {
 
   getData() {
     // this.isLoading = true;
-    this.dataService.getAsync('productos', this.dataService.productos).subscribe(
+    this.dataService.getAsync('productos/GetAllProductos', this.dataService.productos).subscribe(
       data => {
         this.products[0]=[];
         data.forEach(element => {

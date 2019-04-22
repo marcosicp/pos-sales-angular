@@ -29,6 +29,7 @@ import { DialogAbrirCajaComponent } from './dialogs/dialog-abrir-caja/dialog-abr
 import { DialogEgresoCajaComponent } from './dialogs/dialog-egreso-caja/dialog-egreso-caja.component';
 import { DialogIngresoCajaComponent } from './dialogs/dialog-ingreso-caja/dialog-ingreso-caja.component';
 import { AdministracionComponent } from '../app/home/administracion/administracion.component';
+import { HistorialComponent } from '../app/home/historial/historial.component';
 import { DialogVerItemsPedidoComponent } from './dialogs/dialog-ver-items-venta/dialog-ver-items-venta.component';
 import { WelcomeComponent } from './welcome/welcome.component';
 import { PageNotFoundComponent } from './page-not-found/page-not-found.component';
@@ -60,7 +61,8 @@ import { PosService } from './core/services/pos.service';
     ConfirmComponent,
     DialogVerItemsPedidoComponent,
     NotificationComponent,
-    LineChartComponent
+    LineChartComponent,
+    HistorialComponent
   ],
   imports: [
     AppRoutingModule,

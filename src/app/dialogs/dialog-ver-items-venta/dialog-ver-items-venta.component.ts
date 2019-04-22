@@ -17,14 +17,16 @@ export class DialogVerItemsPedidoComponent implements OnInit {
 
   constructor(private comerciosService: DataService,  @Inject(MAT_DIALOG_DATA) public data: any) {
     debugger;
-    this.comerciosService.getAsync('ventas/productosPedido?id=' + data.item.id, this.productosPedido).subscribe(
-      data => {
-        // this.productosPedido.forEach(function(item) {
-          this.dataSource.data = this.productosPedido;
-        // });
-      }
-    );
+    // this.comerciosService.getAsync('ventas/productosPedido?id=' + data.item.id, this.productosPedido).subscribe(
+    //   data => {
+    //     // this.productosPedido.forEach(function(item) {
+    //       this.dataSource.data = this.productosPedido;
+    //     // });
+    //   }
+    // );
 
+    this.dataSource.data = this.productosPedido;
+    this.dataSource.data = data.item.productosPedidos;
   }
 
   ngOnInit() {
