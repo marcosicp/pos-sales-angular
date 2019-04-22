@@ -16,6 +16,7 @@ import { AdministracionComponent  } from '../../app/home/administracion/administ
 import { UsersComponent  } from '../admin/users/users.component';
 import { ItemsComponent } from '../admin/items/items.component';
 import { ReportsComponent } from '../home/reports/reports.component';
+import { HistorialComponent } from '../home/historial/historial.component';
 
 const appRoutes: Routes = [
   {
@@ -41,6 +42,10 @@ const appRoutes: Routes = [
     component: AdministracionComponent ,
     canActivate: [AuthGuard]
   }, {
+    path: 'historial',
+    component: HistorialComponent ,
+    canActivate: [AuthGuard]
+  },  {
     path: 'admin',
     component: AdminComponent,
     canActivate: [AuthGuard],
