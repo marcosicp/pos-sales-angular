@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
-import { EstadoCaja } from '../shared/models/estado-caja.model';
-import { DataService } from '../core/services/data.service';
+import { EstadoCaja } from '../../shared/models/estado-caja.model';
+import { DataService } from '../../core/services/data.service';
 import { MatDialog  } from '@angular/material';
-import { DialogSinConexionComponent } from '../dialogs/dialog-sin-conexion/dialog-sin-conexion.component';
+import { DialogSinConexionComponent } from '../../dialogs/dialog-sin-conexion/dialog-sin-conexion.component';
 
 @Component({
   selector: 'app-welcome',

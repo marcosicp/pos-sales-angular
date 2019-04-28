@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-
+import { DataService } from '../../core/services/data.service';
 
 @Component({
   selector: 'app-items',
@@ -7,7 +7,7 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./items.component.scss']
 })
 export class ItemsComponent implements OnInit {
-
+  test = [];
   productTypes = ['Drink', 'Food'];
   addItemActive = false;
 
@@ -22,11 +22,23 @@ export class ItemsComponent implements OnInit {
   selectedFiles: FileList;
   // currentUpload: Upload;
 
-  constructor() { }
+  constructor(
+    private dataService: DataService
+  ) { }
 
   ngOnInit() {
     // this.products[0] = this.db.getFood();
     // this.products[1] = this.db.getDrink();
+
+    this.dataService.getAsync('productos/GetAllProductos', this.dataService.usuarios).subscribe(
+      data => {
+        console.warn(data);
+        this.test = data;
+      },
+      error => {
+        console.log(error);
+      }
+    );
 
   }
 

@@ -42,43 +42,16 @@
   </mat-card>
 
   <!-- List of products in database -->
-  <mat-accordion *ngFor="let type of products" class="add-margin">
+  <mat-accordion class="add-margin">
     <!-- Item Panel -->
-    <mat-expansion-panel *ngFor="let item of type | async">
+    <mat-expansion-panel *ngFor="let item of test">
       <mat-expansion-panel-header>
-        <mat-panel-title>{{item.name}}</mat-panel-title>
-        <mat-panel-description>{{item.item_type}}</mat-panel-description>
+        <mat-panel-title>{{item.nombre}}</mat-panel-title>
       </mat-expansion-panel-header>
-      <!-- Edit form -->
-      <form class="form">
-        <!-- Nombre -->
-        <mat-form-field>
-          <input #name matInput placeholder="Nombre:" value="{{item.name}}">
-        </mat-form-field>
-        <!-- Precio -->
-        <mat-form-field>
-          <input #price matInput type="number" placeholder="Precio ($):" value="{{item.price}}">
-        </mat-form-field>
-        <!-- Tipo Producto dropdown -->
-        <mat-form-field>
-          <mat-select #type placeholder="{{item.item_type}}" value="{{item.item_type}}">
-            <mat-option *ngFor="let type of productTypes" [value]="type">
-              {{type}}
-            </mat-option>
-          </mat-select>
-        </mat-form-field>
-        <!-- Product image -->
-        <!-- <hr> -->
-        <h3>Product image:</h3>
-        <div class="flex flex-direction-row product-image-section">
-          <img class="product-image" src="{{item.img_url}}">
-        </div>
-
-      </form>
       <!-- Guardar/Borrar buttons -->
       <mat-action-row>
-        <button mat-button (click)="updateItem(item.id, name.value, price.value, type.value)">Guardar</button>
-        <button mat-button color="warn" (click)="deleteItem(item.id, item.item_type, item.img_name)">Borrar</button>
+        <button mat-button>Guardar</button>
+        <button mat-button color="warn">Borrar</button>
       </mat-action-row>
     </mat-expansion-panel>
   </mat-accordion>
