@@ -1,17 +1,16 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { RouterModule, Routes, CanActivate } from '@angular/router';
+import { RouterModule, Routes } from '@angular/router';
 // GUARDAS
 import { AuthGuard } from './guards/auth.guard';
 import { AdminGuard } from './guards/admin.guard';
 // COMPONENTES
-import { WelcomeComponent } from '../welcome/welcome.component';
-import { HomeComponent } from '../home/home.component';
-import { TransactionsComponent } from '../home/transactions/transactions.component';
+import { WelcomeComponent } from '../welcome/welcome/welcome.component';
+import { HomeComponent } from '../home/home/home.component';
 import { AdminComponent } from '../admin/admin/admin.component';
 import { PageNotFoundComponent } from '../page-not-found/page-not-found.component';
 import { LoginComponent } from '../welcome/login/login.component';
-import { ResetpasswordComponent } from '../welcome/resetpassword/resetpassword.component';
+import { ResetPasswordComponent } from '../welcome/reset-password/reset-password.component';
 import { AdministracionComponent  } from '../../app/home/administracion/administracion.component';
 import { UsersComponent  } from '../admin/users/users.component';
 import { ItemsComponent } from '../admin/items/items.component';
@@ -28,7 +27,7 @@ const appRoutes: Routes = [
     component: LoginComponent
   }, {
     path: 'resetpassword',
-    component: ResetpasswordComponent
+    component: ResetPasswordComponent
   }, {
     path: 'welcome',
     component: WelcomeComponent,
