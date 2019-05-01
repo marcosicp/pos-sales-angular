@@ -2,6 +2,9 @@ import { Injectable } from '@angular/core';
 import { BehaviorSubject } from 'rxjs/BehaviorSubject';
 import { Productos } from '../../shared/models/producto.model';
 
+// Demo content
+const TICKET: Productos[] = [];
+
 @Injectable()
 export class PosService {
 
@@ -34,7 +37,3 @@ export class PosService {
   }
 
 }
-
-// Demo content
-const TICKET: Productos[] = [
-];

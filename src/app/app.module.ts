@@ -16,12 +16,9 @@ import { AdminModule } from './admin/admin.module';
 import { DialogsModule } from './dialogs/dialogs.module';
 import { WelcomeModule } from './welcome/welcome.module';
 // IMPORTAR SERVICIOS
-import { DataService } from './core/services/data.service';
-import { AuthService } from './core/services/auth.service';
-import { PosService } from './core/services/pos.service';
 // IMPORTAR APP COMPONENT
 import { AppComponent } from './app.component';
-// IMPORTAR OTROS COMPONENTES
+// IMPORTAR COMPONENTES
 import { PageNotFoundComponent } from './page-not-found/page-not-found.component';
 import { NavComponent } from './nav/nav.component';
 
@@ -48,11 +45,7 @@ import { NavComponent } from './nav/nav.component';
     DialogsModule,
     WelcomeModule
   ],
-  providers: [
-    AuthService,
-    PosService,
-    DataService
-  ],
+  providers: [],
   bootstrap: [
     AppComponent
   ]

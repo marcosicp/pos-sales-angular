@@ -1,15 +1,13 @@
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { HttpClient } from '@angular/common/http';
-import { HttpModule } from '@angular/http';
+// IMPORTAR CONFIG
+import { BaseUrl } from '../../shared/configs/urls.config';
 
 @Injectable({
   providedIn: 'root'
 })
 export class DataService {
-  private baseUrl = 'https://api-tesis-clincker.herokuapp.com/api';
-  //private baseUrl = 'http://localhost:53617/api';
-
   public ventas: any[] = [];
   public productos: any[] = [];
   public pedidos: any[] = [];
@@ -20,7 +18,7 @@ export class DataService {
   ) { }
 
   getAsync = (uri: string, dataCollection: any[]) => Observable.create(observer => {
-    this.http.get(`${this.baseUrl}/${uri}`)
+    this.http.get(`${BaseUrl}/${uri}`)
       .subscribe(data => {
         dataCollection = [];
         for (const d of data as any[]) {
@@ -32,7 +30,7 @@ export class DataService {
   })
 
   createAsync = (uri: string, object: any, dataCollection: any[]) => Observable.create(observer => {
-    this.http.post(`${this.baseUrl}/${uri}`, object)
+    this.http.post(`${BaseUrl}/${uri}`, object)
       .subscribe(result => {
         // TODO result deberia traer el id del nuevo objeto insertado
         // object['id] = result.id;
@@ -42,8 +40,16 @@ export class DataService {
       });
   })
 
+  postAsync = (uri: string, object: any) => Observable.create(observer => {
+    this.http.post(`${BaseUrl}/${uri}`, object)
+      .subscribe(result => {
+        observer.next(result);
+        observer.complete();
+      });
+  })
+
   updateAsync = (uri: string, object: any, dataCollection: any[]) => Observable.create(observer => {
-    this.http.post(`${this.baseUrl}/${uri}`, object)
+    this.http.post(`${BaseUrl}/${uri}`, object)
       .subscribe(result => {
         // TODO probar que esto funcione. Se asume que la primary key de las tablas sea 'id'
         const objectToUpdate = dataCollection.filter(x => x.id === object.id)[0];
