@@ -23,21 +23,24 @@ export class LoginComponent implements OnInit {
     Validators.required,
     Validators.pattern(EMAIL_REGEX)]);
 
-  constructor(private authService: AuthService, private router: Router) { }
+  constructor(
+    private authService: AuthService,
+    private router: Router) { }
 
   ngOnInit() { }
 
   userLogin(email, password) {
     this.authService.emailLogin(email, password).subscribe(
-      val => {
-        if (val === 'Usuario no encontrado') {
+      user => {
+        if (!user || user.email === null || user.email === '') {
           this.success = false;
-        } else if (val === 'Verifique su password') {
-          this.success = false;
-        } else if (val === true) {
-          debugger;
+        } else {
+          // store user details and jwt token in local storage to keep user logged in between page refreshes
+          localStorage.setItem('currentUser', JSON.stringify(user));
           this.router.navigate(['/welcome']);
+          return true;
         }
-      });
+      }
+    );
   }
 }

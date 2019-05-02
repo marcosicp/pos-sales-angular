@@ -11,6 +11,7 @@ import { DialogBuscarProductoComponent } from '../../dialogs/dialog-buscar-produ
 import { DialogSinConexionComponent } from '../../dialogs/dialog-sin-conexion/dialog-sin-conexion.component';
 import { DialogOperacionOkComponent } from '../../dialogs/dialog-operacion-ok/dialog-operacion-ok.component';
 import { Pedido } from '../../shared/models/pedido.model';
+import { ProductosUrl } from 'src/app/shared/configs/urls.config';
 
 @Component({
   selector: 'app-pos',
@@ -51,7 +52,7 @@ export class PosComponent implements OnInit {
 
   getData() {
     // this.isLoading = true;
-    this.dataService.getAsync('productos/GetAllProductos', this.dataService.productos).subscribe(
+    this.dataService.getAsync(ProductosUrl.getAll, this.dataService.productos).subscribe(
       data => {
         this.products[0]=[];
         data.forEach(element => {
@@ -204,8 +205,8 @@ export class PosComponent implements OnInit {
             error => {
               const dialogRef = this.dialog.open(DialogSinConexionComponent, { width: '600px' });
               dialogRef.afterClosed().subscribe(result => {
-                debugger;        
-    
+                debugger;
+
               });
             }
           );
@@ -219,13 +220,13 @@ export class PosComponent implements OnInit {
                 this.resetear();
                 // this.openSnackBar('Pedido guardada!', 'Gracias');
               });
-              
+
             },
             error => {
               const dialogRef = this.dialog.open(DialogSinConexionComponent, { width: '600px' });
               dialogRef.afterClosed().subscribe(result => {
-                debugger;        
-    
+                debugger;
+
               });
             }
           );

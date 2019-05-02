@@ -27,4 +27,4 @@ import { NotificationComponent } from './notification/notification.component';
     NotificationComponent
   ]
 })
-export class WelcomeModule {}
+export class WelcomeModule { }
