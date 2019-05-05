@@ -2,7 +2,7 @@ import { OnInit, Component } from '@angular/core';
 import { MatDialogRef, MatTableDataSource } from '@angular/material';
 import { DataService } from '../../../app/core/services/data.service';;
 import { Productos } from '../../shared/models/producto.model';
-import { ProductosUrl } from 'src/app/shared/configs/urls.config';
+import { ProductosUrl } from '../../shared/configs/urls.config';
 
 @Component({
   selector: 'app-dialog-buscar-producto',

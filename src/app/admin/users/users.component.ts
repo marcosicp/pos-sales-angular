@@ -5,7 +5,7 @@ import { DataService } from '../../core/services/data.service';
 // IMPORTAR MODELOS
 import { Usuarios } from '../../shared/models/usuarios.model';
 // IMPORTAR URL
-import { UserUrl } from 'src/app/shared/configs/urls.config';
+import { UserUrl } from '../../shared/configs/urls.config';
 
 @Component({
   selector: 'app-users',

@@ -5,7 +5,7 @@ import { Venta } from '../../shared/models/venta.model';
 import { DataService } from '../../core/services/data.service';
 import { ProductoPedido } from '../../shared/models/producto-venta.model';
 import { DialogVerItemsPedidoComponent } from '../../dialogs/dialog-ver-items-venta/dialog-ver-items-venta.component';
-import { PedidosUrl } from 'src/app/shared/configs/urls.config';
+import { PedidosUrl } from '../../shared/configs/urls.config';
 
 @Component({
   selector: 'app-historial',

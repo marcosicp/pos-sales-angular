@@ -11,7 +11,7 @@ import { DialogBuscarProductoComponent } from '../../dialogs/dialog-buscar-produ
 import { DialogSinConexionComponent } from '../../dialogs/dialog-sin-conexion/dialog-sin-conexion.component';
 import { DialogOperacionOkComponent } from '../../dialogs/dialog-operacion-ok/dialog-operacion-ok.component';
 import { Pedido } from '../../shared/models/pedido.model';
-import { ProductosUrl } from 'src/app/shared/configs/urls.config';
+import { ProductosUrl } from '../../shared/configs/urls.config';
 
 @Component({
   selector: 'app-pos',

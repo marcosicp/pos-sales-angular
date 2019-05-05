@@ -6,7 +6,7 @@ import { AperturaCaja } from '../../shared/models/apertura-caja.model';
 import { AuthService } from '../../core/services/auth.service';
 import { DialogSinConexionComponent } from '../dialog-sin-conexion/dialog-sin-conexion.component';
 import { DialogOperacionOkComponent } from '../dialog-operacion-ok/dialog-operacion-ok.component';
-import { AdminUrl } from 'src/app/shared/configs/urls.config';
+import { AdminUrl } from '../../shared/configs/urls.config';
 
 
 @Component({
