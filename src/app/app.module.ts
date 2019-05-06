@@ -37,6 +37,7 @@ import { LoginComponent } from './welcome/login/login.component';
 import { ResetpasswordComponent } from './welcome/resetpassword/resetpassword.component';
 import { NotificationComponent } from './notification/notification.component';
 import { PosService } from './core/services/pos.service';
+import { ServiceWorkerModule } from '@angular/service-worker';
 
 // export const firebaseConfig = environment.firebaseConfig;
 
@@ -77,7 +78,8 @@ import { PosService } from './core/services/pos.service';
     ReactiveFormsModule,
     HomeModule,
     AdminModule,
-    FlexLayoutModule
+    FlexLayoutModule,
+    ServiceWorkerModule.register('ngsw-worker.js', { enabled: environment.production })
   ],
   providers: [
     AuthService,
