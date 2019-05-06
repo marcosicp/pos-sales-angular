@@ -7,6 +7,7 @@ import { HttpClientModule } from '@angular/common/http';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { FlexLayoutModule } from '@angular/flex-layout';
 import { ChartsModule } from 'ng2-charts';
+import { environment } from '../environments/environment';
 // IMPORTAR MODULOS
 import { AppRoutingModule } from './core/app-routing.module';
 import { CoreModule } from './core/core.module';
@@ -15,6 +16,7 @@ import { HomeModule } from './home/home.module';
 import { AdminModule } from './admin/admin.module';
 import { DialogsModule } from './dialogs/dialogs.module';
 import { WelcomeModule } from './welcome/welcome.module';
+import { ServiceWorkerModule } from '@angular/service-worker';
 // IMPORTAR SERVICIOS
 // IMPORTAR APP COMPONENT
 import { AppComponent } from './app.component';
@@ -43,7 +45,8 @@ import { NavComponent } from './nav/nav.component';
     HomeModule,
     AdminModule,
     DialogsModule,
-    WelcomeModule
+    WelcomeModule,
+    ServiceWorkerModule.register('/ngsw-worker.js', { enabled: environment.production })
   ],
   providers: [],
   bootstrap: [

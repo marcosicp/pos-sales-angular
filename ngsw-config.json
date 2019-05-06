@@ -23,5 +23,15 @@
         ]
       }
     }
-  ]
+  ],
+  "dataGroups": [{
+    "name": "tesisapi",
+    "urls": ["https://api-tesis-clincker.herokuapp.com/api/*"],
+    "cacheConfig": {
+      "strategy":"freshness",
+      "maxSize": 20,
+      "maxAge": "1h",
+      "timeout": "5s" 
+    }
+  }]
 }
