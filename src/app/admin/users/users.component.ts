@@ -1,8 +1,11 @@
 import { Component, OnInit } from '@angular/core';
+// IMPORTAR SERVICIOS
 import { AuthService } from '../../core/services/auth.service';
-import { ParseUserRolePipe } from '../../shared/pipes/parse-user-role.pipe';
 import { DataService } from '../../core/services/data.service';
+// IMPORTAR MODELOS
 import { Usuarios } from '../../shared/models/usuarios.model';
+// IMPORTAR URL
+import { UserUrl } from '../../shared/configs/urls.config';
 
 @Component({
   selector: 'app-users',
@@ -20,13 +23,14 @@ export class UsersComponent implements OnInit {
   roles = ['Usuario', 'Admin'];
 
   constructor(
-    private dataService: DataService, private authService: AuthService
-    ) {  }
+    private dataService: DataService,
+    private authService: AuthService
+  ) {  }
 
   ngOnInit() {
-    if (this.dataService.usuarios.length) {
+    if (this.dataService.usuarios.length > 0) {
       this.users = this.dataService.usuarios;
-      this.loadUsuarios();
+      this.loadUsuarios(this.users);
     } else {
       this.getUsuarios();
     }
@@ -34,12 +38,9 @@ export class UsersComponent implements OnInit {
 
   getUsuarios() {
     // this.isLoading = true;
-    this.dataService.getAsync('usuarios/', this.dataService.usuarios).subscribe(
+    this.dataService.getAsync(UserUrl.home, this.users).subscribe(
       data => {
-        console.warn(data);
-        this.users = data;
-        console.warn('usuarios en angular', this.users);
-        this.loadUsuarios();
+        this.loadUsuarios(data);
       },
       error => {
         console.log(error);
@@ -48,12 +49,13 @@ export class UsersComponent implements OnInit {
     );
   }
 
-  loadUsuarios() {
+  loadUsuarios(data) {
     // this.dataSource = new MatTableDataSource<Usuarios>();
     // this.dataSource.data = this.usuarios;
     // this.dataSource.paginator = this.paginator;
     // this.dataSource.sort = this.sort;
     // this.isLoading = false;
+    this.users = data;
   }
 
   addUserToggle() {

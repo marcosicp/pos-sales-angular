@@ -6,7 +6,6 @@ import { DialogAbrirCajaComponent } from '../../dialogs/dialog-abrir-caja/dialog
 import { DialogIngresoCajaComponent } from '../../dialogs/dialog-ingreso-caja/dialog-ingreso-caja.component';
 import { DialogEgresoCajaComponent } from '../../dialogs/dialog-egreso-caja/dialog-egreso-caja.component';
 
-
 @Component({
   selector: 'app-administracion',
   templateUrl: './administracion.component.html',
@@ -14,8 +13,8 @@ import { DialogEgresoCajaComponent } from '../../dialogs/dialog-egreso-caja/dial
 })
 export class AdministracionComponent implements OnInit {
 
-  constructor(private comerciosService: DataService, private dialog: MatDialog) { 
-    
+  constructor(private comerciosService: DataService, private dialog: MatDialog) {
+
   }
 
   ngOnInit() {
@@ -39,10 +38,10 @@ export class AdministracionComponent implements OnInit {
         {
           width: '600px'
         });
-  
+
       dialogRef.afterClosed().subscribe(
         result => {
-         
+
         }
       );
   }

@@ -1,23 +1,21 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-// import { AngularFireAuthModule } from 'angularfire2/auth';
-// MODULOS
-import { AppRoutingModule } from './app-routing.module';
-// GUARDAS
-import { AdminGuard } from './guards/admin.guard';
-// SERVICIOS
+// IMPORTAR SERVICIOS
 import { AuthService } from './services/auth.service';
 import { NotifyService } from './services/notify.service';
+import { DataService } from './services/data.service';
+import { PosService } from './services/pos.service';
 
 @NgModule({
   imports: [
-    CommonModule,
-    AppRoutingModule
+    CommonModule
   ],
   declarations: [],
   providers: [
     AuthService,
-    NotifyService
+    NotifyService,
+    DataService,
+    PosService
   ]
 })
 export class CoreModule { }

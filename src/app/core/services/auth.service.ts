@@ -1,23 +1,20 @@
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
-import { HttpClient, HttpClientModule  } from '@angular/common/http';
-import { stringify } from '@angular/core/src/render3/util';
-import { nullSafeIsEquivalent } from '@angular/compiler/src/output/output_ast';
+import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs/Observable';
 import { BehaviorSubject } from 'rxjs/BehaviorSubject';
-import { map } from 'rxjs/operators';
 import 'rxjs/add/observable/of';
 import 'rxjs/add/operator/switchMap';
-// import { AngularFireAuth } from 'angularfire2/auth';
-// import { AngularFirestore, AngularFirestoreDocument } from 'angularfire2/firestore';
+// IMPORTAR CONFIG
+import { UserUrl } from '../../shared/configs/urls.config';
+// IMPORTAR MODELOS
 import { Usuarios } from '../../shared/models/usuarios.model';
+import { DataService } from './data.service';
 
 @Injectable()
 export class AuthService {
   authState: any = null;
   user: BehaviorSubject<Usuarios> = new BehaviorSubject(null);
-  private baseUrl = 'https://api-tesis-clincker.herokuapp.com/api';
-  // private baseUrl = 'http://localhost:53617/api';
   currentUID: string;
   admin: boolean;
 
@@ -35,8 +32,8 @@ export class AuthService {
 
   constructor(
     private router: Router,
-    private http: HttpClient) {
-
+    private http: HttpClient,
+    private dataService: DataService) {
   }
 
   signup(email: string, password: string) {
@@ -47,23 +44,12 @@ export class AuthService {
   }
 
   emailLogin(email: string, password: string) {
-    debugger;
-    return this.http.post<any>(`${this.baseUrl}/usuarios/login`, { email: email, pass: password })
-            .pipe(map(user => {
-              debugger;
-                if (user) {
-                  if (user.email === null || user.email === '') {
-                    // password incorrecta
-                    return 'Verifique su password';
-                  }
-                    // store user details and jwt token in local storage to keep user logged in between page refreshes
-                    localStorage.setItem('currentUser', JSON.stringify(user));
-                    return true;
-                } else {
-                   return 'Usuario no encontrado';
-                }
-            }));
-    // return null;
+    const test = {
+      email: email,
+      pass: password
+    };
+
+    return this.dataService.postAsync(UserUrl.emailLogin, test);
   }
 
   public isAuthenticated(): boolean {

@@ -4,14 +4,14 @@ import { Productos } from '../../shared/models/producto.model';
 
 @Component({
   selector: 'app-dialog-agregar-editar-producto',
-  templateUrl: './dialog-agregar-editar-producto.component.html',
-  styleUrls: ['./dialog-agregar-editar-producto.component.scss']
+  templateUrl: './dialog-gestionar-producto.component.html',
+  styleUrls: ['./dialog-gestionar-producto.component.scss']
 })
-export class DialogAgregarEditarProductoComponent {
+export class DialogGestionarProductoComponent {
   public producto: Productos = new Productos();
 
 
-  constructor(public dialogRef: MatDialogRef<DialogAgregarEditarProductoComponent>, @Inject(MAT_DIALOG_DATA) public data: Productos) {
+  constructor(public dialogRef: MatDialogRef<DialogGestionarProductoComponent>, @Inject(MAT_DIALOG_DATA) public data: Productos) {
     if (data) {
       this.producto = data;
     }

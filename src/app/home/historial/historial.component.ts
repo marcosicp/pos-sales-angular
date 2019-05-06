@@ -5,6 +5,7 @@ import { Venta } from '../../shared/models/venta.model';
 import { DataService } from '../../core/services/data.service';
 import { ProductoPedido } from '../../shared/models/producto-venta.model';
 import { DialogVerItemsPedidoComponent } from '../../dialogs/dialog-ver-items-venta/dialog-ver-items-venta.component';
+import { PedidosUrl } from '../../shared/configs/urls.config';
 
 @Component({
   selector: 'app-historial',
@@ -30,7 +31,7 @@ export class HistorialComponent implements OnInit, AfterViewInit {
   }
 
   ngOnInit() {
-    this.comerciosService.getAsync('pedidos/GetAllPedidos', this.comerciosService.ventas).subscribe(
+    this.comerciosService.getAsync(PedidosUrl.getAll, this.productosVenta).subscribe(
       data => {
         this.ventas = data;
         this.dataSource = new MatTableDataSource<Venta>();

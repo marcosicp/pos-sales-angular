@@ -2,8 +2,7 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { AppRoutingModule } from '../core/app-routing.module';
-
-
+// IMPORTS COMPONENTS
 import { ItemsComponent } from './items/items.component';
 import { UsersComponent } from './users/users.component';
 import { AdminComponent } from './admin/admin.component';
@@ -32,6 +31,6 @@ import { ParseUserRolePipe } from '../shared/pipes/parse-user-role.pipe';
     AdminComponent,
     ParseUserRolePipe
   ],
-  providers: [ AuthService]
+  providers: [AuthService]
 })
 export class AdminModule { }
