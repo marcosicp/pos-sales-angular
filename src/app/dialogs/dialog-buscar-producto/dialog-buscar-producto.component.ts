@@ -19,7 +19,7 @@ export class DialogBuscarProductoComponent implements OnInit {
     if (this.comerciosService.productos && this.comerciosService.productos.length) {
       this.productos = new MatTableDataSource(this.comerciosService.productos);
     } else {
-      this.comerciosService.getAsync(ProductosUrl.home, this.comerciosService.productos)
+      this.comerciosService.getAsync(ProductosUrl.getAll, this.comerciosService.productos)
         .subscribe( data => {
           this.productos = new MatTableDataSource(data);
         });
