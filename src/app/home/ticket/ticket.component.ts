@@ -4,8 +4,10 @@ import { PosService } from '../../core/services/pos.service';
 import { DataService } from '../../core/services/data.service';
 import { DialogCajaCerradaComponent } from '../../dialogs/dialog-caja-cerrada/dialog-caja-cerrada.component';
 import { DialogBuscarProductoComponent } from '../../dialogs/dialog-buscar-producto/dialog-buscar-producto.component';
+import { Usuarios } from '../../shared/models/usuarios.model';
 import { DialogSinConexionComponent } from '../../dialogs/dialog-sin-conexion/dialog-sin-conexion.component';
 import { DialogOperacionOkComponent } from '../../dialogs/dialog-operacion-ok/dialog-operacion-ok.component';
+import { AuthService } from '../../core/services/auth.service';
 import { Pedido } from '../../shared/models/pedido.model';
 import { MatDialog, MatTableDataSource, MatSnackBar } from '@angular/material';
 import { ProductoPedido } from '../../shared/models/producto-venta.model';
@@ -23,16 +25,18 @@ export class TicketComponent implements OnInit {
   cartNumItems = 0;
   productosPedido: ProductoPedido[] = [];
   total = 0;
-  vuelto = 0;
-  pagaCon = 0;
-
-  constructor(private ticketSync: PosService, private dataService: DataService, public dialog: MatDialog) { }
+  pesoTotal = 0;
+  usuario : Usuarios;
+  constructor(private authService: AuthService, private ticketSync: PosService, private dataService: DataService, public dialog: MatDialog) { }
 
   // Sync with ticketSync service on init
   ngOnInit() {
     this.ticketSync.currentTicket.subscribe(data => this.ticket = data);
     this.ticketSync.currentTotal.subscribe(total => this.cartTotal = total);
     this.ticketSync.currentCartNum.subscribe(num => this.cartNumItems = num);
+
+    this.usuario = JSON.parse(localStorage.getItem('currentUser'));
+    debugger;
   }
 
   // Add item to ticket.
@@ -118,23 +122,23 @@ export class TicketComponent implements OnInit {
   resetear() {
     this.productosPedido = [];
     // this.dataSource.data = this.productosPedido;
-    this.total = 0;
-    this.pagaCon = 0;
-    this.vuelto = 0;
-    this.actualizarVuelto();
+    this.cartTotal = 0;
+    // this.pagaCon = 0;
+    // this.vuelto = 0;
+    // this.actualizarVuelto();
   }
 
 
-  actualizarVuelto() {
-    if (this.pagaCon !== 0) {
-      const vuelto = this.pagaCon - this.total;
-      if (vuelto < 0) {
-        this.vuelto = 0;
-      } else {
-        this.vuelto = vuelto;
-      }
-    }
-  }
+  // actualizarVuelto() {
+  //   if (this.pagaCon !== 0) {
+  //     const vuelto = this.pagaCon - this.total;
+  //     if (vuelto < 0) {
+  //       this.vuelto = 0;
+  //     } else {
+  //       this.vuelto = vuelto;
+  //     }
+  //   }
+  // }
 
   checkout() {
   
@@ -154,9 +158,9 @@ export class TicketComponent implements OnInit {
           nuevaPedido.ProductosPedidos = this.ticket;
           nuevaPedido.FechaPedido = new Date();
           nuevaPedido.FechaPedido.setHours(nuevaPedido.FechaPedido.getHours() - 3)
-          nuevaPedido.Total = this.total;
-          nuevaPedido.Vuelto = this.vuelto;
-          nuevaPedido.PagoCon = this.pagaCon;
+          nuevaPedido.Total = this.cartTotal;
+          nuevaPedido.Usuario = this.usuario.usuario.toString();
+          nuevaPedido.PesoTotal = this.pesoTotal;
           nuevaPedido.ImprimioTicket = true;
 
         if (result === true) {

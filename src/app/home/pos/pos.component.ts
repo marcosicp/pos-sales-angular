@@ -187,8 +187,6 @@ export class PosComponent implements OnInit {
           nuevaPedido.FechaPedido = new Date();
           nuevaPedido.FechaPedido.setHours(nuevaPedido.FechaPedido.getHours() - 3)
           nuevaPedido.Total = this.total;
-          nuevaPedido.Vuelto = this.vuelto;
-          nuevaPedido.PagoCon = this.pagaCon;
           nuevaPedido.ImprimioTicket = true;
 
         if (result === true) {

@@ -9,7 +9,6 @@ import { SwUpdate } from '@angular/service-worker'
 export class AppComponent {
 
   constructor(updates: SwUpdate){
-    debugger;
     if (updates && updates.isEnabled) {
       updates.available.subscribe(event => {
         console.log('current version is', event.current);

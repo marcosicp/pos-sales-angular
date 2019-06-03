@@ -8,6 +8,6 @@ export class Venta {
     fechaVenta: Date;
     vuelto: number;
     fechaModificacion: Date;
-    usuarioVendio: string;
+    usuario: string;
     imprimioTicket: boolean;
 }

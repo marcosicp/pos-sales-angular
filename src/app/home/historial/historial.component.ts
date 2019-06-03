@@ -22,7 +22,7 @@ export class HistorialComponent implements OnInit, AfterViewInit {
   @ViewChild(MatSort) sort: MatSort;
 
   isLoading: boolean;
-  displayedColumns: string[] = [ 'usuario', 'fechaVenta', 'imprimioTicket', 'pagoCon', 'vuelto', 'total', 'veritems'];
+  displayedColumns: string[] = [ 'fechaPedido', 'imprimioTicket', 'responsable', 'cliente', 'total', 'veritems'];
   dataSource: MatTableDataSource<Venta>;
   selection = new SelectionModel<Venta>(true, []);
 

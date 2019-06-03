@@ -1,6 +1,8 @@
 
 <div class="card-container mat-elevation-z8">
-    <h1 style="text-align: center">Pedidos</h1>
+    <mat-card>
+      <h3 style="text-align: center;" class="module-title">Pedidos</h3>
+    </mat-card>
   <mat-toolbar>
     <div fxLayout="row" fxLayoutGap="10px">
       <button mat-flat-button color="primary" [disabled]="selection.selected.length > 0">Agregar</button>
@@ -8,7 +10,6 @@
       <button mat-flat-button color="warn" [disabled]="!selection.selected.length">Eliminar</button>
       <!-- <a routerLink="" class="mat-flat-button">Home</a> -->
     </div>
-
     <div style="margin-left: auto; margin-right: 0;">
       <label>Buscar: </label>
       <mat-form-field>
@@ -43,14 +44,9 @@
         <td mat-cell *matCellDef="let element"> {{element.id}} </td>
       </ng-container> -->
 
-      <ng-container matColumnDef="usuario">
-        <th mat-header-cell *matHeaderCellDef mat-sort-header> Usuario </th>
-        <td mat-cell *matCellDef="let element"> {{element.usuario}} </td>
-      </ng-container>
-
-      <ng-container matColumnDef="fechaVenta">
-        <th mat-header-cell *matHeaderCellDef mat-sort-header> FechaVenta </th>
-        <td mat-cell *matCellDef="let element"> {{element.fechaVenta | date:'medium'}} </td>
+      <ng-container matColumnDef="fechaPedido">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header> Fecha Pedido </th>
+        <td mat-cell *matCellDef="let element"> {{element.fechaPedido | date:'medium'}} </td>
       </ng-container>
 
       <ng-container matColumnDef="imprimioTicket">
@@ -58,14 +54,14 @@
         <td mat-cell *matCellDef="let element"> {{element.imprimioTicket ? 'SI' : 'NO' }} </td>
       </ng-container>
 
-      <ng-container matColumnDef="pagoCon">
-        <th mat-header-cell *matHeaderCellDef mat-sort-header>PagoCon </th>
-        <td mat-cell *matCellDef="let element"> ${{element.pagoCon}} </td>
+      <ng-container matColumnDef="responsable">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header>Responsable </th>
+        <td mat-cell *matCellDef="let element"> {{element.usuario}} </td>
       </ng-container>
 
-      <ng-container matColumnDef="vuelto">
-        <th mat-header-cell *matHeaderCellDef mat-sort-header> Vuelto </th>
-        <td mat-cell *matCellDef="let element"> ${{element.vuelto}} </td>
+      <ng-container matColumnDef="cliente">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header> Cliente </th>
+        <td mat-cell *matCellDef="let element"> {{element.cliente}} </td>
       </ng-container>
 
       <ng-container matColumnDef="total">

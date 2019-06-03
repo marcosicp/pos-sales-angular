@@ -33,7 +33,6 @@ export class DialogCerrarCajaComponent {
         this.apertura.montoApertura = data1[0].monto;
         this.comerciosService.getAsync(AdminUrl.cerrarCaja, this.result).subscribe(
           data2 => {
-            debugger;
             this.cierreCaja = data2[0];
             this.cierreCaja.totalCierreCaja = this.apertura.montoApertura + this.cierreCaja.totalPrecioPedido;
           },

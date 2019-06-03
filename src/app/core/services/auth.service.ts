@@ -21,7 +21,6 @@ export class AuthService {
   getUser = Observable.create(
     observer => {
       if (this.user) {
-        debugger;
         observer.next(localStorage.getItem('currentUser'));
       } else {
         observer.next(null);

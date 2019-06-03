@@ -19,7 +19,6 @@ export class DialogCajaCerradaComponent {
   }
 
   cerrarSinTicket() {
-    debugger;
     this.dialogRef.close(false);
   }
 

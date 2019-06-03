@@ -6,8 +6,8 @@ export class Pedido {
     Total: number;
     PagoCon: number;
     FechaPedido: Date;
-    Vuelto: number;
+    PesoTotal: number;
     FechaModificacion: Date;
-    UsuarioVendio: string;
+    Usuario: string;
     ImprimioTicket: boolean;
 }
