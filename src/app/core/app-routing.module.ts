@@ -16,6 +16,8 @@ import { UsersComponent  } from '../admin/users/users.component';
 import { ItemsComponent } from '../admin/items/items.component';
 import { ReportsComponent } from '../home/reports/reports.component';
 import { HistorialComponent } from '../home/historial/historial.component';
+import { ClientesComponent } from '../home/clientes/clientes.component';
+import { ProveedoresComponent } from '../home/proveedores/proveedores.component';
 
 const appRoutes: Routes = [
   {
@@ -36,7 +38,18 @@ const appRoutes: Routes = [
     path: 'home',
     component: HomeComponent ,
     canActivate: [AuthGuard]
-  }, {
+  },
+  {
+    path: 'clientes',
+    component: ClientesComponent ,
+    canActivate: [AuthGuard]
+  }, 
+  {
+    path: 'proveedores',
+    component: ProveedoresComponent ,
+    canActivate: [AuthGuard]
+  },
+  {
     path: 'administracion',
     component: AdministracionComponent ,
     canActivate: [AuthGuard]

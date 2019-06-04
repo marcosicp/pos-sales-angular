@@ -7,6 +7,8 @@ import { MaterialModule } from '../core/material.module';
 import { FlexLayoutModule } from '@angular/flex-layout';
 // COMPONENTES
 import { HistorialComponent } from './historial/historial.component';
+import { ClientesComponent } from './clientes/clientes.component';
+import { ProveedoresComponent } from './proveedores/proveedores.component';
 import { HistoryComponent } from './history/history.component';
 import { PosComponent } from './pos/pos.component';
 import { TicketComponent } from './ticket/ticket.component';
@@ -36,7 +38,9 @@ import { ChartsModule } from 'ng2-charts/ng2-charts';
     TransactionsComponent,
     ReportsComponent,
     LineChartComponent,
-    AdministracionComponent
+    AdministracionComponent,
+    ClientesComponent,
+    ProveedoresComponent
     // ChartsModule
   ],
   entryComponents: [

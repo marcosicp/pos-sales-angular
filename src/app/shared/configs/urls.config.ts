@@ -16,6 +16,12 @@ const isProd = false,
       },
       PedidosUrl = {
         getAll: 'pedidos/GetAllPedidos'
+      },
+      ClientesUrl = {
+        getAll: 'clientes/GetAllClientes'
+      },
+      ProveedoresUrl = {
+        getAll: 'proveedores/GetAllProveedores'
       };
 
 export {
@@ -23,5 +29,7 @@ export {
   UserUrl,
   ProductosUrl,
   AdminUrl,
-  PedidosUrl
+  PedidosUrl,
+  ProveedoresUrl,
+  ClientesUrl
 };
