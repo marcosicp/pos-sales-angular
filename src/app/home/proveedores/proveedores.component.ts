@@ -48,7 +48,7 @@ export class ProveedoresComponent implements OnInit, AfterViewInit {
     const self = this;
   }
 
-  agregarProveedor(Producto: Proveedores) {
+  agregarProveedor() {
     const dialogRef = this.dialog.open(DialogProveedoresAddEditComponent, {
       width: '900px'
     });

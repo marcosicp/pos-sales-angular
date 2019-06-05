@@ -49,7 +49,7 @@ export class ClientesComponent implements OnInit, AfterViewInit {
   }
 
 
-  agregarCliente(Cliente: Clientes) {
+  agregarCliente() {
     const dialogRef = this.dialog.open(DialogClienteAddEditComponent, {
       width: '900px'
     });
