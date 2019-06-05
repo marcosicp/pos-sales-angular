@@ -5,7 +5,7 @@
     </mat-card>
   <mat-toolbar>
     <div fxLayout="row" fxLayoutGap="10px">
-      <button mat-flat-button color="primary" [disabled]="selection.selected.length > 0">Agregar</button>
+      <button mat-flat-button color="primary" (click)="agregarCliente()">Agregar</button>
       <button mat-flat-button color="accent" [disabled]="!selection.selected.length || selection.selected.length > 1">Editar</button>
       <button mat-flat-button color="warn" [disabled]="!selection.selected.length">Eliminar</button>
       <!-- <a routerLink="" class="mat-flat-button">Home</a> -->
@@ -45,38 +45,38 @@
       </ng-container> -->
 
       <ng-container matColumnDef="fechaPedido">
-        <th mat-header-cell *matHeaderCellDef mat-sort-header> Fecha Pedido </th>
+        <th mat-header-cell *matHeaderCellDef mat-sort-header> Fecha Alta </th>
         <td mat-cell *matCellDef="let element"> {{element.fechaPedido | date:'medium'}} </td>
       </ng-container>
 
       <ng-container matColumnDef="imprimioTicket">
-        <th mat-header-cell *matHeaderCellDef mat-sort-header> ImprimioTicket </th>
+        <th mat-header-cell *matHeaderCellDef mat-sort-header> Activo </th>
         <td mat-cell *matCellDef="let element"> {{element.imprimioTicket ? 'SI' : 'NO' }} </td>
       </ng-container>
 
       <ng-container matColumnDef="responsable">
-        <th mat-header-cell *matHeaderCellDef mat-sort-header>Responsable </th>
+        <th mat-header-cell *matHeaderCellDef mat-sort-header>Nombre </th>
         <td mat-cell *matCellDef="let element"> {{element.usuario}} </td>
       </ng-container>
 
       <ng-container matColumnDef="cliente">
-        <th mat-header-cell *matHeaderCellDef mat-sort-header> Cliente </th>
+        <th mat-header-cell *matHeaderCellDef mat-sort-header> CUIT </th>
         <td mat-cell *matCellDef="let element"> {{element.cliente}} </td>
       </ng-container>
 
       <ng-container matColumnDef="total">
-        <th mat-header-cell *matHeaderCellDef mat-sort-header> Total </th>
+        <th mat-header-cell *matHeaderCellDef mat-sort-header> TEL </th>
         <td mat-cell *matCellDef="let element"> ${{element.total}} </td>
       </ng-container>
 
-      <ng-container matColumnDef="veritems">
+      <!-- <ng-container matColumnDef="veritems">
         <th mat-header-cell *matHeaderCellDef> Ver items </th>
         <td mat-cell *matCellDef="let element">
           <button mat-icon-button color="accent" (click)="verItems(element)">
             <mat-icon>search</mat-icon>
           </button>
         </td>
-      </ng-container>
+      </ng-container> -->
       <tr mat-header-row *matHeaderRowDef="displayedColumns; sticky: true"></tr>
       <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
     </table>

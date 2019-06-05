@@ -2,9 +2,10 @@ import { Component, OnInit, ViewChild, AfterViewInit, NgZone } from '@angular/co
 import { MatSort,MatDialog, MatTableDataSource, MatPaginator } from '@angular/material';
 import { SelectionModel } from '@angular/cdk/collections';
 import { Venta } from '../../shared/models/venta.model';
+import { Proveedores } from '../../shared/models/proveedores.model';
 import { DataService } from '../../core/services/data.service';
 import { ProductoPedido } from '../../shared/models/producto-venta.model';
-import { DialogVerItemsPedidoComponent } from '../../dialogs/dialog-ver-items-venta/dialog-ver-items-venta.component';
+import { DialogProveedoresAddEditComponent } from '../../dialogs/dialog-proveedores-add-edit/dialog-proveedores-add-edit.component';
 import { ProveedoresUrl } from '../../shared/configs/urls.config';
 
 @Component({
@@ -47,10 +48,21 @@ export class ProveedoresComponent implements OnInit, AfterViewInit {
     const self = this;
   }
 
-  verItems(item){
-    const dialogRef = this.dialog.open(DialogVerItemsPedidoComponent, { width: '900px',data:{ item } });
-    dialogRef.afterClosed().subscribe(result => {
+  agregarProveedor(Producto: Proveedores) {
+    const dialogRef = this.dialog.open(DialogProveedoresAddEditComponent, {
+      width: '900px'
+    });
 
+    dialogRef.afterClosed().subscribe(result => {
+      this.comerciosService.createAsync('Productos/NuevoProducto', result, this.comerciosService.productos).subscribe(
+        next => {
+          this.isLoading = false;
+        },
+        error => {
+          console.log(error);
+          this.isLoading = false;
+        }
+      );
     });
   }
 

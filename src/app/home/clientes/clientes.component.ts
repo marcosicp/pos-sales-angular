@@ -4,8 +4,9 @@ import { SelectionModel } from '@angular/cdk/collections';
 import { Venta } from '../../shared/models/venta.model';
 import { DataService } from '../../core/services/data.service';
 import { ProductoPedido } from '../../shared/models/producto-venta.model';
-import { DialogVerItemsPedidoComponent } from '../../dialogs/dialog-ver-items-venta/dialog-ver-items-venta.component';
-import { PedidosUrl } from '../../shared/configs/urls.config';
+import { ClientesUrl } from '../../shared/configs/urls.config';
+import { Clientes } from '../../shared/models/clientes.model';
+import { DialogClienteAddEditComponent } from '../../dialogs/dialog-cliente-add-edit/dialog-cliente-add-edit.component';
 
 @Component({
   selector: 'app-clientes',
@@ -22,7 +23,7 @@ export class ClientesComponent implements OnInit, AfterViewInit {
   @ViewChild(MatSort) sort: MatSort;
 
   isLoading: boolean;
-  displayedColumns: string[] = [ 'fechaPedido', 'imprimioTicket', 'responsable', 'cliente', 'total', 'veritems'];
+  displayedColumns: string[] = [ 'fechaPedido', 'imprimioTicket', 'responsable', 'cliente', 'total'];
   dataSource: MatTableDataSource<Venta>;
   selection = new SelectionModel<Venta>(true, []);
 
@@ -31,7 +32,7 @@ export class ClientesComponent implements OnInit, AfterViewInit {
   }
 
   ngOnInit() {
-    this.comerciosService.getAsync(PedidosUrl.getAll, this.productosVenta).subscribe(
+    this.comerciosService.getAsync(ClientesUrl.getAll, this.productosVenta).subscribe(
       data => {
         this.ventas = data;
         this.dataSource = new MatTableDataSource<Venta>();
@@ -47,10 +48,22 @@ export class ClientesComponent implements OnInit, AfterViewInit {
     const self = this;
   }
 
-  verItems(item){
-    const dialogRef = this.dialog.open(DialogVerItemsPedidoComponent, { width: '900px',data:{ item } });
-    dialogRef.afterClosed().subscribe(result => {
 
+  agregarCliente(Cliente: Clientes) {
+    const dialogRef = this.dialog.open(DialogClienteAddEditComponent, {
+      width: '900px'
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      this.comerciosService.createAsync('Productos/NuevoProducto', result, this.comerciosService.productos).subscribe(
+        next => {
+          this.isLoading = false;
+        },
+        error => {
+          console.log(error);
+          this.isLoading = false;
+        }
+      );
     });
   }
 

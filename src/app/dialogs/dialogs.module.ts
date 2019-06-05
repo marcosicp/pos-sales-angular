@@ -15,6 +15,9 @@ import { DialogIngresoCajaComponent } from './dialog-ingreso-caja/dialog-ingreso
 import { DialogOperacionOkComponent } from './dialog-operacion-ok/dialog-operacion-ok.component';
 import { DialogSinConexionComponent } from './dialog-sin-conexion/dialog-sin-conexion.component';
 import { DialogVerItemsPedidoComponent } from './dialog-ver-items-venta/dialog-ver-items-venta.component';
+import { DialogProveedoresAddEditComponent } from './dialog-proveedores-add-edit/dialog-proveedores-add-edit.component';
+import { DialogClienteAddEditComponent } from './dialog-cliente-add-edit/dialog-cliente-add-edit.component';
+
 
 @NgModule({
   imports: [
@@ -34,7 +37,9 @@ import { DialogVerItemsPedidoComponent } from './dialog-ver-items-venta/dialog-v
     DialogIngresoCajaComponent,
     DialogOperacionOkComponent,
     DialogSinConexionComponent,
-    DialogVerItemsPedidoComponent
+    DialogVerItemsPedidoComponent,
+    DialogProveedoresAddEditComponent,
+    DialogClienteAddEditComponent
   ],
   entryComponents: [
     DialogAbrirCajaComponent,
@@ -47,7 +52,9 @@ import { DialogVerItemsPedidoComponent } from './dialog-ver-items-venta/dialog-v
     DialogIngresoCajaComponent,
     DialogOperacionOkComponent,
     DialogSinConexionComponent,
-    DialogVerItemsPedidoComponent
+    DialogVerItemsPedidoComponent,
+    DialogProveedoresAddEditComponent,
+    DialogClienteAddEditComponent
   ]
 })
 export class DialogsModule { }
