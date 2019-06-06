@@ -25,6 +25,7 @@ export class PosComponent implements OnInit {
   ticket: Productos[];
   cartTotal = 0;
   cartNumItems = 0;
+  cartPeso = 0;
   items;
   productosPedido: ProductoPedido[] = [];
   total = 0;
@@ -92,16 +93,22 @@ export class PosComponent implements OnInit {
   // Calculate cart total
   calculateTotal() {
     let total = 0;
+    let peso = 0;
     let cartNum = 0;
     // Multiply item price by item quantity, add to total
     this.ticket.forEach(function(item: Productos) {
       total += (item.precioVenta * item.cantidad);
+      peso += (item.peso * item.cantidad);
       cartNum += item.cantidad;
     });
     this.cartTotal = total;
     this.cartNumItems = cartNum;
+    this.cartPeso = peso;
+    debugger;
     this.ticketSync.updateNumItems(this.cartNumItems);
     this.ticketSync.updateTotal(this.cartTotal);
+    this.ticketSync.updatePeso(this.cartPeso);
+    
   }
 
   agregarProducto(value: string) {

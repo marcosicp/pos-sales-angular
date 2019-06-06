@@ -22,10 +22,12 @@ export class TicketComponent implements OnInit {
   ticket: Productos[] = [];
 
   cartTotal = 0;
+  cartPeso = 0;
   cartNumItems = 0;
   productosPedido: ProductoPedido[] = [];
   total = 0;
   pesoTotal = 0;
+  clienteId = "";
   usuario : Usuarios;
   constructor(private authService: AuthService, private ticketSync: PosService, private dataService: DataService, public dialog: MatDialog) { }
 
@@ -33,10 +35,11 @@ export class TicketComponent implements OnInit {
   ngOnInit() {
     this.ticketSync.currentTicket.subscribe(data => this.ticket = data);
     this.ticketSync.currentTotal.subscribe(total => this.cartTotal = total);
+    this.ticketSync.currentPeso.subscribe(pesoTotal => this.cartPeso = pesoTotal);
     this.ticketSync.currentCartNum.subscribe(num => this.cartNumItems = num);
+    this.ticketSync.currentClienteId.subscribe(cli => this.clienteId = cli);
 
     this.usuario = JSON.parse(localStorage.getItem('currentUser'));
-    debugger;
   }
 
   // Add item to ticket.
@@ -49,6 +52,7 @@ export class TicketComponent implements OnInit {
     }
     this.syncTicket();
     this.calculateTotal();
+    this.calculatePeso();
   }
 
   // Remove item from ticket
@@ -82,17 +86,33 @@ export class TicketComponent implements OnInit {
   // Calculate cart total
   calculateTotal() {
     let total = 0;
+    let peso = 0;
     let cartitems = 0;
     // Multiply item price by item quantity, add to total
     this.ticket.forEach(function(item: Productos) {
       total += (item.precioVenta * item.cantidad);
+      peso += (item.peso * item.cantidad);
       cartitems += item.cantidad;
     });
     this.cartTotal = total;
+    this.cartPeso = peso;
     this.cartNumItems = cartitems;
 
     // Sync total with ticketSync service.
     this.ticketSync.updateNumItems(this.cartNumItems);
+    this.ticketSync.updateTotal(this.cartTotal);
+    this.ticketSync.updatePeso(this.cartPeso);
+  }
+
+   // Calculate cart total
+   calculatePeso() {
+    let peso = 0;
+    this.ticket.forEach(function(item: Productos) {
+      peso += item.peso;
+    });
+    this.cartPeso = peso;
+
+    // Sync total with ticketSync service.
     this.ticketSync.updateTotal(this.cartTotal);
   }
 
@@ -112,13 +132,6 @@ export class TicketComponent implements OnInit {
     this.ticketSync.changeTicket(this.ticket);
   }
 
-  // checkout() {
-  //   if (this.ticket.length > 0) {
-  //     this.dataService.createAsync('pedidos/nuevoPedido', this.ticket, this.dataService.pedidos);
-  //     this.clearCart();
-  //   }
-  // }
-
   resetear() {
     this.productosPedido = [];
     // this.dataSource.data = this.productosPedido;
@@ -127,18 +140,6 @@ export class TicketComponent implements OnInit {
     // this.vuelto = 0;
     // this.actualizarVuelto();
   }
-
-
-  // actualizarVuelto() {
-  //   if (this.pagaCon !== 0) {
-  //     const vuelto = this.pagaCon - this.total;
-  //     if (vuelto < 0) {
-  //       this.vuelto = 0;
-  //     } else {
-  //       this.vuelto = vuelto;
-  //     }
-  //   }
-  // }
 
   checkout() {
   
@@ -160,7 +161,8 @@ export class TicketComponent implements OnInit {
           nuevaPedido.FechaPedido.setHours(nuevaPedido.FechaPedido.getHours() - 3)
           nuevaPedido.Total = this.cartTotal;
           nuevaPedido.Usuario = this.usuario.usuario.toString();
-          nuevaPedido.PesoTotal = this.pesoTotal;
+          nuevaPedido.PesoTotal = this.cartPeso;
+          nuevaPedido.ClienteId = this.clienteId;
           nuevaPedido.ImprimioTicket = true;
 
         if (result === true) {

@@ -5,6 +5,8 @@ export class Clientes {
   descripcion: String;
   cuit: String;
   razonsocial: String;
+  cuil: String;
+  dni: String;
   nombre: String;
   apellido: String;
   email: String;

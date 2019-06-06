@@ -5,6 +5,7 @@ export class Productos {
     idProducto: string;
     precioCompra: number;
     precioVenta: number;
+    peso: number;
     cantidad: number;
     marca: string;
     fechaModificacionPrecio: Date;

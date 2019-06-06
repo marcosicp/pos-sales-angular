@@ -18,7 +18,7 @@
     </tr>
   </table>
   <mat-card-actions class="summary flex flex-direction-row align-items-center justify-between">
-    <h3 class="total">Total: {{cartTotal | currency:'USD':true}}</h3>
+    <h3 class="total">Total: {{cartTotal | currency:'USD':true}} - Peso(KG): {{cartPeso}}</h3>
     <div class="flex flex-direction-row buttons">
       <button class="" mat-raised-button (click)="clearCart()">Limpiar</button>
       <button class="checkout" mat-raised-button (click)="checkout()">Cobrar</button>      

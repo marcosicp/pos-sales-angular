@@ -1,6 +1,24 @@
-<mat-card >
-    <h3 style="text-align: center;" class="module-title">Cliente: </h3>
+
+<div class="flex flex-direction-row justify-center add-margin content">
+  <mat-card>
+    <div class="ticket add-margin">
+        <h3 style="text-align: left;" class="module-title">Cliente: </h3>
+        <mat-form-field style="width: -webkit-fill-available;">
+          <mat-select placeholder="Seleccionar Cliente" (selectionChange)="updateClienteId($event)">
+            <mat-option *ngFor="let cliente of clientes" [value]="cliente.id">
+              {{cliente.nombre}}, {{cliente.cuit}}
+            </mat-option>
+          </mat-select>
+      </mat-form-field>
+    </div>
+    
+    <div class="pos add-margin">
+      
+    </div>
   </mat-card>
+</div>
+    
+ 
 <div class="flex flex-direction-row justify-center add-margin content">
   <div class="ticket add-margin">
     <app-ticket></app-ticket>

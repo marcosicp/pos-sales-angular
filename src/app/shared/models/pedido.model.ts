@@ -7,6 +7,7 @@ export class Pedido {
     PagoCon: number;
     FechaPedido: Date;
     PesoTotal: number;
+    ClienteId: string;
     FechaModificacion: Date;
     Usuario: string;
     ImprimioTicket: boolean;
