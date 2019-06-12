@@ -12,6 +12,6 @@ export class Clientes {
   email: String;
   telefono: String;
   activo: Boolean;
-  created_at: { type: Date };
-  updated_at: { type: Date };
+  creado: { type: Date };
+  editado: { type: Date };
 }

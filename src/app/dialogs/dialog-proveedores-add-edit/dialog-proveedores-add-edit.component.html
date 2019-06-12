@@ -1,3 +1,23 @@
-<p>
-  dialog-proveedores-add-edit works!
-</p>
+<div mat-dialog-content fxLayout="column">
+  <mat-form-field class="full-width">
+    <label>Nombre</label>
+    <input matInput type="text" [(ngModel)]="proveedor.nombre">
+  </mat-form-field>
+  <mat-form-field class="full-width">
+    <label>Razon Social</label>
+    <input matInput type="text" [(ngModel)]="proveedor.razonsocial">
+  </mat-form-field>
+  <mat-form-field class="full-width">
+    <label>Telefono</label>
+    <input matInput type="text" [(ngModel)]="proveedor.telefono">
+  </mat-form-field>
+  <mat-form-field class="full-width">
+    <label>Email</label>
+    <input matInput type="text" [(ngModel)]="proveedor.email">
+  </mat-form-field>
+</div>
+
+<div mat-dialog-actions>
+  <button mat-button (click)="guardarProveedor()" >Guardar</button>
+  <button mat-button (click)="onNoClick()">Cancelar</button>
+</div>

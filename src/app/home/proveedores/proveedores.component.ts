@@ -23,7 +23,7 @@ export class ProveedoresComponent implements OnInit, AfterViewInit {
   @ViewChild(MatSort) sort: MatSort;
 
   isLoading: boolean;
-  displayedColumns: string[] = [ 'nombre', 'telefono', 'razonsocial', 'direccion'];
+  displayedColumns: string[] = [ 'nombre', 'telefono', 'razonsocial', 'direccion','eliminar', 'editar'];
   dataSource: MatTableDataSource<Venta>;
   selection = new SelectionModel<Venta>(true, []);
 

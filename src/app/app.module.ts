@@ -28,7 +28,7 @@ import { NavComponent } from './nav/nav.component';
   declarations: [
     AppComponent,
     NavComponent,
-    PageNotFoundComponent
+    PageNotFoundComponent,
   ],
   imports: [
     AppRoutingModule,
