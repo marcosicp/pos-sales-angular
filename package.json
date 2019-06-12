@@ -9,7 +9,6 @@
     "web": "ng serve --open",
     "test": "ng test",
     "lint": "ng lint",
-    "preinstall": "npm install -g @angular/cli @angular/compiler-cli typescript",
     "e2e": "ng e2e"
   },
   "private": true,
