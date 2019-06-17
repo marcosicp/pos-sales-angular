@@ -23,7 +23,7 @@ export class ProveedoresComponent implements OnInit, AfterViewInit {
   @ViewChild(MatSort) sort: MatSort;
 
   isLoading: boolean;
-  displayedColumns: string[] = [ 'nombre', 'telefono', 'razonsocial', 'direccion','eliminar', 'editar'];
+  displayedColumns: string[] = [ 'nombre', 'telefono', 'razonSocial', 'direccion','eliminar', 'editar'];
   dataSource: MatTableDataSource<Venta>;
   selection = new SelectionModel<Venta>(true, []);
 
@@ -34,6 +34,7 @@ export class ProveedoresComponent implements OnInit, AfterViewInit {
   ngOnInit() {
     this.comerciosService.getAsync(ProveedoresUrl.getAll, this.productosVenta).subscribe(
       data => {
+        debugger;
         this.ventas = data;
         this.dataSource = new MatTableDataSource<Venta>();
         this.dataSource.data = this.ventas;
