@@ -1,8 +1,10 @@
 export class Proveedores {
   id: string;
-  codigo: string;
   nombre: string;
   cuit: string;
+  cuil: string;
+  tipofactura: string;
+  direccion: string;
   email: string;
   razonsocial: string;
   marca: string;
