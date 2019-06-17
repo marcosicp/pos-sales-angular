@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { MatDialog, MatListModule, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
 // import { DatabaseService } from '../../../database.service';
-import { ChartsModule } from 'ng2-charts';
 
 @Component({
   selector: 'app-line-chart',

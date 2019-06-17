@@ -6,7 +6,6 @@ import { HttpClientModule } from '@angular/common/http';
 // IMPORTAR COSAS DE SISTEMA
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { FlexLayoutModule } from '@angular/flex-layout';
-import { ChartsModule } from 'ng2-charts';
 import { environment } from '../environments/environment';
 // IMPORTAR MODULOS
 import { AppRoutingModule } from './core/app-routing.module';
@@ -37,7 +36,6 @@ import { NavComponent } from './nav/nav.component';
     HttpModule,
     HttpClientModule,
     FormsModule,
-    ChartsModule,
     ReactiveFormsModule,
     FlexLayoutModule,
     MaterialModule,
