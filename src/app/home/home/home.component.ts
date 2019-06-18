@@ -3,7 +3,8 @@ import { DataService } from '../../core/services/data.service';
 import { ClientesUrl } from '../../shared/configs/urls.config';
 import { Clientes } from '../../shared/models/clientes.model';
 import { PosService } from '../../core/services/pos.service';
-
+import { DialogSinConexionComponent } from '../../dialogs/dialog-sin-conexion/dialog-sin-conexion.component';
+import { MatDialog } from '@angular/material';
 
 @Component({
   selector: 'app-home',
@@ -15,20 +16,24 @@ export class HomeComponent implements OnInit {
   clientes: Clientes[];
   clientesResponse: Clientes[] = [];
 
-  constructor(private comerciosService: DataService, private ticketSync: PosService,) { }
+  constructor(private comerciosService: DataService, private ticketSync: PosService, public dialog: MatDialog) { }
 
   ngOnInit() {
     this.comerciosService.getAsync(ClientesUrl.getAll, this.clientesResponse).subscribe(
       data => {
-        debugger;
         this.clientes = data;
   
+      },
+      error => {
+        const dialogRef = this.dialog.open(DialogSinConexionComponent, { width: '600px' });
+          dialogRef.afterClosed().subscribe(result => {
+        });
+        console.log(error);
       }
     );
   }
 
   updateClienteId(cliente: any) {
-    debugger;
     this.ticketSync.updateClienteId(cliente.value);
   }
 

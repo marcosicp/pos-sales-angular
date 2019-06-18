@@ -16,7 +16,7 @@ export class DialogVerItemsPedidoComponent implements OnInit {
   displayedColumns: string[] = ['producto', 'cantidad', 'precioVenta'];
 
   constructor(private comerciosService: DataService,  @Inject(MAT_DIALOG_DATA) public data: any) {
-    debugger;
+    ;
     // this.comerciosService.getAsync('ventas/productosPedido?id=' + data.item.id, this.productosPedido).subscribe(
     //   data => {
     //     // this.productosPedido.forEach(function(item) {

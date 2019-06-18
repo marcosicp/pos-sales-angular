@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { Observable, throwError, of } from 'rxjs';
+import { retry, catchError } from 'rxjs/operators';
 import { Productos } from '../../shared/models/producto.model';
 import { PosService } from '../../core/services/pos.service';
 import { DataService } from '../../core/services/data.service';
@@ -9,7 +11,7 @@ import { DialogSinConexionComponent } from '../../dialogs/dialog-sin-conexion/di
 import { DialogOperacionOkComponent } from '../../dialogs/dialog-operacion-ok/dialog-operacion-ok.component';
 import { AuthService } from '../../core/services/auth.service';
 import { Pedido } from '../../shared/models/pedido.model';
-import { MatDialog, MatTableDataSource, MatSnackBar } from '@angular/material';
+import { MatDialog } from '@angular/material';
 import { ProductoPedido } from '../../shared/models/producto-venta.model';
 
 @Component({
@@ -151,7 +153,7 @@ export class TicketComponent implements OnInit {
       const dialogRef = this.dialog.open(DialogCajaCerradaComponent, { width: '900px' });
 
       dialogRef.afterClosed().subscribe(result => {
-          debugger;
+          ;
           const nuevaPedido = new Pedido();
           const ventaOk = [Pedido];
 
@@ -169,6 +171,7 @@ export class TicketComponent implements OnInit {
           // Guardar venta
           this.dataService.createAsync('pedidos/AddPedido', nuevaPedido, ventaOk).subscribe(
             data => {
+              ;
               const dialogRef = this.dialog.open(DialogOperacionOkComponent, { width: '600px' });
               dialogRef.afterClosed().subscribe(result => {
                 // Imprimir ticket
@@ -178,9 +181,10 @@ export class TicketComponent implements OnInit {
               });
             },
             error => {
+              ;
               const dialogRef = this.dialog.open(DialogSinConexionComponent, { width: '600px' });
               dialogRef.afterClosed().subscribe(result => {
-                debugger;        
+                ;        
     
               });
             }
@@ -188,24 +192,22 @@ export class TicketComponent implements OnInit {
         } else if (result === false) {
           // Guardar venta sin ticket
           nuevaPedido.ImprimioTicket = false;
-          this.dataService.createAsync('pedidos/AddPedido', nuevaPedido, ventaOk).subscribe(
-            data => {
-              const dialogRef = this.dialog.open(DialogOperacionOkComponent, { width: '600px' });
-              dialogRef.afterClosed().subscribe(result => {
-                this.resetear();
-                this.clearCart();
-                // this.openSnackBar('Pedido guardada!', 'Gracias');
-              });
-              
-            },
-            error => {
-              const dialogRef = this.dialog.open(DialogSinConexionComponent, { width: '600px' });
-              dialogRef.afterClosed().subscribe(result => {
-                debugger;        
-    
-              });
-            }
-          );
+            this.dataService.createAsync('pedidos/AddPedido', nuevaPedido, ventaOk).subscribe(
+              data => {
+                const dialogRef = this.dialog.open(DialogOperacionOkComponent, { width: '600px' });
+                dialogRef.afterClosed().subscribe(result => {
+                  this.resetear();
+                  this.clearCart();
+                });
+                
+              },
+              error => {
+                ;   
+                const dialogRef = this.dialog.open(DialogSinConexionComponent, { width: '600px' });
+                dialogRef.afterClosed().subscribe(result => {
+                });
+              }
+            );
         }
       });
 

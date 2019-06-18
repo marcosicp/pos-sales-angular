@@ -28,7 +28,7 @@ export class DialogProveedoresAddEditComponent implements OnInit {
   guardarProveedor() {
     this.comerciosService.createAsync('proveedores/AddProveedor', this.proveedor, this.result).subscribe(
       data => {
-        debugger;
+        ;
         const dialogRef = this.dialog.open(DialogOperacionOkComponent, { width: '600px' });
         dialogRef.afterClosed().subscribe(result => {
 

@@ -17,7 +17,7 @@ export class ProveedoresComponent implements OnInit, AfterViewInit {
   private zone: NgZone;
   ventas: Venta[];
   total: number;
-  productosVenta: ProductoPedido[] = [];
+  proveedores: Proveedores[] = [];
 
   @ViewChild(MatPaginator) paginator: MatPaginator;
   @ViewChild(MatSort) sort: MatSort;
@@ -32,9 +32,9 @@ export class ProveedoresComponent implements OnInit, AfterViewInit {
   }
 
   ngOnInit() {
-    this.comerciosService.getAsync(ProveedoresUrl.getAll, this.productosVenta).subscribe(
+    this.comerciosService.getAsync(ProveedoresUrl.getAll, this.proveedores).subscribe(
       data => {
-        debugger;
+        ;
         this.ventas = data;
         this.dataSource = new MatTableDataSource<Venta>();
         this.dataSource.data = this.ventas;

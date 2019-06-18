@@ -104,7 +104,6 @@ export class PosComponent implements OnInit {
     this.cartTotal = total;
     this.cartNumItems = cartNum;
     this.cartPeso = peso;
-    debugger;
     this.ticketSync.updateNumItems(this.cartNumItems);
     this.ticketSync.updateTotal(this.cartTotal);
     this.ticketSync.updatePeso(this.cartPeso);
@@ -150,12 +149,12 @@ export class PosComponent implements OnInit {
 
     dialogRef.afterClosed().subscribe(result => {
       if (result) {
-        debugger;
+        ;
         this.addToCheck(result);
         this.total += result.precioVenta;
         this.actualizarVuelto();
 
-        debugger;
+        ;
         const filtroProductos = this.productosPedido.filter(x => x.codigo === result.codigo);
         if (filtroProductos.length) {
           const productoPedido = filtroProductos[0];
@@ -210,7 +209,7 @@ export class PosComponent implements OnInit {
             error => {
               const dialogRef = this.dialog.open(DialogSinConexionComponent, { width: '600px' });
               dialogRef.afterClosed().subscribe(result => {
-                debugger;
+                ;
 
               });
             }
@@ -230,7 +229,7 @@ export class PosComponent implements OnInit {
             error => {
               const dialogRef = this.dialog.open(DialogSinConexionComponent, { width: '600px' });
               dialogRef.afterClosed().subscribe(result => {
-                debugger;
+                ;
 
               });
             }

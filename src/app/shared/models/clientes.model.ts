@@ -10,6 +10,8 @@ export class Clientes {
   nombre: String;
   apellido: String;
   email: String;
+  tipoFactura: String;
+  direccion: String;
   telefono: String;
   activo: Boolean;
   creado: { type: Date };

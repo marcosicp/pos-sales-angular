@@ -1,3 +1,36 @@
-<p>
-  dialog-cliente-add-edit works!
-</p>
+<div mat-dialog-title fxLayout="column" style="text-align: center">Agregar Cliente</div>
+<div mat-dialog-content fxLayout="column">
+  <mat-form-field class="full-width">
+    <label>Nombre</label>
+    <input matInput type="text" [(ngModel)]="cliente.nombre">
+  </mat-form-field>
+  <mat-form-field class="full-width">
+    <label>Razon Social</label>
+    <input matInput type="text" [(ngModel)]="cliente.razonsocial">
+  </mat-form-field>
+  <mat-form-field class="full-width">
+    <label>Telefono</label>
+    <input matInput type="text" [(ngModel)]="cliente.telefono">
+  </mat-form-field>
+  <mat-form-field class="full-width">
+    <label>CUIL</label>
+    <input matInput type="text" [(ngModel)]="cliente.cuil">
+  </mat-form-field>
+  <mat-form-field class="full-width">
+    <label>Direccion</label>
+    <input matInput type="text" [(ngModel)]="cliente.direccion">
+  </mat-form-field>
+  <mat-form-field class="full-width">
+    <label>Tipo de Factura</label>
+    <input matInput type="text" [(ngModel)]="cliente.tipoFactura">
+  </mat-form-field>
+  <mat-form-field class="full-width">
+    <label>Email</label>
+    <input matInput type="text" [(ngModel)]="cliente.email">
+  </mat-form-field>
+</div>
+
+<div mat-dialog-actions>
+  <!-- <button mat-button (click)="guardarCliente()" >Guardar</button> -->
+  <!-- <button mat-button (click)="onNoClick()">Cancelar</button> -->
+</div>

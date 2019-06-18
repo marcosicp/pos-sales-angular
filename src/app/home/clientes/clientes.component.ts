@@ -23,7 +23,7 @@ export class ClientesComponent implements OnInit, AfterViewInit {
   @ViewChild(MatSort) sort: MatSort;
 
   isLoading: boolean;
-  displayedColumns: string[] = [ 'fechaPedido', 'imprimioTicket', 'responsable', 'cliente', 'total'];
+  displayedColumns: string[] = [ 'creado', 'activo', 'telefono', 'nombre', 'email'];
   dataSource: MatTableDataSource<Venta>;
   selection = new SelectionModel<Venta>(true, []);
 
@@ -34,6 +34,7 @@ export class ClientesComponent implements OnInit, AfterViewInit {
   ngOnInit() {
     this.comerciosService.getAsync(ClientesUrl.getAll, this.productosVenta).subscribe(
       data => {
+        ;
         this.ventas = data;
         this.dataSource = new MatTableDataSource<Venta>();
         this.dataSource.data = this.ventas;
