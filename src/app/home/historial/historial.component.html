@@ -44,9 +44,9 @@
         <td mat-cell *matCellDef="let element"> {{element.id}} </td>
       </ng-container> -->
 
-      <ng-container matColumnDef="fechaPedido">
+      <ng-container matColumnDef="creado">
         <th mat-header-cell *matHeaderCellDef mat-sort-header> Fecha Pedido </th>
-        <td mat-cell *matCellDef="let element"> {{element.fechaPedido | date:'medium'}} </td>
+        <td mat-cell *matCellDef="let element"> {{element.creado | date:'medium'}} </td>
       </ng-container>
 
       <ng-container matColumnDef="imprimioTicket">

@@ -13,6 +13,7 @@ import { AuthService } from '../../core/services/auth.service';
 import { Pedido } from '../../shared/models/pedido.model';
 import { MatDialog } from '@angular/material';
 import { ProductoPedido } from '../../shared/models/producto-venta.model';
+import { DialogConfirmarComponent } from '../../dialogs/dialog-confirmar/dialog-confirmar.component';
 
 @Component({
   selector: 'app-ticket',
@@ -136,82 +137,92 @@ export class TicketComponent implements OnInit {
 
   resetear() {
     this.productosPedido = [];
-    // this.dataSource.data = this.productosPedido;
     this.cartTotal = 0;
-    // this.pagaCon = 0;
-    // this.vuelto = 0;
-    // this.actualizarVuelto();
+  }
+
+  validarCliente(){
+    if(this.clienteId==null||this.clienteId==""){
+      const dialogRef = this.dialog.open(DialogConfirmarComponent, { 
+        width: '600px',
+        data: {title: "Revisar Cliente", confirmText: "Por favor seleccione un cliente para continuar."} });
+      dialogRef.afterClosed().subscribe(result => {
+      });
+
+      return false;
+    }
+    return true;
   }
 
   checkout() {
-  
-    if (this.ticket.length === 0) {
-      // this.openSnackBar('NO HAY ITEMS CARGADOS EN EL CHANGO!', 'ATENCION');
-      return;
-    } else {
-      let prodsDesc = '';
-      const dialogRef = this.dialog.open(DialogCajaCerradaComponent, { width: '900px' });
+    if (this.validarCliente()){
+      if (this.ticket.length === 0) {
+        const dialogRef = this.dialog.open(DialogConfirmarComponent, { 
+          width: '600px',
+          data: {title: "Sin productos", confirmText: "Debe incluir al menos un producto en el pedido."} });
+        dialogRef.afterClosed().subscribe(result => {
+        });
+        return;
+      } else {
+        let prodsDesc = '';
+        const dialogRef = this.dialog.open(DialogCajaCerradaComponent, { width: '900px' });
+        dialogRef.afterClosed().subscribe(result => {
+            const nuevaPedido = new Pedido();
+            const ventaOk = [Pedido];
 
-      dialogRef.afterClosed().subscribe(result => {
-          ;
-          const nuevaPedido = new Pedido();
-          const ventaOk = [Pedido];
+            // nuevaPedido.usuarioVendio = this.usuario;
+            nuevaPedido.ProductosPedidos = this.ticket;
+            nuevaPedido.FechaPedido = new Date();
+            nuevaPedido.FechaPedido.setHours(nuevaPedido.FechaPedido.getHours() - 3)
+            nuevaPedido.Total = this.cartTotal;
+            nuevaPedido.Usuario = this.usuario.usuario.toString();
+            nuevaPedido.PesoTotal = this.cartPeso;
+            nuevaPedido.ClienteId = this.clienteId;
+            nuevaPedido.ImprimioTicket = true;
 
-          // nuevaPedido.usuarioVendio = this.usuario;
-          nuevaPedido.ProductosPedidos = this.ticket;
-          nuevaPedido.FechaPedido = new Date();
-          nuevaPedido.FechaPedido.setHours(nuevaPedido.FechaPedido.getHours() - 3)
-          nuevaPedido.Total = this.cartTotal;
-          nuevaPedido.Usuario = this.usuario.usuario.toString();
-          nuevaPedido.PesoTotal = this.cartPeso;
-          nuevaPedido.ClienteId = this.clienteId;
-          nuevaPedido.ImprimioTicket = true;
-
-        if (result === true) {
-          // Guardar venta
-          this.dataService.createAsync('pedidos/AddPedido', nuevaPedido, ventaOk).subscribe(
-            data => {
-              ;
-              const dialogRef = this.dialog.open(DialogOperacionOkComponent, { width: '600px' });
-              dialogRef.afterClosed().subscribe(result => {
-                // Imprimir ticket
-              this.resetear();
-              this.clearCart();
-              // this.openSnackBar('Imprimiendo ticket!', 'Aguarde');
-              });
-            },
-            error => {
-              ;
-              const dialogRef = this.dialog.open(DialogSinConexionComponent, { width: '600px' });
-              dialogRef.afterClosed().subscribe(result => {
-                ;        
-    
-              });
-            }
-          );
-        } else if (result === false) {
-          // Guardar venta sin ticket
-          nuevaPedido.ImprimioTicket = false;
+          if (result === true) {
+            // Guardar venta
             this.dataService.createAsync('pedidos/AddPedido', nuevaPedido, ventaOk).subscribe(
               data => {
+                ;
                 const dialogRef = this.dialog.open(DialogOperacionOkComponent, { width: '600px' });
                 dialogRef.afterClosed().subscribe(result => {
-                  this.resetear();
-                  this.clearCart();
+                  // Imprimir ticket
+                this.resetear();
+                this.clearCart();
+                // this.openSnackBar('Imprimiendo ticket!', 'Aguarde');
                 });
-                
               },
               error => {
-                ;   
+                ;
                 const dialogRef = this.dialog.open(DialogSinConexionComponent, { width: '600px' });
                 dialogRef.afterClosed().subscribe(result => {
+                  ;        
+      
                 });
               }
             );
-        }
-      });
+          } else if (result === false) {
+            // Guardar venta sin ticket
+            nuevaPedido.ImprimioTicket = false;
+              this.dataService.createAsync('pedidos/AddPedido', nuevaPedido, ventaOk).subscribe(
+                data => {
+                  const dialogRef = this.dialog.open(DialogOperacionOkComponent, { width: '600px' });
+                  dialogRef.afterClosed().subscribe(result => {
+                    this.resetear();
+                    this.clearCart();
+                  });
+                },
+                error => {
+                  const dialogRef = this.dialog.open(DialogSinConexionComponent, { width: '600px' });
+                  dialogRef.afterClosed().subscribe(result => {
+                  });
+                }
+              );
+          }
+        });
 
 
+      }
     }
   }
 

@@ -1,6 +1,6 @@
 import BaseConfig from './base.config';
 
-const isProd = true,
+const isProd = false,
       BaseUrl = isProd ? BaseConfig.prodUrl : BaseConfig.localUrl,
       UserUrl = {
         home: 'usuarios',
