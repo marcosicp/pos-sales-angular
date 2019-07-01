@@ -26,6 +26,8 @@
     "@angular/router": "^7.2.15",
     "@angular/service-worker": "^7.2.15",
     "angularfire2": "^5.2.1",
+    "express": "^4.17.1",
+    "express-session": "^1.16.2",
     "chart.js": "^2.8.0",
     "core-js": "^2.6.9",
     "rxjs": "^6.5.2",
