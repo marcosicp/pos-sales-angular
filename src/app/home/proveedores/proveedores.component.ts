@@ -6,7 +6,7 @@ import { Proveedores } from '../../shared/models/proveedores.model';
 import { DataService } from '../../core/services/data.service';
 import { ProductoPedido } from '../../shared/models/producto-venta.model';
 import { DialogProveedoresAddEditComponent } from '../../dialogs/dialog-proveedores-add-edit/dialog-proveedores-add-edit.component';
-import { ProveedoresUrl } from '../../shared/configs/urls.config';
+import { URL_PROVEEDORES } from '../../shared/configs/urls.config';
 
 @Component({
   selector: 'app-proveedores',
@@ -32,7 +32,7 @@ export class ProveedoresComponent implements OnInit, AfterViewInit {
   }
 
   ngOnInit() {
-    this.comerciosService.getAsync(ProveedoresUrl.getAll, this.proveedores).subscribe(
+    this.comerciosService.getAsync(URL_PROVEEDORES.GET_ALL, this.proveedores).subscribe(
       data => {
         ;
         this.ventas = data;

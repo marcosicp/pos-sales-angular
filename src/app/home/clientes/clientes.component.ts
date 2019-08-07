@@ -4,8 +4,7 @@ import { SelectionModel } from '@angular/cdk/collections';
 import { Venta } from '../../shared/models/venta.model';
 import { DataService } from '../../core/services/data.service';
 import { ProductoPedido } from '../../shared/models/producto-venta.model';
-import { ClientesUrl } from '../../shared/configs/urls.config';
-import { Clientes } from '../../shared/models/clientes.model';
+import { URL_CLIENTES } from '../../shared/configs/urls.config';
 import { DialogClienteAddEditComponent } from '../../dialogs/dialog-cliente-add-edit/dialog-cliente-add-edit.component';
 
 @Component({
@@ -32,7 +31,7 @@ export class ClientesComponent implements OnInit, AfterViewInit {
   }
 
   ngOnInit() {
-    this.comerciosService.getAsync(ClientesUrl.getAll, this.productosVenta).subscribe(
+    this.comerciosService.getAsync(URL_CLIENTES.GET_ALL, this.productosVenta).subscribe(
       data => {
         ;
         this.ventas = data;

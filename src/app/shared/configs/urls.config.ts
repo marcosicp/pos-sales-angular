@@ -1,35 +1,35 @@
 import BaseConfig from './base.config';
 
-const isProd = true,
-      BaseUrl = isProd ? BaseConfig.prodUrl : BaseConfig.localUrl,
-      UserUrl = {
-        home: 'usuarios',
-        emailLogin: `usuarios/login`
+const isProd = false,
+      URL_BASE = isProd ? BaseConfig.URL_PROD : BaseConfig.URL_LOCAL,
+      URL_USER = {
+        HOME: 'usuarios',
+        EMAIL_LOGIN: `usuarios/login`
       },
-      ProductosUrl = {
-        home: 'productos',
-        getAll: 'productos/GetAllProductos'
+      URL_PRODUCTOS = {
+        HOME: 'productos',
+        GET_ALL: 'productos/GetAllProductos'
       },
-      AdminUrl = {
-        ultimaApertura: 'administracion/ultimaApertura',
-        cerrarCaja: 'administracion/cerrarCaja'
+      URL_ADMIN = {
+        ULTIMA_APERTURA: 'administracion/ultimaApertura',
+        CERRAR_CAJA: 'administracion/cerrarCaja'
       },
-      PedidosUrl = {
-        getAll: 'pedidos/GetAllPedidos'
+      URL_PEDIDOS = {
+        GET_ALL: 'pedidos/GetAllPedidos'
       },
-      ClientesUrl = {
-        getAll: 'clientes/GetAllClientes'
+      URL_CLIENTES = {
+        GET_ALL: 'clientes/GetAllClientes'
       },
-      ProveedoresUrl = {
-        getAll: 'proveedores/GetAllProveedores'
+      URL_PROVEEDORES = {
+        GET_ALL: 'proveedores/GetAllProveedores'
       };
 
 export {
-  BaseUrl,
-  UserUrl,
-  ProductosUrl,
-  AdminUrl,
-  PedidosUrl,
-  ProveedoresUrl,
-  ClientesUrl
+  URL_BASE,
+  URL_USER,
+  URL_PRODUCTOS,
+  URL_ADMIN,
+  URL_PEDIDOS,
+  URL_PROVEEDORES,
+  URL_CLIENTES
 };

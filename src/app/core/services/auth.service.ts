@@ -6,7 +6,7 @@ import { BehaviorSubject } from 'rxjs/BehaviorSubject';
 import 'rxjs/add/observable/of';
 import 'rxjs/add/operator/switchMap';
 // IMPORTAR CONFIG
-import { UserUrl } from '../../shared/configs/urls.config';
+import { URL_USER } from '../../shared/configs/urls.config';
 // IMPORTAR MODELOS
 import { Usuarios } from '../../shared/models/usuarios.model';
 import { DataService } from './data.service';
@@ -48,7 +48,7 @@ export class AuthService {
       pass: password
     };
 
-    return this.dataService.postAsync(UserUrl.emailLogin, test);
+    return this.dataService.postAsync(URL_USER.EMAIL_LOGIN, test);
   }
 
   public isAuthenticated(): boolean {

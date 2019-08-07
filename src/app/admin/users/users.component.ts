@@ -5,7 +5,7 @@ import { DataService } from '../../core/services/data.service';
 // IMPORTAR MODELOS
 import { Usuarios } from '../../shared/models/usuarios.model';
 // IMPORTAR URL
-import { UserUrl } from '../../shared/configs/urls.config';
+import { URL_USER } from '../../shared/configs/urls.config';
 
 @Component({
   selector: 'app-users',
@@ -38,7 +38,7 @@ export class UsersComponent implements OnInit {
 
   getUsuarios() {
     // this.isLoading = true;
-    this.dataService.getAsync(UserUrl.home, this.users).subscribe(
+    this.dataService.getAsync(URL_USER.HOME, this.users).subscribe(
       data => {
         this.loadUsuarios(data);
       },

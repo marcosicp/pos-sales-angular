@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { DataService } from '../../core/services/data.service';
-import { ProductosUrl } from '../../shared/configs/urls.config';
+import { URL_PRODUCTOS } from '../../shared/configs/urls.config';
 
 @Component({
   selector: 'app-items',
@@ -31,7 +31,7 @@ export class ItemsComponent implements OnInit {
     // this.products[0] = this.db.getFood();
     // this.products[1] = this.db.getDrink();
 
-    this.dataService.getAsync(ProductosUrl.getAll, this.test).subscribe(
+    this.dataService.getAsync(URL_PRODUCTOS.GET_ALL, this.test).subscribe(
       data => {
         this.test = data;
       },
