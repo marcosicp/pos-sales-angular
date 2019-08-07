@@ -3,6 +3,7 @@ import { AuthService } from '../../core/services/auth.service';
 import { Router } from '@angular/router';
 
 import { FormControl, Validators } from '@angular/forms';
+import { LoadingService } from '../../shared/services/loading.service';
 
 
 const EMAIL_REGEX = /^[a-zA-Z0-9.!#$%&’*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/;
@@ -24,14 +25,17 @@ export class LoginComponent implements OnInit {
     Validators.pattern(EMAIL_REGEX)]);
 
   constructor(
+    private router: Router,
     private authService: AuthService,
-    private router: Router) { }
+    private loadingService: LoadingService) { }
 
   ngOnInit() { }
 
   userLogin(email, password) {
+    this.loadingService.setLoading();
     this.authService.emailLogin(email, password).subscribe(
       user => {
+        this.loadingService.setLoading();
         if (!user || user.email === null || user.email === '') {
           this.success = false;
         } else {

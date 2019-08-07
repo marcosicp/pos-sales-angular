@@ -15,6 +15,7 @@ import { HomeModule } from './home/home.module';
 import { AdminModule } from './admin/admin.module';
 import { DialogsModule } from './dialogs/dialogs.module';
 import { WelcomeModule } from './welcome/welcome.module';
+import { SharedModule } from './shared/shared.module';
 import { ServiceWorkerModule } from '@angular/service-worker';
 // IMPORTAR SERVICIOS
 // IMPORTAR APP COMPONENT
@@ -22,11 +23,13 @@ import { AppComponent } from './app.component';
 // IMPORTAR COMPONENTES
 import { PageNotFoundComponent } from './page-not-found/page-not-found.component';
 import { NavComponent } from './nav/nav.component';
+import { LoadingScreenComponent } from './shared/components/loading-screen/loading-screen.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     NavComponent,
+    LoadingScreenComponent,
     PageNotFoundComponent,
   ],
   imports: [
@@ -44,6 +47,7 @@ import { NavComponent } from './nav/nav.component';
     AdminModule,
     DialogsModule,
     WelcomeModule,
+    SharedModule,
     ServiceWorkerModule.register('/ngsw-worker.js', { enabled: environment.production })
   ],
   providers: [],
