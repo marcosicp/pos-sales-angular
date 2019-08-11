@@ -1,6 +1,6 @@
 export class AperturaCaja {
     id: string;
-    montoApertura: number;
+    monto: number;
     descripcion: string;
     tipo: string;
     fechaMovimiento: Date;

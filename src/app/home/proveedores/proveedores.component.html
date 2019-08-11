@@ -1,13 +1,13 @@
 
 <div class="card-container mat-elevation-z8">
-    <mat-card>
+    <mat-card class="mat-elevation-z">
       <h1 style="text-align: center;font-size: xx-large;" class="module-title">Proveedores</h1>
     </mat-card>
   <mat-toolbar>
     <div fxLayout="row" fxLayoutGap="10px">
       <button mat-flat-button color="primary" (click)="agregarProveedor()">Agregar</button>
-      <button mat-flat-button color="accent" [disabled]="!selection.selected.length || selection.selected.length > 1">Editar</button>
-      <button mat-flat-button color="warn" [disabled]="!selection.selected.length">Eliminar</button>
+      <!-- <button mat-flat-button color="accent" [disabled]="!selection.selected.length || selection.selected.length > 1">Editar</button>
+      <button mat-flat-button color="warn" [disabled]="!selection.selected.length">Eliminar</button> -->
       <!-- <a routerLink="" class="mat-flat-button">Home</a> -->
     </div>
     <div style="margin-left: auto; margin-right: 0;">
@@ -24,7 +24,7 @@
   </div>
 
   <div class="table-container">
-    <table mat-table [dataSource]="dataSource" matSort matSortActive="nombre" matSortDirection="desc">
+    <table mat-table [dataSource]="dataSource" style="line-height: 60px" matSort matSortActive="nombre" matSortDirection="desc">
       <ng-container matColumnDef="select">
         <th mat-header-cell *matHeaderCellDef>
           <mat-checkbox (change)="$event ? masterToggle() : null"

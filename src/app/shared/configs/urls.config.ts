@@ -11,8 +11,8 @@ const isProd = false,
         GET_ALL: 'productos/GetAllProductos'
       },
       URL_ADMIN = {
-        ULTIMA_APERTURA: 'administracion/ultimaApertura',
-        CERRAR_CAJA: 'administracion/cerrarCaja'
+        ULTIMA_APERTURA: 'movimientos/AperturaInicialCaja',
+        CERRAR_CAJA: 'movimientos/cerrarCaja'
       },
       URL_PEDIDOS = {
         GET_ALL: 'pedidos/GetAllPedidos'

@@ -29,12 +29,13 @@ export class DialogCerrarCajaComponent {
 
     this.comerciosService.getAsync(URL_ADMIN.ULTIMA_APERTURA, this.aperturaArr).subscribe(
       data1 => {
-        this.apertura = data1[0];
-        this.apertura.montoApertura = data1[0].monto;
+        debugger;
+        // this.apertura = data1[0];
+        this.apertura.monto = data1[0];
         this.comerciosService.getAsync(URL_ADMIN.CERRAR_CAJA, this.result).subscribe(
           data2 => {
             this.cierreCaja = data2[0];
-            this.cierreCaja.totalCierreCaja = this.apertura.montoApertura + this.cierreCaja.totalPrecioPedido;
+            this.cierreCaja.totalCierreCaja = this.apertura.monto + this.cierreCaja.totalPrecioPedido;
           },
           error => {
             const dialogRef2 = this.dialog.open(DialogSinConexionComponent, { width: '600px' });

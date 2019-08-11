@@ -22,7 +22,7 @@ export class ClientesComponent implements OnInit, AfterViewInit {
   @ViewChild(MatSort) sort: MatSort;
 
   isLoading: boolean;
-  displayedColumns: string[] = [ 'creado', 'activo', 'telefono', 'nombre', 'email'];
+  displayedColumns: string[] = [ 'creado', 'activo', 'telefono', 'nombre', 'email', 'eliminar','editar'];
   dataSource: MatTableDataSource<Venta>;
   selection = new SelectionModel<Venta>(true, []);
 

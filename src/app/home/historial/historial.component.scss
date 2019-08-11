@@ -19,4 +19,8 @@ mat-toolbar {
   table {
     width: 100%;
   }
+
+  .mat-card:not([class*=mat-elevation-z]){
+    box-shadow: 0ch;
+  }
   
