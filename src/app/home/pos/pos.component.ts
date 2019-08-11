@@ -21,7 +21,7 @@ import { URL_PRODUCTOS } from '../../shared/configs/urls.config';
 export class PosComponent implements OnInit {
 
   products = [];
-  productTypes = ['HIERRO', 'PALOS'];
+  productTypes = ['HIERRO', 'PALOS', 'BLOQUES', 'ARENA', 'ELECTRICIDAD'];
   ticket: Productos[];
   cartTotal = 0;
   cartNumItems = 0;
@@ -56,9 +56,16 @@ export class PosComponent implements OnInit {
     this.dataService.getAsync(URL_PRODUCTOS.GET_ALL, this.dataService.productos).subscribe(
       data => {
         this.products[0]=[];
-        data.forEach(element => {
+        this.products[1]=[];
+        this.products[2]=[];
+        this.products[3]=[];
 
+        data.forEach(element => {
+          
           this.products[0].push(element);
+          this.products[1].push(element);
+          this.products[2].push(element);
+          this.products[3].push(element);
         });
         // this.products[0] = data;
         this.loadData();
