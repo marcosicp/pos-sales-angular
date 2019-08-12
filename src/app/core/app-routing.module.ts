@@ -6,6 +6,7 @@ import { AuthGuard } from './guards/auth.guard';
 import { AdminGuard } from './guards/admin.guard';
 // COMPONENTES
 import { WelcomeComponent } from '../welcome/welcome/welcome.component';
+import { ConfirmacionComponent } from '../home/confirmacion/confirmacion.component';
 import { HomeComponent } from '../home/home/home.component';
 import { AdminComponent } from '../admin/admin/admin.component';
 import { PageNotFoundComponent } from '../page-not-found/page-not-found.component';
@@ -47,6 +48,11 @@ const appRoutes: Routes = [
   {
     path: 'proveedores',
     component: ProveedoresComponent ,
+    canActivate: [AuthGuard]
+  },
+  {
+    path: 'confirmacion',
+    component: ConfirmacionComponent ,
     canActivate: [AuthGuard]
   },
   {

@@ -12,7 +12,7 @@ import { URL_PEDIDOS } from '../../shared/configs/urls.config';
   templateUrl: './historial.component.html',
   styleUrls: ['./historial.component.scss']
 })
-export class HistorialComponent implements OnInit, AfterViewInit {
+export class HistorialComponent implements OnInit {
   private zone: NgZone;
   ventas: Venta[];
   total: number;
@@ -22,7 +22,7 @@ export class HistorialComponent implements OnInit, AfterViewInit {
   @ViewChild(MatSort) sort: MatSort;
 
   isLoading: boolean;
-  displayedColumns: string[] = [ 'creado', 'imprimioTicket', 'responsable', 'cliente', 'total', 'veritems'];
+  displayedColumns: string[] = [ 'creado', 'imprimioTicket', 'responsable', 'cliente', 'total', 'estado', 'veritems', 'confirmar'];
   dataSource: MatTableDataSource<Venta>;
   selection = new SelectionModel<Venta>(true, []);
 
@@ -41,10 +41,6 @@ export class HistorialComponent implements OnInit, AfterViewInit {
         this.isLoading = false;
       }
     );
-  }
-
-  ngAfterViewInit() {
-    const self = this;
   }
 
   verItems(item){

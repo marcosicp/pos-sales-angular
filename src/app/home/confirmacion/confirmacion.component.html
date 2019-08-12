@@ -1,0 +1,44 @@
+<div class="card-container mat-elevation-z8">
+  <mat-card class="add-margin">
+    <mat-card-title>Confirmar pedido</mat-card-title>
+    <mat-card-content>
+      <div class="form">
+          <!-- Nombre -->
+          <mat-form-field>
+            <label>Cliente</label>
+            <input matInput  [(ngModel)]="ventas.cliente">
+          </mat-form-field>
+          <!-- Precio -->
+          <mat-form-field>
+              <label>Peso Total</label>
+            <input matInput type="text" [(ngModel)]="ventas.pesoTotal">
+          </mat-form-field>
+          <!-- Tipo Producto dropdown -->
+          <mat-form-field>
+              <label>Estado</label>
+              <input matInput type="text" [(ngModel)]="ventas.estado">
+          </mat-form-field>
+
+           <mat-form-field>
+              <label>Fecha Pedido</label>
+              <input matInput [(ngModel)]="ventas.fechaPedido">
+            </mat-form-field>
+            
+            <mat-form-field>
+                <label>Total</label>
+                <input matInput type="text" [(ngModel)]="ventas.total">
+            </mat-form-field>
+
+          <label for="upload" class="file-upload__label">Subir Imagen</label>
+          <input id="upload" class="file-upload__input" type="file" name="file-upload" accept="image/*" (change)="detectFiles($event)">
+
+        </div>
+    </mat-card-content>
+
+    <!-- Guardar/Cancelar -->
+    <mat-action-row class="new-item-action-row">
+      <button mat-button (click)="addItem()">Guardar</button>
+      <button mat-button color="warn" (click)="addItemToggle()">Cancelar</button>
+    </mat-action-row>
+  </mat-card>
+</div>

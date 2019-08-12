@@ -14,6 +14,8 @@ import { Pedido } from '../../shared/models/pedido.model';
 import { MatDialog } from '@angular/material';
 import { ProductoPedido } from '../../shared/models/producto-venta.model';
 import { DialogConfirmarComponent } from '../../dialogs/dialog-confirmar/dialog-confirmar.component';
+import { Clientes } from '../../shared/models/clientes.model';
+import { URL_CLIENTES } from '../../shared/configs/urls.config';
 
 @Component({
   selector: 'app-ticket',
@@ -21,7 +23,8 @@ import { DialogConfirmarComponent } from '../../dialogs/dialog-confirmar/dialog-
   styleUrls: ['./ticket.component.scss']
 })
 export class TicketComponent implements OnInit {
-
+  clientes: Clientes[];
+  clientesResponse: Clientes[] = [];
   ticket: Productos[] = [];
 
   cartTotal = 0;
@@ -36,6 +39,18 @@ export class TicketComponent implements OnInit {
 
   // Sync with ticketSync service on init
   ngOnInit() {
+    this.dataService.getAsync(URL_CLIENTES.GET_ALL, this.clientesResponse).subscribe(
+      data => {
+        this.clientes = data;
+      },
+      error => {
+        const dialogRef = this.dialog.open(DialogSinConexionComponent, { width: '600px' });
+          dialogRef.afterClosed().subscribe(result => {
+        });
+        console.log(error);
+      }
+    );
+
     this.ticketSync.currentTicket.subscribe(data => this.ticket = data);
     this.ticketSync.currentTotal.subscribe(total => this.cartTotal = total);
     this.ticketSync.currentPeso.subscribe(pesoTotal => this.cartPeso = pesoTotal);
@@ -43,6 +58,10 @@ export class TicketComponent implements OnInit {
     this.ticketSync.currentClienteId.subscribe(cli => this.clienteId = cli);
 
     this.usuario = JSON.parse(localStorage.getItem('currentUser'));
+  }
+
+  updateClienteId(cliente: any) {
+    this.ticketSync.updateClienteId(cliente.value);
   }
 
   // Add item to ticket.

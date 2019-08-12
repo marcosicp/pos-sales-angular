@@ -24,6 +24,7 @@ import { AppComponent } from './app.component';
 import { PageNotFoundComponent } from './page-not-found/page-not-found.component';
 import { NavComponent } from './nav/nav.component';
 import { LoadingScreenComponent } from './shared/components/loading-screen/loading-screen.component';
+import { ConfirmacionComponent } from './home/confirmacion/confirmacion.component';
 
 @NgModule({
   declarations: [
@@ -31,6 +32,7 @@ import { LoadingScreenComponent } from './shared/components/loading-screen/loadi
     NavComponent,
     LoadingScreenComponent,
     PageNotFoundComponent,
+    ConfirmacionComponent,
   ],
   imports: [
     AppRoutingModule,

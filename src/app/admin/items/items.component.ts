@@ -28,9 +28,6 @@ export class ItemsComponent implements OnInit {
   ) { }
 
   ngOnInit() {
-    // this.products[0] = this.db.getFood();
-    // this.products[1] = this.db.getDrink();
-
     this.dataService.getAsync(URL_PRODUCTOS.GET_ALL, this.test).subscribe(
       data => {
         this.test = data;
