@@ -21,7 +21,7 @@
 
            <mat-form-field>
               <label>Fecha Pedido</label>
-              <input matInput [(ngModel)]="ventas.fechaPedido">
+              <input matInput [(ngModel)]="ventas.fechaVenta">
             </mat-form-field>
             
             <mat-form-field>
@@ -32,13 +32,16 @@
           <label for="upload" class="file-upload__label">Subir Imagen</label>
           <input id="upload" class="file-upload__input" type="file" name="file-upload" accept="image/*" (change)="detectFiles($event)">
 
+          <div class="flex flex-direction-row product-image-section">
+            <img [src]="ventas.imagenUrl"  style="width:250px;height:200px">
+          </div>
         </div>
     </mat-card-content>
 
     <!-- Guardar/Cancelar -->
     <mat-action-row class="new-item-action-row">
-      <button mat-button (click)="addItem()">Guardar</button>
-      <button mat-button color="warn" (click)="addItemToggle()">Cancelar</button>
+      <button mat-button (click)="confirmar()">CONFIRMAR</button>
+      <button mat-button color="warn" [routerLink="/historial/"]>CANCELAR</button>
     </mat-action-row>
   </mat-card>
 </div>

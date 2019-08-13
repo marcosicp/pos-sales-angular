@@ -9,13 +9,15 @@ const isProd = false,
       URL_PRODUCTOS = {
         HOME: 'productos',
         GET_ALL: 'productos/GetAllProductos'
+        
       },
       URL_ADMIN = {
         ULTIMA_APERTURA: 'movimientos/AperturaInicialCaja',
         CERRAR_CAJA: 'movimientos/cerrarCaja'
       },
       URL_PEDIDOS = {
-        GET_ALL: 'pedidos/GetAllPedidos'
+        GET_ALL: 'pedidos/GetAllPedidos',
+        CONFIRMAR: 'pedidos/ConfirmarPedido'
       },
       URL_CLIENTES = {
         GET_ALL: 'clientes/GetAllClientes'

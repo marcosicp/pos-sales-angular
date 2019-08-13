@@ -2,6 +2,7 @@ import { Component, OnInit, ViewChild, AfterViewInit, NgZone } from '@angular/co
 import { MatSort,MatDialog, MatTableDataSource, MatPaginator } from '@angular/material';
 import { SelectionModel } from '@angular/cdk/collections';
 import { Venta } from '../../shared/models/venta.model';
+import { NavigationExtras, Router } from '@angular/router';
 import { DataService } from '../../core/services/data.service';
 import { ProductoPedido } from '../../shared/models/producto-venta.model';
 import { DialogVerItemsPedidoComponent } from '../../dialogs/dialog-ver-items-venta/dialog-ver-items-venta.component';
@@ -26,7 +27,7 @@ export class HistorialComponent implements OnInit {
   dataSource: MatTableDataSource<Venta>;
   selection = new SelectionModel<Venta>(true, []);
 
-  constructor(private comerciosService: DataService, public dialog: MatDialog) {
+  constructor(private router: Router, private comerciosService: DataService, public dialog: MatDialog) {
     this.isLoading = true;
   }
 
@@ -42,6 +43,14 @@ export class HistorialComponent implements OnInit {
       }
     );
   }
+
+  public onTap(element: Venta) {
+    debugger;
+    let navigationExtras: NavigationExtras = {
+        queryParams: { pedido: JSON.stringify(element)} 
+    };
+    this.router.navigate(["confirmacion"], navigationExtras);
+}
 
   verItems(item){
     const dialogRef = this.dialog.open(DialogVerItemsPedidoComponent, { width: '900px',data:{ item } });
