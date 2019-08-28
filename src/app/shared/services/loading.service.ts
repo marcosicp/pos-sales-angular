@@ -4,11 +4,9 @@ import { Injectable } from '@angular/core';
   providedIn: 'root'
 })
 export class LoadingService {
-  public _loading = false;
+  public showLoading = false;
 
-  setLoading(): void {
-    console.warn(this._loading);
-    this._loading = !this._loading;
-    console.warn(this._loading);
+  toggleLoading(): void {
+    this.showLoading = !this.showLoading;
   }
 }

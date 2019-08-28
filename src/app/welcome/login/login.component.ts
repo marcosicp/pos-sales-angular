@@ -32,10 +32,10 @@ export class LoginComponent implements OnInit {
   ngOnInit() { }
 
   userLogin(email, password) {
-    this.loadingService.setLoading();
+    this.loadingService.toggleLoading();
     this.authService.emailLogin(email, password).subscribe(
       user => {
-        this.loadingService.setLoading();
+        this.loadingService.toggleLoading();
         if (!user || user.email === null || user.email === '') {
           this.success = false;
         } else {
