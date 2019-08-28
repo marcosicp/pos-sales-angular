@@ -1,7 +1,11 @@
 // import { Item } from './item';
 
 export class Clientes {
-  _id: string;
+  id: string;
+
+  //ESTA PROPERTY ES SOLO PARA EL SELECT DE CLIENTES
+  displayName: String;
+
   descripcion: String;
   cuit: String;
   razonsocial: String;

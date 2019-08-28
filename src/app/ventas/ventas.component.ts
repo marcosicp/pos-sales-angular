@@ -1,19 +1,20 @@
 import { Component, OnInit, ViewChild, AfterViewInit, NgZone } from '@angular/core';
 import { MatSort,MatDialog, MatTableDataSource, MatPaginator } from '@angular/material';
+import { Venta } from '../shared/models/venta.model';
+import { ProductoPedido } from '../shared/models/producto-venta.model';
+import { URL_VENTAS } from '../shared/configs/urls.config';
 import { SelectionModel } from '@angular/cdk/collections';
-import { Venta } from '../../shared/models/venta.model';
-import { NavigationExtras, Router } from '@angular/router';
-import { DataService } from '../../core/services/data.service';
-import { ProductoPedido } from '../../shared/models/producto-venta.model';
-import { DialogVerItemsPedidoComponent } from '../../dialogs/dialog-ver-items-venta/dialog-ver-items-venta.component';
-import { URL_PEDIDOS } from '../../shared/configs/urls.config';
+import { Router, NavigationExtras } from '@angular/router';
+import { DataService } from '../core/services/data.service';
+import { DialogVerItemsPedidoComponent } from '../dialogs/dialog-ver-items-venta/dialog-ver-items-venta.component';
 
 @Component({
-  selector: 'app-historial',
-  templateUrl: './historial.component.html',
-  styleUrls: ['./historial.component.scss']
+  selector: 'app-ventas',
+  templateUrl: './ventas.component.html',
+  styleUrls: ['./ventas.component.scss']
 })
-export class HistorialComponent implements OnInit {
+export class VentasComponent implements OnInit {
+
   private zone: NgZone;
   ventas: Venta[];
   total: number;
@@ -32,8 +33,9 @@ export class HistorialComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.comerciosService.getAsync(URL_PEDIDOS.GET_ALL, this.productosVenta).subscribe(
+    this.comerciosService.getAsync(URL_VENTAS.GET_ALL, this.productosVenta).subscribe(
       data => {
+        debugger;
         this.ventas = data;
         this.dataSource = new MatTableDataSource<Venta>();
         this.dataSource.data = this.ventas;

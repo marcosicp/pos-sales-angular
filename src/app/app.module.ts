@@ -17,6 +17,7 @@ import { DialogsModule } from './dialogs/dialogs.module';
 import { WelcomeModule } from './welcome/welcome.module';
 import { SharedModule } from './shared/shared.module';
 import { ServiceWorkerModule } from '@angular/service-worker';
+import { NgSelectModule } from '@ng-select/ng-select';
 // IMPORTAR SERVICIOS
 // IMPORTAR APP COMPONENT
 import { AppComponent } from './app.component';
@@ -25,6 +26,7 @@ import { PageNotFoundComponent } from './page-not-found/page-not-found.component
 import { NavComponent } from './nav/nav.component';
 import { LoadingScreenComponent } from './shared/components/loading-screen/loading-screen.component';
 import { ConfirmacionComponent } from './home/confirmacion/confirmacion.component';
+import { VentasComponent } from './ventas/ventas.component';
 
 @NgModule({
   declarations: [
@@ -33,6 +35,7 @@ import { ConfirmacionComponent } from './home/confirmacion/confirmacion.componen
     LoadingScreenComponent,
     PageNotFoundComponent,
     ConfirmacionComponent,
+    VentasComponent,
   ],
   imports: [
     AppRoutingModule,
@@ -50,6 +53,7 @@ import { ConfirmacionComponent } from './home/confirmacion/confirmacion.componen
     DialogsModule,
     WelcomeModule,
     SharedModule,
+    NgSelectModule,
     ServiceWorkerModule.register('/ngsw-worker.js', { enabled: environment.production })
   ],
   providers: [],

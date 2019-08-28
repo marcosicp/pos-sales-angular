@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { NgSelectConfig } from '@ng-select/ng-select';
 import { Observable, throwError, of } from 'rxjs';
 import { retry, catchError } from 'rxjs/operators';
 import { Productos } from '../../shared/models/producto.model';
@@ -24,6 +25,7 @@ import { URL_CLIENTES } from '../../shared/configs/urls.config';
 })
 export class TicketComponent implements OnInit {
   clientes: Clientes[];
+  // selectedClienteId = String;
   clientesResponse: Clientes[] = [];
   ticket: Productos[] = [];
 
@@ -33,15 +35,24 @@ export class TicketComponent implements OnInit {
   productosPedido: ProductoPedido[] = [];
   total = 0;
   pesoTotal = 0;
-  clienteId = "";
+  clienteId;
   usuario : Usuarios;
-  constructor(private authService: AuthService, private ticketSync: PosService, private dataService: DataService, public dialog: MatDialog) { }
 
-  // Sync with ticketSync service on init
+  constructor(private config: NgSelectConfig, private ticketSync: PosService, private dataService: DataService, public dialog: MatDialog) {
+// debugger;
+//     this.config.notFoundText = 'Custom not found';
+   }
+
   ngOnInit() {
     this.dataService.getAsync(URL_CLIENTES.GET_ALL, this.clientesResponse).subscribe(
       data => {
         this.clientes = data;
+        this.clientes.forEach(unCliente => {
+          unCliente.displayName = unCliente.nombre + " " + unCliente.cuit;
+        });   
+
+
+        // debugger;
       },
       error => {
         const dialogRef = this.dialog.open(DialogSinConexionComponent, { width: '600px' });

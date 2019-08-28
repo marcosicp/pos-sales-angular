@@ -5,6 +5,7 @@ import { FormsModule } from '@angular/forms';
 import { AppRoutingModule } from '../core/app-routing.module';
 import { MaterialModule } from '../core/material.module';
 import { FlexLayoutModule } from '@angular/flex-layout';
+import { NgSelectModule } from '@ng-select/ng-select';
 // COMPONENTES
 import { HistorialComponent } from './historial/historial.component';
 import { ClientesComponent } from './clientes/clientes.component';
@@ -25,7 +26,8 @@ import { AdministracionComponent } from './administracion/administracion.compone
     MaterialModule,
     AppRoutingModule,
     FormsModule,
-    FlexLayoutModule
+    FlexLayoutModule,
+    NgSelectModule
   ],
   declarations: [
     HomeComponent,

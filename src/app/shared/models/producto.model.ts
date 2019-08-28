@@ -3,6 +3,7 @@ export class Productos {
     producto: string;
     codigo: string;
     idProducto: string;
+    imagenUrl: string;
     precioCompra: number;
     precioVenta: number;
     peso: number;

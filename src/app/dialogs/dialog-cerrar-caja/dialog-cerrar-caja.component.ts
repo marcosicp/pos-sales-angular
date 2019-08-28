@@ -60,7 +60,7 @@ export class DialogCerrarCajaComponent {
     this.cierreCaja.fechaMovimiento.setHours(this.cierreCaja.fechaMovimiento.getHours() - 3);
     this.cierreCaja.usuario = this.usuario;
 
-    this.comerciosService.createAsync('administracion/cerrarCajaMovimientos', this.cierreCaja, this.result).subscribe(
+    this.comerciosService.createAsync('movimientos/cerrarCaja', this.cierreCaja, this.result).subscribe(
       data => {
         const dialogRef = this.dialog.open(DialogOperacionOkComponent, { width: '600px' });
         dialogRef.afterClosed().subscribe(result => {

@@ -19,6 +19,7 @@ import { ReportsComponent } from '../home/reports/reports.component';
 import { HistorialComponent } from '../home/historial/historial.component';
 import { ClientesComponent } from '../home/clientes/clientes.component';
 import { ProveedoresComponent } from '../home/proveedores/proveedores.component';
+import { VentasComponent } from '../ventas/ventas.component';
 
 const appRoutes: Routes = [
   {
@@ -60,7 +61,7 @@ const appRoutes: Routes = [
     component: AdministracionComponent ,
     canActivate: [AuthGuard]
   }, {
-    path: 'historial',
+    path: 'pedidos',
     component: HistorialComponent ,
     canActivate: [AuthGuard]
   },  {
@@ -77,8 +78,8 @@ const appRoutes: Routes = [
       }
     ]
   }, {
-    path: 'reports',
-    component: ReportsComponent,
+    path: 'ventas',
+    component: VentasComponent,
     canActivate: [AuthGuard]
   }, {
     path: '**',

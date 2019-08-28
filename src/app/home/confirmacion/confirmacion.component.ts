@@ -19,25 +19,9 @@ export class ConfirmacionComponent implements OnInit {
   ventas= new Venta();
 
   constructor(private route: ActivatedRoute, private router: Router, private dataService: DataService) { 
-    debugger;
     this.route.queryParams.subscribe(params => {
-      debugger;
       this.ventas = JSON.parse(params.pedido);
-      this.ventas.id = params['id'];
-      this.ventas.creado = params['creado'];
-      this.ventas.total = params['total'];
-      this.ventas.pesoTotal = params['pesoTotal'];
-      this.ventas.estado = params['estado'];
-      this.ventas.clienteId = params['clienteId'];
-      this.ventas.usuario = params['usuario'];
-      this.ventas.fechaVenta = params['fechaPedido'];
-      this.ventas.imagenUrl = params['imagenUrl'];
-      debugger;
-      this.ventas.productosVenta = params['productosPedidos'];
-
-   
     })
-
   }
 
   ngOnInit() {
