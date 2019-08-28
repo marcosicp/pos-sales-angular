@@ -9,7 +9,6 @@ const isProd = true,
       URL_PRODUCTOS = {
         HOME: 'productos',
         GET_ALL: 'productos/GetAllProductos'
-        
       },
       URL_ADMIN = {
         ULTIMA_APERTURA: 'movimientos/AperturaInicialCaja',

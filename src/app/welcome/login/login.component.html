@@ -1,24 +1,21 @@
 <div class="add-padding flex flex-direction-row align-items-center justify-center container">
   <mat-card>
-    <mat-card-title>Login</mat-card-title>
+    <mat-card-title>Ingreso al sistema</mat-card-title>
 
     <mat-card-content>
       <form class="login-form">
         <mat-form-field>
-          <input matInput #email placeholder="Email" type="email" [formControl]="emailFormControl">
-          <!-- <mat-error *ngIf="emailFormControl.hasError('pattern')">
-            Por favor ingresar password valido
-          </mat-error> -->
+          <input matInput #email placeholder="usuario" type="text" [formControl]="emailFormControl">
         </mat-form-field>
         <mat-form-field>
-          <input matInput #password placeholder="Password" type="password">
+          <input matInput #password placeholder="contraseña" type="password" (keyup.enter)="userLogin(email.value, password.value)">
         </mat-form-field>
         <mat-error class="error" *ngIf="!success">
-          Combinacion invalidad de usuario y constrasenia
+          Usuario y/o constraseña inválidos
         </mat-error>
-        <p routerLink="/resetpassword" class="reset error">Olvide la contrasenia?</p>
+        <p routerLink="/resetpassword" class="reset error">¿Olvidaste la contraseña?</p>
       </form>
-      <button mat-raised-button (click)="userLogin(email.value, password.value)">Login</button>
+      <button mat-raised-button (click)="userLogin(email.value, password.value)">Entrar</button>
     </mat-card-content>
   </mat-card>
 </div>
