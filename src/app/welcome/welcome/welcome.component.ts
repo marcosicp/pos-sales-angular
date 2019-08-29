@@ -18,7 +18,7 @@ export class WelcomeComponent implements OnInit {
   constructor( private dialog: MatDialog, private comerciosService: DataService) {
     this.comerciosService.getAsync('movimientos/EstadoCaja', this.result).subscribe(
       data => {
-        if(data[0]==true){
+        if(data[0]){
           this.estadoCaja.estado = "ABIERTA";
         }
       },

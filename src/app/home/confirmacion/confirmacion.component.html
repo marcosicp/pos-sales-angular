@@ -33,7 +33,8 @@
           <input id="upload" class="file-upload__input" type="file" name="file-upload" accept="image/*" (change)="detectFiles($event)">
 
           <div class="flex flex-direction-row product-image-section">
-            <img [src]="ventas.imagenUrl"  style="width:250px;height:200px">
+            <img *ngIf="ventas.imagenUrl != null" [src]="ventas.imagenUrl"  style="width:250px;height:200px">
+            
           </div>
         </div>
     </mat-card-content>

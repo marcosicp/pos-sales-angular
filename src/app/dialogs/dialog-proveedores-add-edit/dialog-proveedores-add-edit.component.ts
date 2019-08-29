@@ -21,20 +21,20 @@ export class DialogProveedoresAddEditComponent implements OnInit {
      public dialogRef: MatDialogRef<DialogCerrarCajaComponent>, private comerciosService: DataService) { }
 
   ngOnInit() {
-
     
   }
 
   guardarProveedor() {
     this.comerciosService.createAsync('proveedores/AddProveedor', this.proveedor, this.result).subscribe(
       data => {
-        ;
+        
         const dialogRef = this.dialog.open(DialogOperacionOkComponent, { width: '600px' });
         dialogRef.afterClosed().subscribe(result => {
 
         });
-
-        this.dialogRef.close();
+        
+        debugger;
+        this.dialogRef.close(data[0]);
       },
       error => {
         const dialogRef = this.dialog.open(DialogSinConexionComponent, { width: '600px' });

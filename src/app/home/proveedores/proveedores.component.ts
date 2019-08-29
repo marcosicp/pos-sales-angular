@@ -4,9 +4,9 @@ import { SelectionModel } from '@angular/cdk/collections';
 import { Venta } from '../../shared/models/venta.model';
 import { Proveedores } from '../../shared/models/proveedores.model';
 import { DataService } from '../../core/services/data.service';
-import { ProductoPedido } from '../../shared/models/producto-venta.model';
 import { DialogProveedoresAddEditComponent } from '../../dialogs/dialog-proveedores-add-edit/dialog-proveedores-add-edit.component';
 import { URL_PROVEEDORES } from '../../shared/configs/urls.config';
+import { DialogConfirmarComponent } from '../../dialogs/dialog-confirmar/dialog-confirmar.component';
 
 @Component({
   selector: 'app-proveedores',
@@ -15,7 +15,7 @@ import { URL_PROVEEDORES } from '../../shared/configs/urls.config';
 })
 export class ProveedoresComponent implements OnInit, AfterViewInit {
   private zone: NgZone;
-  ventas: Venta[];
+  // proveedores: Proveedores[];
   total: number;
   proveedores: Proveedores[] = [];
 
@@ -24,8 +24,8 @@ export class ProveedoresComponent implements OnInit, AfterViewInit {
 
   isLoading: boolean;
   displayedColumns: string[] = [ 'nombre', 'telefono', 'razonSocial', 'direccion','eliminar', 'editar'];
-  dataSource: MatTableDataSource<Venta>;
-  selection = new SelectionModel<Venta>(true, []);
+  dataSource: MatTableDataSource<Proveedores>;
+  selection = new SelectionModel<Proveedores>(true, []);
 
   constructor(private comerciosService: DataService, public dialog: MatDialog) {
     this.isLoading = true;
@@ -34,10 +34,9 @@ export class ProveedoresComponent implements OnInit, AfterViewInit {
   ngOnInit() {
     this.comerciosService.getAsync(URL_PROVEEDORES.GET_ALL, this.proveedores).subscribe(
       data => {
-        ;
-        this.ventas = data;
-        this.dataSource = new MatTableDataSource<Venta>();
-        this.dataSource.data = this.ventas;
+        this.proveedores = data;
+        this.dataSource = new MatTableDataSource<Proveedores>();
+        this.dataSource.data = this.proveedores;
         this.dataSource.paginator = this.paginator;
         this.dataSource.sort = this.sort;
         this.isLoading = false;
@@ -55,28 +54,27 @@ export class ProveedoresComponent implements OnInit, AfterViewInit {
     });
 
     dialogRef.afterClosed().subscribe(result => {
-      this.comerciosService.createAsync('Productos/NuevoProducto', result, this.comerciosService.productos).subscribe(
-        next => {
-          this.isLoading = false;
-        },
-        error => {
-          console.log(error);
-          this.isLoading = false;
-        }
-      );
+   
     });
   }
 
-  isAllSelected() {
-    const numSelected = this.selection.selected.length;
-    const numRows = this.dataSource.data.length;
-    return numSelected === numRows;
-  }
+  eliminarProveedor(proveedor: Proveedores) {
+    const dialogRef = this.dialog.open(DialogConfirmarComponent, {
+      width: '900px', data: {title: "Eliminar Proveedor", confirmText: "Esta seguro que desear eliminar este proveedor?"} 
+    });
 
-  masterToggle() {
-    this.isAllSelected()
-      ? this.selection.clear()
-      : this.dataSource.data.forEach(row => this.selection.select(row));
+    dialogRef.afterClosed().subscribe(result => {
+      if(result){
+        this.comerciosService.deleteAsync(URL_PROVEEDORES.DELETE_PROVEEDOR, proveedor.id, this.proveedores).subscribe(
+          data => {
+              this.dataSource = new MatTableDataSource<Proveedores>();
+              this.dataSource.data = this.proveedores;
+              this.dataSource.paginator = this.paginator;
+              this.dataSource.sort = this.sort;
+              this.isLoading = false; 
+          }
+        );
+      }
+    });
   }
-
 }

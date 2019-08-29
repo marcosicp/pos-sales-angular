@@ -12,6 +12,7 @@ export class DataService {
   public productos: any[] = [];
   public pedidos: any[] = [];
   public usuarios: any[] = [];
+  public result: any[] = [];
 
   constructor(
     private http: HttpClient
@@ -55,6 +56,21 @@ export class DataService {
         const objectToUpdate = dataCollection.filter(x => x.id === object.id)[0];
         const objectIndex = dataCollection.indexOf(objectToUpdate);
         dataCollection[objectIndex] = object;
+
+        observer.next(result);
+        observer.complete();
+      });
+  })
+
+  deleteAsync = (uri: string, id: string, dataCollection: any[]) => Observable.create(observer => {
+    this.http.delete(`${URL_BASE}/${uri}/${id}`)
+      .subscribe(result => {
+        // TODO probar que esto funcione. Se asume que la primary key de las tablas sea 'id'
+        const objectToUpdate = dataCollection.filter(x => x.id === id)[0];
+        const objectIndex = dataCollection.indexOf(objectToUpdate);
+        dataCollection.splice(objectIndex, 1);
+        
+        //dataCollection[objectIndex] = object;
 
         observer.next(result);
         observer.complete();

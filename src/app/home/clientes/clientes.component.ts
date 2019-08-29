@@ -1,11 +1,11 @@
 import { Component, OnInit, ViewChild, AfterViewInit, NgZone } from '@angular/core';
 import { MatSort,MatDialog, MatTableDataSource, MatPaginator } from '@angular/material';
 import { SelectionModel } from '@angular/cdk/collections';
-import { Venta } from '../../shared/models/venta.model';
 import { DataService } from '../../core/services/data.service';
-import { ProductoPedido } from '../../shared/models/producto-venta.model';
 import { URL_CLIENTES } from '../../shared/configs/urls.config';
 import { DialogClienteAddEditComponent } from '../../dialogs/dialog-cliente-add-edit/dialog-cliente-add-edit.component';
+import { Clientes } from '../../shared/models/clientes.model';
+import { DialogConfirmarComponent } from '../../dialogs/dialog-confirmar/dialog-confirmar.component';
 
 @Component({
   selector: 'app-clientes',
@@ -14,29 +14,27 @@ import { DialogClienteAddEditComponent } from '../../dialogs/dialog-cliente-add-
 })
 export class ClientesComponent implements OnInit, AfterViewInit {
   private zone: NgZone;
-  ventas: Venta[];
   total: number;
-  productosVenta: ProductoPedido[] = [];
 
   @ViewChild(MatPaginator) paginator: MatPaginator;
   @ViewChild(MatSort) sort: MatSort;
 
   isLoading: boolean;
   displayedColumns: string[] = [ 'creado', 'activo', 'telefono', 'nombre', 'email', 'eliminar','editar'];
-  dataSource: MatTableDataSource<Venta>;
-  selection = new SelectionModel<Venta>(true, []);
+  dataSource: MatTableDataSource<Clientes>;
+  selection = new SelectionModel<Clientes>(true, []);
+  clientes: Clientes[] = [];
 
   constructor(private comerciosService: DataService, public dialog: MatDialog) {
     this.isLoading = true;
   }
 
   ngOnInit() {
-    this.comerciosService.getAsync(URL_CLIENTES.GET_ALL, this.productosVenta).subscribe(
+    this.comerciosService.getAsync(URL_CLIENTES.GET_ALL, this.clientes).subscribe(
       data => {
-        ;
-        this.ventas = data;
-        this.dataSource = new MatTableDataSource<Venta>();
-        this.dataSource.data = this.ventas;
+        this.clientes = data;
+        this.dataSource = new MatTableDataSource<Clientes>();
+        this.dataSource.data = this.clientes;
         this.dataSource.paginator = this.paginator;
         this.dataSource.sort = this.sort;
         this.isLoading = false;
@@ -45,7 +43,6 @@ export class ClientesComponent implements OnInit, AfterViewInit {
   }
 
   ngAfterViewInit() {
-    const self = this;
   }
 
 
@@ -55,28 +52,35 @@ export class ClientesComponent implements OnInit, AfterViewInit {
     });
 
     dialogRef.afterClosed().subscribe(result => {
-      this.comerciosService.createAsync('Productos/NuevoProducto', result, this.comerciosService.productos).subscribe(
-        next => {
-          this.isLoading = false;
-        },
-        error => {
-          console.log(error);
+      this.comerciosService.getAsync(URL_CLIENTES.GET_ALL, this.clientes).subscribe(
+        data => {
+          this.clientes = data;
+          
+          this.dataSource.data = this.clientes;
           this.isLoading = false;
         }
       );
     });
   }
 
-  isAllSelected() {
-    const numSelected = this.selection.selected.length;
-    const numRows = this.dataSource.data.length;
-    return numSelected === numRows;
-  }
+  eliminarCliente(cliente: Clientes) {
+    const dialogRef = this.dialog.open(DialogConfirmarComponent, {
+      width: '900px', data: {title: "Eliminar Cliente", confirmText: "Esta seguro que desear eliminar este cliente?"} 
+    });
 
-  masterToggle() {
-    this.isAllSelected()
-      ? this.selection.clear()
-      : this.dataSource.data.forEach(row => this.selection.select(row));
+    dialogRef.afterClosed().subscribe(result => {
+      if(result){
+        this.comerciosService.deleteAsync(URL_CLIENTES.DELETE_CLIENTE, cliente.id, this.clientes).subscribe(
+          data => {
+              this.dataSource = new MatTableDataSource<Clientes>();
+              this.dataSource.data = this.clientes;
+              this.dataSource.paginator = this.paginator;
+              this.dataSource.sort = this.sort;
+              this.isLoading = false; 
+          }
+        );
+      }
+    });
   }
 
 }

@@ -14,9 +14,10 @@ import { Upload } from '../../shared/models/upload.model';
 export class ConfirmacionComponent implements OnInit {
   
   currentUpload: Upload;
-  // imageUrl: string = "/assets/icon/nointernet.png";
+  // imagenUrl: string = "../../../assets/icons/nointernet.png";
   selectedFiles: FileList;
   ventas= new Venta();
+  result;
 
   constructor(private route: ActivatedRoute, private router: Router, private dataService: DataService) { 
     this.route.queryParams.subscribe(params => {
@@ -30,22 +31,17 @@ export class ConfirmacionComponent implements OnInit {
 
   detectFiles(event) {
     this.selectedFiles = event.target.files;
-
     var reader = new FileReader();
     reader.onload = (event: any) => {
       this.ventas.imagenUrl = event.target.result;
     }
-
     reader.readAsDataURL(this.selectedFiles.item(0));
   }
 
   confirmar() {
     // const file = this.selectedFiles.item(0);
     // this.currentUpload = new Upload(file);
-
-    
-    // this.ventas.imagenUrl = this.ve;
-
+    debugger;
     this.dataService.postAsync(URL_PEDIDOS.CONFIRMAR, this.ventas).subscribe(
       data => {
         

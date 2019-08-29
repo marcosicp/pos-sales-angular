@@ -1,6 +1,6 @@
 import BaseConfig from './base.config';
 
-const isProd = true,
+const isProd = false,
       URL_BASE = isProd ? BaseConfig.URL_PROD : BaseConfig.URL_LOCAL,
       URL_USER = {
         HOME: 'usuarios',
@@ -19,13 +19,15 @@ const isProd = true,
         CONFIRMAR: 'pedidos/ConfirmarPedido'
       },
       URL_CLIENTES = {
-        GET_ALL: 'clientes/GetAllClientes'
+        GET_ALL: 'clientes/GetAllClientes',
+        DELETE_CLIENTE: 'clientes/DeleteCliente',
       },
       URL_VENTAS = {
         GET_ALL: 'ventas/GetAllVentas'
       },
       URL_PROVEEDORES = {
-        GET_ALL: 'proveedores/GetAllProveedores'
+        GET_ALL: 'proveedores/GetAllProveedores',
+        DELETE_PROVEEDOR: 'proveedores/DeleteProveedor'
       };
 
 export {
