@@ -3,6 +3,7 @@ import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { MaterialModule } from '../core/material.module';
 import { FlexLayoutModule } from '@angular/flex-layout';
+import { NgbModalModule } from '@ng-bootstrap/ng-bootstrap';
 // IMPORTS
 import { DialogAbrirCajaComponent } from './dialog-abrir-caja/dialog-abrir-caja.component';
 import { DialogGestionarProductoComponent } from './dialog-gestionar-producto/dialog-gestionar-producto.component';
@@ -17,14 +18,15 @@ import { DialogSinConexionComponent } from './dialog-sin-conexion/dialog-sin-con
 import { DialogVerItemsPedidoComponent } from './dialog-ver-items-venta/dialog-ver-items-venta.component';
 import { DialogProveedoresAddEditComponent } from './dialog-proveedores-add-edit/dialog-proveedores-add-edit.component';
 import { DialogClienteAddEditComponent } from './dialog-cliente-add-edit/dialog-cliente-add-edit.component';
-
+import { DialogEditarEntregaComponent } from './dialog-editar-entrega/dialog-editar-entrega.component';
 
 @NgModule({
   imports: [
     CommonModule,
     FormsModule,
     MaterialModule,
-    FlexLayoutModule
+    FlexLayoutModule,
+    NgbModalModule
   ],
   declarations: [
     DialogAbrirCajaComponent,
@@ -38,6 +40,7 @@ import { DialogClienteAddEditComponent } from './dialog-cliente-add-edit/dialog-
     DialogOperacionOkComponent,
     DialogSinConexionComponent,
     DialogVerItemsPedidoComponent,
+    DialogEditarEntregaComponent,
     DialogProveedoresAddEditComponent,
     DialogClienteAddEditComponent
   ],
@@ -46,6 +49,7 @@ import { DialogClienteAddEditComponent } from './dialog-cliente-add-edit/dialog-
     DialogGestionarProductoComponent,
     DialogBuscarProductoComponent,
     DialogCajaCerradaComponent,
+    DialogEditarEntregaComponent,
     DialogCerrarCajaComponent,
     DialogConfirmarComponent,
     DialogEgresoCajaComponent,

@@ -18,6 +18,7 @@ import { WelcomeModule } from './welcome/welcome.module';
 import { SharedModule } from './shared/shared.module';
 import { ServiceWorkerModule } from '@angular/service-worker';
 import { NgSelectModule } from '@ng-select/ng-select';
+import { FlatpickrModule } from 'angularx-flatpickr';
 // IMPORTAR SERVICIOS
 // IMPORTAR APP COMPONENT
 import { AppComponent } from './app.component';
@@ -27,6 +28,11 @@ import { NavComponent } from './nav/nav.component';
 import { LoadingScreenComponent } from './shared/components/loading-screen/loading-screen.component';
 import { ConfirmacionComponent } from './home/confirmacion/confirmacion.component';
 import { VentasComponent } from './ventas/ventas.component';
+import { PactarEntregaComponent } from './pactar-entrega/pactar-entrega.component';
+import { AcopiosComponent } from './acopios/acopios.component';
+import { CalendarModule, DateAdapter } from 'angular-calendar';
+import { adapterFactory } from 'angular-calendar/date-adapters/date-fns';
+import { NgbModalModule } from '@ng-bootstrap/ng-bootstrap';
 
 @NgModule({
   declarations: [
@@ -36,6 +42,8 @@ import { VentasComponent } from './ventas/ventas.component';
     PageNotFoundComponent,
     ConfirmacionComponent,
     VentasComponent,
+    PactarEntregaComponent,
+    AcopiosComponent
   ],
   imports: [
     AppRoutingModule,
@@ -54,6 +62,12 @@ import { VentasComponent } from './ventas/ventas.component';
     WelcomeModule,
     SharedModule,
     NgSelectModule,
+    FlatpickrModule.forRoot(),
+    CalendarModule.forRoot({
+      provide: DateAdapter,
+      useFactory: adapterFactory
+    }),
+    NgbModalModule,
     ServiceWorkerModule.register('/ngsw-worker.js', { enabled: environment.production })
   ],
   providers: [],

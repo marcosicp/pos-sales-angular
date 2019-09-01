@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { NgSelectConfig } from '@ng-select/ng-select';
-import { Observable, throwError, of } from 'rxjs';
-import { retry, catchError } from 'rxjs/operators';
+import { Router, NavigationExtras } from '@angular/router';
 import { Productos } from '../../shared/models/producto.model';
 import { PosService } from '../../core/services/pos.service';
 import { DataService } from '../../core/services/data.service';
@@ -17,6 +16,7 @@ import { ProductoPedido } from '../../shared/models/producto-venta.model';
 import { DialogConfirmarComponent } from '../../dialogs/dialog-confirmar/dialog-confirmar.component';
 import { Clientes } from '../../shared/models/clientes.model';
 import { URL_CLIENTES } from '../../shared/configs/urls.config';
+import { Venta } from '../../shared/models/venta.model';
 
 @Component({
   selector: 'app-ticket',
@@ -37,9 +37,10 @@ export class TicketComponent implements OnInit {
   pesoTotal = 0;
   clienteId;
   usuario : Usuarios;
+  nuevoPedido :  Pedido;
 
-  constructor(private config: NgSelectConfig, private ticketSync: PosService, private dataService: DataService, public dialog: MatDialog) {
-// debugger;
+  constructor(private config: NgSelectConfig, private router: Router, private ticketSync: PosService, private dataService: DataService, public dialog: MatDialog) {
+//   
 //     this.config.notFoundText = 'Custom not found';
    }
 
@@ -52,7 +53,7 @@ export class TicketComponent implements OnInit {
         });   
 
 
-        // debugger;
+        //   
       },
       error => {
         const dialogRef = this.dialog.open(DialogSinConexionComponent, { width: '600px' });
@@ -196,45 +197,52 @@ export class TicketComponent implements OnInit {
         let prodsDesc = '';
         const dialogRef = this.dialog.open(DialogCajaCerradaComponent, { width: '900px' });
         dialogRef.afterClosed().subscribe(result => {
-            const nuevaPedido = new Pedido();
+            this.nuevoPedido = new Pedido();
             const ventaOk = [Pedido];
 
-            // nuevaPedido.usuarioVendio = this.usuario;
-            nuevaPedido.ProductosPedidos = this.ticket;
-            nuevaPedido.FechaPedido = new Date();
-            nuevaPedido.FechaPedido.setHours(nuevaPedido.FechaPedido.getHours() - 3)
-            nuevaPedido.Total = this.cartTotal;
-            nuevaPedido.Usuario = this.usuario.usuario.toString();
-            nuevaPedido.PesoTotal = this.cartPeso;
-            nuevaPedido.ClienteId = this.clienteId;
-            nuevaPedido.ImprimioTicket = true;
+            // nuevoPedido.usuarioVendio = this.usuario;
+            this.nuevoPedido.productosPedidos = this.ticket;
+            this.nuevoPedido.fechaPedido = new Date();
+            this.nuevoPedido.fechaPedido.setHours(this.nuevoPedido.fechaPedido.getHours() - 3)
+            this.nuevoPedido.total = this.cartTotal;
+            this.nuevoPedido.usuario = this.usuario.usuario.toString();
+            this.nuevoPedido.pesoTotal = this.cartPeso;
+            this.nuevoPedido.clienteId = this.clienteId;
+            this.nuevoPedido.imprimioTicket = true;
 
           if (result === true) {
             // Guardar venta
-            this.dataService.createAsync('pedidos/AddPedido', nuevaPedido, ventaOk).subscribe(
+            this.dataService.createAsync('pedidos/AddPedido',this.nuevoPedido, ventaOk).subscribe(
               data => {
-                ;
+                this.nuevoPedido = data[1];
                 const dialogRef = this.dialog.open(DialogOperacionOkComponent, { width: '600px' });
                 dialogRef.afterClosed().subscribe(result => {
-                  // Imprimir ticket
+                  
                 this.resetear();
                 this.clearCart();
-                // this.openSnackBar('Imprimiendo ticket!', 'Aguarde');
+
+                var venta = new Venta;
+                
+                Object.keys(this.nuevoPedido).forEach(key=>venta[key]=this.nuevoPedido[key]);
+                  
+                let navigationExtras: NavigationExtras = {
+                  queryParams: { pedido: JSON.stringify(venta)} 
+                };
+
+                this.router.navigate(['confirmacion'], navigationExtras)
+
                 });
               },
               error => {
-                ;
                 const dialogRef = this.dialog.open(DialogSinConexionComponent, { width: '600px' });
                 dialogRef.afterClosed().subscribe(result => {
-                  ;        
-      
                 });
               }
             );
           } else if (result === false) {
             // Guardar venta sin ticket
-            nuevaPedido.ImprimioTicket = false;
-              this.dataService.createAsync('pedidos/AddPedido', nuevaPedido, ventaOk).subscribe(
+            this.nuevoPedido.imprimioTicket = false;
+              this.dataService.createAsync('pedidos/AddPedido', this.nuevoPedido, ventaOk).subscribe(
                 data => {
                   const dialogRef = this.dialog.open(DialogOperacionOkComponent, { width: '600px' });
                   dialogRef.afterClosed().subscribe(result => {

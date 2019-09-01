@@ -196,11 +196,11 @@ export class PosComponent implements OnInit {
           const ventaOk = [Pedido];
 
           // nuevaPedido.usuarioVendio = this.usuario;
-          nuevaPedido.ProductosPedidos = this.productosPedido;
-          nuevaPedido.FechaPedido = new Date();
-          nuevaPedido.FechaPedido.setHours(nuevaPedido.FechaPedido.getHours() - 3)
-          nuevaPedido.Total = this.total;
-          nuevaPedido.ImprimioTicket = true;
+          nuevaPedido.productosPedidos = this.productosPedido;
+          nuevaPedido.fechaPedido = new Date();
+          nuevaPedido.fechaPedido.setHours(nuevaPedido.fechaPedido.getHours() - 3)
+          nuevaPedido.total = this.total;
+          nuevaPedido.imprimioTicket = true;
 
         if (result === true) {
           // Guardar venta
@@ -223,7 +223,7 @@ export class PosComponent implements OnInit {
           );
         } else if (result === false) {
           // Guardar venta sin ticket
-          nuevaPedido.ImprimioTicket = false;
+          nuevaPedido.imprimioTicket = false;
           this.dataService.createAsync('ventas', nuevaPedido, ventaOk).subscribe(
             data => {
               const dialogRef = this.dialog.open(DialogOperacionOkComponent, { width: '600px' });

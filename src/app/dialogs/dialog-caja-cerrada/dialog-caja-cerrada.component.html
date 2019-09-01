@@ -9,7 +9,7 @@
           </mat-card>
         </mat-grid-tile> -->
         <mat-grid-tile>
-          <mat-card class="module-card" (click)="cerrarSinTicket()" fxLayout="column" fxLayoutAlign="center center">
+          <mat-card class="module-card" (click)="cerrarChecke()" fxLayout="column" fxLayoutAlign="center center">
             <mat-icon class="module-icon">report_off</mat-icon>
             <h1 class="module-title">Cheque</h1>
           </mat-card>
@@ -21,7 +21,7 @@
           </mat-card>
         </mat-grid-tile> -->
         <mat-grid-tile *ngIf="!show">
-          <mat-card class="module-card"  fxLayout="column" fxLayoutAlign="center center">
+          <mat-card class="module-card"  fxLayout="column" (click)="cerrarEfectivo()" fxLayoutAlign="center center">
             <mat-icon class="module-icon">money-bill-alt</mat-icon>
             <h1 class="module-title">Efectivo</h1>
           </mat-card>

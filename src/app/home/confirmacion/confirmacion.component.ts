@@ -21,6 +21,7 @@ export class ConfirmacionComponent implements OnInit {
 
   constructor(private route: ActivatedRoute, private router: Router, private dataService: DataService) { 
     this.route.queryParams.subscribe(params => {
+        
       this.ventas = JSON.parse(params.pedido);
     })
   }
@@ -41,12 +42,12 @@ export class ConfirmacionComponent implements OnInit {
   confirmar() {
     // const file = this.selectedFiles.item(0);
     // this.currentUpload = new Upload(file);
-    debugger;
+      
     this.dataService.postAsync(URL_PEDIDOS.CONFIRMAR, this.ventas).subscribe(
       data => {
         
         // this.test = data;
-        debugger;
+          
         this.selectedFiles = null;
 
       },

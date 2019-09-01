@@ -6,7 +6,7 @@ import { AppRoutingModule } from '../core/app-routing.module';
 import { ItemsComponent } from './items/items.component';
 import { UsersComponent } from './users/users.component';
 import { AdminComponent } from './admin/admin.component';
-
+import { NgbModalModule } from '@ng-bootstrap/ng-bootstrap';
 import {MatIconModule, MatButtonModule, MatCardModule, MatExpansionModule,
 MatInputModule, MatSelectModule, MatCheckboxModule} from '@angular/material';
 
@@ -23,6 +23,7 @@ import { ParseUserRolePipe } from '../shared/pipes/parse-user-role.pipe';
     MatButtonModule,
     MatInputModule,
     MatSelectModule,
+    NgbModalModule,
     MatCheckboxModule
   ],
   declarations: [

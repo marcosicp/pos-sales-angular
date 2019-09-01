@@ -11,7 +11,7 @@
           <input matInput #password placeholder="contraseña" type="password" (keyup.enter)="userLogin(email.value, password.value)">
         </mat-form-field>
         <mat-error class="error" *ngIf="!success">
-          Usuario y/o constraseña inválidos
+          usuario y/o constraseña inválidos
         </mat-error>
         <p routerLink="/resetpassword" class="reset error">¿Olvidaste la contraseña?</p>
       </form>

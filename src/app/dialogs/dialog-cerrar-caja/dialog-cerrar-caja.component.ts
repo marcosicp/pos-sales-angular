@@ -29,7 +29,7 @@ export class DialogCerrarCajaComponent {
 
     this.comerciosService.getAsync(URL_ADMIN.ULTIMA_APERTURA, this.aperturaArr).subscribe(
       data1 => {
-        debugger;
+          
         // this.apertura = data1[0];
         this.apertura.monto = data1[0];
         this.comerciosService.getAsync(URL_ADMIN.CERRAR_CAJA, this.result).subscribe(

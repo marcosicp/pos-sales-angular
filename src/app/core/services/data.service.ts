@@ -35,7 +35,7 @@ export class DataService {
       .subscribe(result => {
         // TODO result deberia traer el id del nuevo objeto insertado
         // object['id] = result.id;
-        dataCollection.push(object);
+        dataCollection.push(result[0]);
         observer.next(dataCollection);
         observer.complete();
       });

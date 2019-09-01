@@ -1,5 +1,8 @@
 <app-notification></app-notification>
 <div class="container">
+  <mat-card class="module-card" routerLink="/agenda" fxLayout="column">
+    <h1 class="module-title">Agenda</h1>
+  </mat-card>
   <mat-grid-list cols="4" rowHeight="8:7">
     <mat-grid-tile>
       <mat-card class="module-card" *ngIf="verEstado(); else notShow" routerLink="/home" fxLayout="column">

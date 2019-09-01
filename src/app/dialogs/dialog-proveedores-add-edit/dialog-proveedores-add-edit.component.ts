@@ -33,7 +33,7 @@ export class DialogProveedoresAddEditComponent implements OnInit {
 
         });
         
-        debugger;
+          
         this.dialogRef.close(data[0]);
       },
       error => {

@@ -20,7 +20,7 @@ export class UsersComponent implements OnInit {
 
   users: Usuarios[];
   // usuarios: Usuarios[];
-  roles = ['Usuario', 'Admin'];
+  roles = ['usuario', 'Admin'];
 
   constructor(
     private dataService: DataService,

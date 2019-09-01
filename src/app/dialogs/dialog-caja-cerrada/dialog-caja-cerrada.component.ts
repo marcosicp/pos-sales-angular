@@ -14,11 +14,11 @@ export class DialogCajaCerradaComponent {
   claveSocios = 9632147;
   claveInput;
 
-  cerrarConTicket() {
+  cerrarChecke() {
     this.dialogRef.close(true);
   }
 
-  cerrarSinTicket() {
+  cerrarEfectivo() {
     this.dialogRef.close(false);
   }
 
@@ -26,11 +26,11 @@ export class DialogCajaCerradaComponent {
     this.show = true;
   }
 
-  cerrarSocios() {
-    if (this.claveSocios === this.claveInput) {
-      this.dialogRef.close('socios');
-    }
-  }
+  // cerrarSocios() {
+  //   if (this.claveSocios === this.claveInput) {
+  //     this.dialogRef.close('socios');
+  //   }
+  // }
 
   /** Whether the number of selected elements matches the total number of rows. */
   selectRow(row) {

@@ -20,6 +20,7 @@ import { HistorialComponent } from '../home/historial/historial.component';
 import { ClientesComponent } from '../home/clientes/clientes.component';
 import { ProveedoresComponent } from '../home/proveedores/proveedores.component';
 import { VentasComponent } from '../ventas/ventas.component';
+import { PactarEntregaComponent } from '../pactar-entrega/pactar-entrega.component';
 
 const appRoutes: Routes = [
   {
@@ -39,6 +40,11 @@ const appRoutes: Routes = [
   }, {
     path: 'home',
     component: HomeComponent ,
+    canActivate: [AuthGuard]
+  },
+  {
+    path: 'agenda',
+    component: PactarEntregaComponent ,
     canActivate: [AuthGuard]
   },
   {

@@ -35,7 +35,7 @@ export class VentasComponent implements OnInit {
   ngOnInit() {
     this.comerciosService.getAsync(URL_VENTAS.GET_ALL, this.productosVenta).subscribe(
       data => {
-        debugger;
+          
         this.ventas = data;
         this.dataSource = new MatTableDataSource<Venta>();
         this.dataSource.data = this.ventas;
