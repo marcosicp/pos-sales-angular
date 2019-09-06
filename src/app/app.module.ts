@@ -15,6 +15,7 @@ import { HomeModule } from './home/home.module';
 import { AdminModule } from './admin/admin.module';
 import { DialogsModule } from './dialogs/dialogs.module';
 import { WelcomeModule } from './welcome/welcome.module';
+import { StockModule } from './stock/stock.module';
 import { SharedModule } from './shared/shared.module';
 import { ServiceWorkerModule } from '@angular/service-worker';
 import { NgSelectModule } from '@ng-select/ng-select';
@@ -48,11 +49,12 @@ import { VentasComponent } from './ventas/ventas.component';
     FlexLayoutModule,
     MaterialModule,
     CoreModule,
+    SharedModule,
     HomeModule,
     AdminModule,
     DialogsModule,
     WelcomeModule,
-    SharedModule,
+    StockModule,
     NgSelectModule,
     ServiceWorkerModule.register('/ngsw-worker.js', { enabled: environment.production })
   ],

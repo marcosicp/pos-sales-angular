@@ -1,4 +1,3 @@
-
 <div class="card-container mat-elevation-z8">
     <mat-card class="mat-elevation-z" style="box-shadow: 0px">
       <h1 style="text-align: center; font-size: 210%" >Pedidos</h1>
@@ -20,9 +19,9 @@
     <mat-spinner></mat-spinner>
   </div>
 
-    <table class="mat-elevation-z8 align-middle"  style="line-height: 60px" mat-table [dataSource]="dataSource" 
+    <table class="mat-elevation-z8 align-middle"  style="line-height: 60px" mat-table [dataSource]="dataSource"
           matSort matSortActive="fechaVenta" matSortDirection="desc">
-     
+
       <ng-container matColumnDef="creado" class="align-middle">
         <th mat-header-cell *matHeaderCellDef mat-sort-header class="align-middle"> Fecha Pedido </th>
         <td mat-cell *matCellDef="let element" class="align-middle"> {{element.creado | date:'medium'}} </td>

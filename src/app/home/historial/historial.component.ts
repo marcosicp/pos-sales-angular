@@ -1,5 +1,5 @@
-import { Component, OnInit, ViewChild, AfterViewInit, NgZone } from '@angular/core';
-import { MatSort,MatDialog, MatTableDataSource, MatPaginator } from '@angular/material';
+import { Component, OnInit, ViewChild, NgZone } from '@angular/core';
+import { MatSort, MatDialog, MatTableDataSource, MatPaginator } from '@angular/material';
 import { SelectionModel } from '@angular/cdk/collections';
 import { Venta } from '../../shared/models/venta.model';
 import { NavigationExtras, Router } from '@angular/router';
@@ -27,7 +27,10 @@ export class HistorialComponent implements OnInit {
   dataSource: MatTableDataSource<Venta>;
   selection = new SelectionModel<Venta>(true, []);
 
-  constructor(private router: Router, private comerciosService: DataService, public dialog: MatDialog) {
+  constructor(
+    private router: Router,
+    private comerciosService: DataService,
+    public dialog: MatDialog) {
     this.isLoading = true;
   }
 
@@ -46,9 +49,9 @@ export class HistorialComponent implements OnInit {
 
   public onTap(element: Venta) {
     let navigationExtras: NavigationExtras = {
-        queryParams: { pedido: JSON.stringify(element)} 
+        queryParams: { pedido: JSON.stringify(element)}
     };
-    
+
     this.router.navigate(["confirmacion"], navigationExtras);
   }
 

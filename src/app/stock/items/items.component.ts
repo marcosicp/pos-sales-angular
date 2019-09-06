@@ -1,6 +1,8 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { DataService } from '../../core/services/data.service';
 import { URL_PRODUCTOS } from '../../shared/configs/urls.config';
+import { Productos } from '../../shared/models/producto.model';
+import { MatTableDataSource } from '@angular/material';
 
 @Component({
   selector: 'app-items',
@@ -8,40 +10,39 @@ import { URL_PRODUCTOS } from '../../shared/configs/urls.config';
   styleUrls: ['./items.component.scss']
 })
 export class ItemsComponent implements OnInit {
-  test = [];
-  productTypes = ['Drink', 'Food'];
   addItemActive = false;
-
-  newItemPrice: number;
-  newItemName: string;
-  newItemType: string;
-
-  products = [];
-
-  food;
-  drink;
   selectedFiles: FileList;
   // currentUpload: Upload;
+  dataSource: MatTableDataSource<Productos>;
+  isLoading: boolean;
+  displayedColumns: string[];
+  mainTitle: string = 'Productos';
 
   constructor(
     private dataService: DataService
-  ) { }
+  ) {
+    this.isLoading = true;
+  }
 
   ngOnInit() {
-    this.dataService.getAsync(URL_PRODUCTOS.GET_ALL, this.test).subscribe(
+    this.dataService.getAsync(URL_PRODUCTOS.GET_ALL, []).subscribe(
       data => {
-        this.test = data;
+        this.dataSource = new MatTableDataSource<Productos>();
+        this.dataSource.data = data;
+        this.displayedColumns = this.test(data[0]);
+        this.isLoading = false;
       },
       error => {
         console.log(error);
+        this.isLoading = false;
       }
     );
   }
 
   addItemToggle() {
-    this.newItemPrice = null;
-    this.newItemName = null;
-    this.newItemType = null;
+    // this.newItemPrice = null;
+    // this.newItemName = null;
+    // this.newItemType = null;
     if (this.addItemActive === true) {
       this.addItemActive = false;
     } else {
@@ -53,9 +54,9 @@ export class ItemsComponent implements OnInit {
     const file = this.selectedFiles.item(0);
     // this.currentUpload = new Upload(file);
     // this.db.pushUpload(this.newItemName, this.newItemPrice, this.newItemType, this.currentUpload);
-    this.newItemName = null;
-    this.newItemPrice = null;
-    this.newItemType = null;
+    // this.newItemName = null;
+    // this.newItemPrice = null;
+    // this.newItemType = null;
     this.selectedFiles = null;
   }
 
@@ -64,9 +65,9 @@ export class ItemsComponent implements OnInit {
   }
 
   updateItem(id, name, price, item_type) {
-    this.newItemName = name;
-    this.newItemPrice = Number(price);
-    this.newItemType = item_type;
+    // this.newItemName = name;
+    // this.newItemPrice = Number(price);
+    // this.newItemType = item_type;
     // this.db.updateItem(id, {
     //   name: this.newItemName,
     //   price: this.newItemPrice,
@@ -76,6 +77,20 @@ export class ItemsComponent implements OnInit {
 
   deleteItem(id, type, img) {
     // this.db.deleteItem(id, type, img);
+  }
+
+  test(wordList: string[]): string[] {
+    const data = Object.keys(wordList);
+
+    data.forEach(
+      (word, i) => {
+        if (word === 'id') {
+          data.splice(i, 1);
+        }
+      }
+    );
+
+    return data;
   }
 
 }
