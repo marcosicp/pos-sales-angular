@@ -4,6 +4,7 @@ import { Clientes } from './clientes.model';
 
 export class Venta {
     id: string;
+    codigo: string;
     productosVenta: ProductoPedido[];
     pedido: Pedido;
     total: number;

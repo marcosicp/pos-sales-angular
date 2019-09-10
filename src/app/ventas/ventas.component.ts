@@ -7,6 +7,7 @@ import { SelectionModel } from '@angular/cdk/collections';
 import { Router, NavigationExtras } from '@angular/router';
 import { DataService } from '../core/services/data.service';
 import { DialogVerItemsPedidoComponent } from '../dialogs/dialog-ver-items-venta/dialog-ver-items-venta.component';
+import { debug } from 'util';
 
 @Component({
   selector: 'app-ventas',
@@ -35,7 +36,6 @@ export class VentasComponent implements OnInit {
   ngOnInit() {
     this.comerciosService.getAsync(URL_VENTAS.GET_ALL, this.productosVenta).subscribe(
       data => {
-          
         this.ventas = data;
         this.dataSource = new MatTableDataSource<Venta>();
         this.dataSource.data = this.ventas;
@@ -46,12 +46,11 @@ export class VentasComponent implements OnInit {
     );
   }
 
-  public onTap(element: Venta) {
+  onTap(element: Venta) {
     let navigationExtras: NavigationExtras = {
         queryParams: { pedido: JSON.stringify(element)} 
     };
-    
-    this.router.navigate(["confirmacion"], navigationExtras);
+    this.router.navigate(["agenda"], navigationExtras);
   }
 
   verItems(item){

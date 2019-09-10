@@ -1,74 +1,119 @@
-<div class="row text-center">
-    <div class="col-md-4">
-      <div class="btn-group">
-        <button mat-button
-          class="btn btn-primary"
-          mwlCalendarPreviousView
-          [view]="view"
-          [(viewDate)]="viewDate"
-          (viewDateChange)="closeOpenMonthViewDay()"
-        >
-          Previous
-        </button>
-        <button mat-button
-          class="btn btn-outline-secondary"
-          mwlCalendarToday
-          [(viewDate)]="viewDate"
-        >
-          Today
-        </button>
-        <button mat-button
-          class="btn btn-primary"
-          mwlCalendarNextView
-          [view]="view"
-          [(viewDate)]="viewDate"
-          (viewDateChange)="closeOpenMonthViewDay()"
-        >
-          Next
-        </button>
+<div class="card-container mat-elevation-z8" style="margin: 3%">
+  <!-- <div style="z-index:5; position : fixed;display : flex; margin-left: 80%;
+    align-self : flex-end;bottom : 10%; margin-bottom : 68px;" (click)=handleEvent()>  
+    <button mat-fab style="margin-right : 14px;">
+        <mat-icon>add</mat-icon>
+    </button>
+  </div> -->
+  <mat-grid-list cols="3" rowHeight="100px">
+        <mat-grid-tile>
+            <div class="col-md-4">
+                <div class="btn-group">
+                  <button mat-button
+                    class="btn btn-primary"
+                    mwlCalendarPreviousView
+                    [view]="view"
+                    [(viewDate)]="viewDate"
+                    (viewDateChange)="closeOpenMonthViewDay()">
+                    Anterior
+                  </button>
+                  <button mat-button
+                    class="btn btn-outline-secondary"
+                    mwlCalendarToday
+                    [(viewDate)]="viewDate">
+                    Hoy
+                  </button>
+                  <button mat-button
+                    class="btn btn-primary"
+                    mwlCalendarNextView
+                    [view]="view"
+                    [(viewDate)]="viewDate"
+                    (viewDateChange)="closeOpenMonthViewDay()">
+                    Siguiente
+                  </button>
+                </div>
+              </div>
+        </mat-grid-tile>
+        <mat-grid-tile>
+          <div class="col-md-4">
+              <label style="text-transform: uppercase">{{ viewDate | calendarDate:(view + 'ViewTitle'):locale:weekStartsOn }}</label>
+            </div>
+        </mat-grid-tile>
+        <mat-grid-tile>
+            <div mat-col class="col-md-4">
+                <div class="btn-group">
+                  <button mat-button
+                    class="btn btn-primary"
+                    (click)="setView(CalendarView.Month)"
+                    [class.active]="view === CalendarView.Month">
+                    Mes
+                  </button>
+                  <button mat-button
+                    class="btn btn-primary"
+                    (click)="setView(CalendarView.Week)"
+                    [class.active]="view === CalendarView.Week">
+                    Semana
+                  </button>
+                  <button mat-button
+                    class="btn btn-primary"
+                    (click)="setView(CalendarView.Day)"
+                    [class.active]="view === CalendarView.Day" >
+                    Dia
+                  </button>
+                </div>
+              </div>
+        </mat-grid-tile>
+  </mat-grid-list>
+
+  <ng-template
+      #customCellTemplate
+      let-day="day"
+      let-openDay="openDay"
+      let-locale="locale"
+      let-tooltipPlacement="tooltipPlacement"
+      let-highlightDay="highlightDay"
+      let-unhighlightDay="unhighlightDay"
+      let-eventClicked="eventClicked"
+      let-tooltipTemplate="tooltipTemplate"
+      let-tooltipAppendToBody="tooltipAppendToBody">
+      <div class="cal-cell-top" (dblclick)="doubleClick(day)">
+        <span class="cal-day-badge" *ngIf="day.badgeTotal > 0">{{ day.badgeTotal }}</span>
+        <span class="cal-day-number">{{ day.date | calendarDate:'monthViewDayNumber':locale }}</span>
       </div>
-    </div>
-    <div class="col-md-4">
-      <h3>{{ viewDate | calendarDate:(view + 'ViewTitle'):'en' }}</h3>
-    </div>
-    <div class="col-md-4">
-      <div class="btn-group">
+      <div class="cal-events" *ngIf="day.events.length > 0" (dblclick)="doubleClick(day)">
         <div
-          class="btn btn-primary"
-          (click)="setView(CalendarView.Month)"
-          [class.active]="view === CalendarView.Month"
-        >
-          Month
-        </div>
-        <div
-          class="btn btn-primary"
-          (click)="setView(CalendarView.Week)"
-          [class.active]="view === CalendarView.Week"
-        >
-          Week
-        </div>
-        <div
-          class="btn btn-primary"
-          (click)="setView(CalendarView.Day)"
-          [class.active]="view === CalendarView.Day"
-        >
-          Day
+          class="cal-event"
+          *ngFor="let event of day.events; trackBy:trackByEventId"
+          [style.backgroundColor]="event.color?.primary"
+          [ngClass]="event?.cssClass"
+          (mouseenter)="highlightDay.emit({event: event})"
+          (mouseleave)="unhighlightDay.emit({event: event})"
+          [mwlCalendarTooltip]="event.title | calendarEventTitle:'monthTooltip':event"
+          [tooltipPlacement]="tooltipPlacement"
+          [tooltipEvent]="event"
+          [tooltipTemplate]="tooltipTemplate"
+          [tooltipAppendToBody]="tooltipAppendToBody"
+          mwlDraggable
+          [class.cal-draggable]="event.draggable"
+          dragActiveClass="cal-drag-active"
+          [dropData]="{event: event}"
+          [dragAxis]="{x: event.draggable, y: event.draggable}"
+          (mwlClick)="eventClicked.emit({ event: event })">
         </div>
       </div>
-    </div>
-  </div>
-  <br />
-  <div [ngSwitch]="view">
-    <mwl-calendar-month-view
+    </ng-template>
+     
+  <div [ngSwitch]="view" class="mat-elevation-z8 align-middle">
+    <mwl-calendar-month-view 
       *ngSwitchCase="CalendarView.Month"
       [viewDate]="viewDate"
       [events]="events"
       [refresh]="refresh"
       [activeDayIsOpen]="activeDayIsOpen"
+      [cellTemplate]="customCellTemplate"
       (dayClicked)="dayClicked($event.day)"
       (eventClicked)="handleEvent('Clicked', $event.event)"
-      (eventTimesChanged)="eventTimesChanged($event)"
-    >
+      (eventTimesChanged)="eventTimesChanged($event)">
     </mwl-calendar-month-view>
     <mwl-calendar-week-view
       *ngSwitchCase="CalendarView.Week"
@@ -76,8 +121,7 @@
       [events]="events"
       [refresh]="refresh"
       (eventClicked)="handleEvent('Clicked', $event.event)"
-      (eventTimesChanged)="eventTimesChanged($event)"
-    >
+      (eventTimesChanged)="eventTimesChanged($event)">
     </mwl-calendar-week-view>
     <mwl-calendar-day-view
       *ngSwitchCase="CalendarView.Day"
@@ -90,19 +134,19 @@
     </mwl-calendar-day-view>
   </div>
   
-  <!-- Everything you see below is just for the demo, you don't need to include it in your app -->
+  <br />
   
-  <br /><br /><br />
   
-  <h3>
-    Edit events
-    <button class="btn btn-primary pull-right" (click)="addEvent()">
-      Add new
+
+  <!-- <h3>
+    Editar entrega
+    <button mat-button class="btn btn-primary pull-right" (click)="addEvent()">
+      Agregar Entrega
     </button>
     <div class="clearfix"></div>
   </h3>
   
-  <div class="table-responsive">
+  <div class="table-container">
     <table class="table table-bordered">
       <thead>
         <tr>
@@ -166,8 +210,7 @@
               [enableTime]="true"
               dateFormat="Y-m-dTH:i"
               altFormat="F j, Y H:i"
-              placeholder="Not set"
-            />
+              placeholder="Not set"/>
           </td>
           <td>
             <button class="btn btn-danger" (click)="deleteEvent(event)">
@@ -177,4 +220,6 @@
         </tr>
       </tbody>
     </table>
-  </div>
+  </div> -->
+  
+</div>

@@ -1,6 +1,6 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { NgModule } from '@angular/core';
+import { NgModule, LOCALE_ID } from '@angular/core';
 import { HttpModule } from '@angular/http';
 import { HttpClientModule } from '@angular/common/http';
 // IMPORTAR COSAS DE SISTEMA
@@ -19,6 +19,7 @@ import { SharedModule } from './shared/shared.module';
 import { ServiceWorkerModule } from '@angular/service-worker';
 import { NgSelectModule } from '@ng-select/ng-select';
 import { FlatpickrModule } from 'angularx-flatpickr';
+import localeAr from '@angular/common/locales/es-AR';
 // IMPORTAR SERVICIOS
 // IMPORTAR APP COMPONENT
 import { AppComponent } from './app.component';
@@ -33,6 +34,9 @@ import { AcopiosComponent } from './acopios/acopios.component';
 import { CalendarModule, DateAdapter } from 'angular-calendar';
 import { adapterFactory } from 'angular-calendar/date-adapters/date-fns';
 import { NgbModalModule } from '@ng-bootstrap/ng-bootstrap';
+import { registerLocaleData } from '@angular/common';
+
+registerLocaleData(localeAr, 'es-AR');
 
 @NgModule({
   declarations: [
@@ -70,7 +74,7 @@ import { NgbModalModule } from '@ng-bootstrap/ng-bootstrap';
     NgbModalModule,
     ServiceWorkerModule.register('/ngsw-worker.js', { enabled: environment.production })
   ],
-  providers: [],
+  providers: [{ provide: LOCALE_ID, useValue: 'es-AR' }],
   bootstrap: [
     AppComponent
   ]

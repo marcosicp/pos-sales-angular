@@ -3,22 +3,22 @@
   <mat-card class="mat-elevation-z" style="box-shadow: 0px">
     <h1 style="text-align: center; font-size: 210%" >Ventas</h1>
   </mat-card>
-<mat-toolbar style="background-color: #bac3f7">
-  <!-- <div fxLayout="row" fxLayoutGap="10px">
-    <button mat-flat-button color="primary" [disabled]="selection.selected.length > 0">Agregar</button>
-  </div> -->
-  <div style="margin-left: auto; margin-right: 5%;">
-    <label>Buscar: </label>
-    <mat-form-field style="width: 75%">
-      <input matInput class="search-input" placeholder="Cliente, Responsable">
-    </mat-form-field>
-  </div>
-</mat-toolbar>
+  <mat-toolbar style="background-color: #bac3f7">
+    <!-- <div fxLayout="row" fxLayoutGap="10px">
+      <button mat-flat-button color="primary" [disabled]="selection.selected.length > 0">Agregar</button>
+    </div> -->
+    <div style="margin-left: auto; margin-right: 5%;">
+      <label>Buscar: </label>
+      <mat-form-field style="width: 75%">
+        <input matInput class="search-input" placeholder="Cliente, Responsable">
+      </mat-form-field>
+    </div>
+  </mat-toolbar>
 
-<div class="loading-shade"
-    *ngIf="isLoading">
-  <mat-spinner></mat-spinner>
-</div>
+  <div class="loading-shade"
+      *ngIf="isLoading">
+    <mat-spinner></mat-spinner>
+  </div>
 
   <table class="mat-elevation-z8 align-middle"  style="line-height: 60px" mat-table [dataSource]="dataSource" 
         matSort matSortActive="fechaVenta" matSortDirection="desc">
@@ -65,7 +65,7 @@
     <ng-container matColumnDef="confirmar">
       <th mat-header-cell *matHeaderCellDef> Entrega </th>
       <td mat-cell *matCellDef="let element">
-        <button mat-icon-button color="accent" (click)="onTap(element)">
+        <button mat-button color="accent" (click)="onTap(element)">
           <label>Pactar Entrega</label>
         </button>
       </td>
@@ -73,5 +73,5 @@
     <tr mat-header-row *matHeaderRowDef="displayedColumns; sticky: true"></tr>
     <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
   </table>
-<mat-paginator [pageSizeOptions]="[10, 25, 50, 100]"></mat-paginator>
+  <mat-paginator [pageSizeOptions]="[10, 25, 50, 100]"></mat-paginator>
 </div>

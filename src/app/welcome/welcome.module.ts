@@ -1,5 +1,5 @@
 import { NgModule } from '@angular/core';
-import { CommonModule } from '@angular/common';
+import { CommonModule, registerLocaleData } from '@angular/common';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 // IMPORTAR MODULOS
 import { AppRoutingModule } from '../core/app-routing.module';
@@ -10,6 +10,7 @@ import { WelcomeComponent } from './welcome/welcome.component';
 import { ResetPasswordComponent } from './reset-password/reset-password.component';
 import { LoginComponent } from './login/login.component';
 import { NotificationComponent } from './notification/notification.component';
+
 
 @NgModule({
   imports: [
