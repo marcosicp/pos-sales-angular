@@ -11,7 +11,9 @@ MatInputModule, MatSelectModule, MatCheckboxModule} from '@angular/material';
 
 import { AuthService } from '../core/services/auth.service';
 // OTROS MODULOS
-import { SharedModule } from '../shared/shared.module';
+//import { SharedModule } from '../shared/shared.module';
+// import { ItemsComponent } from '../stock/items/items.component';
+import { ParseUserRolePipe } from '../shared/pipes/parse-user-role.pipe';
 
 @NgModule({
   imports: [
@@ -27,7 +29,7 @@ import { SharedModule } from '../shared/shared.module';
     MatCheckboxModule
   ],
   declarations: [
-      ItemsComponent,
+      // ItemsComponent,
       UsersComponent,
       AdminComponent,
       ParseUserRolePipe

@@ -5,7 +5,7 @@ import { DynamicTableComponent } from './components/dynamic-table/dynamic-table.
 // SERVICIOS
 import { LoadingService } from './services/loading.service';
 // PIPES
-import { ParseUserRolePipe } from './pipes/parse-user-role.pipe';
+// import { ParseUserRolePipe } from './pipes/parse-user-role.pipe';
 // OTROS MODULOS
 import { MaterialModule } from '../core/material.module';
 
@@ -16,12 +16,12 @@ import { MaterialModule } from '../core/material.module';
   ],
   exports: [
     DynamicTableComponent,
-    ParseUserRolePipe,
+    // ParseUserRolePipe,
     MaterialModule
   ],
   declarations: [
     DynamicTableComponent,
-    ParseUserRolePipe
+    // ParseUserRolePipe
   ],
   providers: [
     LoadingService
