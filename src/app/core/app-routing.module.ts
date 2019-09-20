@@ -14,8 +14,7 @@ import { LoginComponent } from '../welcome/login/login.component';
 import { ResetPasswordComponent } from '../welcome/reset-password/reset-password.component';
 import { AdministracionComponent  } from '../../app/home/administracion/administracion.component';
 import { UsersComponent  } from '../admin/users/users.component';
-import { ItemsComponent } from '../admin/items/items.component';
-import { ReportsComponent } from '../home/reports/reports.component';
+import { ItemsComponent } from '../stock/items/items.component';
 import { HistorialComponent } from '../home/historial/historial.component';
 import { ClientesComponent } from '../home/clientes/clientes.component';
 import { ProveedoresComponent } from '../home/proveedores/proveedores.component';
@@ -51,18 +50,15 @@ const appRoutes: Routes = [
     path: 'clientes',
     component: ClientesComponent ,
     canActivate: [AuthGuard]
-  }, 
-  {
+  }, {
     path: 'proveedores',
     component: ProveedoresComponent ,
     canActivate: [AuthGuard]
-  },
-  {
+  }, {
     path: 'confirmacion',
     component: ConfirmacionComponent ,
     canActivate: [AuthGuard]
-  },
-  {
+  }, {
     path: 'administracion',
     component: AdministracionComponent ,
     canActivate: [AuthGuard]
@@ -70,7 +66,7 @@ const appRoutes: Routes = [
     path: 'pedidos',
     component: HistorialComponent ,
     canActivate: [AuthGuard]
-  },  {
+  }, {
     path: 'admin',
     component: AdminComponent,
     canActivate: [AuthGuard],
@@ -78,11 +74,12 @@ const appRoutes: Routes = [
       {
         path: 'users',
         component: UsersComponent
-      }, {
-        path: 'items',
-        component: ItemsComponent
       }
     ]
+  }, {
+    path: 'stock',
+    component: ItemsComponent,
+    canActivate: [AuthGuard],
   }, {
     path: 'ventas',
     component: VentasComponent,
