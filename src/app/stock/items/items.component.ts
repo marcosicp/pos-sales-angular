@@ -1,6 +1,7 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { DataService } from '../../core/services/data.service';
 import { URL_PRODUCTOS } from '../../shared/configs/urls.config';
+import { TABLA_PRODUCTOS } from '../../shared/configs/table.config';
 import { Productos } from '../../shared/models/producto.model';
 import { MatTableDataSource } from '@angular/material';
 
@@ -16,7 +17,9 @@ export class ItemsComponent implements OnInit {
   dataSource: MatTableDataSource<Productos>;
   isLoading: boolean;
   displayedColumns: string[];
-  mainTitle: string = 'Productos';
+  showDisplayedColumns = TABLA_PRODUCTOS.headers;
+  displayedCells = TABLA_PRODUCTOS.cells;
+  mainTitle = 'Productos';
 
   constructor(
     private dataService: DataService
@@ -29,11 +32,10 @@ export class ItemsComponent implements OnInit {
       data => {
         this.dataSource = new MatTableDataSource<Productos>();
         this.dataSource.data = data;
-        this.displayedColumns = this.test(data[0]);
+        this.displayedColumns = this.filterIdData(data[0]);
         this.isLoading = false;
       },
       error => {
-        console.log(error);
         this.isLoading = false;
       }
     );
@@ -79,7 +81,7 @@ export class ItemsComponent implements OnInit {
     // this.db.deleteItem(id, type, img);
   }
 
-  test(wordList: string[]): string[] {
+  filterIdData(wordList: string[]): string[] {
     const data = Object.keys(wordList);
 
     data.forEach(

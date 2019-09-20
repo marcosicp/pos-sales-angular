@@ -12,6 +12,10 @@ export class DynamicTableComponent {
   @Input()
   displayedColumns: string[] = [];
   @Input()
+  showDisplayedColumns: string[] = [];
+  @Input()
+  displayedCells: string[] = [];
+  @Input()
   mainTitle: string;
   @Input()
   isLoading: boolean;
