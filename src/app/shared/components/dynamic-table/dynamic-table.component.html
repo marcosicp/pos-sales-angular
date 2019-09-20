@@ -1,47 +1,48 @@
-<div class="mat-elevation-z8 layout-productos">
+<div class="mat-elevation-z8 component-layout">
   <mat-card class="mat-elevation-z">
     <h1>{{mainTitle}}</h1>
   </mat-card>
-  <mat-toolbar>
-    <div fxLayout="row" fxLayoutGap="10px">
-      <!-- <button mat-flat-button color="primary" [disabled]="selection.selected.length > 0">Agregar</button> -->
-    </div>
-    <div class="search-section">
-      <label>Buscar: </label>
-      <mat-form-field>
-        <input matInput class="search-input" placeholder="Cliente, Responsable">
-      </mat-form-field>
-    </div>
-  </mat-toolbar>
 
   <div class="loading-shade" *ngIf="isLoading">
     <mat-spinner></mat-spinner>
   </div>
 
-  <table
-    class="mat-elevation-z8 align-middle tabla-productos"
+  <ng-container *ngIf="!isLoading">
+    <mat-toolbar>
+      <div fxLayout="row" fxLayoutGap="10px">
+        <!-- <button mat-flat-button color="primary" [disabled]="selection.selected.length > 0">Agregar</button> -->
+      </div>
+      <div class="search-section">
+        <label>Buscar: </label>
+        <mat-form-field>
+          <input matInput class="search-input" placeholder="Cliente, Responsable">
+        </mat-form-field>
+      </div>
+    </mat-toolbar>
+
+    <table
+    class="mat-elevation-z8 align-middle table-layout"
     mat-table
     [dataSource]="dataSource"
     matSort
-    [matSortActive]="displayedColumns[0] || 'nombre'"
+    [matSortActive]="displayedColumns[0]"
     matSortDirection="desc"
     >
-    <ng-container *ngFor="let column of displayedColumns">
-     <ng-container [matColumnDef]="column">
-        <th mat-header-cell *matHeaderCellDef mat-sort-header>{{showDisplayedColumns[column]}}</th>
-
-        <td mat-cell *matCellDef="let element">
-          <ng-container [ngSwitch]="displayedCells[column]">
-            <span *ngSwitchCase="'currency'">{{element[column] | currency}}</span>
-            <span *ngSwitchCase="'date'">{{element[column] | date:'medium'}}</span>
-            <span *ngSwitchDefault>{{element[column]}}</span>
-          </ng-container>
-        </td>
+      <ng-container *ngFor="let column of displayedColumns">
+      <ng-container [matColumnDef]="column">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header>{{showDisplayedColumns[column]}}</th>
+          <td mat-cell *matCellDef="let element">
+            <ng-container [ngSwitch]="displayedCells[column]">
+              <span *ngSwitchCase="'currency'">{{element[column] | currency}}</span>
+              <span *ngSwitchCase="'date'">{{element[column] | date:'medium'}}</span>
+              <span *ngSwitchDefault>{{element[column]}}</span>
+            </ng-container>
+          </td>
+        </ng-container>
       </ng-container>
-    </ng-container>
-    <tr mat-header-row *matHeaderRowDef="displayedColumns; sticky: true"></tr>
-    <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
-  </table>
-  <mat-paginator [pageSizeOptions]="pageSizeOptions"></mat-paginator>
+      <tr mat-header-row *matHeaderRowDef="displayedColumns; sticky: true"></tr>
+      <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+    </table>
+    <mat-paginator [pageSizeOptions]="pageSizeOptions"></mat-paginator>
+  </ng-container>
 </div>
-
