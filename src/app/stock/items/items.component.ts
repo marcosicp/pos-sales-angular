@@ -1,9 +1,12 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
+import { MatTableDataSource } from '@angular/material';
+// ENTIDADES
+import { Productos } from '../../shared/models/producto.model';
+// SERVICIOS
 import { DataService } from '../../core/services/data.service';
+// CONFIGURACIONES
 import { URL_PRODUCTOS } from '../../shared/configs/urls.config';
 import { TABLA_PRODUCTOS } from '../../shared/configs/table.config';
-import { Productos } from '../../shared/models/producto.model';
-import { MatTableDataSource } from '@angular/material';
 
 @Component({
   selector: 'app-items',
@@ -14,7 +17,7 @@ export class ItemsComponent implements OnInit {
   addItemActive = false;
   selectedFiles: FileList;
   // currentUpload: Upload;
-  dataSource: MatTableDataSource<Productos>;
+  dataSource = new MatTableDataSource<Productos>();
   isLoading: boolean;
   displayedColumns: string[];
   showDisplayedColumns = TABLA_PRODUCTOS.headers;
@@ -30,9 +33,8 @@ export class ItemsComponent implements OnInit {
   ngOnInit() {
     this.dataService.getAsync(URL_PRODUCTOS.GET_ALL, []).subscribe(
       data => {
-        this.dataSource = new MatTableDataSource<Productos>();
         this.dataSource.data = data;
-        this.displayedColumns = this.filterIdData(data[0]);
+        this.displayedColumns = Object.keys(this.displayedCells);
         this.isLoading = false;
       },
       error => {
@@ -45,11 +47,7 @@ export class ItemsComponent implements OnInit {
     // this.newItemPrice = null;
     // this.newItemName = null;
     // this.newItemType = null;
-    if (this.addItemActive === true) {
-      this.addItemActive = false;
-    } else {
-      this.addItemActive = true;
-    }
+    this.addItemActive = !this.addItemActive;
   }
 
   addItem() {
@@ -80,19 +78,4 @@ export class ItemsComponent implements OnInit {
   deleteItem(id, type, img) {
     // this.db.deleteItem(id, type, img);
   }
-
-  filterIdData(wordList: string[]): string[] {
-    const data = Object.keys(wordList);
-
-    data.forEach(
-      (word, i) => {
-        if (word === 'id') {
-          data.splice(i, 1);
-        }
-      }
-    );
-
-    return data;
-  }
-
 }

@@ -29,11 +29,12 @@
     matSortDirection="desc"
     >
       <ng-container *ngFor="let column of displayedColumns">
-      <ng-container [matColumnDef]="column">
+        <ng-container [matColumnDef]="column">
           <th mat-header-cell *matHeaderCellDef mat-sort-header>{{showDisplayedColumns[column]}}</th>
           <td mat-cell *matCellDef="let element">
             <ng-container [ngSwitch]="displayedCells[column]">
               <span *ngSwitchCase="'currency'">{{element[column] | currency}}</span>
+              <span *ngSwitchCase="'number'">{{element[column] | number:'1.2'}}</span>
               <span *ngSwitchCase="'date'">{{element[column] | date:'medium'}}</span>
               <span *ngSwitchDefault>{{element[column]}}</span>
             </ng-container>
