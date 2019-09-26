@@ -1,11 +1,13 @@
 import { Component, OnInit } from '@angular/core';
-// IMPORTAR SERVICIOS
+import { MatTableDataSource } from '@angular/material';
+// SERVICIOS
 import { AuthService } from '../../core/services/auth.service';
 import { DataService } from '../../core/services/data.service';
-// IMPORTAR MODELOS
+// MODELOS
 import { Usuarios } from '../../shared/models/usuarios.model';
-// IMPORTAR URL
+// CONFIGURACIONES
 import { URL_USER } from '../../shared/configs/urls.config';
+import { TABLA_USUARIOS } from '../../shared/configs/table.config';
 
 @Component({
   selector: 'app-users',
@@ -22,40 +24,30 @@ export class UsersComponent implements OnInit {
   // usuarios: Usuarios[];
   roles = ['usuario', 'Admin'];
 
+  dataSource = new MatTableDataSource<Usuarios>();
+  isLoading: boolean;
+  displayedColumns: string[];
+  showDisplayedColumns = TABLA_USUARIOS.headers;
+  displayedCells = TABLA_USUARIOS.cells;
+  mainTitle = TABLA_USUARIOS.title;
+
   constructor(
     private dataService: DataService,
     private authService: AuthService
   ) {  }
 
   ngOnInit() {
-    if (this.dataService.usuarios.length > 0) {
-      this.users = this.dataService.usuarios;
-      this.loadUsuarios(this.users);
-    } else {
-      this.getUsuarios();
-    }
-  }
-
-  getUsuarios() {
-    // this.isLoading = true;
+    this.isLoading = true;
     this.dataService.getAsync(URL_USER.HOME, this.users).subscribe(
       data => {
-        this.loadUsuarios(data);
+        this.dataSource.data = data;
+        this.displayedColumns = Object.keys(this.displayedCells);
+        this.isLoading = false;
       },
       error => {
-        console.log(error);
-        // this.isLoading = false;
+        this.isLoading = false;
       }
     );
-  }
-
-  loadUsuarios(data) {
-    // this.dataSource = new MatTableDataSource<Usuarios>();
-    // this.dataSource.data = this.usuarios;
-    // this.dataSource.paginator = this.paginator;
-    // this.dataSource.sort = this.sort;
-    // this.isLoading = false;
-    this.users = data;
   }
 
   addUserToggle() {
@@ -87,5 +79,4 @@ export class UsersComponent implements OnInit {
   deleteUser() {
 
   }
-
 }
