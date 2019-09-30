@@ -21,7 +21,6 @@ export class UsersComponent implements OnInit {
   newUserPassword: string;
 
   users: Usuarios[];
-  // usuarios: Usuarios[];
   roles = ['usuario', 'Admin'];
 
   dataSource = new MatTableDataSource<Usuarios>();
@@ -30,6 +29,12 @@ export class UsersComponent implements OnInit {
   showDisplayedColumns = TABLA_USUARIOS.headers;
   displayedCells = TABLA_USUARIOS.cells;
   mainTitle = TABLA_USUARIOS.title;
+  addButton = {
+    label: 'Agregar usuario',
+    buttonEvent: () => {
+      console.warn('dale que va la cosa');
+    }
+  };
 
   constructor(
     private dataService: DataService,

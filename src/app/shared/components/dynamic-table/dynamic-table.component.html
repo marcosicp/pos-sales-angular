@@ -8,11 +8,14 @@
   </div>
 
   <ng-container *ngIf="!isLoading">
-    <mat-toolbar>
-      <div fxLayout="row" fxLayoutGap="10px">
-        <!-- <button mat-flat-button color="primary" [disabled]="selection.selected.length > 0">Agregar</button> -->
+    <mat-toolbar *ngIf="addButton || searchButton">
+      <div fxLayout="row" fxLayoutGap="10px" *ngIf="addButton">
+        <button
+          mat-flat-button color="primary"
+          [disabled]="false"
+          (click)="addButton.buttonEvent()">{{ addButton.label || "Agregar"}}</button>
       </div>
-      <div class="search-section">
+      <div *ngIf="searchButton" class="search-section">
         <label>Buscar: </label>
         <mat-form-field>
           <input matInput class="search-input" placeholder="Cliente, Responsable">
@@ -21,22 +24,32 @@
     </mat-toolbar>
 
     <table
-    class="mat-elevation-z8 align-middle table-layout"
-    mat-table
-    [dataSource]="dataSource"
-    matSort
-    [matSortActive]="displayedColumns[0]"
-    matSortDirection="desc"
+      class="mat-elevation-z8 align-middle table-layout"
+      mat-table
+      [dataSource]="dataSource"
+      matSort
+      [matSortActive]="displayedColumns[0]"
+      matSortDirection="desc"
     >
       <ng-container *ngFor="let column of displayedColumns">
         <ng-container [matColumnDef]="column">
           <th mat-header-cell *matHeaderCellDef mat-sort-header>{{showDisplayedColumns[column]}}</th>
           <td mat-cell *matCellDef="let element">
-            <ng-container [ngSwitch]="displayedCells[column]">
-              <span *ngSwitchCase="'currency'">{{element[column] | currency}}</span>
-              <span *ngSwitchCase="'number'">{{element[column] | number:'1.2'}}</span>
-              <span *ngSwitchCase="'date'">{{element[column] | date:'medium'}}</span>
-              <span *ngSwitchDefault>{{element[column]}}</span>
+            <ng-container *ngIf="column !== 'opciones'">
+              <ng-container [ngSwitch]="displayedCells[column]">
+                <span *ngSwitchCase="'currency'">{{element[column] | currency}}</span>
+                <span *ngSwitchCase="'number'">{{element[column] | number:'1.2'}}</span>
+                <span *ngSwitchCase="'date'">{{element[column] | date:'medium'}}</span>
+                <span *ngSwitchCase="'boolean'">{{element[column] | booleanPipe}}</span>
+                <span *ngSwitchDefault>{{element[column]}}</span>
+              </ng-container>
+            </ng-container>
+            <ng-container *ngIf="column === 'opciones'" class="option-buttons">
+              <ng-container *ngFor="let button of displayedCells[column]">
+                <button mat-raised-button color="warn" (click)="button.buttonEvent(element)">
+                    {{button.buttonLabel}}
+                  </button>
+              </ng-container>
             </ng-container>
           </td>
         </ng-container>

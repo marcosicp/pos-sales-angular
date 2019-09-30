@@ -19,10 +19,10 @@ export class ItemsComponent implements OnInit {
   // currentUpload: Upload;
   dataSource = new MatTableDataSource<Productos>();
   isLoading: boolean;
-  displayedColumns: string[];
+  displayedColumns = Object.keys(TABLA_PRODUCTOS.cells);
   showDisplayedColumns = TABLA_PRODUCTOS.headers;
   displayedCells = TABLA_PRODUCTOS.cells;
-  mainTitle = 'Productos';
+  mainTitle = TABLA_PRODUCTOS.title;
 
   constructor(
     private dataService: DataService
@@ -34,7 +34,6 @@ export class ItemsComponent implements OnInit {
     this.dataService.getAsync(URL_PRODUCTOS.GET_ALL, []).subscribe(
       data => {
         this.dataSource.data = data;
-        this.displayedColumns = Object.keys(this.displayedCells);
         this.isLoading = false;
       },
       error => {

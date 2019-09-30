@@ -38,6 +38,10 @@
     width: 100%;
   }
 
+  .mat-column-opciones > button:first-of-type {
+    margin-right: 10px;
+  }
+
   .mat-card:not([class*=mat-elevation-z]){
     box-shadow: 0ch;
   }

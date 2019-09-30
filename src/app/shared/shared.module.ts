@@ -6,6 +6,7 @@ import { DynamicTableComponent } from './components/dynamic-table/dynamic-table.
 import { LoadingService } from './services/loading.service';
 // PIPES
 // import { ParseUserRolePipe } from './pipes/parse-user-role.pipe';
+import { BooleanPipe } from './pipes/boolean.pipe';
 // OTROS MODULOS
 import { MaterialModule } from '../core/material.module';
 
@@ -16,11 +17,13 @@ import { MaterialModule } from '../core/material.module';
   ],
   exports: [
     DynamicTableComponent,
+    BooleanPipe,
     // ParseUserRolePipe,
     MaterialModule
   ],
   declarations: [
     DynamicTableComponent,
+    BooleanPipe
     // ParseUserRolePipe
   ],
   providers: [

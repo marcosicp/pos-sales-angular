@@ -42,7 +42,28 @@ const TABLA_USUARIOS = {
   }
 };
 
+const TABLA_CLIENTES = {
+  title: 'Clientes',
+  headers: {
+    nombre: 'Nombre',
+    activo: 'Activo',
+    telefono: 'Teléfono',
+    email: 'Email',
+    creado: 'Fecha creado',
+    opciones: 'Opciones'
+  },
+  cells: {
+    nombre: null,
+    activo: 'boolean',
+    telefono: null,
+    email: null,
+    creado: 'date',
+    opciones: null
+  }
+};
+
 export  {
   TABLA_PRODUCTOS,
-  TABLA_USUARIOS
+  TABLA_USUARIOS,
+  TABLA_CLIENTES
 };
