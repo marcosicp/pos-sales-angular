@@ -4,12 +4,12 @@ import { MatDialog, MatTableDataSource } from '@angular/material';
 import { Clientes } from '../../shared/models/clientes.model';
 // SERVICIOS
 import { DataService } from '../../core/services/data.service';
-// DIALOGOS
-import { DialogClienteAddEditComponent } from '../../dialogs/dialog-cliente-add-edit/dialog-cliente-add-edit.component';
-import { DialogConfirmarComponent } from '../../dialogs/dialog-confirmar/dialog-confirmar.component';
 // CONFIGURACIONES
 import { URL_CLIENTES } from '../../shared/configs/urls.config';
 import { TABLA_CLIENTES } from '../../shared/configs/table.config';
+// DIALOGOS
+import { DialogClienteAddEditComponent } from '../../dialogs/dialog-cliente-add-edit/dialog-cliente-add-edit.component';
+import { DialogConfirmarComponent } from '../../dialogs/dialog-confirmar/dialog-confirmar.component';
 
 @Component({
   selector: 'app-clientes',

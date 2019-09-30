@@ -62,8 +62,31 @@ const TABLA_CLIENTES = {
   }
 };
 
+const TABLA_PROVEEDORES = {
+  title: 'Proveedores',
+  headers: {
+    nombre: 'Nombre',
+    cuil: 'CUIL',
+    telefono: 'Teléfono',
+    email: 'Email',
+    razonSocial: 'Razón Social',
+    direccion: 'Dirección',
+    opciones: 'Opciones'
+  },
+  cells: {
+    nombre: null,
+    cuil: null,
+    telefono: null,
+    email: null,
+    razonSocial: null,
+    direccion: null,
+    opciones: null
+  }
+};
+
 export  {
   TABLA_PRODUCTOS,
   TABLA_USUARIOS,
-  TABLA_CLIENTES
+  TABLA_CLIENTES,
+  TABLA_PROVEEDORES
 };
