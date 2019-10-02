@@ -23,12 +23,13 @@ export class UsersComponent implements OnInit {
   users: Usuarios[];
   roles = ['usuario', 'Admin'];
 
+  tableTitle = TABLA_USUARIOS.title;
   dataSource = new MatTableDataSource<Usuarios>();
+  headerTitles = Object.keys(TABLA_USUARIOS.cells);
+  tableHeaders = TABLA_USUARIOS.headers;
+  columnCells = TABLA_USUARIOS.cells;
+  formatTableCells = TABLA_USUARIOS.format;
   isLoading: boolean;
-  displayedColumns: string[];
-  showDisplayedColumns = TABLA_USUARIOS.headers;
-  displayedCells = TABLA_USUARIOS.cells;
-  mainTitle = TABLA_USUARIOS.title;
   addButton = {
     label: 'Agregar usuario',
     buttonEvent: () => {
@@ -46,7 +47,6 @@ export class UsersComponent implements OnInit {
     this.dataService.getAsync(URL_USER.HOME, this.users).subscribe(
       data => {
         this.dataSource.data = data;
-        this.displayedColumns = Object.keys(this.displayedCells);
         this.isLoading = false;
       },
       error => {

@@ -8,15 +8,17 @@ import { MatSort, MatPaginator, MatTableDataSource } from '@angular/material';
 })
 export class DynamicTableComponent implements AfterContentInit {
   @Input()
+  tableTitle: string;
+  @Input()
   dataSource: MatTableDataSource<any> = new MatTableDataSource<any>();
   @Input()
-  displayedColumns: string[] = [];
+  headerTitles: string[] = [];
   @Input()
-  showDisplayedColumns: string[] = [];
+  tableHeaders: string[] = [];
   @Input()
-  displayedCells: string[] = [];
+  columnCells: string[] = [];
   @Input()
-  mainTitle: string;
+  formatTableCells: string[] = [];
   @Input()
   isLoading: boolean;
   @Input()

@@ -11,6 +11,16 @@ const TABLA_PRODUCTOS = {
     editado: 'Fecha de modificación'
   },
   cells: {
+    nombre: 'nombre',
+    codigo: 'codigo',
+    precioVenta: 'precioVenta',
+    precioCompra: 'precioCompra',
+    cantidad: 'cantidad',
+    peso: 'peso',
+    creado: 'creado',
+    editado: 'editado'
+  },
+  format: {
     nombre: null,
     codigo: null,
     precioVenta: 'currency',
@@ -33,6 +43,14 @@ const TABLA_USUARIOS = {
     creado: 'Fecha de creación'
   },
   cells: {
+    nombre: 'nombre',
+    apellido: 'apellido',
+    usuario: 'usuario',
+    email: 'email',
+    fechaNacimiento: 'fechaNacimiento',
+    creado: 'creado'
+  },
+  format: {
     nombre: null,
     apellido: null,
     usuario: null,
@@ -53,6 +71,14 @@ const TABLA_CLIENTES = {
     opciones: 'Opciones'
   },
   cells: {
+    nombre: 'nombre',
+    activo: 'activo',
+    telefono: 'telefono',
+    email: 'email',
+    creado: 'creado',
+    opciones: null
+  },
+  format: {
     nombre: null,
     activo: 'boolean',
     telefono: null,
@@ -74,6 +100,15 @@ const TABLA_PROVEEDORES = {
     opciones: 'Opciones'
   },
   cells: {
+    nombre: 'nombre',
+    cuil: 'cuil',
+    telefono: 'telefono',
+    email: 'email',
+    razonSocial: 'razonSocial',
+    direccion: 'direccion',
+    opciones: null
+  },
+  format: {
     nombre: null,
     cuil: null,
     telefono: null,
@@ -84,9 +119,41 @@ const TABLA_PROVEEDORES = {
   }
 };
 
+const TABLA_VENTAS = {
+  title: 'Ventas',
+  headers: {
+    creado: 'Fecha de venta',
+    cliente: 'Cliente',
+    responsable: 'Responsable',
+    estado: 'Estado',
+    imprimioTicket: 'Se imprimio ticket',
+    total: 'Monto total',
+    opciones: 'Opciones'
+  },
+  cells: {
+    creado: 'creado',
+    cliente: 'pedido.cliente',
+    responsable: 'pedido.usuario',
+    estado: 'pedido.estado',
+    imprimioTicket: 'imprimioTicket',
+    total: 'pedido.total',
+    opciones: null,
+  },
+  format: {
+    creado: 'date',
+    cliente: null,
+    responsable: null,
+    estado: null,
+    imprimioTicket: 'boolean',
+    total: null,
+    opciones: null
+  }
+};
+
 export  {
   TABLA_PRODUCTOS,
   TABLA_USUARIOS,
   TABLA_CLIENTES,
-  TABLA_PROVEEDORES
+  TABLA_PROVEEDORES,
+  TABLA_VENTAS
 };

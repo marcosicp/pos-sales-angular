@@ -19,13 +19,13 @@ import { DialogProveedoresAddEditComponent } from '../../dialogs/dialog-proveedo
   styleUrls: ['./proveedores.component.scss']
 })
 export class ProveedoresComponent implements OnInit {
-  selection = new SelectionModel<Proveedores>(true, []);
+  tableTitle = TABLA_PROVEEDORES.title;
   dataSource = new MatTableDataSource<Proveedores>();
+  headerTitles = Object.keys(TABLA_PROVEEDORES.cells);
+  tableHeaders = TABLA_PROVEEDORES.headers;
+  columnCells = TABLA_PROVEEDORES.cells;
+  formatTableCells = TABLA_PROVEEDORES.format;
   isLoading: boolean;
-  displayedColumns = Object.keys(TABLA_PROVEEDORES.cells);
-  showDisplayedColumns = TABLA_PROVEEDORES.headers;
-  displayedCells = TABLA_PROVEEDORES.cells;
-  mainTitle = TABLA_PROVEEDORES.title;
   addButton = {
     label: 'Agregar proveedor',
     buttonEvent: () => this.agregarProveedor()
@@ -41,7 +41,7 @@ export class ProveedoresComponent implements OnInit {
     this.comerciosService.getAsync(URL_PROVEEDORES.GET_ALL, []).subscribe(
       data => {
         this.dataSource.data = data;
-        this.displayedCells.opciones = [{
+        this.columnCells.opciones = [{
           buttonLabel: 'Modificar',
           buttonEvent: (proveedor) => this.editarProveedor(proveedor)
         },

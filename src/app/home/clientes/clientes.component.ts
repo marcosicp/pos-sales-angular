@@ -19,12 +19,13 @@ import { DialogConfirmarComponent } from '../../dialogs/dialog-confirmar/dialog-
 export class ClientesComponent implements OnInit {
   clientes: Clientes[] = [];
 
+  tableTitle = TABLA_CLIENTES.title;
   dataSource = new MatTableDataSource<Clientes>();
+  headerTitles = Object.keys(TABLA_CLIENTES.cells);
+  tableHeaders = TABLA_CLIENTES.headers;
+  columnCells = TABLA_CLIENTES.cells;
+  formatTableCells = TABLA_CLIENTES.format;
   isLoading: boolean;
-  displayedColumns = Object.keys(TABLA_CLIENTES.cells);
-  showDisplayedColumns = TABLA_CLIENTES.headers;
-  displayedCells = TABLA_CLIENTES.cells;
-  mainTitle = TABLA_CLIENTES.title;
   addButton = {
     label: 'Agregar cliente',
     buttonEvent: () => this.agregarCliente()
@@ -42,7 +43,7 @@ export class ClientesComponent implements OnInit {
       data => {
         this.dataSource.data = data;
 
-        this.displayedCells.opciones = [{
+        this.columnCells.opciones = [{
             buttonLabel: 'Modificar',
             buttonEvent: (cliente) => this.editarCliente(cliente)
           },

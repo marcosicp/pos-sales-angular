@@ -26,7 +26,7 @@ export class DialogVerItemsPedidoComponent implements OnInit {
     // );
 
     this.dataSource.data = this.productosPedido;
-    this.dataSource.data = data.item.productosPedidos;
+    this.dataSource.data = data.pedido.productosPedidos;
   }
 
   ngOnInit() {
