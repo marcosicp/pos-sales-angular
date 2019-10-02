@@ -23,7 +23,7 @@
               <label>Fecha Pedido</label>
               <input matInput [(ngModel)]="ventas.fechaVenta">
             </mat-form-field>
-            
+
             <mat-form-field>
                 <label>Total</label>
                 <input matInput type="text" [(ngModel)]="ventas.total">
@@ -34,7 +34,7 @@
 
           <div class="flex flex-direction-row product-image-section">
             <img *ngIf="ventas.imagenUrl != null" [src]="ventas.imagenUrl"  style="width:250px;height:200px">
-            
+
           </div>
         </div>
     </mat-card-content>
@@ -42,7 +42,7 @@
     <!-- Guardar/Cancelar -->
     <mat-action-row class="new-item-action-row">
       <button mat-button (click)="confirmar()">CONFIRMAR</button>
-      <button mat-button color="warn" routerLink="/historial/">CANCELAR</button>
+      <button mat-button color="warn" routerLink="/pedidos/">CANCELAR</button>
     </mat-action-row>
   </mat-card>
 </div>

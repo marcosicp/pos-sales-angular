@@ -1,12 +1,15 @@
-import { Component, OnInit, ViewChild, NgZone } from '@angular/core';
-import { MatSort, MatDialog, MatTableDataSource, MatPaginator } from '@angular/material';
-import { SelectionModel } from '@angular/cdk/collections';
-import { Venta } from '../../shared/models/venta.model';
+import { Component, OnInit } from '@angular/core';
+import { MatDialog, MatTableDataSource } from '@angular/material';
 import { NavigationExtras, Router } from '@angular/router';
+// MODELOS
+import { Venta } from '../../shared/models/venta.model';
+// SERVICIOS
 import { DataService } from '../../core/services/data.service';
-import { ProductoPedido } from '../../shared/models/producto-venta.model';
+// DIALOGOS
 import { DialogVerItemsPedidoComponent } from '../../dialogs/dialog-ver-items-venta/dialog-ver-items-venta.component';
+// CONFIGURACIONES
 import { URL_PEDIDOS } from '../../shared/configs/urls.config';
+import { TABLA_PEDIDOS } from '../../shared/configs/table.config';
 
 @Component({
   selector: 'app-historial',
@@ -14,64 +17,58 @@ import { URL_PEDIDOS } from '../../shared/configs/urls.config';
   styleUrls: ['./historial.component.scss']
 })
 export class HistorialComponent implements OnInit {
-  private zone: NgZone;
-  ventas: Venta[];
-  total: number;
-  productosVenta: ProductoPedido[] = [];
-
-  @ViewChild(MatPaginator) paginator: MatPaginator;
-  @ViewChild(MatSort) sort: MatSort;
-
+  tableTitle = TABLA_PEDIDOS.title;
+  dataSource = new MatTableDataSource<Venta>();
+  headerTitles = Object.keys(TABLA_PEDIDOS.cells);
+  tableHeaders = TABLA_PEDIDOS.headers;
+  columnCells = TABLA_PEDIDOS.cells;
+  formatTableCells = TABLA_PEDIDOS.format;
   isLoading: boolean;
-  displayedColumns: string[] = [ 'creado', 'imprimioTicket', 'responsable', 'cliente', 'total', 'estado', 'veritems', 'confirmar'];
-  dataSource: MatTableDataSource<Venta>;
-  selection = new SelectionModel<Venta>(true, []);
 
   constructor(
     private router: Router,
     private comerciosService: DataService,
-    public dialog: MatDialog) {
+    public dialog: MatDialog
+  ) {
     this.isLoading = true;
   }
 
   ngOnInit() {
-    this.comerciosService.getAsync(URL_PEDIDOS.GET_ALL, this.productosVenta).subscribe(
+    this.comerciosService.getAsync(URL_PEDIDOS.GET_ALL, []).subscribe(
       data => {
-        this.ventas = data;
-        this.dataSource = new MatTableDataSource<Venta>();
-        this.dataSource.data = this.ventas;
-        this.dataSource.paginator = this.paginator;
-        this.dataSource.sort = this.sort;
+        this.dataSource.data = data;
+        this.columnCells.opciones = [{
+          buttonIcon: 'search',
+          buttonLabel: 'Ver items',
+          buttonEvent: (venta) => this.verItems(venta)
+        },
+        {
+          buttonLabel: 'Confirmar pedido',
+          buttonEvent: (venta) => this.confirmarPedido(venta)
+        }];
         this.isLoading = false;
       }
     );
   }
 
-  public onTap(element: Venta) {
-    let navigationExtras: NavigationExtras = {
+  public confirmarPedido(element: Venta) {
+    const navigationExtras: NavigationExtras = {
         queryParams: { pedido: JSON.stringify(element)}
     };
 
-    this.router.navigate(["confirmacion"], navigationExtras);
+    this.router.navigate(['confirmacion'], navigationExtras);
   }
 
-  verItems(item){
-    const dialogRef = this.dialog.open(DialogVerItemsPedidoComponent, { width: '900px',data:{ item } });
+  verItems(venta) {
+    const dialogRef = this.dialog.open(
+      DialogVerItemsPedidoComponent,
+      {
+        width: '900px',
+        data: venta
+      });
+
     dialogRef.afterClosed().subscribe(result => {
 
     });
   }
-
-  isAllSelected() {
-    const numSelected = this.selection.selected.length;
-    const numRows = this.dataSource.data.length;
-    return numSelected === numRows;
-  }
-
-  masterToggle() {
-    this.isAllSelected()
-      ? this.selection.clear()
-      : this.dataSource.data.forEach(row => this.selection.select(row));
-  }
-
 }

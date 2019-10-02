@@ -30,12 +30,6 @@ export class UsersComponent implements OnInit {
   columnCells = TABLA_USUARIOS.cells;
   formatTableCells = TABLA_USUARIOS.format;
   isLoading: boolean;
-  addButton = {
-    label: 'Agregar usuario',
-    buttonEvent: () => {
-      console.warn('dale que va la cosa');
-    }
-  };
 
   constructor(
     private dataService: DataService,

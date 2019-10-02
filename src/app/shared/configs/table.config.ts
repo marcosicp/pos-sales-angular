@@ -150,10 +150,42 @@ const TABLA_VENTAS = {
   }
 };
 
+const TABLA_PEDIDOS = {
+  title: 'Pedidos',
+  headers: {
+    creado: 'Fecha de pedido',
+    imprimioTicket: 'Se imprimio ticket',
+    responsable: 'Responsable',
+    cliente: 'Cliente',
+    total: 'Monto total',
+    estado: 'Estado',
+    opciones: 'Opciones'
+  },
+  cells: {
+    creado: 'creado',
+    imprimioTicket: 'imprimioTicket',
+    responsable: 'usuario',
+    cliente: 'cliente',
+    total: 'total',
+    estado: 'estado',
+    opciones: null
+  },
+  format: {
+    creado: 'date',
+    imprimioTicket: 'boolean',
+    responsable: null,
+    cliente: null,
+    total: 'currency',
+    estado: null,
+    opciones: null
+  }
+}
+
 export  {
   TABLA_PRODUCTOS,
   TABLA_USUARIOS,
   TABLA_CLIENTES,
   TABLA_PROVEEDORES,
-  TABLA_VENTAS
+  TABLA_VENTAS,
+  TABLA_PEDIDOS
 };

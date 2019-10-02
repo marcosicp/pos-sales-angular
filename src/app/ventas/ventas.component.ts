@@ -68,8 +68,9 @@ export class VentasComponent implements OnInit {
       DialogVerItemsPedidoComponent,
       {
         width: '900px',
-        data: { pedido }
+        data: pedido
       });
+
     dialogRef.afterClosed().subscribe(result => {
 
     });
