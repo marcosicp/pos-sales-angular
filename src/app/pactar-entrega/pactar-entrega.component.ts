@@ -1,37 +1,18 @@
-import {
-  Component,
-  ChangeDetectionStrategy,
-  ViewChild,
-  TemplateRef, NgZone,
-  Inject,
-  ViewEncapsulation
-} from '@angular/core';
-import {
-  startOfDay,
-  endOfDay,
-  subDays,
-  addDays,
-  endOfMonth,
-  isSameDay,
-  isSameMonth,
-  addHours
-} from 'date-fns';
+import { Component, ChangeDetectionStrategy, ViewChild, TemplateRef, NgZone, Inject, ViewEncapsulation } from '@angular/core';
+import { startOfDay, endOfDay, subDays, addDays, endOfMonth, isSameDay, isSameMonth, addHours } from 'date-fns';
 import { Subject } from 'rxjs';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
-import {
-  CalendarEvent,
-  CalendarEventAction,
-  CalendarEventTimesChangedEvent,
-  CalendarView,
-  CalendarMonthViewDay,
-  DAYS_OF_WEEK
-} from 'angular-calendar';
+import {  CalendarEvent, CalendarEventAction, CalendarEventTimesChangedEvent, CalendarView, CalendarMonthViewDay, DAYS_OF_WEEK } from 'angular-calendar';
 import { DialogEditarEntregaComponent } from '../dialogs/dialog-editar-entrega/dialog-editar-entrega.component';
 import { MatDialog, MAT_DIALOG_DATA } from '@angular/material';
 import { Router, ActivatedRoute } from '@angular/router';
 import { CalendarEventActionsComponent } from 'angular-calendar/modules/common/calendar-event-actions.component';
 import { DialogConfirmarComponent } from '../dialogs/dialog-confirmar/dialog-confirmar.component';
 import { Venta } from '../shared/models/venta.model';
+import { DialogOperacionOkComponent } from '../dialogs/dialog-operacion-ok/dialog-operacion-ok.component';
+import { DialogSinConexionComponent } from '../dialogs/dialog-sin-conexion/dialog-sin-conexion.component';
+import { DataService } from '../core/services/data.service';
+import { URL_VENTAS } from '../shared/configs/urls.config';
 
 const colors: any = {
   red: {
@@ -62,7 +43,7 @@ export class PactarEntregaComponent {
   view: CalendarView = CalendarView.Month;
 
   locale: string = 'es-AR';
-
+  pedidosConEntregas: Venta[];
   CalendarView = CalendarView;
 
   viewDate: Date = new Date();
@@ -78,7 +59,6 @@ export class PactarEntregaComponent {
       label: '<i class="fa fa-fw fa-pencil"></i>',
       onClick: ({ event }: { event: CalendarEvent }): void => {
         this.handleEvent('Edited', event);
-        debugger;
       }
     },
     {
@@ -86,67 +66,84 @@ export class PactarEntregaComponent {
       onClick: ({ event }: { event: CalendarEvent }): void => {
         this.events = this.events.filter(iEvent => iEvent !== event);
         this.handleEvent('Deleted', event);
-        debugger;
       }
     }
   ];
 
   refresh: Subject<any> = new Subject();
 
-  events: CalendarEvent[] = [
-    {
-      start: subDays(startOfDay(new Date()), 1),
-      end: addDays(new Date(), 1),
-      title: 'A 3 day event',
-      color: colors.red,
-      actions: this.actions,
-      allDay: true,
-      resizable: {
-        beforeStart: true,
-        afterEnd: true
-      },
-      draggable: true
-    },
-    {
-      start: startOfDay(new Date()),
-      title: 'An event with no end date',
-      color: colors.yellow,
-      actions: this.actions
-    },
-    {
-      start: subDays(endOfMonth(new Date()), 3),
-      end: addDays(endOfMonth(new Date()), 3),
-      title: 'A long event that spans 2 months',
-      color: colors.blue,
-      allDay: true
-    },
-    {
-      start: addHours(startOfDay(new Date()), 2),
-      end: new Date(),
-      title: 'A draggable and resizable event',
-      color: colors.yellow,
-      actions: this.actions,
-      resizable: {
-        beforeStart: true,
-        afterEnd: true
-      },
-      draggable: true
-    }
-  ];
+  events: CalendarEvent[] = [];
+  // = [
+  //   {
+  //     start: subDays(startOfDay(new Date()), 1),
+  //     end: addDays(new Date(), 1),
+  //     title: 'A 3 day event',
+  //     color: colors.red,
+  //     actions: this.actions,
+  //     allDay: true,
+  //     resizable: {
+  //       beforeStart: true,
+  //       afterEnd: true
+  //     },
+  //     draggable: true
+  //   },
+  //   {
+  //     start: startOfDay(new Date()),
+  //     title: 'An event with no end date',
+  //     color: colors.yellow,
+  //     actions: this.actions
+  //   },
+  //   {
+  //     start: subDays(endOfMonth(new Date()), 3),
+  //     end: addDays(endOfMonth(new Date()), 3),
+  //     title: 'A long event that spans 2 months',
+  //     color: colors.blue,
+  //     allDay: true
+  //   },
+  //   {
+  //     start: addHours(startOfDay(new Date()), 2),
+  //     end: new Date(),
+  //     title: 'A draggable and resizable event',
+  //     color: colors.yellow,
+  //     actions: this.actions,
+  //     resizable: {
+  //       beforeStart: true,
+  //       afterEnd: true
+  //     },
+  //     draggable: true
+  //   }
+  // ];
 
   activeDayIsOpen: boolean = true;
 
-  constructor(private modal: NgbModal, private zone:NgZone, private route: ActivatedRoute, public dialog: MatDialog, private router: Router) {
+  constructor(private modal: NgbModal, private zone:NgZone, private dataService: DataService, private route: ActivatedRoute, public dialog: MatDialog, private router: Router) {
+    
     this.route.queryParams.subscribe(params => {
-      debugger;
         if(params){
           this.venta = JSON.parse(params.pedido);
           const dialogRef = this.dialog.open(DialogConfirmarComponent, {
-            width: '300px',
+            width: '450px',
             data: {title: "Seleccione un dia para su entrega.", confirmText: "Recuerde que debe hacer doble click sobre el dia que considere conveniente."} 
           });
         }
     })
+
+    this.dataService.getAsync(URL_VENTAS.GET_ALL_ENTREGAS, this.pedidosConEntregas).subscribe(
+      data => {
+        if(data){
+         data.forEach(element => {
+           debugger;
+          element.agenda.start = startOfDay(new Date(element.agenda.start))
+          this.events.push(element.agenda);
+         });
+        }
+
+        this.refreshView();
+      },
+      error => {
+        console.log(error);
+      }
+    );
   }
 
   weekStartsOn: number = DAYS_OF_WEEK.MONDAY;
@@ -210,14 +207,12 @@ export class PactarEntregaComponent {
       this.venta= new Venta();
     }
 
-    debugger;
     const dialogRef = this.dialog.open(DialogEditarEntregaComponent, {
           width: '300px',
           data: { event: event, action: action, venta: this.venta }
         });
 
     dialogRef.afterClosed().subscribe(result => {
-      debugger;
       if(result){
         let evento : CalendarEvent = { title: 'ENTREGA --> Direccion: ' + result.evento.venta.direccion,
               start: startOfDay(new Date(result.evento.event.start)),
@@ -233,18 +228,35 @@ export class PactarEntregaComponent {
         this.addEvent(evento);
       }
 
-      this.refreshView();
+      
     });      
     
-    this.venta= new Venta();
+    
 
   }
 
-  addEvent(data: CalendarEvent): void {
+  addEvent(data1: CalendarEvent): void {
+    this.venta.agenda = data1;
+    this.dataService.postAsync('ventas/AddEntrega', this.venta).subscribe(
+      data2 => {
+        const dialogRef = this.dialog.open(DialogOperacionOkComponent, { width: '600px' });
+        dialogRef.afterClosed().subscribe(result => {
+          this.venta= new Venta();
+        });
+      },
+      error => {
+        const dialogRef = this.dialog.open(DialogSinConexionComponent, { width: '600px' });
+        dialogRef.afterClosed().subscribe(result => {
+        });
+      }
+    );
+    
     this.events = [
       ...this.events,
-      data
+      data1
     ];
+
+    this.refreshView();
   }
 
   deleteEvent(eventToDelete: CalendarEvent) {

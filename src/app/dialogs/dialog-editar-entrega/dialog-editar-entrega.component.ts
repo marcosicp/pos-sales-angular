@@ -3,6 +3,7 @@ import { DialogOperacionOkComponent } from '../dialog-operacion-ok/dialog-operac
 import { DialogSinConexionComponent } from '../dialog-sin-conexion/dialog-sin-conexion.component';
 import { MAT_DIALOG_DATA, MatDialogRef, MatFormFieldControl, MatInputModule } from '@angular/material';
 import { FormControl } from '@angular/forms';
+import { Venta } from '../../shared/models/venta.model';
 
 @Component({
   selector: 'app-dialog-editar-entrega',
@@ -15,9 +16,11 @@ export class DialogEditarEntregaComponent implements OnInit {
   direccion: Text;
   observacion: Text;
   fecha: Date;
+  venta = new Venta;
 
   constructor(public dialogRef: MatDialogRef<DialogEditarEntregaComponent>, @Inject(MAT_DIALOG_DATA) public data: any) { 
     this.evento = data;
+    this.venta = data.venta;
   }
 
   ngOnInit() {

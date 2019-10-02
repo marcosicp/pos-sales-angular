@@ -229,7 +229,7 @@ export class TicketComponent implements OnInit {
                   queryParams: { pedido: JSON.stringify(venta)} 
                 };
 
-                this.router.navigate(['confirmacion'], navigationExtras)
+                this.router.navigate(['confirmacion'], navigationExtras);
 
                 });
               },

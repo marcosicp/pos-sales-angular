@@ -10,28 +10,28 @@
     </mat-form-field>
     <mat-form-field class="full-width">
         <label>Codigo de Venta:</label>
-        <input matInput type="text" readonly [(ngModel)]="evento.venta.codigo">
+        <input matInput type="text" readonly [(ngModel)]="venta.codigo">
     </mat-form-field>
     <mat-form-field class="full-width">
         <label>Responsable:</label>
-        <input matInput type="text" readonly [(ngModel)]="evento.venta.usuario">        
+        <input matInput type="text" readonly [(ngModel)]="venta.usuario">        
     </mat-form-field>
     <mat-form-field class="full-width">
       <label>Direccion:</label>
-      <input matInput [(ngModel)]="evento.venta.direccion" type="text" />
+      <input matInput [(ngModel)]="venta.direccion" type="text" />
     </mat-form-field>
     <mat-form-field>
       <label>Observaciones:</label>
-      <input matInput [(ngModel)]="evento.venta.observacion" type="text" />
+      <input matInput [(ngModel)]="venta.observacion" type="text" />
     </mat-form-field>
     <mat-form-field>
         <label>Estado:</label>
-        <input matInput readonly type="text" [(ngModel)]="evento.venta.pedido.estado">
+        <input matInput readonly type="text" [(ngModel)]="venta.pedido.estado">
       <!-- <pre>{{ evento?.venta.pedido.estado }}</pre> -->
     </mat-form-field>
     <mat-form-field>
         <label>NroVenta:</label>
-        <input matInput type="text" [(ngModel)]="evento.venta.id">
+        <input matInput type="text" [(ngModel)]="venta.id">
     </mat-form-field>
     <div class="modal-footer">
       <button type="button" mat-button class="btn btn-outline-secondary" (click)="guardarEnvio()">

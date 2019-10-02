@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute, Router } from '@angular/router';
+import { ActivatedRoute, Router, NavigationExtras } from '@angular/router';
 import { Venta } from '../../shared/models/venta.model';
 import { DataService } from '../../core/services/data.service';
 import { ProductoPedido } from '../../shared/models/producto-venta.model';
@@ -17,7 +17,7 @@ export class ConfirmacionComponent implements OnInit {
   // imagenUrl: string = "../../../assets/icons/nointernet.png";
   selectedFiles: FileList;
   ventas= new Venta();
-  result;
+  result: any;
 
   constructor(private route: ActivatedRoute, private router: Router, private dataService: DataService) { 
     this.route.queryParams.subscribe(params => {
@@ -40,16 +40,16 @@ export class ConfirmacionComponent implements OnInit {
   }
 
   confirmar() {
-    // const file = this.selectedFiles.item(0);
-    // this.currentUpload = new Upload(file);
-      
     this.dataService.postAsync(URL_PEDIDOS.CONFIRMAR, this.ventas).subscribe(
       data => {
-        
-        // this.test = data;
-          
-        this.selectedFiles = null;
+        if(data[0]){
+          this.selectedFiles = null;
+          let navigationExtras: NavigationExtras = {
+            queryParams: { pedido: JSON.stringify(this.ventas)} 
+          };
 
+          this.router.navigate(['agenda'], navigationExtras)
+        }
       },
       error => {
         console.log(error);

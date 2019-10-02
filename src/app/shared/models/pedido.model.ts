@@ -10,5 +10,6 @@ export class Pedido {
     clienteId: string;
     fechaModificacion: Date;
     usuario: string;
+    estado: string;
     imprimioTicket: boolean;
 }

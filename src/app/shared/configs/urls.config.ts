@@ -23,7 +23,8 @@ const isProd = true,
         DELETE_CLIENTE: 'clientes/DeleteCliente',
       },
       URL_VENTAS = {
-        GET_ALL: 'ventas/GetAllVentas'
+        GET_ALL: 'ventas/GetAllVentas',
+        GET_ALL_ENTREGAS: 'ventas/GetAllEntregas'
       },
       URL_PROVEEDORES = {
         GET_ALL: 'proveedores/GetAllProveedores',
