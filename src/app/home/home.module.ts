@@ -3,7 +3,6 @@ import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 // IMPORTAR MODULOS
 import { AppRoutingModule } from '../core/app-routing.module';
-import { MaterialModule } from '../core/material.module';
 import { FlexLayoutModule } from '@angular/flex-layout';
 import { NgSelectModule } from '@ng-select/ng-select';
 // COMPONENTES
@@ -19,15 +18,17 @@ import { TransactionsComponent } from './transactions/transactions.component';
 import { ReportsComponent } from './reports/reports.component';
 import { LineChartComponent } from './reports/line-chart/line-chart.component';
 import { AdministracionComponent } from './administracion/administracion.component';
+// OTROS MODULOS
+import { SharedModule } from '../shared/shared.module'
 
 @NgModule({
   imports: [
     CommonModule,
-    MaterialModule,
     AppRoutingModule,
     FormsModule,
     FlexLayoutModule,
-    NgSelectModule
+    NgSelectModule,
+    SharedModule
   ],
   declarations: [
     HomeComponent,

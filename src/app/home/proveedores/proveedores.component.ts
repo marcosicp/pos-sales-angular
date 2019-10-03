@@ -1,51 +1,57 @@
-import { Component, OnInit, ViewChild, AfterViewInit, NgZone } from '@angular/core';
-import { MatSort,MatDialog, MatTableDataSource, MatPaginator } from '@angular/material';
+import { Component, OnInit } from '@angular/core';
+import { MatDialog, MatTableDataSource } from '@angular/material';
 import { SelectionModel } from '@angular/cdk/collections';
-import { Venta } from '../../shared/models/venta.model';
+// ENTIDADES
+// import { Venta } from '../../shared/models/venta.model';
 import { Proveedores } from '../../shared/models/proveedores.model';
+// SERVICIOS
 import { DataService } from '../../core/services/data.service';
-import { DialogProveedoresAddEditComponent } from '../../dialogs/dialog-proveedores-add-edit/dialog-proveedores-add-edit.component';
+// CONFIGURACIONES
 import { URL_PROVEEDORES } from '../../shared/configs/urls.config';
+import { TABLA_PROVEEDORES } from '../../shared/configs/table.config';
+// DIALOGOS
 import { DialogConfirmarComponent } from '../../dialogs/dialog-confirmar/dialog-confirmar.component';
+import { DialogProveedoresAddEditComponent } from '../../dialogs/dialog-proveedores-add-edit/dialog-proveedores-add-edit.component';
 
 @Component({
   selector: 'app-proveedores',
   templateUrl: './proveedores.component.html',
   styleUrls: ['./proveedores.component.scss']
 })
-export class ProveedoresComponent implements OnInit, AfterViewInit {
-  private zone: NgZone;
-  // proveedores: Proveedores[];
-  total: number;
-  proveedores: Proveedores[] = [];
-
-  @ViewChild(MatPaginator) paginator: MatPaginator;
-  @ViewChild(MatSort) sort: MatSort;
-
+export class ProveedoresComponent implements OnInit {
+  tableTitle = TABLA_PROVEEDORES.title;
+  dataSource = new MatTableDataSource<Proveedores>();
+  headerTitles = Object.keys(TABLA_PROVEEDORES.cells);
+  tableHeaders = TABLA_PROVEEDORES.headers;
+  columnCells = TABLA_PROVEEDORES.cells;
+  formatTableCells = TABLA_PROVEEDORES.format;
   isLoading: boolean;
-  displayedColumns: string[] = [ 'nombre', 'telefono', 'razonSocial', 'direccion','eliminar', 'editar'];
-  dataSource: MatTableDataSource<Proveedores>;
-  selection = new SelectionModel<Proveedores>(true, []);
+  addButton = {
+    label: 'Agregar proveedor',
+    buttonEvent: () => this.agregarProveedor()
+  };
 
-  constructor(private comerciosService: DataService, public dialog: MatDialog) {
-    this.isLoading = true;
-  }
+  constructor(
+    private comerciosService: DataService,
+    public dialog: MatDialog
+    ) { }
 
   ngOnInit() {
-    this.comerciosService.getAsync(URL_PROVEEDORES.GET_ALL, this.proveedores).subscribe(
+    this.isLoading = true;
+    this.comerciosService.getAsync(URL_PROVEEDORES.GET_ALL, []).subscribe(
       data => {
-        this.proveedores = data;
-        this.dataSource = new MatTableDataSource<Proveedores>();
-        this.dataSource.data = this.proveedores;
-        this.dataSource.paginator = this.paginator;
-        this.dataSource.sort = this.sort;
+        this.dataSource.data = data;
+        this.columnCells.opciones = [{
+          buttonLabel: 'Modificar',
+          buttonEvent: (proveedor) => this.editarProveedor(proveedor)
+        },
+        {
+          buttonLabel: 'Eliminar',
+          buttonEvent: (proveedor) => this.eliminarProveedor(proveedor)
+        }];
         this.isLoading = false;
       }
     );
-  }
-
-  ngAfterViewInit() {
-    const self = this;
   }
 
   agregarProveedor() {
@@ -54,24 +60,25 @@ export class ProveedoresComponent implements OnInit, AfterViewInit {
     });
 
     dialogRef.afterClosed().subscribe(result => {
-   
+
     });
+  }
+
+  editarProveedor(proveedor: Proveedores) {
+    console.warn(proveedor);
   }
 
   eliminarProveedor(proveedor: Proveedores) {
     const dialogRef = this.dialog.open(DialogConfirmarComponent, {
-      width: '900px', data: {title: "Eliminar Proveedor", confirmText: "Esta seguro que desear eliminar este proveedor?"} 
+      width: '900px', data: {title: 'Eliminar Proveedor', confirmText: 'Esta seguro que desear eliminar este proveedor?'}
     });
 
     dialogRef.afterClosed().subscribe(result => {
-      if(result){
-        this.comerciosService.deleteAsync(URL_PROVEEDORES.DELETE_PROVEEDOR, proveedor.id, this.proveedores).subscribe(
+      if (result.confirm) {
+        this.comerciosService.deleteAsync(URL_PROVEEDORES.DELETE_PROVEEDOR, proveedor.id, []).subscribe(
           data => {
-              this.dataSource = new MatTableDataSource<Proveedores>();
-              this.dataSource.data = this.proveedores;
-              this.dataSource.paginator = this.paginator;
-              this.dataSource.sort = this.sort;
-              this.isLoading = false; 
+              this.dataSource.data = data;
+              this.isLoading = false;
           }
         );
       }

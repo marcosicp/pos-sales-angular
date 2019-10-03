@@ -17,12 +17,14 @@ export class ItemsComponent implements OnInit {
   addItemActive = false;
   selectedFiles: FileList;
   // currentUpload: Upload;
+
+  tableTitle = TABLA_PRODUCTOS.title;
   dataSource = new MatTableDataSource<Productos>();
+  headerTitles = Object.keys(TABLA_PRODUCTOS.cells);
+  tableHeaders = TABLA_PRODUCTOS.headers;
+  columnCells = TABLA_PRODUCTOS.cells;
+  formatTableCells = TABLA_PRODUCTOS.format;
   isLoading: boolean;
-  displayedColumns: string[];
-  showDisplayedColumns = TABLA_PRODUCTOS.headers;
-  displayedCells = TABLA_PRODUCTOS.cells;
-  mainTitle = 'Productos';
 
   constructor(
     private dataService: DataService
@@ -34,7 +36,6 @@ export class ItemsComponent implements OnInit {
     this.dataService.getAsync(URL_PRODUCTOS.GET_ALL, []).subscribe(
       data => {
         this.dataSource.data = data;
-        this.displayedColumns = Object.keys(this.displayedCells);
         this.isLoading = false;
       },
       error => {

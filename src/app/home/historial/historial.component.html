@@ -1,76 +1,9 @@
-<div class="card-container mat-elevation-z8">
-    <mat-card class="mat-elevation-z" style="box-shadow: 0px">
-      <h1 style="text-align: center; font-size: 210%" >Pedidos</h1>
-    </mat-card>
-  <mat-toolbar style="background-color: #bac3f7">
-    <div fxLayout="row" fxLayoutGap="10px">
-      <button mat-flat-button color="primary" [disabled]="selection.selected.length > 0">Agregar</button>
-    </div>
-    <div style="margin-left: auto; margin-right: 5%;">
-      <label>Buscar: </label>
-      <mat-form-field style="width: 75%">
-        <input matInput class="search-input" placeholder="Cliente, Responsable">
-      </mat-form-field>
-    </div>
-  </mat-toolbar>
-
-  <div class="loading-shade"
-      *ngIf="isLoading">
-    <mat-spinner></mat-spinner>
-  </div>
-
-    <table class="mat-elevation-z8 align-middle"  style="line-height: 60px" mat-table [dataSource]="dataSource"
-          matSort matSortActive="fechaVenta" matSortDirection="desc">
-
-      <ng-container matColumnDef="creado" class="align-middle">
-        <th mat-header-cell *matHeaderCellDef mat-sort-header class="align-middle"> Fecha Pedido </th>
-        <td mat-cell *matCellDef="let element" class="align-middle"> {{element.creado | date:'medium'}} </td>
-      </ng-container>
-
-      <ng-container matColumnDef="imprimioTicket">
-        <th mat-header-cell *matHeaderCellDef mat-sort-header> Emitio Factura </th>
-        <td mat-cell *matCellDef="let element"> {{element.imprimioTicket ? 'SI' : 'NO' }} </td>
-      </ng-container>
-
-      <ng-container matColumnDef="responsable">
-        <th mat-header-cell *matHeaderCellDef mat-sort-header>Responsable </th>
-        <td mat-cell *matCellDef="let element"> {{element.usuario}} </td>
-      </ng-container>
-
-      <ng-container matColumnDef="cliente">
-        <th mat-header-cell *matHeaderCellDef mat-sort-header> Cliente </th>
-        <td mat-cell *matCellDef="let element"> {{element.cliente}} </td>
-      </ng-container>
-
-      <ng-container matColumnDef="total">
-        <th mat-header-cell *matHeaderCellDef mat-sort-header> Total </th>
-        <td mat-cell *matCellDef="let element"> ${{element.total}} </td>
-      </ng-container>
-
-      <ng-container matColumnDef="estado">
-        <th mat-header-cell *matHeaderCellDef mat-sort-header> Estado </th>
-        <td mat-cell *matCellDef="let element"> {{element.estado}} </td>
-      </ng-container>
-
-      <ng-container matColumnDef="veritems">
-        <th mat-header-cell *matHeaderCellDef> Ver items </th>
-        <td mat-cell *matCellDef="let element">
-          <button mat-icon-button color="accent" (click)="verItems(element)">
-            <mat-icon>search</mat-icon>
-          </button>
-        </td>
-      </ng-container>
-
-      <ng-container matColumnDef="confirmar">
-        <th mat-header-cell *matHeaderCellDef> Confirmar </th>
-        <td mat-cell *matCellDef="let element">
-          <button mat-icon-button color="accent" (click)="onTap(element)">
-            <button>CONFIRMAR</button>
-          </button>
-        </td>
-      </ng-container>
-      <tr mat-header-row *matHeaderRowDef="displayedColumns; sticky: true"></tr>
-      <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
-    </table>
-  <mat-paginator [pageSizeOptions]="[10, 25, 50, 100]"></mat-paginator>
-</div>
+<dynamic-table
+  [tableTitle]="tableTitle"
+  [dataSource]="dataSource"
+  [headerTitles]="headerTitles"
+  [tableHeaders]="tableHeaders"
+  [columnCells]="columnCells"
+  [formatTableCells]="formatTableCells"
+  [isLoading]="isLoading">
+</dynamic-table>
