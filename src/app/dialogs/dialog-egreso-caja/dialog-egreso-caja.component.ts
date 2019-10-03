@@ -37,13 +37,13 @@ export class DialogEgresoCajaComponent implements OnInit {
     this.comerciosService.createAsync('administracion/retiroCaja', this.retiroCaja, this.result).subscribe(
       data => {
         this.retiroCaja = data[0];
-        const dialogRefOk = this.dialog.open(DialogOperacionOkComponent, { width: '600px' });
+        const dialogRefOk = this.dialog.open(DialogOperacionOkComponent, { width: '600px' ,  disableClose: true });
         dialogRefOk.afterClosed().subscribe(result => {
         this.dialogRef.close();
         });
       },
       error => {
-        const dialogRef = this.dialog.open(DialogSinConexionComponent, { width: '600px' });
+        const dialogRef = this.dialog.open(DialogSinConexionComponent, { width: '600px' ,  disableClose: true });
         dialogRef.afterClosed().subscribe(result => { });
         console.log(error);
       }

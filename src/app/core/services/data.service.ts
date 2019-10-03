@@ -57,7 +57,7 @@ export class DataService {
         const objectIndex = dataCollection.indexOf(objectToUpdate);
         dataCollection[objectIndex] = object;
 
-        observer.next(result);
+        observer.next(dataCollection);
         observer.complete();
       });
   })
@@ -70,9 +70,7 @@ export class DataService {
         const objectIndex = dataCollection.indexOf(objectToUpdate);
         dataCollection.splice(objectIndex, 1);
         
-        //dataCollection[objectIndex] = object;
-
-        observer.next(result);
+        observer.next(dataCollection);
         observer.complete();
       });
   })

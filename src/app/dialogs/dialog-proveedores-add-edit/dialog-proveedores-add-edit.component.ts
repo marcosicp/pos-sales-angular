@@ -1,8 +1,9 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Inject } from '@angular/core';
 import { Proveedores } from '../../shared/models/proveedores.model';
+import { FormControl, Validators } from '@angular/forms';
 import { DialogOperacionOkComponent } from '../dialog-operacion-ok/dialog-operacion-ok.component';
 import { DialogSinConexionComponent } from '../dialog-sin-conexion/dialog-sin-conexion.component';
-import { MatDialogRef, MatDialog } from '@angular/material';
+import { MatDialogRef, MatDialog, MAT_DIALOG_DATA } from '@angular/material';
 import { DialogCerrarCajaComponent } from '../dialog-cerrar-caja/dialog-cerrar-caja.component';
 import { AuthService } from '../../core/services/auth.service';
 import { DataService } from '../../core/services/data.service';
@@ -15,34 +16,35 @@ import { DataService } from '../../core/services/data.service';
 export class DialogProveedoresAddEditComponent implements OnInit {
 
   proveedor: Proveedores = new Proveedores();
-  result: Proveedores[] = [];
+  // result: Proveedores[] = [];
 
-  constructor(private auth: AuthService, private dialog: MatDialog,
-     public dialogRef: MatDialogRef<DialogCerrarCajaComponent>, private comerciosService: DataService) { }
+  constructor(private auth: AuthService, private dialog: MatDialog, @Inject(MAT_DIALOG_DATA) public data: any,
+     public dialogRef: MatDialogRef<DialogCerrarCajaComponent>, private comerciosService: DataService) {
+       debugger;
+       if(data){
+        this.proveedor = data;
+       }
+      }
 
   ngOnInit() {
     
   }
 
   guardarProveedor() {
-    this.comerciosService.createAsync('proveedores/AddProveedor', this.proveedor, this.result).subscribe(
-      data => {
-        
-        const dialogRef = this.dialog.open(DialogOperacionOkComponent, { width: '600px' });
-        dialogRef.afterClosed().subscribe(result => {
+      
+    this.dialogRef.close(this.proveedor);
+    
+  }
 
-        });
-        
-          
-        this.dialogRef.close(data[0]);
-      },
-      error => {
-        const dialogRef = this.dialog.open(DialogSinConexionComponent, { width: '600px' });
-          dialogRef.afterClosed().subscribe(result => {
-        });
-        console.log(error);
-      }
-    );
+  inputValidator(event: any) {
+    //console.log(event.target.value);
+    const pattern = /^[0-9]*$/;   
+    //let inputChar = String.fromCharCode(event.charCode)
+    if (!pattern.test(event.target.value)) {
+      event.target.value = event.target.value.replace(/[^0-9]/g, "");
+      // invalid character, prevent input
+
+    }
   }
 
   onNoClick() {

@@ -38,7 +38,7 @@ export class DialogCerrarCajaComponent {
             this.cierreCaja.totalCierreCaja = this.apertura.monto + this.cierreCaja.totalPrecioPedido;
           },
           error => {
-            const dialogRef2 = this.dialog.open(DialogSinConexionComponent, { width: '600px' });
+            const dialogRef2 = this.dialog.open(DialogSinConexionComponent, { width: '600px' ,  disableClose: true });
             dialogRef2.afterClosed().subscribe(result => {
             });
             console.log(error);
@@ -46,7 +46,7 @@ export class DialogCerrarCajaComponent {
         );
       },
       error => {
-        const dialogRef3 = this.dialog.open(DialogSinConexionComponent, { width: '600px' });
+        const dialogRef3 = this.dialog.open(DialogSinConexionComponent, { width: '600px' ,  disableClose: true });
         dialogRef3.afterClosed().subscribe(result => {
         });
         console.log(error);
@@ -62,7 +62,7 @@ export class DialogCerrarCajaComponent {
 
     this.comerciosService.createAsync('movimientos/cerrarCaja', this.cierreCaja, this.result).subscribe(
       data => {
-        const dialogRef = this.dialog.open(DialogOperacionOkComponent, { width: '600px' });
+        const dialogRef = this.dialog.open(DialogOperacionOkComponent, { width: '600px' ,  disableClose: true });
         dialogRef.afterClosed().subscribe(result => {
 
         });
@@ -70,7 +70,7 @@ export class DialogCerrarCajaComponent {
         this.dialogRef.close();
       },
       error => {
-        const dialogRef = this.dialog.open(DialogSinConexionComponent, { width: '600px' });
+        const dialogRef = this.dialog.open(DialogSinConexionComponent, { width: '600px' ,  disableClose: true });
           dialogRef.afterClosed().subscribe(result => {
         });
         console.log(error);

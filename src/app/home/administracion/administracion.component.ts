@@ -23,7 +23,7 @@ export class AdministracionComponent implements OnInit {
   abrirCaja() {
     const dialogRef = this.dialog.open(DialogAbrirCajaComponent,
       {
-        width: '600px'
+        width: '600px' ,  disableClose: true
       });
 
     dialogRef.afterClosed().subscribe(
@@ -36,7 +36,7 @@ export class AdministracionComponent implements OnInit {
   cerrarCaja() {
       const dialogRef = this.dialog.open(DialogCerrarCajaComponent,
         {
-          width: '600px'
+          width: '600px' ,  disableClose: true
         });
 
       dialogRef.afterClosed().subscribe(
@@ -49,7 +49,7 @@ export class AdministracionComponent implements OnInit {
   egreso() {
     const dialogRef = this.dialog.open(DialogEgresoCajaComponent,
       {
-        width: '600px'
+        width: '600px' ,  disableClose: true
       });
 
     dialogRef.afterClosed().subscribe(
@@ -62,7 +62,7 @@ export class AdministracionComponent implements OnInit {
   ingreso() {
     const dialogRef = this.dialog.open(DialogIngresoCajaComponent,
       {
-        width: '600px'
+        width: '600px' ,  disableClose: true
       });
 
     dialogRef.afterClosed().subscribe(

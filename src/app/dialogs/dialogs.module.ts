@@ -4,6 +4,8 @@ import { FormsModule } from '@angular/forms';
 import { MaterialModule } from '../core/material.module';
 import { FlexLayoutModule } from '@angular/flex-layout';
 import { NgbModalModule } from '@ng-bootstrap/ng-bootstrap';
+import { RxReactiveFormsModule } from '@rxweb/reactive-form-validators';
+import { CustomFormsModule } from 'ngx-custom-validators';
 // IMPORTS
 import { DialogAbrirCajaComponent } from './dialog-abrir-caja/dialog-abrir-caja.component';
 import { DialogGestionarProductoComponent } from './dialog-gestionar-producto/dialog-gestionar-producto.component';
@@ -26,6 +28,8 @@ import { DialogEditarEntregaComponent } from './dialog-editar-entrega/dialog-edi
     FormsModule,
     MaterialModule,
     FlexLayoutModule,
+    RxReactiveFormsModule,
+    CustomFormsModule,
     NgbModalModule
   ],
   declarations: [

@@ -30,18 +30,9 @@ export class DialogClienteAddEditComponent {
   }
 
   guardarCliente() {
-    this.comerciosService.createAsync('clientes/AddCliente', this.cliente, this.result).subscribe(
-      data => {
-        const dialogRef = this.dialog.open(DialogOperacionOkComponent, { width: '600px' });
+    const dialogRef = this.dialog.open(DialogOperacionOkComponent, { width: '600px' ,  disableClose: true });
 
-        this.dialogRef.close(this.cliente);
-      },
-      error => {
-        const dialogRef = this.dialog.open(DialogSinConexionComponent, { width: '600px' });
-          dialogRef.afterClosed().subscribe(result => {
-        });
-        console.log(error);
-      }
-    );
+    this.dialogRef.close(this.cliente);
+    
   }
 }

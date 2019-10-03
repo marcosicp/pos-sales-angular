@@ -10,6 +10,7 @@ import { TABLA_CLIENTES } from '../../shared/configs/table.config';
 // DIALOGOS
 import { DialogClienteAddEditComponent } from '../../dialogs/dialog-cliente-add-edit/dialog-cliente-add-edit.component';
 import { DialogConfirmarComponent } from '../../dialogs/dialog-confirmar/dialog-confirmar.component';
+import { DialogSinConexionComponent } from '../../dialogs/dialog-sin-conexion/dialog-sin-conexion.component';
 
 @Component({
   selector: 'app-clientes',
@@ -61,16 +62,23 @@ export class ClientesComponent implements OnInit {
 
   agregarCliente() {
     const dialogRef = this.dialog.open(DialogClienteAddEditComponent, {
-      width: '900px'
+      width: '900px' ,  disableClose: true
     });
 
     dialogRef.afterClosed().subscribe(result => {
-      this.comerciosService.getAsync(URL_CLIENTES.GET_ALL, this.clientes).subscribe(
-        data => {
-          this.dataSource.data = data;
-          this.isLoading = false;
-        }
-      );
+      if(result){
+        this.comerciosService.createAsync('clientes/AddCliente', result, this.dataSource.data).subscribe(
+          data => {
+            this.dataSource.data = data;
+          },
+          error => {
+            const dialogRef = this.dialog.open(DialogSinConexionComponent, { width: '600px' ,  disableClose: true });
+              dialogRef.afterClosed().subscribe(result => {
+            });
+            console.log(error);
+          }
+        );
+      }
     });
   }
 
@@ -81,7 +89,7 @@ export class ClientesComponent implements OnInit {
   eliminarCliente(cliente: Clientes) {
     const dialogRef =
       this.dialog.open(DialogConfirmarComponent, {
-        width: '900px',
+        width: '900px' ,  disableClose: true,
         data: {
           title: 'Eliminar Cliente',
           confirmText: 'Esta seguro que desear eliminar este cliente'

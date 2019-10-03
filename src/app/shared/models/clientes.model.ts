@@ -8,7 +8,7 @@ export class Clientes {
 
   descripcion: String;
   cuit: String;
-  razonsocial: String;
+  razonSocial: String;
   cuil: String;
   dni: String;
   nombre: String;

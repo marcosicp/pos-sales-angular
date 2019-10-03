@@ -67,7 +67,7 @@ export class VentasComponent implements OnInit {
     const dialogRef = this.dialog.open(
       DialogVerItemsPedidoComponent,
       {
-        width: '900px',
+        width: '900px' ,  disableClose: true,
         data: pedido
       });
 
