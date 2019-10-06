@@ -19,6 +19,8 @@ import { DialogVerItemsPedidoComponent } from './dialog-ver-items-venta/dialog-v
 import { DialogProveedoresAddEditComponent } from './dialog-proveedores-add-edit/dialog-proveedores-add-edit.component';
 import { DialogClienteAddEditComponent } from './dialog-cliente-add-edit/dialog-cliente-add-edit.component';
 import { DialogEditarEntregaComponent } from './dialog-editar-entrega/dialog-editar-entrega.component';
+import { DialogUsuarioAddEditComponent } from './dialog-usuario-add-edit/dialog-usuario-add-edit.component';
+import { DialogCambiarPassComponent } from './dialog-cambiar-pass/dialog-cambiar-pass.component';
 
 @NgModule({
   imports: [
@@ -42,7 +44,9 @@ import { DialogEditarEntregaComponent } from './dialog-editar-entrega/dialog-edi
     DialogVerItemsPedidoComponent,
     DialogEditarEntregaComponent,
     DialogProveedoresAddEditComponent,
-    DialogClienteAddEditComponent
+    DialogClienteAddEditComponent,
+    DialogUsuarioAddEditComponent,
+    DialogCambiarPassComponent
   ],
   entryComponents: [
     DialogAbrirCajaComponent,
@@ -58,7 +62,9 @@ import { DialogEditarEntregaComponent } from './dialog-editar-entrega/dialog-edi
     DialogSinConexionComponent,
     DialogVerItemsPedidoComponent,
     DialogProveedoresAddEditComponent,
-    DialogClienteAddEditComponent
+    DialogClienteAddEditComponent,
+    DialogUsuarioAddEditComponent,
+    DialogCambiarPassComponent
   ]
 })
 export class DialogsModule { }

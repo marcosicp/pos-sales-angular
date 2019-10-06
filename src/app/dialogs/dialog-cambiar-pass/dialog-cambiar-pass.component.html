@@ -1,0 +1,23 @@
+<div mat-dialog-content fxLayout="column">
+  <mat-form-field class="full-width">
+    <label>Usuario</label>
+    <input matInput type="text" disabled [(ngModel)]="usuario.nombre">
+  </mat-form-field>
+  <mat-form-field class="full-width">
+    <label>Contraseña anterior</label>
+    <input matInput type="password" [(ngModel)]="passObj.anterior">
+  </mat-form-field>
+  <mat-form-field class="full-width">
+    <label>Nueva contraseña</label>
+    <input matInput type="password" [(ngModel)]="passObj.nueva">
+  </mat-form-field>
+  <mat-form-field class="full-width">
+    <label>Repetir nueva contraseña</label>
+    <input matInput type="password" [(ngModel)]="passObj.repetirNueva">
+  </mat-form-field>
+</div>
+
+<div mat-dialog-actions>
+  <button mat-button (click)="guardarCambios()">Guardar</button>
+  <button mat-button (click)="cancelarCambios()">Cancelar</button>
+</div>

@@ -1,0 +1,31 @@
+<div mat-dialog-content fxLayout="column">
+  <mat-form-field class="full-width">
+    <label>Nombre</label>
+    <input matInput type="text" [(ngModel)]="usuario.nombre">
+  </mat-form-field>
+  <mat-form-field class="full-width">
+    <label>Apellido</label>
+    <input matInput type="text" [(ngModel)]="usuario.apellido">
+  </mat-form-field>
+  <mat-form-field class="full-width">
+    <label>Email</label>
+    <input matInput type="text" [(ngModel)]="usuario.email">
+  </mat-form-field>
+  <mat-form-field class="full-width">
+    <label>Teléfono</label>
+    <input matInput type="text" [(ngModel)]="usuario.telefono">
+  </mat-form-field>
+  <mat-form-field class="full-width">
+    <label>Va a ser administrador?</label>
+    <input matInput type="text" >
+    <mat-radio-group [(ngModel)]="usuario.admin">
+      <mat-radio-button [value]="true">SI</mat-radio-button>
+      <mat-radio-button [value]="false">NO</mat-radio-button>
+    </mat-radio-group>
+  </mat-form-field>
+</div>
+
+<div mat-dialog-actions>
+  <button mat-button (click)="guardarUsuario()">Guardar</button>
+  <button mat-button (click)="onNoClick()">Cancelar</button>
+</div>

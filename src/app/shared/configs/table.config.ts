@@ -40,7 +40,8 @@ const TABLA_USUARIOS = {
     usuario: 'Usuario',
     email: 'E-mail',
     fechaNacimiento: 'Fecha de nacimiento',
-    creado: 'Fecha de creación'
+    creado: 'Fecha de creación',
+    opciones: 'Opciones'
   },
   cells: {
     nombre: 'nombre',
@@ -48,7 +49,8 @@ const TABLA_USUARIOS = {
     usuario: 'usuario',
     email: 'email',
     fechaNacimiento: 'fechaNacimiento',
-    creado: 'creado'
+    creado: 'creado',
+    opciones: null
   },
   format: {
     nombre: null,
@@ -56,7 +58,8 @@ const TABLA_USUARIOS = {
     usuario: null,
     email: null,
     fechaNacimiento: 'date',
-    creado: 'date'
+    creado: 'date',
+    opciones: null
   }
 };
 
