@@ -17,7 +17,7 @@ import { URL_PRODUCTOS } from '../../shared/configs/urls.config';
 })
 export class DialogStockAumentarComponent {
   producto: Productos;
-  nuevaCantidad = 0;
+  nuevaCantidad: number;
 
   constructor(
     private dialog: MatDialog,
@@ -26,6 +26,7 @@ export class DialogStockAumentarComponent {
     @Inject(MAT_DIALOG_DATA) public data?: Productos
   ) {
     this.producto = data;
+    this.nuevaCantidad = data.cantidad;
   }
 
   guardar() {
