@@ -37,14 +37,14 @@
           <td mat-cell *matCellDef="let element">
             <ng-container *ngIf="column !== 'opciones'">
               <ng-container [ngSwitch]="formatTableCells[column]">
-                <span *ngSwitchCase="'currency'">
+                <span *ngSwitchCase="'currency'" class="currency">
                   {{
                     element |
                     columnValue: {
                       columns: columnCells,
                       cellValue: column
                     } |
-                    currency
+                    currency:'$'
                   }}</span>
                 <span *ngSwitchCase="'number'">
                   {{

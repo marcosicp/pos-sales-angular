@@ -1,0 +1,31 @@
+<div mat-dialog-content fxLayout="column">
+  <mat-form-field class="full-width">
+    <label>Nombre</label>
+    <input matInput type="text" [(ngModel)]="producto.nombre">
+  </mat-form-field>
+  <mat-form-field class="full-width">
+    <label>Código</label>
+    <input matInput type="text" [(ngModel)]="producto.codigo">
+  </mat-form-field>
+  <mat-form-field class="full-width">
+    <label>Precio de compra</label>
+    <input matInput type="text" [(ngModel)]="producto.precioCompra">
+  </mat-form-field>
+  <mat-form-field class="full-width">
+    <label>Precio de venta</label>
+    <input matInput type="text" [(ngModel)]="producto.precioVenta">
+  </mat-form-field>
+  <mat-form-field class="full-width">
+    <label>Peso por unidad</label>
+    <input matInput type="text" [(ngModel)]="producto.peso">
+  </mat-form-field>
+  <mat-form-field class="full-width" *ngIf="!data">
+    <label>Cantidad inicial</label>
+    <input matInput type="text" [(ngModel)]="producto.cantidad">
+  </mat-form-field>
+</div>
+
+<div mat-dialog-actions>
+  <button mat-button (click)="guardar()">Guardar</button>
+  <button mat-button (click)="cancelar()">Cancelar</button>
+</div>
