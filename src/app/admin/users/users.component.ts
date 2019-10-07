@@ -61,45 +61,27 @@ export class UsersComponent implements OnInit {
   }
 
   agregarUsuario() {
-    const dialogRef = this.dialog.open(
+    this.dialog.open(
       DialogUsuarioAddEditComponent, {
         width: '900px'
-      }
-    );
-
-    dialogRef.afterClosed().subscribe(
-      result => {
-        console.warn(result);
       }
     );
   }
 
   editarUsuario(usuario: Usuarios) {
-    const dialogRef = this.dialog.open(
+    this.dialog.open(
       DialogUsuarioAddEditComponent, {
         width: '900px',
         data: usuario
       }
     );
-
-    dialogRef.afterClosed().subscribe(
-      result => {
-        console.warn(result);
-      }
-    );
   }
 
   cambiarPass(usuario: Usuarios) {
-    const dialogRef = this.dialog.open(
+    this.dialog.open(
       DialogCambiarPassComponent, {
         width: '900px',
         data: usuario
-      }
-    );
-
-    dialogRef.afterClosed().subscribe(
-      result => {
-        console.warn(result);
       }
     );
   }

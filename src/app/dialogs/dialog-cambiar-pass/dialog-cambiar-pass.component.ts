@@ -6,6 +6,9 @@ import { DataService } from '../../core/services/data.service';
 import { Usuarios } from '../../shared/models/usuarios.model';
 // DIALOGOS
 import { DialogOperacionOkComponent } from '../dialog-operacion-ok/dialog-operacion-ok.component';
+import { DialogSinConexionComponent } from '../dialog-sin-conexion/dialog-sin-conexion.component';
+// URLS DE CONFIGURACION
+import { URL_USER } from '../../shared/configs/urls.config';
 
 @Component({
   selector: 'app-dialog-cambiar-pass',
@@ -19,6 +22,7 @@ export class DialogCambiarPassComponent {
     nueva: '',
     repetirNueva: ''
   };
+  errorPass = false;
 
   constructor(
     private dialog: MatDialog,
@@ -30,10 +34,54 @@ export class DialogCambiarPassComponent {
   }
 
   guardarCambios() {
-    console.warn(this.usuario, this.passObj);
+    if (this.checkearPass()) {
+      this.errorPass = true;
+      return;
+    } else {
+      this.errorPass = false;
+    }
+
+    const postObj = {
+      usuario: this.usuario,
+      pass: this.passObj.nueva
+    };
+
+    this.dataService.postAsync(
+      URL_USER.MODIFY_PASS,
+      postObj
+    ).subscribe(
+      result => {
+        const DialogResult = result ?
+          DialogOperacionOkComponent :
+          DialogSinConexionComponent;
+        const response = result ?
+          result[0] : false;
+
+        const _dialogRef = this.dialog.open(
+          DialogResult,
+          { width: '600px' }
+        );
+
+        _dialogRef.afterOpened().subscribe(
+          () => {
+            this.dialogRef.close(response);
+          }
+        );
+      }
+    );
   }
 
   cancelarCambios() {
     this.dialogRef.close();
+  }
+
+  checkearPass(): boolean {
+    const { anterior, nueva, repetirNueva } = this.passObj;
+
+    return anterior.length === 0 ||
+      nueva.length === 0 ||
+      repetirNueva.length === 0 ||
+      anterior === nueva ||
+      nueva !== repetirNueva;
   }
 }

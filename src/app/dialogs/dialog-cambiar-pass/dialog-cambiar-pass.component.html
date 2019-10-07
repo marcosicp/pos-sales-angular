@@ -5,15 +5,15 @@
   </mat-form-field>
   <mat-form-field class="full-width">
     <label>Contraseña anterior</label>
-    <input matInput type="password" [(ngModel)]="passObj.anterior">
+    <input matInput type="password" [ngClass]="{'error': errorPass}" [(ngModel)]="passObj.anterior">
   </mat-form-field>
   <mat-form-field class="full-width">
     <label>Nueva contraseña</label>
-    <input matInput type="password" [(ngModel)]="passObj.nueva">
+    <input matInput type="password" [ngClass]="{'error': errorPass}" [(ngModel)]="passObj.nueva">
   </mat-form-field>
   <mat-form-field class="full-width">
     <label>Repetir nueva contraseña</label>
-    <input matInput type="password" [(ngModel)]="passObj.repetirNueva">
+    <input matInput type="password" [ngClass]="{'error': errorPass}" [(ngModel)]="passObj.repetirNueva">
   </mat-form-field>
 </div>
 

@@ -20,60 +20,90 @@ export class DataService {
 
   getAsync = (uri: string, dataCollection: any[]) => Observable.create(observer => {
     this.http.get(`${URL_BASE}/${uri}`)
-      .subscribe(data => {
-        dataCollection = [];
-        for (const d of data as any[]) {
-          dataCollection.push(d);
+      .subscribe(
+        data => {
+          dataCollection = [];
+          for (const d of data as any[]) {
+            dataCollection.push(d);
+          }
+          observer.next(dataCollection);
+          observer.complete();
+        },
+        error => {
+          observer.next(false);
+          observer.complete();
         }
-        observer.next(dataCollection);
-        observer.complete();
-      });
+      );
   })
 
   createAsync = (uri: string, object: any, dataCollection: any[]) => Observable.create(observer => {
     this.http.post(`${URL_BASE}/${uri}`, object)
-      .subscribe(result => {
-        // TODO result deberia traer el id del nuevo objeto insertado
-        // object['id] = result.id;
-        dataCollection.push(result[0]);
-        observer.next(dataCollection);
-        observer.complete();
-      });
+      .subscribe(
+        result => {
+          // TODO result deberia traer el id del nuevo objeto insertado
+          // object['id] = result.id;
+          dataCollection.push(result[0]);
+          observer.next(dataCollection);
+          observer.complete();
+        },
+        error => {
+          observer.next(false);
+          observer.complete();
+        }
+      );
   })
 
   postAsync = (uri: string, object: any) => Observable.create(observer => {
     this.http.post(`${URL_BASE}/${uri}`, object)
-      .subscribe(result => {
-        observer.next(result);
-        observer.complete();
-      });
+      .subscribe(
+        result => {
+          observer.next(result);
+          observer.complete();
+        },
+        error => {
+          observer.next(false);
+          observer.complete();
+        }
+      );
   })
 
   updateAsync = (uri: string, object: any, dataCollection: any[]) => Observable.create(observer => {
     this.http.post(`${URL_BASE}/${uri}`, object)
-      .subscribe(result => {
-        // TODO probar que esto funcione. Se asume que la primary key de las tablas sea 'id'
-        const objectToUpdate = dataCollection.filter(x => x.id === object.id)[0];
-        const objectIndex = dataCollection.indexOf(objectToUpdate);
-        dataCollection[objectIndex] = object;
+      .subscribe(
+        result => {
+          // TODO probar que esto funcione. Se asume que la primary key de las tablas sea 'id'
+          const objectToUpdate = dataCollection.filter(x => x.id === object.id)[0];
+          const objectIndex = dataCollection.indexOf(objectToUpdate);
+          dataCollection[objectIndex] = object;
 
-        observer.next(result);
-        observer.complete();
-      });
+          observer.next(result);
+          observer.complete();
+        },
+        error => {
+          observer.next(false);
+          observer.complete();
+        }
+      );
   })
 
   deleteAsync = (uri: string, id: string, dataCollection: any[]) => Observable.create(observer => {
     this.http.delete(`${URL_BASE}/${uri}/${id}`)
-      .subscribe(result => {
-        // TODO probar que esto funcione. Se asume que la primary key de las tablas sea 'id'
-        const objectToUpdate = dataCollection.filter(x => x.id === id)[0];
-        const objectIndex = dataCollection.indexOf(objectToUpdate);
-        dataCollection.splice(objectIndex, 1);
-        
-        //dataCollection[objectIndex] = object;
+      .subscribe(
+        result => {
+          // TODO probar que esto funcione. Se asume que la primary key de las tablas sea 'id'
+          const objectToUpdate = dataCollection.filter(x => x.id === id)[0];
+          const objectIndex = dataCollection.indexOf(objectToUpdate);
+          dataCollection.splice(objectIndex, 1);
 
-        observer.next(result);
-        observer.complete();
-      });
+          // dataCollection[objectIndex] = object;
+
+          observer.next(result);
+          observer.complete();
+        },
+        error => {
+          observer.next(false);
+          observer.complete();
+        }
+      );
   })
 }

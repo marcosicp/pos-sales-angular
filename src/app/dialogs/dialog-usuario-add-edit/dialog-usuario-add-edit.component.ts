@@ -29,35 +29,37 @@ export class DialogUsuarioAddEditComponent {
   }
 
   guardarUsuario() {
-    // this.dataService.createAsync(
-    //   URL_USER.ADD_USER,
-    //   this.usuario,
-    //   this.result
-    // ).subscribe(
-    //   data => {
-    //     const dialogRef = this.dialog.open(
-    //       DialogOperacionOkComponent, {
-    //         width: '600px'
-    //       }
-    //     );
+    const URL = this.data ?
+      URL_USER.MODIFY_USER :
+      URL_USER.ADD_USER;
 
-    //     dialogRef.afterClosed().subscribe(
-    //       result => { }
-    //     );
+    this.dataService.createAsync(
+      URL,
+      this.usuario,
+      this.result
+    ).subscribe(
+      result => {
+        const DialogResult = result ?
+          DialogOperacionOkComponent :
+          DialogSinConexionComponent;
+        const response = result ?
+          result[0] : false;
 
-    //     this.dialogRef.close(data[0]);
-    //   },
-    //   error => {
-    //     const dialogRef = this.dialog.open(DialogSinConexionComponent, { width: '600px' });
-    //       dialogRef.afterClosed().subscribe(result => {
-    //     });
-    //     console.log(error);
-    //   }
-    // );
-    console.warn(this.usuario);
+        const _dialogRef = this.dialog.open(
+          DialogResult,
+          { width: '600px' }
+        );
+
+        _dialogRef.afterOpened().subscribe(
+          () => {
+            this.dialogRef.close(response);
+          }
+        );
+      }
+    );
   }
 
   onNoClick() {
-    this.dialogRef.close();
+    this.dialogRef.close(false);
   }
 }
