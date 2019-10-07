@@ -37,7 +37,7 @@ export class DialogAbrirCajaComponent implements OnInit {
     this.aperturaCaja.tipo = 'APERTURA';
     this.comerciosService.createAsync('movimientos/AbrirCaja', this.aperturaCaja, this.result).subscribe(
       data => {
-        const dialogRef = this.dialog.open(DialogOperacionOkComponent, { width: '600px' });
+        const dialogRef = this.dialog.open(DialogOperacionOkComponent, { width: '600px' ,  disableClose: true });
         dialogRef.afterClosed().subscribe(result => {
 
         });
@@ -45,7 +45,7 @@ export class DialogAbrirCajaComponent implements OnInit {
         this.dialogRef.close();
       },
       error => {
-        const dialogRef = this.dialog.open(DialogSinConexionComponent, { width: '600px' });
+        const dialogRef = this.dialog.open(DialogSinConexionComponent, { width: '600px' ,  disableClose: true });
           dialogRef.afterClosed().subscribe(result => {
         });
         console.log(error);

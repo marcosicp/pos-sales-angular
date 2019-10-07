@@ -1,5 +1,5 @@
-import { Component, OnInit } from '@angular/core';
-import { MatDialog, MatTableDataSource } from '@angular/material';
+import { Component, OnInit, ChangeDetectorRef, ViewChild  } from '@angular/core';
+import { MatDialog, MatTableDataSource, MatTable } from '@angular/material';
 import { SelectionModel } from '@angular/cdk/collections';
 // ENTIDADES
 // import { Venta } from '../../shared/models/venta.model';
@@ -12,6 +12,8 @@ import { TABLA_PROVEEDORES } from '../../shared/configs/table.config';
 // DIALOGOS
 import { DialogConfirmarComponent } from '../../dialogs/dialog-confirmar/dialog-confirmar.component';
 import { DialogProveedoresAddEditComponent } from '../../dialogs/dialog-proveedores-add-edit/dialog-proveedores-add-edit.component';
+import { DialogSinConexionComponent } from '../../dialogs/dialog-sin-conexion/dialog-sin-conexion.component';
+import { DialogOperacionOkComponent } from '../../dialogs/dialog-operacion-ok/dialog-operacion-ok.component';
 
 @Component({
   selector: 'app-proveedores',
@@ -30,9 +32,9 @@ export class ProveedoresComponent implements OnInit {
     label: 'Agregar proveedor',
     buttonEvent: () => this.agregarProveedor()
   };
-
+  
   constructor(
-    private comerciosService: DataService,
+    private comerciosService: DataService, private changeDetectorRefs: ChangeDetectorRef,
     public dialog: MatDialog
     ) { }
 
@@ -56,27 +58,61 @@ export class ProveedoresComponent implements OnInit {
 
   agregarProveedor() {
     const dialogRef = this.dialog.open(DialogProveedoresAddEditComponent, {
-      width: '900px'
+      width: '900px' ,  disableClose: true
     });
 
     dialogRef.afterClosed().subscribe(result => {
-
+      if(result){
+        this.comerciosService.createAsync('proveedores/AddProveedor', result, this.dataSource.data).subscribe(
+          data => {
+            this.dataSource.data = data;
+          },
+          error => {
+            const dialogRef = this.dialog.open(DialogSinConexionComponent, { width: '600px' ,  disableClose: true });
+              dialogRef.afterClosed().subscribe(result => {
+            });
+            console.log(error);
+          }
+        );
+      }
     });
   }
 
   editarProveedor(proveedor: Proveedores) {
-    console.warn(proveedor);
+    // MANDO UNA COPIA DEL OBJETO PARA NO TENER QUE HACER UN REFRESH DE LA GRILLA
+    const obj2:any = Object.assign({}, proveedor);
+
+    const dialogRef = this.dialog.open(DialogProveedoresAddEditComponent, {
+      width: '900px' ,  disableClose: true, data: obj2
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      if(result){
+        this.comerciosService.updateAsync('proveedores/UpdateProveedor', result, this.dataSource.data).subscribe(
+          data => {
+            this.dataSource.data = data;
+          },
+          error => {
+            const dialogRef = this.dialog.open(DialogSinConexionComponent, { width: '600px' ,  disableClose: true });
+              dialogRef.afterClosed().subscribe(result => {
+            });
+            console.log(error);
+          }
+        );
+      }
+    });
   }
 
   eliminarProveedor(proveedor: Proveedores) {
     const dialogRef = this.dialog.open(DialogConfirmarComponent, {
-      width: '900px', data: {title: 'Eliminar Proveedor', confirmText: 'Esta seguro que desear eliminar este proveedor?'}
+      width: '900px' ,  disableClose: true, data: {title: 'Eliminar Proveedor', confirmText: 'Esta seguro que desear eliminar este proveedor?'}
     });
 
     dialogRef.afterClosed().subscribe(result => {
       if (result.confirm) {
-        this.comerciosService.deleteAsync(URL_PROVEEDORES.DELETE_PROVEEDOR, proveedor.id, []).subscribe(
+        this.comerciosService.deleteAsync(URL_PROVEEDORES.DELETE_PROVEEDOR, proveedor.id, this.dataSource.data).subscribe(
           data => {
+            debugger;
               this.dataSource.data = data;
               this.isLoading = false;
           }

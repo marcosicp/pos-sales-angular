@@ -189,7 +189,7 @@ export class PosComponent implements OnInit {
       return;
     } else {
       let prodsDesc = '';
-      const dialogRef = this.dialog.open(DialogCajaCerradaComponent, { width: '900px' });
+      const dialogRef = this.dialog.open(DialogCajaCerradaComponent, { width: '900px' ,  disableClose: true });
 
       dialogRef.afterClosed().subscribe(result => {
         const nuevaPedido = new Pedido();
@@ -206,7 +206,7 @@ export class PosComponent implements OnInit {
           // Guardar venta
           this.dataService.createAsync('ventas', nuevaPedido, ventaOk).subscribe(
             data => {
-              const dialogRef = this.dialog.open(DialogOperacionOkComponent, { width: '600px' });
+              const dialogRef = this.dialog.open(DialogOperacionOkComponent, { width: '600px' ,  disableClose: true });
               dialogRef.afterClosed().subscribe(result => {
                 // Imprimir ticket
               this.resetear();
@@ -214,7 +214,7 @@ export class PosComponent implements OnInit {
               });
             },
             error => {
-              const dialogRef = this.dialog.open(DialogSinConexionComponent, { width: '600px' });
+              const dialogRef = this.dialog.open(DialogSinConexionComponent, { width: '600px' ,  disableClose: true });
               dialogRef.afterClosed().subscribe(result => {
                 ;
 
@@ -226,7 +226,7 @@ export class PosComponent implements OnInit {
           nuevaPedido.imprimioTicket = false;
           this.dataService.createAsync('ventas', nuevaPedido, ventaOk).subscribe(
             data => {
-              const dialogRef = this.dialog.open(DialogOperacionOkComponent, { width: '600px' });
+              const dialogRef = this.dialog.open(DialogOperacionOkComponent, { width: '600px' ,  disableClose: true });
               dialogRef.afterClosed().subscribe(result => {
                 this.resetear();
                 // this.openSnackBar('Pedido guardada!', 'Gracias');
@@ -234,7 +234,7 @@ export class PosComponent implements OnInit {
 
             },
             error => {
-              const dialogRef = this.dialog.open(DialogSinConexionComponent, { width: '600px' });
+              const dialogRef = this.dialog.open(DialogSinConexionComponent, { width: '600px' ,  disableClose: true });
               dialogRef.afterClosed().subscribe(result => {
                 ;
 

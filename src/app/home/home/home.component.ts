@@ -25,7 +25,7 @@ export class HomeComponent implements OnInit {
 
       },
       error => {
-        const dialogRef = this.dialog.open(DialogSinConexionComponent, { width: '600px' });
+        const dialogRef = this.dialog.open(DialogSinConexionComponent, { width: '600px' ,  disableClose: true });
           dialogRef.afterClosed().subscribe(result => {
         });
         console.log(error);

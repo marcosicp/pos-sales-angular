@@ -208,7 +208,7 @@ export class PactarEntregaComponent {
     }
 
     const dialogRef = this.dialog.open(DialogEditarEntregaComponent, {
-          width: '300px',
+          width: '300px', disableClose: true,
           data: { event: event, action: action, venta: this.venta }
         });
 
@@ -239,13 +239,13 @@ export class PactarEntregaComponent {
     this.venta.agenda = data1;
     this.dataService.postAsync('ventas/AddEntrega', this.venta).subscribe(
       data2 => {
-        const dialogRef = this.dialog.open(DialogOperacionOkComponent, { width: '600px' });
+        const dialogRef = this.dialog.open(DialogOperacionOkComponent, { width: '600px' ,  disableClose: true });
         dialogRef.afterClosed().subscribe(result => {
           this.venta= new Venta();
         });
       },
       error => {
-        const dialogRef = this.dialog.open(DialogSinConexionComponent, { width: '600px' });
+        const dialogRef = this.dialog.open(DialogSinConexionComponent, { width: '600px' ,  disableClose: true });
         dialogRef.afterClosed().subscribe(result => {
         });
       }

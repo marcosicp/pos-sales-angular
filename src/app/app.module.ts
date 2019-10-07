@@ -21,6 +21,8 @@ import { ServiceWorkerModule } from '@angular/service-worker';
 import { NgSelectModule } from '@ng-select/ng-select';
 import { FlatpickrModule } from 'angularx-flatpickr';
 import localeAr from '@angular/common/locales/es-AR';
+import { RxReactiveFormsModule } from '@rxweb/reactive-form-validators';
+import { CustomFormsModule } from 'ngx-custom-validators';
 // IMPORTAR SERVICIOS
 // IMPORTAR APP COMPONENT
 import { AppComponent } from './app.component';
@@ -60,6 +62,8 @@ registerLocaleData(localeAr, 'es-AR');
     ReactiveFormsModule,
     FlexLayoutModule,
     MaterialModule,
+    RxReactiveFormsModule,
+    CustomFormsModule,
     CoreModule,
     SharedModule,
     HomeModule,

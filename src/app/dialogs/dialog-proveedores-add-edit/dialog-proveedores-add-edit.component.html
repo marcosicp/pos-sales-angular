@@ -1,31 +1,49 @@
 <div mat-dialog-content fxLayout="column">
   <mat-form-field class="full-width">
     <label>Nombre</label>
-    <input matInput type="text" [(ngModel)]="proveedor.nombre">
+    <input matInput type="text" [(ngModel)]="proveedor.nombre" required>
+    <mat-error>
+      Por favor complete este campo, es obligatorio.
+    </mat-error>
   </mat-form-field>
   <mat-form-field class="full-width">
     <label>Razon Social</label>
-    <input matInput type="text" [(ngModel)]="proveedor.razonsocial">
+    <input matInput type="text" [(ngModel)]="proveedor.razonSocial" required>
+    <mat-error>
+      Por favor complete este campo, es obligatorio.
+    </mat-error>
   </mat-form-field>
   <mat-form-field class="full-width">
     <label>Telefono</label>
-    <input matInput type="text" [(ngModel)]="proveedor.telefono">
+    <input matInput (input)="inputValidator($event)" [(ngModel)]="proveedor.telefono" required>
+    <mat-error>
+      Por favor complete este campo, es obligatorio.
+    </mat-error>
   </mat-form-field>
   <mat-form-field class="full-width">
     <label>CUIL</label>
-    <input matInput type="text" [(ngModel)]="proveedor.cuil">
+    <input matInput (input)="inputValidator($event)" [numeric]='{"acceptValue":"NumericValueType.PositiveNumber","allowDecimal":"false"}' [(ngModel)]="proveedor.cuil" required number>
+    <mat-error>
+      Por favor complete este campo, es obligatorio.
+    </mat-error>
   </mat-form-field>
   <mat-form-field class="full-width">
     <label>Email</label>
-    <input matInput type="text" [(ngModel)]="proveedor.email">
+    <input matInput type="email" [(ngModel)]="proveedor.email" required>
+    <mat-error>
+      Por favor complete este campo con un Email válido, es obligatorio.
+    </mat-error>
   </mat-form-field>
   <mat-form-field class="full-width">
     <label>Direccion</label>
-    <input matInput type="text" [(ngModel)]="proveedor.direccion">
+    <input matInput type="text" [(ngModel)]="proveedor.direccion" required>
+    <mat-error>
+      Por favor complete este campo, es obligatorio.
+    </mat-error>
   </mat-form-field>
   <mat-form-field class="full-width">
     <label>Tipo de Factura</label>
-    <input matInput type="text" [(ngModel)]="proveedor.tipofactura">
+    <input matInput type="text" [(ngModel)]="proveedor.tipoFactura">
   </mat-form-field>
   
 </div>

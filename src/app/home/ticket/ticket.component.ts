@@ -56,7 +56,7 @@ export class TicketComponent implements OnInit {
         //   
       },
       error => {
-        const dialogRef = this.dialog.open(DialogSinConexionComponent, { width: '600px' });
+        const dialogRef = this.dialog.open(DialogSinConexionComponent, { width: '600px' ,  disableClose: true });
           dialogRef.afterClosed().subscribe(result => {
         });
         console.log(error);
@@ -174,7 +174,7 @@ export class TicketComponent implements OnInit {
   validarCliente(){
     if(this.clienteId==null||this.clienteId==""){
       const dialogRef = this.dialog.open(DialogConfirmarComponent, { 
-        width: '600px',
+        width: '600px' ,  disableClose: true,
         data: {title: "Revisar Cliente", confirmText: "Por favor seleccione un cliente para continuar."} });
       dialogRef.afterClosed().subscribe(result => {
       });
@@ -188,14 +188,14 @@ export class TicketComponent implements OnInit {
     if (this.validarCliente()){
       if (this.ticket.length === 0) {
         const dialogRef = this.dialog.open(DialogConfirmarComponent, { 
-          width: '600px',
+          width: '600px' ,  disableClose: true,
           data: {title: "Sin productos", confirmText: "Debe incluir al menos un producto en el pedido."} });
         dialogRef.afterClosed().subscribe(result => {
         });
         return;
       } else {
         let prodsDesc = '';
-        const dialogRef = this.dialog.open(DialogCajaCerradaComponent, { width: '900px' });
+        const dialogRef = this.dialog.open(DialogCajaCerradaComponent, { width: '900px' ,  disableClose: true });
         dialogRef.afterClosed().subscribe(result => {
             this.nuevoPedido = new Pedido();
             const ventaOk = [Pedido];
@@ -215,7 +215,7 @@ export class TicketComponent implements OnInit {
             this.dataService.createAsync('pedidos/AddPedido',this.nuevoPedido, ventaOk).subscribe(
               data => {
                 this.nuevoPedido = data[1];
-                const dialogRef = this.dialog.open(DialogOperacionOkComponent, { width: '600px' });
+                const dialogRef = this.dialog.open(DialogOperacionOkComponent, { width: '600px' ,  disableClose: true });
                 dialogRef.afterClosed().subscribe(result => {
                   
                 this.resetear();
@@ -234,7 +234,7 @@ export class TicketComponent implements OnInit {
                 });
               },
               error => {
-                const dialogRef = this.dialog.open(DialogSinConexionComponent, { width: '600px' });
+                const dialogRef = this.dialog.open(DialogSinConexionComponent, { width: '600px' ,  disableClose: true });
                 dialogRef.afterClosed().subscribe(result => {
                 });
               }
@@ -244,14 +244,14 @@ export class TicketComponent implements OnInit {
             this.nuevoPedido.imprimioTicket = false;
               this.dataService.createAsync('pedidos/AddPedido', this.nuevoPedido, ventaOk).subscribe(
                 data => {
-                  const dialogRef = this.dialog.open(DialogOperacionOkComponent, { width: '600px' });
+                  const dialogRef = this.dialog.open(DialogOperacionOkComponent, { width: '600px' ,  disableClose: true });
                   dialogRef.afterClosed().subscribe(result => {
                     this.resetear();
                     this.clearCart();
                   });
                 },
                 error => {
-                  const dialogRef = this.dialog.open(DialogSinConexionComponent, { width: '600px' });
+                  const dialogRef = this.dialog.open(DialogSinConexionComponent, { width: '600px' ,  disableClose: true });
                   dialogRef.afterClosed().subscribe(result => {
                   });
                 }

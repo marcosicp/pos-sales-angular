@@ -3,10 +3,10 @@ export class Proveedores {
   nombre: string;
   cuit: string;
   cuil: string;
-  tipofactura: string;
+  tipoFactura: string;
   direccion: string;
   email: string;
-  razonsocial: string;
+  razonSocial: string;
   marca: string;
   telefono: number;
   mobil: number;
