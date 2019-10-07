@@ -4,7 +4,11 @@ const isProd = true,
       URL_BASE = isProd ? BaseConfig.URL_PROD : BaseConfig.URL_LOCAL,
       URL_USER = {
         HOME: 'usuarios',
-        EMAIL_LOGIN: `usuarios/login`
+        EMAIL_LOGIN: 'usuarios/login',
+        ADD_USER: 'usuarios/agregar',
+        MODIFY_USER: 'usuarios/modificar',
+        DELETE_USER: 'usuarios/eliminar',
+        MODIFY_PASS: 'usuarios/cambiarPass'
       },
       URL_PRODUCTOS = {
         HOME: 'productos',
