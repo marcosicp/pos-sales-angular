@@ -14,7 +14,7 @@ import { LoginComponent } from '../welcome/login/login.component';
 import { ResetPasswordComponent } from '../welcome/reset-password/reset-password.component';
 import { AdministracionComponent  } from '../../app/home/administracion/administracion.component';
 import { UsersComponent  } from '../admin/users/users.component';
-import { ItemsComponent } from '../stock/items/items.component';
+import { StockComponent } from '../home/stock/stock.component';
 import { HistorialComponent } from '../home/historial/historial.component';
 import { ClientesComponent } from '../home/clientes/clientes.component';
 import { ProveedoresComponent } from '../home/proveedores/proveedores.component';
@@ -78,7 +78,7 @@ const appRoutes: Routes = [
     ]
   }, {
     path: 'stock',
-    component: ItemsComponent,
+    component: StockComponent,
     canActivate: [AuthGuard],
   }, {
     path: 'ventas',

@@ -1,5 +1,5 @@
-const TABLA_PRODUCTOS = {
-  title: 'Productos',
+const TABLA_STOCK = {
+  title: 'Stock',
   headers: {
     nombre: 'Nombre',
     codigo: 'Código',
@@ -8,7 +8,8 @@ const TABLA_PRODUCTOS = {
     cantidad: 'Unidades disponibles',
     peso: 'Peso en Kg',
     creado: 'Fecha de creación',
-    editado: 'Fecha de modificación'
+    editado: 'Fecha de modificación',
+    opciones: 'Opciones'
   },
   cells: {
     nombre: 'nombre',
@@ -18,7 +19,8 @@ const TABLA_PRODUCTOS = {
     cantidad: 'cantidad',
     peso: 'peso',
     creado: 'creado',
-    editado: 'editado'
+    editado: 'editado',
+    opciones: null
   },
   format: {
     nombre: null,
@@ -28,7 +30,8 @@ const TABLA_PRODUCTOS = {
     cantidad: null,
     peso: 'number',
     creado: 'date',
-    editado: 'date'
+    editado: 'date',
+    opciones: null
   }
 };
 
@@ -148,7 +151,7 @@ const TABLA_VENTAS = {
     responsable: null,
     estado: null,
     imprimioTicket: 'boolean',
-    total: null,
+    total: 'currency',
     opciones: null
   }
 };
@@ -182,10 +185,10 @@ const TABLA_PEDIDOS = {
     estado: null,
     opciones: null
   }
-}
+};
 
 export  {
-  TABLA_PRODUCTOS,
+  TABLA_STOCK,
   TABLA_USUARIOS,
   TABLA_CLIENTES,
   TABLA_PROVEEDORES,

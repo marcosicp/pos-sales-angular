@@ -15,7 +15,6 @@ import { HomeModule } from './home/home.module';
 import { AdminModule } from './admin/admin.module';
 import { DialogsModule } from './dialogs/dialogs.module';
 import { WelcomeModule } from './welcome/welcome.module';
-import { StockModule } from './stock/stock.module';
 import { SharedModule } from './shared/shared.module';
 import { ServiceWorkerModule } from '@angular/service-worker';
 import { NgSelectModule } from '@ng-select/ng-select';
@@ -70,7 +69,6 @@ registerLocaleData(localeAr, 'es-AR');
     AdminModule,
     DialogsModule,
     WelcomeModule,
-    StockModule,
     NgSelectModule,
     FlatpickrModule.forRoot(),
     CalendarModule.forRoot({

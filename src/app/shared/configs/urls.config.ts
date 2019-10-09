@@ -1,8 +1,10 @@
 import BaseConfig from './base.config';
 
-const isProd = true,
-      URL_BASE = isProd ? BaseConfig.URL_PROD : BaseConfig.URL_LOCAL,
-      URL_USER = {
+const isProd = true;
+const URL_BASE = isProd ?
+  BaseConfig.URL_PROD : BaseConfig.URL_LOCAL;
+// URLS
+const URL_USER = {
         HOME: 'usuarios',
         EMAIL_LOGIN: 'usuarios/login',
         ADD_USER: 'usuarios/agregar',
@@ -12,7 +14,11 @@ const isProd = true,
       },
       URL_PRODUCTOS = {
         HOME: 'productos',
-        GET_ALL: 'productos/GetAllProductos'
+        GET_ALL: 'productos/GetAllProductos',
+        ADD_STOCK: 'productos/agregar',
+        MODIFY_STOCK: 'productos/modificar',
+        DELETE_STOCK: 'productos/eliminar',
+        RENEW_STOCK: 'productos/renovar'
       },
       URL_ADMIN = {
         ULTIMA_APERTURA: 'movimientos/AperturaInicialCaja',

@@ -35,7 +35,7 @@ export class UsersComponent implements OnInit {
     private dataService: DataService,
     private authService: AuthService,
     public dialog: MatDialog
-  ) {  }
+  ) { }
 
   ngOnInit() {
     this.isLoading = true;
@@ -93,7 +93,7 @@ export class UsersComponent implements OnInit {
         width: '900px',
         data: {
           title: 'Dar de baja usuario',
-          confirmText: 'Esta seguro que desear dar de baja a este usuario?'
+          confirmText: 'Esta seguro que desea dar de baja a este usuario?'
         }
     });
 
