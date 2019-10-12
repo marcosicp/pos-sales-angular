@@ -10,8 +10,8 @@
         <mat-form-field>
           <input matInput #password placeholder="contraseña" type="password" (keyup.enter)="userLogin(email.value, password.value)">
         </mat-form-field>
-        <mat-error class="error" *ngIf="!success">
-          usuario y/o constraseña inválidos
+        <mat-error class="error" *ngIf="error">
+          {{error}}
         </mat-error>
         <p routerLink="/resetpassword" class="reset error">¿Olvidaste la contraseña?</p>
       </form>
