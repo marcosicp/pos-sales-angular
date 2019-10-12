@@ -1,5 +1,6 @@
 import { Component, ViewChild, Input, AfterContentInit } from '@angular/core';
 import { MatSort, MatPaginator, MatTableDataSource } from '@angular/material';
+import { TableService } from '../../../core/services/table.service';
 
 @Component({
   selector: 'dynamic-table',
@@ -33,5 +34,9 @@ export class DynamicTableComponent implements AfterContentInit {
   ngAfterContentInit() {
     this.dataSource.paginator = this.paginator;
     this.dataSource.sort = this.sort;
+  }
+
+  searchData(word: string) {
+    this.dataSource.filter = word.trim().toLocaleLowerCase();
   }
 }
