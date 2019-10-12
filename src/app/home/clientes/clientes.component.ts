@@ -61,29 +61,22 @@ export class ClientesComponent implements OnInit {
   }
 
   agregarCliente() {
-    const dialogRef = this.dialog.open(DialogClienteAddEditComponent, {
-      width: '900px' ,  disableClose: true
-    });
-
-    dialogRef.afterClosed().subscribe(result => {
-      if(result){
-        this.comerciosService.createAsync('clientes/AddCliente', result, this.dataSource.data).subscribe(
-          data => {
-            this.dataSource.data = data;
-          },
-          error => {
-            const dialogRef = this.dialog.open(DialogSinConexionComponent, { width: '600px' ,  disableClose: true });
-              dialogRef.afterClosed().subscribe(result => {
-            });
-            console.log(error);
-          }
-        );
+    this.dialog.open(
+      DialogClienteAddEditComponent, {
+        width: '900px',
+        disableClose: true
       }
-    });
+    );
   }
 
   editarCliente(cliente: Clientes) {
-    console.warn(cliente);
+    this.dialog.open(
+      DialogClienteAddEditComponent, {
+        width: '900px',
+        disableClose: true,
+        data: cliente
+      }
+    );
   }
 
   eliminarCliente(cliente: Clientes) {
