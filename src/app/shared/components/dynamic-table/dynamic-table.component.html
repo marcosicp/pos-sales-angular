@@ -11,14 +11,21 @@
     <mat-toolbar *ngIf="addButton || searchButton">
       <div fxLayout="row" fxLayoutGap="10px" *ngIf="addButton">
         <button
-          mat-flat-button color="primary"
+          mat-flat-button
+          color="primary"
           [disabled]="false"
           (click)="addButton.buttonEvent()">{{ addButton.label || "Agregar"}}</button>
       </div>
       <div *ngIf="searchButton" class="search-section">
         <label>Buscar: </label>
         <mat-form-field>
-          <input matInput class="search-input" placeholder="Cliente, Responsable">
+          <input
+            matInput
+            type="text"
+            class="search-input"
+            [placeholder]="searchButton.placeHolder"
+            (keyup)=searchData($event.target.value)
+          >
         </mat-form-field>
       </div>
     </mat-toolbar>
@@ -97,6 +104,6 @@
       <tr mat-header-row *matHeaderRowDef="headerTitles; sticky: true"></tr>
       <tr mat-row *matRowDef="let row; columns: headerTitles;"></tr>
     </table>
-    <mat-paginator [pageSizeOptions]="pageSizeOptions"></mat-paginator>
+    <!-- <mat-paginator [pageSizeOptions]="pageSizeOptions"></mat-paginator> -->
   </ng-container>
 </div>

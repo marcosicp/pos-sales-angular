@@ -30,6 +30,9 @@ export class UsersComponent implements OnInit {
     label: 'Agregar usuario',
     buttonEvent: () => this.agregarUsuario()
   };
+  searchButton = {
+    placeHolder: 'nombre',
+  };
 
   constructor(
     private dataService: DataService,

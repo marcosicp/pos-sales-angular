@@ -29,6 +29,9 @@ export class StockComponent implements OnInit {
     label: 'Agregar producto',
     buttonEvent: () => this.agregarProducto()
   };
+  searchButton = {
+    placeHolder: 'nombre, código',
+  };
 
   constructor(
     private dataService: DataService,

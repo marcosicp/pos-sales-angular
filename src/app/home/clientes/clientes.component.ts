@@ -31,6 +31,9 @@ export class ClientesComponent implements OnInit {
     label: 'Agregar cliente',
     buttonEvent: () => this.agregarCliente()
   };
+  searchButton = {
+    placeHolder: 'nombre',
+  };
 
   constructor (
     private comerciosService: DataService,

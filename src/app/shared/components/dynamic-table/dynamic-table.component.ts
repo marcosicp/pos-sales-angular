@@ -34,4 +34,8 @@ export class DynamicTableComponent implements AfterContentInit {
     this.dataSource.paginator = this.paginator;
     this.dataSource.sort = this.sort;
   }
+
+  searchData(word: string) {
+    this.dataSource.filter = word.trim().toLocaleLowerCase();
+  }
 }
