@@ -1,6 +1,5 @@
 import { Component, ViewChild, Input, AfterContentInit } from '@angular/core';
 import { MatSort, MatPaginator, MatTableDataSource } from '@angular/material';
-import { TableService } from '../../../core/services/table.service';
 
 @Component({
   selector: 'dynamic-table',
