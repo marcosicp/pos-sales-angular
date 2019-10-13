@@ -4,27 +4,54 @@
     <h2 class="subtitle add-margin"></h2>
   </div>
 
-  <button mat-icon-button [matMenuTriggerFor]="menu" class="menu">
-    <mat-icon>more_vert</mat-icon>
-  </button>
+  <div class="flex flex-direction-row config-section" *ngIf="showUser">
+    <span class="add-margin">{{showUser}}</span>
+    <button mat-icon-button [matMenuTriggerFor]="menu">
+      <mat-icon>settings</mat-icon>
+    </button>
+  </div>
 </div>
 
 <!-- Mobile Menu -->
 <mat-menu #menu="matMenu">
+  <button mat-menu-item routerLink="/agenda">
+    <mat-icon>event</mat-icon>
+    <span>Agenda</span>
+  </button>
   <button mat-menu-item routerLink="/home">
     <mat-icon>shopping_cart</mat-icon>
     <span>Caja</span>
   </button>
-  <button mat-menu-item routerLink="/admin/items">
-    <mat-icon>perm_identity</mat-icon>
-    <span>Admin</span>
+  <button mat-menu-item routerLink="/pedidos">
+    <mat-icon>history</mat-icon>
+    <span>Pedidos</span>
   </button>
   <button mat-menu-item routerLink="/ventas">
-    <mat-icon>multiline_chart</mat-icon>
-    <span>Reportes</span>
+    <mat-icon>assessment</mat-icon>
+    <span>Ventas</span>
+  </button>
+  <button mat-menu-item routerLink="/stock">
+    <mat-icon>category</mat-icon>
+    <span>Stock</span>
+  </button>
+  <button mat-menu-item routerLink="/home">
+    <mat-icon>store</mat-icon>
+    <span>Administración</span>
+  </button>
+  <button mat-menu-item routerLink="/proveedores">
+    <mat-icon>business</mat-icon>
+    <span>Proveedores</span>
+  </button>
+  <button mat-menu-item routerLink="/clientes">
+    <mat-icon>person</mat-icon>
+    <span>Clientes</span>
+  </button>
+  <button mat-menu-item routerLink="/admin/users">
+    <mat-icon>supervisor_account</mat-icon>
+    <span>Usuarios</span>
   </button>
   <button mat-menu-item routerLink="/" (click)="logout()">
     <mat-icon>exit_to_app</mat-icon>
-    <span>Logout</span>
+    <span>Cerrar sesion</span>
   </button>
 </mat-menu>

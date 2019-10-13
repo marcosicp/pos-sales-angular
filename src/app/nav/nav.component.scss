@@ -19,6 +19,16 @@
   font-family: $secondary-font;
 }
 
-.menu {
+.config-section {
   color: white;
+  font-family: $main-font;
+
+  span {
+    margin: auto 0.25rem;
+    font-size: 0.95rem;
+  }
+
+  button {
+    margin: auto 0;
+  }
 }
