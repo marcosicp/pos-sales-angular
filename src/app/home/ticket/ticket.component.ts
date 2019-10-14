@@ -24,7 +24,8 @@ import { Venta } from '../../shared/models/venta.model';
   styleUrls: ['./ticket.component.scss']
 })
 export class TicketComponent implements OnInit {
-  clientes: Clientes[];
+  
+  clientes: Clientes[] = [];
   // selectedClienteId = String;
   clientesResponse: Clientes[] = [];
   ticket: Productos[] = [];
@@ -35,25 +36,23 @@ export class TicketComponent implements OnInit {
   productosPedido: ProductoPedido[] = [];
   total = 0;
   pesoTotal = 0;
-  clienteId;
+  clienteId: string = null;
   usuario : Usuarios;
   nuevoPedido :  Pedido;
 
   constructor(private config: NgSelectConfig, private router: Router, private ticketSync: PosService, private dataService: DataService, public dialog: MatDialog) {
-//   
-//     this.config.notFoundText = 'Custom not found';
+    this.clienteId=null;
    }
 
   ngOnInit() {
     this.dataService.getAsync(URL_CLIENTES.GET_ALL, this.clientesResponse).subscribe(
       data => {
+        debugger;
         this.clientes = data;
         this.clientes.forEach(unCliente => {
           unCliente.displayName = unCliente.nombre + " " + unCliente.cuit;
-        });   
-
-
-        //   
+        });  
+        this.clienteId=null; 
       },
       error => {
         const dialogRef = this.dialog.open(DialogSinConexionComponent, { width: '600px' ,  disableClose: true });
@@ -67,9 +66,11 @@ export class TicketComponent implements OnInit {
     this.ticketSync.currentTotal.subscribe(total => this.cartTotal = total);
     this.ticketSync.currentPeso.subscribe(pesoTotal => this.cartPeso = pesoTotal);
     this.ticketSync.currentCartNum.subscribe(num => this.cartNumItems = num);
+    debugger;
     this.ticketSync.currentClienteId.subscribe(cli => this.clienteId = cli);
 
     this.usuario = JSON.parse(localStorage.getItem('currentUser'));
+    
   }
 
   updateClienteId(cliente: any) {
