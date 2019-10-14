@@ -18,27 +18,32 @@ export class DialogProveedoresAddEditComponent implements OnInit {
   proveedor: Proveedores = new Proveedores();
   // result: Proveedores[] = [];
 
-  constructor(private auth: AuthService, private dialog: MatDialog, @Inject(MAT_DIALOG_DATA) public data: any,
-     public dialogRef: MatDialogRef<DialogCerrarCajaComponent>, private comerciosService: DataService) {
-       debugger;
-       if(data){
-        this.proveedor = data;
-       }
+  constructor(
+    private auth: AuthService,
+    private dialog: MatDialog,
+    @Inject(MAT_DIALOG_DATA) public data: any,
+    public dialogRef: MatDialogRef<DialogCerrarCajaComponent>,
+    private comerciosService: DataService
+  ) {
+      debugger;
+      if(data){
+      this.proveedor = data;
       }
+    }
 
   ngOnInit() {
-    
+
   }
 
   guardarProveedor() {
-      
+
     this.dialogRef.close(this.proveedor);
-    
+
   }
 
   inputValidator(event: any) {
     //console.log(event.target.value);
-    const pattern = /^[0-9]*$/;   
+    const pattern = /^[0-9]*$/;
     //let inputChar = String.fromCharCode(event.charCode)
     if (!pattern.test(event.target.value)) {
       event.target.value = event.target.value.replace(/[^0-9]/g, "");
