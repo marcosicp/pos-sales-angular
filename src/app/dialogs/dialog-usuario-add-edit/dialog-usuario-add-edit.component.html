@@ -1,31 +1,51 @@
-<div mat-dialog-content fxLayout="column">
+<div [formGroup]="userForm" mat-dialog-content fxLayout="column">
   <mat-form-field class="full-width">
     <label>Nombre</label>
-    <input matInput type="text" [(ngModel)]="usuario.nombre">
+    <input matInput type="text" formControlName="nombre">
+    <mat-error>{{errorString('nombre')}}</mat-error>
   </mat-form-field>
   <mat-form-field class="full-width">
     <label>Apellido</label>
-    <input matInput type="text" [(ngModel)]="usuario.apellido">
+    <input matInput type="text" formControlName="apellido">
+    <mat-error>{{errorString('apellido')}}</mat-error>
   </mat-form-field>
   <mat-form-field class="full-width">
     <label>Email</label>
-    <input matInput type="text" [(ngModel)]="usuario.email">
+    <input matInput type="text" formControlName="email">
+    <mat-error>{{errorString('email')}}</mat-error>
   </mat-form-field>
   <mat-form-field class="full-width">
     <label>Teléfono</label>
-    <input matInput type="text" [(ngModel)]="usuario.telefono">
+    <input matInput type="text" formControlName="telefono">
+    <mat-error>{{errorString('telefono')}}</mat-error>
+  </mat-form-field>
+  <mat-form-field class="full-width">
+    <label>Usuario</label>
+    <input matInput type="text" formControlName="usuario">
+    <mat-error>{{errorString('usuario')}}</mat-error>
+  </mat-form-field>
+  <mat-form-field class="full-width" *ngIf="!data">
+    <label>Contraseña</label>
+    <input matInput type="password" formControlName="password">
+    <mat-error>{{errorString('contraseña')}}</mat-error>
+  </mat-form-field>
+  <mat-form-field class="full-width" *ngIf="!data">
+    <label>Repetir contraseña</label>
+    <input matInput type="password" formControlName="repetirPass">
+    <mat-error>{{errorString('repetir contraseña')}}</mat-error>
   </mat-form-field>
   <mat-form-field class="full-width">
     <label>Va a ser administrador?</label>
-    <input matInput type="text" >
-    <mat-radio-group [(ngModel)]="usuario.admin">
+    <input matInput type="text" disabled>
+    <mat-radio-group formControlName="admin">
       <mat-radio-button [value]="true">SI</mat-radio-button>
       <mat-radio-button [value]="false">NO</mat-radio-button>
     </mat-radio-group>
+    <mat-error>{{errorString('administrador')}}</mat-error>
   </mat-form-field>
 </div>
 
 <div mat-dialog-actions>
-  <button mat-button (click)="guardarUsuario()">Guardar</button>
+  <button mat-button (click)="guardarUsuario()" [disabled]="!userForm.valid">Guardar</button>
   <button mat-button (click)="onNoClick()">Cancelar</button>
 </div>

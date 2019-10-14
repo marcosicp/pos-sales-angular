@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, AfterContentChecked } from '@angular/core';
 import { AuthService } from '../core/services/auth.service';
 
 @Component({
@@ -6,10 +6,28 @@ import { AuthService } from '../core/services/auth.service';
   templateUrl: './nav.component.html',
   styleUrls: ['./nav.component.scss']
 })
-export class NavComponent {
-  constructor(private auth: AuthService) { }
+export class NavComponent implements AfterContentChecked{
+  showUser: string;
+
+  constructor(
+    private auth: AuthService
+  ) { }
+
+  ngAfterContentChecked() {
+    this.auth.getUser.subscribe(
+      user => {
+        if (!user) {
+          this.showUser = null;
+        } else {
+          const {nombre, apellido} = JSON.parse(user);
+          this.showUser = `Hola ${nombre} ${apellido}`;
+        }
+      }
+    );
+  }
 
   logout() {
-     this.auth.signOut();
+    this.showUser = null;
+    this.auth.signOut();
   }
 }
