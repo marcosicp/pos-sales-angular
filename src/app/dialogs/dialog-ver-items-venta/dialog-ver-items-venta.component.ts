@@ -1,5 +1,5 @@
-import { Component, OnInit, Inject } from '@angular/core';
-import { MAT_DIALOG_DATA, MatTableDataSource } from '../../../../node_modules/@angular/material';
+import { Component, Inject } from '@angular/core';
+import { MAT_DIALOG_DATA, MatTableDataSource, MatDialogRef } from '@angular/material';
 // SERVICIOS
 import { DataService } from '../../../app/core/services/data.service';
 // MODELOS
@@ -10,7 +10,7 @@ import { ProductoPedido } from '../../shared/models/producto-venta.model';
   templateUrl: './dialog-ver-items-venta.component.html',
   styleUrls: ['./dialog-ver-items-venta.component.scss']
 })
-export class DialogVerItemsPedidoComponent implements OnInit {
+export class DialogVerItemsPedidoComponent {
   productosPedido: ProductoPedido[] = [];
   item: any;
   dataSource = new MatTableDataSource<ProductoPedido>();
@@ -18,6 +18,7 @@ export class DialogVerItemsPedidoComponent implements OnInit {
 
   constructor(
     private comerciosService: DataService,
+    public dialogRef: MatDialogRef<any>,
     @Inject(MAT_DIALOG_DATA) public data: any
   ) {
     // this.comerciosService.getAsync('ventas/productosPedido?id=' + data.item.id, this.productosPedido).subscribe(
@@ -32,7 +33,8 @@ export class DialogVerItemsPedidoComponent implements OnInit {
     this.dataSource.data = data.productosPedidos;
   }
 
-  ngOnInit() {
+  cerrar() {
+    this.dialogRef.close(false);
   }
 
 }

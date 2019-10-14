@@ -24,6 +24,10 @@ export class HistorialComponent implements OnInit {
   columnCells = TABLA_PEDIDOS.cells;
   formatTableCells = TABLA_PEDIDOS.format;
   isLoading: boolean;
+  addButton = {
+    label: 'Agregar nuevo pedido',
+    buttonEvent: () => this.router.navigate(['home'])
+  };
 
   constructor(
     private router: Router,
