@@ -39,10 +39,15 @@
   }
 
   .mat-column-opciones > button {
-    margin-right: 10px;
+    margin-right: 5px;
   }
 
   .mat-card:not([class*=mat-elevation-z]){
     box-shadow: 0ch;
+  }
+
+  span.currency {
+    text-align: right;
+    padding-right: 20px;
   }
 }

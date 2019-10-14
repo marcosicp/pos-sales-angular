@@ -18,6 +18,7 @@ import { TransactionsComponent } from './transactions/transactions.component';
 import { ReportsComponent } from './reports/reports.component';
 import { LineChartComponent } from './reports/line-chart/line-chart.component';
 import { AdministracionComponent } from './administracion/administracion.component';
+import { StockComponent } from './stock/stock.component';
 // OTROS MODULOS
 import { SharedModule } from '../shared/shared.module'
 
@@ -42,7 +43,8 @@ import { SharedModule } from '../shared/shared.module'
     LineChartComponent,
     AdministracionComponent,
     ClientesComponent,
-    ProveedoresComponent
+    ProveedoresComponent,
+    StockComponent
     // ChartsModule
   ],
   entryComponents: [
