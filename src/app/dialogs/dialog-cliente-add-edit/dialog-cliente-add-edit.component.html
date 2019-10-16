@@ -1,36 +1,57 @@
-<div mat-dialog-title fxLayout="column" style="text-align: center">Agregar Cliente</div>
-<div mat-dialog-content fxLayout="column">
+<div mat-dialog-title fxLayout="column" style="text-align: center">{{dialogTitle}}</div>
+<div [formGroup]="clientForm" mat-dialog-content fxLayout="column">
   <mat-form-field class="full-width">
     <label>Nombre</label>
-    <input matInput type="text" [(ngModel)]="cliente.nombre">
+    <input matInput type="text" formControlName="nombre" maxlength="40">
+    <mat-error>{{errorString('nombre')}}</mat-error>
   </mat-form-field>
   <mat-form-field class="full-width">
-    <label>Razon Social</label>
-    <input matInput type="text" [(ngModel)]="cliente.razonSocial">
+    <label>Razón Social</label>
+    <input matInput type="text" formControlName="razonSocial" maxlength="40">
+    <mat-error>{{errorString('razon social')}}</mat-error>
   </mat-form-field>
   <mat-form-field class="full-width">
-    <label>Telefono</label>
-    <input matInput type="text" [(ngModel)]="cliente.telefono">
+    <label>DNI</label>
+    <input matInput type="text" formControlName="dni" maxlength="9">
+    <mat-error>{{errorString('dni')}}</mat-error>
   </mat-form-field>
   <mat-form-field class="full-width">
     <label>CUIL</label>
-    <input matInput type="text" [(ngModel)]="cliente.cuil">
+    <input matInput type="text" formControlName="cuil" maxlength="15">
+    <mat-error>{{errorString('cuil')}}</mat-error>
   </mat-form-field>
   <mat-form-field class="full-width">
-    <label>Direccion</label>
-    <input matInput type="text" [(ngModel)]="cliente.direccion">
+    <label>CUIT</label>
+    <input matInput type="text" formControlName="cuit" maxlength="15">
+    <mat-error>{{errorString('cuit')}}</mat-error>
   </mat-form-field>
   <mat-form-field class="full-width">
-    <label>Tipo de Factura</label>
-    <input matInput type="text" [(ngModel)]="cliente.tipoFactura">
+    <label>Telefono</label>
+    <input matInput type="text" formControlName="telefono" maxlength="15">
+    <mat-error>{{errorString('telefono')}}</mat-error>
   </mat-form-field>
   <mat-form-field class="full-width">
     <label>Email</label>
-    <input matInput type="text" [(ngModel)]="cliente.email">
+    <input matInput type="text" formControlName="email" maxlength="40">
+    <mat-error>{{errorString('email')}}</mat-error>
+  </mat-form-field>
+  <mat-form-field class="full-width">
+    <label>Direccion</label>
+    <input matInput type="text" formControlName="direccion" maxlength="70">
+    <mat-error>{{errorString('direccion')}}</mat-error>
+  </mat-form-field>
+  <mat-form-field class="full-width">
+    <label>Tipo de Factura</label>
+    <mat-select formControlName="tipoFactura">
+      <mat-option *ngFor="let factura of facturas" [value]="factura.tipo">
+        {{factura.tipo}}
+      </mat-option>
+    </mat-select>
+    <mat-error>{{errorString('tipo de factura')}}</mat-error>
   </mat-form-field>
 </div>
 
 <div mat-dialog-actions>
-  <button mat-button (click)="guardarCliente()" >Guardar</button>
-  <button mat-button (click)="onNoClick()">Cancelar</button>
+  <button mat-raised-button color="primary" [disabled]="!clientForm.valid" (click)="guardarCliente()">Guardar</button>
+  <button mat-raised-button color="warn" (click)="onNoClick()">Cancelar</button>
 </div>

@@ -1,3 +1,4 @@
+<div mat-dialog-title fxLayout="column" style="text-align: center">{{dialogTitle}}</div>
 <div [formGroup]="userForm" mat-dialog-content fxLayout="column">
   <mat-form-field class="full-width">
     <label>Nombre</label>
@@ -46,6 +47,6 @@
 </div>
 
 <div mat-dialog-actions>
-  <button mat-button (click)="guardarUsuario()" [disabled]="!userForm.valid">Guardar</button>
-  <button mat-button (click)="onNoClick()">Cancelar</button>
+  <button mat-raised-button color="primary" (click)="guardarUsuario()" [disabled]="!userForm.valid">Guardar</button>
+  <button mat-raised-button color="warn" (click)="onNoClick()">Cancelar</button>
 </div>

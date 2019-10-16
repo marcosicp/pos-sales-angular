@@ -52,7 +52,8 @@
                       cellValue: column
                     } |
                     currency:'$'
-                  }}</span>
+                  }}
+                </span>
                 <span *ngSwitchCase="'number'">
                   {{
                     element |
@@ -61,7 +62,8 @@
                       cellValue: column
                     } |
                     number:'1.2'
-                  }}</span>
+                  }}
+                </span>
                 <span *ngSwitchCase="'date'">
                   {{
                     element |
@@ -70,7 +72,8 @@
                       cellValue: column
                     } |
                     date:'short'
-                  }}</span>
+                  }}
+                </span>
                 <span *ngSwitchCase="'boolean'">
                   {{
                     element |
@@ -79,7 +82,28 @@
                       cellValue: column
                     } |
                     booleanPipe
-                  }}</span>
+                  }}
+                </span>
+                <span *ngSwitchCase="'phone'">
+                  {{
+                    element |
+                    columnValue: {
+                      columns: columnCells,
+                      cellValue: column
+                    } |
+                    phonePipe
+                  }}
+                </span>
+                <span *ngSwitchCase="'cuil'">
+                  {{
+                    element |
+                    columnValue: {
+                      columns: columnCells,
+                      cellValue: column
+                    } |
+                    cuilPipe
+                  }}
+                </span>
                 <span *ngSwitchDefault>
                   {{
                     element |
@@ -87,7 +111,8 @@
                       columns: columnCells,
                       cellValue: column
                     }
-                  }}</span>
+                  }}
+                </span>
               </ng-container>
             </ng-container>
             <ng-container *ngIf="column === 'opciones'" class="option-buttons">

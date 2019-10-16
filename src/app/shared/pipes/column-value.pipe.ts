@@ -7,9 +7,10 @@ export class ColumnValuePipe implements PipeTransform {
   transform(element: any, args?: any): string {
     const {columns, cellValue} = args;
     const findValueInObject = columns[cellValue].split('.');
-
-    return findValueInObject.length === 1 ?
+    const value = findValueInObject.length === 1 ?
       element[findValueInObject] :
       element[findValueInObject[0]][findValueInObject[1]];
+
+    return value ? value : '-';
   }
 }

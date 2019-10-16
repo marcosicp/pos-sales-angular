@@ -1,13 +1,13 @@
 <mat-card class="add-margin">
   <!-- Header and description -->
   <mat-card-title>Historial de transacciones</mat-card-title>
-  <mat-card-subtitle>Ver todas las transacciones realizadas hasta el momento.</mat-card-subtitle>    
+  <mat-card-subtitle>Ver todas las transacciones realizadas hasta el momento.</mat-card-subtitle>
   <mat-form-field>
     <mat-select placeholder="Mostrar filas:" [(ngModel)]="displayRows" (ngModelChange)="renderNewRows()">
-      <mat-option *ngFor="let option of rowOptions" [value]="option">{{option}}</mat-option>      
+      <mat-option *ngFor="let option of rowOptions" [value]="option">{{option}}</mat-option>
     </mat-select>
   </mat-form-field>
-  
+
   <!-- Table -->
   <mat-card-content>
     <table class="items">
@@ -27,7 +27,7 @@
           </li>
           <li>...</li>
         </td>
-        <td (click)="openDialog(order)">{{order.cartTotal | currency:'USD':true}}</td>
+        <td (click)="openDialog(order)">{{order.cartTotal | currency:'$':true}}</td>
         <td>
           <mat-icon class="del" (click)="deleteOrder(order.id)">cancel</mat-icon>
         </td>
