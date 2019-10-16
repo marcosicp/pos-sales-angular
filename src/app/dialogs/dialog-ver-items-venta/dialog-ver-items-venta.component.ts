@@ -11,10 +11,11 @@ import { ProductoPedido } from '../../shared/models/producto-venta.model';
   styleUrls: ['./dialog-ver-items-venta.component.scss']
 })
 export class DialogVerItemsPedidoComponent {
+  dialogTitle: string;
   productosPedido: ProductoPedido[] = [];
   item: any;
   dataSource = new MatTableDataSource<ProductoPedido>();
-  displayedColumns: string[] = ['producto', 'cantidad', 'precioVenta'];
+  displayedColumns: string[] = ['producto', 'cantidad', 'peso', 'precioVenta'];
 
   constructor(
     private comerciosService: DataService,
@@ -30,6 +31,15 @@ export class DialogVerItemsPedidoComponent {
     // );
 
     // this.dataSource.data = this.productosPedido;
+    const estado = data.estado === 'CONFIRMADO';
+    this.dialogTitle = `Listado de productos ${estado ? 'venidos' : 'pedidos'}`;
+
+    data.productosPedidos.forEach(
+      item => {
+        item.peso = item.peso * item.cantidad;
+      }
+    );
+
     this.dataSource.data = data.productosPedidos;
   }
 

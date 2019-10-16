@@ -44,7 +44,7 @@
           <td mat-cell *matCellDef="let element">
             <ng-container *ngIf="column !== 'opciones'">
               <ng-container [ngSwitch]="formatTableCells[column]">
-                <span *ngSwitchCase="'currency'" class="currency">
+                <span *ngSwitchCase="'currency'">
                   {{
                     element |
                     columnValue: {
@@ -104,7 +104,7 @@
                     cuilPipe
                   }}
                 </span>
-                <span *ngSwitchDefault>
+                <span *ngSwitchDefault class="test">
                   {{
                     element |
                     columnValue: {
@@ -116,12 +116,18 @@
               </ng-container>
             </ng-container>
             <ng-container *ngIf="column === 'opciones'" class="option-buttons">
-              <ng-container *ngFor="let button of columnCells[column]">
-                <button mat-raised-button [color]="button.buttonColor || 'warn'" (click)="button.buttonEvent(element)">
-                    <mat-icon *ngIf="button.buttonIcon">{{button.buttonIcon}}</mat-icon>
-                    {{button.buttonLabel}}
-                  </button>
-              </ng-container>
+              <button mat-icon-button [matMenuTriggerFor]="menu">
+                <mat-icon>settings</mat-icon>
+              </button>
+
+              <mat-menu #menu="matMenu">
+                <ng-container *ngFor="let button of columnCells[column]">
+                  <button mat-menu-item (click)="button.buttonEvent(element)">
+                      <mat-icon *ngIf="button.buttonIcon">{{button.buttonIcon}}</mat-icon>
+                      {{button.buttonLabel}}
+                    </button>
+                </ng-container>
+              </mat-menu>
             </ng-container>
           </td>
         </ng-container>
