@@ -5,7 +5,8 @@ import { MatDialogRef, MatDialog, MAT_DIALOG_DATA } from '@angular/material';
 import { DataService } from '../../core/services/data.service';
 // MODELOS
 import { Clientes } from '../../shared/models/clientes.model';
-import Facturas from '../../shared/models/facutas.model';
+// MOCKS
+import Facturas from '../../shared/mocks/facturas.mock';
 // DIALOGOS
 import { DialogOperacionOkComponent } from '../dialog-operacion-ok/dialog-operacion-ok.component';
 import { DialogSinConexionComponent } from '../dialog-sin-conexion/dialog-sin-conexion.component';
@@ -49,7 +50,7 @@ export class DialogClienteAddEditComponent implements OnInit {
     @Inject(MAT_DIALOG_DATA) public data?: Clientes
   ) {
     this.cliente = data ? data : new Clientes();
-    this.dialogTitle = `${data ? 'Modificar' : 'Agregar nuevo'} cliente`;
+    this.dialogTitle = `${data ? 'Modificar' : 'Agregar'}`;
   }
 
   ngOnInit() {

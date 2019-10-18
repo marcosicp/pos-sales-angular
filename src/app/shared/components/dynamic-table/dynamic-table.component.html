@@ -14,7 +14,11 @@
           mat-flat-button
           color="primary"
           [disabled]="false"
-          (click)="addButton.buttonEvent()">{{ addButton.label || "Agregar"}}</button>
+          (click)="addButton.buttonEvent()"
+        >
+        <mat-icon>add</mat-icon>
+        {{ addButton.label || "Agregar"}}
+      </button>
       </div>
       <div *ngIf="searchButton" class="search-section">
         <label>Buscar: </label>

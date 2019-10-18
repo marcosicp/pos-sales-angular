@@ -26,7 +26,6 @@ export class StockComponent implements OnInit {
   formatTableCells = TABLA_STOCK.format;
   isLoading: boolean;
   addButton = {
-    label: 'Agregar producto',
     buttonEvent: () => this.agregarProducto()
   };
   searchButton = {
@@ -44,12 +43,15 @@ export class StockComponent implements OnInit {
       data => {
         this.dataSource.data = data;
         this.columnCells.opciones = [{
+          buttonIcon: 'edit',
           buttonLabel: 'Modificar',
           buttonEvent: (prod) => this.editarProducto(prod)
         }, {
+          buttonIcon: 'add',
           buttonLabel: 'Agregar stock',
           buttonEvent: (prod) => this.cambiarStock(prod)
         }, {
+          buttonIcon: 'delete',
           buttonLabel: 'Eliminar',
           buttonEvent: (prod) => this.eliminarProducto(prod)
         }];

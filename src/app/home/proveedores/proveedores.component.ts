@@ -29,7 +29,6 @@ export class ProveedoresComponent implements OnInit {
   formatTableCells = TABLA_PROVEEDORES.format;
   isLoading: boolean;
   addButton = {
-    label: 'Agregar proveedor',
     buttonEvent: () => this.agregarProveedor()
   };
   searchButton = {
@@ -47,10 +46,12 @@ export class ProveedoresComponent implements OnInit {
       data => {
         this.dataSource.data = data;
         this.columnCells.opciones = [{
+          buttonIcon: 'edit',
           buttonLabel: 'Modificar',
           buttonEvent: (proveedor) => this.editarProveedor(proveedor)
         },
         {
+          buttonIcon: 'delete',
           buttonLabel: 'Eliminar',
           buttonEvent: (proveedor) => this.eliminarProveedor(proveedor)
         }];

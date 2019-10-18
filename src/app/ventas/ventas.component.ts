@@ -48,6 +48,7 @@ export class VentasComponent implements OnInit {
           buttonEvent: (venta) => this.verItems(venta.pedido)
         },
         {
+          buttonIcon: 'event',
           buttonLabel: 'Pactar entrega',
           buttonEvent: (venta) => this.pactarEntrega(venta)
         }];
