@@ -1,5 +1,5 @@
 import { NgModule } from '@angular/core';
-import { CommonModule, registerLocaleData } from '@angular/common';
+import { CommonModule } from '@angular/common';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 // IMPORTAR MODULOS
 import { AppRoutingModule } from '../core/app-routing.module';
