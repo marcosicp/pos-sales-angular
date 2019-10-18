@@ -10,7 +10,7 @@ import { TABLA_CLIENTES } from '../../shared/configs/table.config';
 // DIALOGOS
 import { DialogClienteAddEditComponent } from '../../dialogs/dialog-cliente-add-edit/dialog-cliente-add-edit.component';
 import { DialogConfirmarComponent } from '../../dialogs/dialog-confirmar/dialog-confirmar.component';
-import { DialogSinConexionComponent } from '../../dialogs/dialog-sin-conexion/dialog-sin-conexion.component';
+
 
 @Component({
   selector: 'app-clientes',
@@ -19,6 +19,7 @@ import { DialogSinConexionComponent } from '../../dialogs/dialog-sin-conexion/di
 })
 export class ClientesComponent implements OnInit {
   clientes: Clientes[] = [];
+
 
   tableTitle = TABLA_CLIENTES.title;
   dataSource = new MatTableDataSource<Clientes>();
@@ -46,7 +47,6 @@ export class ClientesComponent implements OnInit {
     this.comerciosService.getAsync(URL_CLIENTES.GET_ALL, this.clientes).subscribe(
       data => {
         this.dataSource.data = data;
-
         this.columnCells.opciones = [{
             buttonLabel: 'Modificar',
             buttonEvent: (cliente) => this.editarCliente(cliente)
@@ -84,12 +84,15 @@ export class ClientesComponent implements OnInit {
 
   eliminarCliente(cliente: Clientes) {
     const dialogRef =
-      this.dialog.open(DialogConfirmarComponent, {
-        width: '900px' ,  disableClose: true,
-        data: {
-          title: 'Eliminar Cliente',
-          confirmText: 'Esta seguro que desear eliminar este cliente'
-        }}
+      this.dialog.open(
+        DialogConfirmarComponent, {
+          width: '900px',
+          disableClose: true,
+          data: {
+            title: 'Eliminar Cliente',
+            confirmText: `¿Está seguro que desear eliminar a ${cliente.nombre} del sistema?`
+          }
+        }
       );
 
     dialogRef.afterClosed().subscribe(result => {

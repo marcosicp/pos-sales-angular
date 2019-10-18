@@ -30,7 +30,7 @@ const URL_USER = {
       },
       URL_CLIENTES = {
         GET_ALL: 'clientes/GetAllClientes',
-        ADD_CLIENTE: 'productos/AgregarCliente',
+        ADD_CLIENTE: 'clientes/AddCliente',
         MODIFY_CLIENTE: 'clientes/ModificarCliente',
         DELETE_CLIENTE: 'clientes/DeleteCliente',
       },

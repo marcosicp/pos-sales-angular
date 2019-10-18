@@ -4,7 +4,11 @@
     overflow: auto;
     position: relative;
   }
-  
+
   table {
     width: 100%;
   }
+
+td, th {
+  vertical-align: middle;
+}

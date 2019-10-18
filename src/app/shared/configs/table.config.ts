@@ -7,8 +7,6 @@ const TABLA_STOCK = {
     precioCompra: 'Precio de compra',
     cantidad: 'Unidades disponibles',
     peso: 'Peso en Kg',
-    creado: 'Fecha de creación',
-    editado: 'Fecha de modificación',
     opciones: 'Opciones'
   },
   cells: {
@@ -18,8 +16,6 @@ const TABLA_STOCK = {
     precioCompra: 'precioCompra',
     cantidad: 'cantidad',
     peso: 'peso',
-    creado: 'creado',
-    editado: 'editado',
     opciones: null
   },
   format: {
@@ -29,8 +25,6 @@ const TABLA_STOCK = {
     precioCompra: 'currency',
     cantidad: null,
     peso: 'number',
-    creado: 'date',
-    editado: 'date',
     opciones: null
   }
 };
@@ -43,7 +37,6 @@ const TABLA_USUARIOS = {
     usuario: 'Usuario',
     email: 'E-mail',
     fechaNacimiento: 'Fecha de nacimiento',
-    creado: 'Fecha de creación',
     opciones: 'Opciones'
   },
   cells: {
@@ -52,7 +45,6 @@ const TABLA_USUARIOS = {
     usuario: 'usuario',
     email: 'email',
     fechaNacimiento: 'fechaNacimiento',
-    creado: 'creado',
     opciones: null
   },
   format: {
@@ -61,7 +53,6 @@ const TABLA_USUARIOS = {
     usuario: null,
     email: null,
     fechaNacimiento: 'date',
-    creado: 'date',
     opciones: null
   }
 };
@@ -70,26 +61,29 @@ const TABLA_CLIENTES = {
   title: 'Clientes',
   headers: {
     nombre: 'Nombre',
-    activo: 'Activo',
+    razonSocial: 'Razón Social',
+    cuil: 'CUIL',
     telefono: 'Teléfono',
     email: 'Email',
-    creado: 'Fecha creado',
+    direccion: 'Dirección',
     opciones: 'Opciones'
   },
   cells: {
     nombre: 'nombre',
-    activo: 'activo',
+    razonSocial: 'razonSocial',
+    cuil: 'cuil',
     telefono: 'telefono',
     email: 'email',
-    creado: 'creado',
+    direccion: 'direccion',
     opciones: null
   },
   format: {
     nombre: null,
-    activo: 'boolean',
-    telefono: null,
+    razonSocial: null,
+    cuil: 'cuil',
+    telefono: 'phone',
     email: null,
-    creado: 'date',
+    direccion: null,
     opciones: null
   }
 };
@@ -116,8 +110,8 @@ const TABLA_PROVEEDORES = {
   },
   format: {
     nombre: null,
-    cuil: null,
-    telefono: null,
+    cuil: 'cuil',
+    telefono: 'phone',
     email: null,
     razonSocial: null,
     direccion: null,

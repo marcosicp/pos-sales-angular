@@ -1,3 +1,4 @@
+<div mat-dialog-title fxLayout="column" style="text-align: center">Cambiar contraseña del usuario</div>
 <div mat-dialog-content fxLayout="column">
   <mat-form-field class="full-width">
     <label>Usuario</label>
@@ -18,6 +19,6 @@
 </div>
 
 <div mat-dialog-actions>
-  <button mat-button (click)="guardarCambios()">Guardar</button>
-  <button mat-button (click)="cancelarCambios()">Cancelar</button>
+  <button mat-raised-button color="primary" (click)="guardarCambios()">Guardar</button>
+  <button mat-raised-button color="warn" (click)="cancelarCambios()">Cancelar</button>
 </div>

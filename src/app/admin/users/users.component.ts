@@ -96,7 +96,7 @@ export class UsersComponent implements OnInit {
         width: '900px',
         data: {
           title: 'Dar de baja usuario',
-          confirmText: 'Esta seguro que desea dar de baja a este usuario?'
+          confirmText: `¿Está seguro que desea dar de baja a ${usuario.nombre} ${usuario.apellido}?`
         }
     });
 

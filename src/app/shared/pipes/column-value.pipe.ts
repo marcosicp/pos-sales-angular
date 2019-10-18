@@ -1,15 +1,16 @@
 import { Pipe, PipeTransform } from '@angular/core';
+import columnValueFunction from '../functions/columnValue.function';
 
 @Pipe({
   name: 'columnValue'
 })
 export class ColumnValuePipe implements PipeTransform {
-  transform(element: any, args?: any): string {
-    const {columns, cellValue} = args;
+  transform(element: any, columns: any, cellValue: any): string {
     const findValueInObject = columns[cellValue].split('.');
-
-    return findValueInObject.length === 1 ?
+    const value = findValueInObject.length === 1 ?
       element[findValueInObject] :
       element[findValueInObject[0]][findValueInObject[1]];
+
+    return value ? value : '-';
   }
 }

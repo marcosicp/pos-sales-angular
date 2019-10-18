@@ -44,59 +44,90 @@
           <td mat-cell *matCellDef="let element">
             <ng-container *ngIf="column !== 'opciones'">
               <ng-container [ngSwitch]="formatTableCells[column]">
-                <span *ngSwitchCase="'currency'" class="currency">
+                <span
+                  *ngSwitchCase="'currency'"
+                  [matTooltip]="initTooltip(element, columnCells, column)"
+                >
                   {{
                     element |
-                    columnValue: {
-                      columns: columnCells,
-                      cellValue: column
-                    } |
+                    columnValue: columnCells: column |
                     currency:'$'
-                  }}</span>
-                <span *ngSwitchCase="'number'">
+                  }}
+                </span>
+                <span
+                  *ngSwitchCase="'number'"
+                  [matTooltip]="initTooltip(element, columnCells, column)"
+                >
                   {{
                     element |
-                    columnValue: {
-                      columns: columnCells,
-                      cellValue: column
-                    } |
+                    columnValue: columnCells: column |
                     number:'1.2'
-                  }}</span>
-                <span *ngSwitchCase="'date'">
+                  }}
+                </span>
+                <span
+                  *ngSwitchCase="'date'"
+                  [matTooltip]="initTooltip(element, columnCells, column)"
+                >
                   {{
                     element |
-                    columnValue: {
-                      columns: columnCells,
-                      cellValue: column
-                    } |
+                    columnValue: columnCells: column |
                     date:'short'
-                  }}</span>
-                <span *ngSwitchCase="'boolean'">
+                  }}
+                </span>
+                <span
+                  *ngSwitchCase="'boolean'"
+                  [matTooltip]="initTooltip(element, columnCells, column)"
+                >
                   {{
                     element |
-                    columnValue: {
-                      columns: columnCells,
-                      cellValue: column
-                    } |
+                    columnValue: columnCells: column |
                     booleanPipe
-                  }}</span>
-                <span *ngSwitchDefault>
+                  }}
+                </span>
+                <span
+                  *ngSwitchCase="'phone'"
+                  [matTooltip]="initTooltip(element, columnCells, column)"
+                >
                   {{
                     element |
-                    columnValue: {
-                      columns: columnCells,
-                      cellValue: column
-                    }
-                  }}</span>
+                    columnValue: columnCells: column |
+                    phonePipe
+                  }}
+                </span>
+                <span
+                  *ngSwitchCase="'cuil'"
+                  [matTooltip]="initTooltip(element, columnCells, column)"
+                >
+                  {{
+                    element |
+                    columnValue: columnCells: column |
+                    cuilPipe
+                  }}
+                </span>
+                <span
+                  *ngSwitchDefault class="test"
+                  [matTooltip]="initTooltip(element, columnCells, column)"
+                >
+                  {{
+                    element |
+                    columnValue: columnCells: column
+                  }}
+                </span>
               </ng-container>
             </ng-container>
             <ng-container *ngIf="column === 'opciones'" class="option-buttons">
-              <ng-container *ngFor="let button of columnCells[column]">
-                <button mat-raised-button [color]="button.buttonColor || 'warn'" (click)="button.buttonEvent(element)">
-                    <mat-icon *ngIf="button.buttonIcon">{{button.buttonIcon}}</mat-icon>
-                    {{button.buttonLabel}}
-                  </button>
-              </ng-container>
+              <button mat-icon-button [matMenuTriggerFor]="menu">
+                <mat-icon>settings</mat-icon>
+              </button>
+
+              <mat-menu #menu="matMenu">
+                <ng-container *ngFor="let button of columnCells[column]">
+                  <button mat-menu-item (click)="button.buttonEvent(element)">
+                      <mat-icon *ngIf="button.buttonIcon">{{button.buttonIcon}}</mat-icon>
+                      {{button.buttonLabel}}
+                    </button>
+                </ng-container>
+              </mat-menu>
             </ng-container>
           </td>
         </ng-container>

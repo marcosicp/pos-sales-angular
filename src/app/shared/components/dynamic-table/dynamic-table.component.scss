@@ -36,6 +36,15 @@
   table.table-layout {
     line-height: 60px;
     width: 100%;
+    table-layout: fixed;
+
+    td {
+      overflow: hidden;
+      width:auto;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+      padding-right: 15px;
+    }
   }
 
   .mat-column-opciones > button {
@@ -44,10 +53,5 @@
 
   .mat-card:not([class*=mat-elevation-z]){
     box-shadow: 0ch;
-  }
-
-  span.currency {
-    text-align: right;
-    padding-right: 20px;
   }
 }
