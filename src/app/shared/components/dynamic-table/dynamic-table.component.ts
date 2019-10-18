@@ -26,7 +26,7 @@ export class DynamicTableComponent implements AfterContentInit {
   addButton: any;
   @Input()
   searchButton: any;
-  private pageSizeOptions: number[] = [10, 25, 50, 100];
+  pageSizeOptions: number[] = [10, 25, 50, 100];
   private _matPaginator: MatPaginator;
   private _matSort: MatSort;
 
