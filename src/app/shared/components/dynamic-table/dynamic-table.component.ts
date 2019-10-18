@@ -41,6 +41,6 @@ export class DynamicTableComponent implements AfterContentInit {
   }
 
   initTooltip(element: any, columnCells: any, column: any) {
-    return columnValueFunction(element, columnCells, column)
+    return columnValueFunction(element, columnCells, column);
   }
 }

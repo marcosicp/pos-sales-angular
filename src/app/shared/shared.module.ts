@@ -7,7 +7,6 @@ import { LoadingService } from './services/loading.service';
 // PIPES
 import { PhonePipe } from './pipes/phone.pipe';
 import { CuilPipe } from './pipes/cuil.pipe';
-import { EllipsisDirective } from './directives/ellipsis.directive';
 // import { ParseUserRolePipe } from './pipes/parse-user-role.pipe';
 import { BooleanPipe } from './pipes/boolean.pipe';
 import { ColumnValuePipe } from './pipes/column-value.pipe';
@@ -32,7 +31,6 @@ import { MaterialModule } from '../core/material.module';
     ColumnValuePipe,
     PhonePipe,
     CuilPipe,
-    EllipsisDirective
     // ParseUserRolePipe
   ],
   providers: [

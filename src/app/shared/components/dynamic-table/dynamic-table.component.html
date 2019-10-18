@@ -50,7 +50,7 @@
               <ng-container [ngSwitch]="formatTableCells[column]">
                 <span
                   *ngSwitchCase="'currency'"
-                  [matTooltip]="initTooltip(element, columnCells, column)"
+                  [matTooltip]="initTooltip(element, columnCells, column) | currency:'$'"
                 >
                   {{
                     element |
@@ -60,7 +60,7 @@
                 </span>
                 <span
                   *ngSwitchCase="'number'"
-                  [matTooltip]="initTooltip(element, columnCells, column)"
+                  [matTooltip]="initTooltip(element, columnCells, column) | number:'1.2'"
                 >
                   {{
                     element |
@@ -70,7 +70,7 @@
                 </span>
                 <span
                   *ngSwitchCase="'date'"
-                  [matTooltip]="initTooltip(element, columnCells, column)"
+                  [matTooltip]="initTooltip(element, columnCells, column) | date:'short'"
                 >
                   {{
                     element |
@@ -80,7 +80,7 @@
                 </span>
                 <span
                   *ngSwitchCase="'boolean'"
-                  [matTooltip]="initTooltip(element, columnCells, column)"
+                  [matTooltip]="initTooltip(element, columnCells, column) | booleanPipe"
                 >
                   {{
                     element |
@@ -90,7 +90,7 @@
                 </span>
                 <span
                   *ngSwitchCase="'phone'"
-                  [matTooltip]="initTooltip(element, columnCells, column)"
+                  [matTooltip]="initTooltip(element, columnCells, column) | phonePipe"
                 >
                   {{
                     element |
@@ -100,7 +100,7 @@
                 </span>
                 <span
                   *ngSwitchCase="'cuil'"
-                  [matTooltip]="initTooltip(element, columnCells, column)"
+                  [matTooltip]="initTooltip(element, columnCells, column) | cuilPipe"
                 >
                   {{
                     element |
