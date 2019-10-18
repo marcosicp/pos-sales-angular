@@ -3,11 +3,11 @@
     <h1>{{tableTitle}}</h1>
   </mat-card>
 
-  <div class="loading-shade" *ngIf="isLoading">
+  <div class="loading-shade" [style.visibility]="isLoading ? 'visible' : 'hidden'">
     <mat-spinner></mat-spinner>
   </div>
 
-  <ng-container *ngIf="!isLoading">
+  <ng-container [style.visibility]="!isLoading ? 'visible' : 'hidden'">
     <mat-toolbar *ngIf="addButton || searchButton">
       <div fxLayout="row" fxLayoutGap="10px" *ngIf="addButton">
         <button
@@ -139,6 +139,6 @@
       <tr mat-header-row *matHeaderRowDef="headerTitles; sticky: true"></tr>
       <tr mat-row *matRowDef="let row; columns: headerTitles;"></tr>
     </table>
-    <!-- <mat-paginator [pageSizeOptions]="pageSizeOptions"></mat-paginator> -->
+    <mat-paginator [pageSize]="pageSizeOptions[0]" [pageSizeOptions]="pageSizeOptions"></mat-paginator>
   </ng-container>
 </div>

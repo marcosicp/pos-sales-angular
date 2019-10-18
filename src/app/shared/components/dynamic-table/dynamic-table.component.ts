@@ -26,14 +26,17 @@ export class DynamicTableComponent implements AfterContentInit {
   addButton: any;
   @Input()
   searchButton: any;
-  pageSizeOptions: number[] = [10, 25, 50, 100];
+  private pageSizeOptions: number[] = [10, 25, 50, 100];
+  private _matPaginator: MatPaginator;
+  private _matSort: MatSort;
 
-  @ViewChild(MatPaginator) paginator: MatPaginator;
-  @ViewChild(MatSort) sort: MatSort;
-
-  ngAfterContentInit() {
-    this.dataSource.paginator = this.paginator;
-    this.dataSource.sort = this.sort;
+  @ViewChild(MatPaginator) set matPaginator(mp: MatPaginator) {
+    this._matPaginator = mp;
+    this.bindTableElements();
+  }
+  @ViewChild(MatSort) set matSort(ms: MatSort) {
+    this._matSort = ms;
+    this.bindTableElements();
   }
 
   searchData(word: string) {
@@ -42,5 +45,14 @@ export class DynamicTableComponent implements AfterContentInit {
 
   initTooltip(element: any, columnCells: any, column: any) {
     return columnValueFunction(element, columnCells, column);
+  }
+
+  ngAfterContentInit() {
+    this.bindTableElements();
+  }
+
+  bindTableElements() {
+    this.dataSource.paginator = this._matPaginator;
+    this.dataSource.sort = this._matSort;
   }
 }
