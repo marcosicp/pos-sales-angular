@@ -3,19 +3,34 @@
     <mat-card-title>Ingreso al sistema</mat-card-title>
 
     <mat-card-content>
-      <form class="login-form">
+      <form class="login-form" [formGroup]="loginForm">
         <mat-form-field>
-          <input matInput #email placeholder="usuario" type="text" [formControl]="emailFormControl">
+          <input
+            matInput
+            #userInput
+            placeholder="usuario"
+            type="text"
+            formControlName="user"
+          >
         </mat-form-field>
         <mat-form-field>
-          <input matInput #password placeholder="contraseña" type="password" (keyup.enter)="userLogin(email.value, password.value)">
+          <input
+            matInput
+            placeholder="contraseña"
+            type="password"
+            formControlName="password"
+            (keyup.enter)="userLogin()"
+          >
         </mat-form-field>
         <mat-error class="error" *ngIf="error">
           {{error}}
         </mat-error>
         <p routerLink="/resetpassword" class="reset error">¿Olvidaste la contraseña?</p>
       </form>
-      <button mat-raised-button color="primary" (click)="userLogin(email.value, password.value)">Entrar</button>
+
+      <button mat-raised-button (click)="userLogin()" [disabled]="!loginForm.valid">
+        Entrar
+      </button>
     </mat-card-content>
   </mat-card>
 </div>

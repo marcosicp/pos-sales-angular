@@ -1,6 +1,7 @@
 <app-notification></app-notification>
 <div class="container">
-  <mat-card style="margin-left: 15%;" class="module-card" routerLink="/agenda" fxLayout="column">
+  <mat-card class="module-card agenda-card" routerLink="/agenda" fxLayout="column">
+    <mat-icon class="module-icon">event</mat-icon>
     <h1 class="module-title">Agenda</h1>
   </mat-card>
   <mat-grid-list cols="4" rowHeight="9:8">
@@ -39,7 +40,7 @@
   <mat-grid-list cols="4" rowHeight="5:4" style="margin-top: -5%">
     <mat-grid-tile>
       <mat-card class="module-card2" routerLink="/administracion" fxLayout="column">
-        <mat-icon class="module-icon">attach_money</mat-icon>
+        <mat-icon class="module-icon">store</mat-icon>
         <h1 class="module-title">Administración</h1>
       </mat-card>
     </mat-grid-tile>
@@ -60,7 +61,7 @@
 
     <mat-grid-tile >
       <mat-card class="module-card2" routerLink="/admin/users" fxLayout="column">
-        <mat-icon class="module-icon">person</mat-icon>
+        <mat-icon class="module-icon">supervisor_account</mat-icon>
         <h1 class="module-title">Usuarios</h1>
       </mat-card>
     </mat-grid-tile>
