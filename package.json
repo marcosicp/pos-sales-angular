@@ -107,6 +107,8 @@
     "typescript": "3.1.6"
   },
   "husky": {
-    "pre-commit": "npm run build"
+    "hooks": {
+      "pre-commit": "npm run build"
+    }
   }
 }
