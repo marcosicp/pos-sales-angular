@@ -4,7 +4,7 @@ import { Pipe, PipeTransform } from '@angular/core';
   name: 'cuilPipe'
 })
 export class CuilPipe implements PipeTransform {
-  transform(value: string, args?: any): string {
+  transform(value: string): string {
     if (value === '-') {
       return '-';
     } else {

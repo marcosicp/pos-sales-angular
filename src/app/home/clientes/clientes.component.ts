@@ -29,7 +29,6 @@ export class ClientesComponent implements OnInit {
   formatTableCells = TABLA_CLIENTES.format;
   isLoading: boolean;
   addButton = {
-    label: 'Agregar cliente',
     buttonEvent: () => this.agregarCliente()
   };
   searchButton = {
@@ -48,10 +47,12 @@ export class ClientesComponent implements OnInit {
       data => {
         this.dataSource.data = data;
         this.columnCells.opciones = [{
+            buttonIcon: 'edit',
             buttonLabel: 'Modificar',
             buttonEvent: (cliente) => this.editarCliente(cliente)
           },
           {
+            buttonIcon: 'delete',
             buttonLabel: 'Eliminar',
             buttonEvent: (cliente) => this.eliminarCliente(cliente)
           }];
@@ -110,5 +111,4 @@ export class ClientesComponent implements OnInit {
       }
     });
   }
-
 }

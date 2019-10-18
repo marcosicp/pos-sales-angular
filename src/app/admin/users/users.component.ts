@@ -27,7 +27,6 @@ export class UsersComponent implements OnInit {
   formatTableCells = TABLA_USUARIOS.format;
   isLoading: boolean;
   addButton = {
-    label: 'Agregar usuario',
     buttonEvent: () => this.agregarUsuario()
   };
   searchButton = {
@@ -46,12 +45,15 @@ export class UsersComponent implements OnInit {
       data => {
         this.dataSource.data = data;
         this.columnCells.opciones = [{
+          buttonIcon: 'edit',
           buttonLabel: 'Modificar',
           buttonEvent: (user) => this.editarUsuario(user)
         }, {
+          buttonIcon: 'lock_open',
           buttonLabel: 'Cambiar pass',
           buttonEvent: (user) => this.cambiarPass(user)
         }, {
+          buttonIcon: 'delete',
           buttonLabel: 'Eliminar',
           buttonEvent: (user) => this.eliminarUsuario(user)
         }];
