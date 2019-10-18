@@ -1,5 +1,6 @@
 import { Component, ViewChild, Input, AfterContentInit } from '@angular/core';
 import { MatSort, MatPaginator, MatTableDataSource } from '@angular/material';
+import columnValueFunction from '../../functions/columnValue.function';
 
 @Component({
   selector: 'dynamic-table',
@@ -37,5 +38,9 @@ export class DynamicTableComponent implements AfterContentInit {
 
   searchData(word: string) {
     this.dataSource.filter = word.trim().toLocaleLowerCase();
+  }
+
+  initTooltip(element: any, columnCells: any, column: any) {
+    return columnValueFunction(element, columnCells, column)
   }
 }

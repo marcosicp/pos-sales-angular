@@ -44,73 +44,73 @@
           <td mat-cell *matCellDef="let element">
             <ng-container *ngIf="column !== 'opciones'">
               <ng-container [ngSwitch]="formatTableCells[column]">
-                <span *ngSwitchCase="'currency'">
+                <span
+                  *ngSwitchCase="'currency'"
+                  [matTooltip]="initTooltip(element, columnCells, column)"
+                >
                   {{
                     element |
-                    columnValue: {
-                      columns: columnCells,
-                      cellValue: column
-                    } |
+                    columnValue: columnCells: column |
                     currency:'$'
                   }}
                 </span>
-                <span *ngSwitchCase="'number'">
+                <span
+                  *ngSwitchCase="'number'"
+                  [matTooltip]="initTooltip(element, columnCells, column)"
+                >
                   {{
                     element |
-                    columnValue: {
-                      columns: columnCells,
-                      cellValue: column
-                    } |
+                    columnValue: columnCells: column |
                     number:'1.2'
                   }}
                 </span>
-                <span *ngSwitchCase="'date'">
+                <span
+                  *ngSwitchCase="'date'"
+                  [matTooltip]="initTooltip(element, columnCells, column)"
+                >
                   {{
                     element |
-                    columnValue: {
-                      columns: columnCells,
-                      cellValue: column
-                    } |
+                    columnValue: columnCells: column |
                     date:'short'
                   }}
                 </span>
-                <span *ngSwitchCase="'boolean'">
+                <span
+                  *ngSwitchCase="'boolean'"
+                  [matTooltip]="initTooltip(element, columnCells, column)"
+                >
                   {{
                     element |
-                    columnValue: {
-                      columns: columnCells,
-                      cellValue: column
-                    } |
+                    columnValue: columnCells: column |
                     booleanPipe
                   }}
                 </span>
-                <span *ngSwitchCase="'phone'">
+                <span
+                  *ngSwitchCase="'phone'"
+                  [matTooltip]="initTooltip(element, columnCells, column)"
+                >
                   {{
                     element |
-                    columnValue: {
-                      columns: columnCells,
-                      cellValue: column
-                    } |
+                    columnValue: columnCells: column |
                     phonePipe
                   }}
                 </span>
-                <span *ngSwitchCase="'cuil'">
+                <span
+                  *ngSwitchCase="'cuil'"
+                  [matTooltip]="initTooltip(element, columnCells, column)"
+                >
                   {{
                     element |
-                    columnValue: {
-                      columns: columnCells,
-                      cellValue: column
-                    } |
+                    columnValue: columnCells: column |
                     cuilPipe
                   }}
                 </span>
-                <span *ngSwitchDefault class="test">
+                <span
+                  *ngSwitchDefault class="test"
+                  [matTooltip]="initTooltip(element, columnCells, column)"
+                >
                   {{
                     element |
-                    columnValue: {
-                      columns: columnCells,
-                      cellValue: column
-                    }
+                    columnValue: columnCells: column
                   }}
                 </span>
               </ng-container>

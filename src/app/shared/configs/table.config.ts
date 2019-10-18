@@ -62,9 +62,7 @@ const TABLA_CLIENTES = {
   headers: {
     nombre: 'Nombre',
     razonSocial: 'Razón Social',
-    dni: 'DNI',
     cuil: 'CUIL',
-    cuit: 'CUIT',
     telefono: 'Teléfono',
     email: 'Email',
     direccion: 'Dirección',
@@ -73,9 +71,7 @@ const TABLA_CLIENTES = {
   cells: {
     nombre: 'nombre',
     razonSocial: 'razonSocial',
-    dni: 'dni',
     cuil: 'cuil',
-    cuit: 'cuit',
     telefono: 'telefono',
     email: 'email',
     direccion: 'direccion',
@@ -84,9 +80,7 @@ const TABLA_CLIENTES = {
   format: {
     nombre: null,
     razonSocial: null,
-    dni: null,
     cuil: 'cuil',
-    cuit: 'cuil',
     telefono: 'phone',
     email: null,
     direccion: null,
