@@ -32,8 +32,6 @@ export class DialogClienteAddEditComponent implements OnInit {
         return `${errorText} sólo con letras`;
       case 'email':
         return `${errorText} con el email completo (@gmail.com, por ejemplo)`;
-      case 'dni':
-        return `${errorText} con un mínimo de 7 caracteres numéricos`;
       case 'telefono':
         return `${errorText} con un mínimo de 10 caracteres numéricos`;
       case 'cuil':
@@ -58,9 +56,7 @@ export class DialogClienteAddEditComponent implements OnInit {
       {
         nombre: new FormControl(this.cliente.nombre, [Validators.required, Validators.pattern(/^[a-zA-Z\s]*$/)]),
         razonSocial: new FormControl(this.cliente.razonSocial, [Validators.required, Validators.pattern(/^[a-zA-Z\s]*$/)]),
-        dni: new FormControl(this.cliente.dni, [Validators.minLength(7)]),
         cuil: new FormControl(this.cliente.cuil, [Validators.minLength(11)]),
-        cuit: new FormControl(this.cliente.cuit, [Validators.minLength(11)]),
         telefono: new FormControl(this.cliente.telefono, [Validators.required, Validators.pattern(/^[0-9]*$/), Validators.minLength(10)]),
         email: new FormControl(this.cliente.email, [Validators.required, Validators.email]),
         direccion: new FormControl(this.cliente.direccion, [Validators.required]),

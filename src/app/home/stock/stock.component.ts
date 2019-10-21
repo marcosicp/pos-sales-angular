@@ -29,7 +29,7 @@ export class StockComponent implements OnInit {
     buttonEvent: () => this.agregarProducto()
   };
   searchButton = {
-    placeHolder: 'nombre, código',
+    placeHolder: this.headerTitles.map(item => item.toLowerCase()).join(', '),
   };
 
   constructor(

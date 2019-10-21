@@ -33,27 +33,29 @@ export class LoginComponent implements AfterContentInit, OnDestroy {
   }
 
   userLogin() {
-    const { user, password } = this.loginForm.value;
+    if (this.loginForm.valid) {
+      const { user, password } = this.loginForm.value;
 
-    this.loadingService.toggleLoading();
-    this.authService.emailLogin(user, password).subscribe(
-      userResult => {
-        this.loadingService.toggleLoading();
+      this.loadingService.toggleLoading();
+      this.authService.emailLogin(user, password).subscribe(
+        userResult => {
+          this.loadingService.toggleLoading();
 
-        if (!userResult) {
-          this.error = strings.noInternet;
-          this.focusOnUser();
-        } else if (userResult.email === null || userResult.email === '') {
-          this.error = strings.badLogin;
-          this.focusOnUser();
-        } else {
-          this.error = null;
+          if (!userResult) {
+            this.error = strings.noInternet;
+            this.focusOnUser();
+          } else if (userResult.email === null || userResult.email === '') {
+            this.error = strings.badLogin;
+            this.focusOnUser();
+          } else {
+            this.error = null;
 
-          localStorage.setItem('currentUser', JSON.stringify(userResult));
-          this.router.navigate(['/welcome']);
+            localStorage.setItem('currentUser', JSON.stringify(userResult));
+            this.router.navigate(['/welcome']);
+          }
         }
-      }
-    );
+      );
+    }
   }
 
   ngAfterContentInit() {
