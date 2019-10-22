@@ -12,6 +12,8 @@ import { DialogOperacionOkComponent } from '../dialog-operacion-ok/dialog-operac
 import { DialogSinConexionComponent } from '../dialog-sin-conexion/dialog-sin-conexion.component';
 // URLS DE CONFIGURACION
 import { URL_CLIENTES } from '../../shared/configs/urls.config';
+// REGEX
+import RegExpHelper from '../../shared/helpers/regex.helper';
 
 @Component({
   selector: 'app-dialog-cliente-add-edit',
@@ -33,9 +35,9 @@ export class DialogClienteAddEditComponent implements OnInit {
       case 'email':
         return `${errorText} con el email completo (@gmail.com, por ejemplo)`;
       case 'telefono':
-        return `${errorText} con un mínimo de 10 caracteres numéricos`;
+        return `${errorText} con un mínimo de 10 números (sin puntos, letras ni otros caracteres)`;
       case 'cuil':
-        return `${errorText} con un mínimo de 11 caracteres numéricos`;
+        return `${errorText} con un mínimo de 11 números (sin puntos, letras ni otros caracteres)`;
       default:
         return `${errorText}, es obligatorio`;
     }
@@ -47,17 +49,17 @@ export class DialogClienteAddEditComponent implements OnInit {
     private dataservice: DataService,
     @Inject(MAT_DIALOG_DATA) public data?: Clientes
   ) {
-    this.cliente = data ? data : new Clientes();
+    this.cliente = data || new Clientes();
     this.dialogTitle = `${data ? 'Modificar' : 'Agregar'}`;
   }
 
   ngOnInit() {
     this.clientForm = new FormGroup(
       {
-        nombre: new FormControl(this.cliente.nombre, [Validators.required, Validators.pattern(/^[a-zA-Z\s]*$/)]),
-        razonSocial: new FormControl(this.cliente.razonSocial, [Validators.required, Validators.pattern(/^[a-zA-Z\s]*$/)]),
-        cuil: new FormControl(this.cliente.cuil, [Validators.minLength(11)]),
-        telefono: new FormControl(this.cliente.telefono, [Validators.required, Validators.pattern(/^[0-9]*$/), Validators.minLength(10)]),
+        nombre: new FormControl(this.cliente.nombre, [Validators.required, Validators.pattern(RegExpHelper.lettersSpace)]),
+        razonSocial: new FormControl(this.cliente.razonSocial, [Validators.required, Validators.pattern(RegExpHelper.lettersSpace)]),
+        cuil: new FormControl(this.cliente.cuil, [Validators.required, Validators.pattern(RegExpHelper.numbers), Validators.minLength(11)]),
+        telefono: new FormControl(this.cliente.telefono, [Validators.required, Validators.pattern(RegExpHelper.numbers), Validators.minLength(10)]),
         email: new FormControl(this.cliente.email, [Validators.required, Validators.email]),
         direccion: new FormControl(this.cliente.direccion, [Validators.required]),
         tipoFactura: new FormControl(this.cliente.tipoFactura, [Validators.required])

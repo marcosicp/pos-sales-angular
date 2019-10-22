@@ -1,8 +1,10 @@
 const TABLA_STOCK = {
   title: 'Stock',
   headers: {
-    nombre: 'Nombre',
     codigo: 'Código',
+    categoria: 'Categoría',
+    nombre: 'Nombre',
+    proveedor: 'Proveedor',
     precioVenta: 'Precio de venta',
     precioCompra: 'Precio de compra',
     cantidad: 'Unidades disponibles',
@@ -10,8 +12,10 @@ const TABLA_STOCK = {
     opciones: 'Opciones'
   },
   cells: {
-    nombre: 'nombre',
     codigo: 'codigo',
+    categoria: 'categoria',
+    nombre: 'nombre',
+    proveedor: 'proveedor',
     precioVenta: 'precioVenta',
     precioCompra: 'precioCompra',
     cantidad: 'cantidad',
@@ -19,8 +23,10 @@ const TABLA_STOCK = {
     opciones: null
   },
   format: {
-    nombre: null,
     codigo: null,
+    categoria: null,
+    nombre: null,
+    proveedor: null,
     precioVenta: 'currency',
     precioCompra: 'currency',
     cantidad: null,
@@ -36,7 +42,7 @@ const TABLA_USUARIOS = {
     apellido: 'Apellido',
     usuario: 'Usuario',
     email: 'E-mail',
-    rol: 'Tipo Usuario',
+    rol: 'Tipo de usuario',
     opciones: 'Opciones'
   },
   cells: {

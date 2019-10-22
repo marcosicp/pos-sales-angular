@@ -36,7 +36,7 @@ export class ProveedoresComponent implements OnInit {
   };
 
   constructor(
-    private comerciosService: DataService, private changeDetectorRefs: ChangeDetectorRef,
+    private comerciosService: DataService,
     public dialog: MatDialog
     ) { }
 

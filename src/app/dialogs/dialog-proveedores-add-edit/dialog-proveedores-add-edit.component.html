@@ -1,53 +1,63 @@
-<div mat-dialog-content fxLayout="column">
+<div mat-dialog-title fxLayout="column" style="text-align: center">{{dialogTitle}}</div>
+<div [formGroup]="proveedoresForm" mat-dialog-content fxLayout="column">
   <mat-form-field class="full-width">
     <label>Nombre</label>
-    <input matInput type="text" [(ngModel)]="proveedor.nombre" required>
-    <mat-error>
-      Por favor complete este campo, es obligatorio.
-    </mat-error>
+    <input matInput type="text" formControlName="nombre" maxlength="40">
+    <mat-error>{{errorString('nombre')}}</mat-error>
   </mat-form-field>
   <mat-form-field class="full-width">
-    <label>Razon Social</label>
-    <input matInput type="text" [(ngModel)]="proveedor.razonSocial" required>
-    <mat-error>
-      Por favor complete este campo, es obligatorio.
-    </mat-error>
-  </mat-form-field>
-  <mat-form-field class="full-width">
-    <label>Telefono</label>
-    <input matInput (input)="inputValidator($event)" [(ngModel)]="proveedor.telefono" required>
-    <mat-error>
-      Por favor complete este campo, es obligatorio.
-    </mat-error>
+    <label>Razón Social</label>
+    <input matInput type="text" formControlName="razonSocial" maxlength="40">
+    <mat-error>{{errorString('razon social')}}</mat-error>
   </mat-form-field>
   <mat-form-field class="full-width">
     <label>CUIL</label>
-    <input matInput (input)="inputValidator($event)" [numeric]='{"acceptValue":"NumericValueType.PositiveNumber","allowDecimal":"false"}' [(ngModel)]="proveedor.cuil" required number>
-    <mat-error>
-      Por favor complete este campo, es obligatorio.
-    </mat-error>
+    <input matInput type="text" formControlName="cuil" maxlength="15">
+    <mat-error>{{errorString('cuil')}}</mat-error>
+  </mat-form-field>
+  <mat-form-field class="full-width">
+    <label>Telefono</label>
+    <input matInput type="text" formControlName="telefono" maxlength="15">
+    <mat-error>{{errorString('telefono')}}</mat-error>
   </mat-form-field>
   <mat-form-field class="full-width">
     <label>Email</label>
-    <input matInput type="email" [(ngModel)]="proveedor.email" required>
-    <mat-error>
-      Por favor complete este campo con un Email válido, es obligatorio.
-    </mat-error>
+    <input matInput type="text" formControlName="email" maxlength="40">
+    <mat-error>{{errorString('email')}}</mat-error>
   </mat-form-field>
   <mat-form-field class="full-width">
     <label>Direccion</label>
-    <input matInput type="text" [(ngModel)]="proveedor.direccion" required>
-    <mat-error>
-      Por favor complete este campo, es obligatorio.
-    </mat-error>
+    <input matInput type="text" formControlName="direccion" maxlength="70">
+    <mat-error>{{errorString('direccion')}}</mat-error>
   </mat-form-field>
   <mat-form-field class="full-width">
     <label>Tipo de Factura</label>
-    <input matInput type="text" [(ngModel)]="proveedor.tipoFactura">
+    <mat-select formControlName="tipoFactura">
+      <mat-option *ngFor="let factura of facturas" [value]="factura.tipo">
+        {{factura.tipo}}
+      </mat-option>
+    </mat-select>
+    <mat-error>{{errorString('tipo de factura')}}</mat-error>
   </mat-form-field>
 </div>
 
 <div mat-dialog-actions>
-  <button mat-button (click)="guardarProveedor()" >Guardar</button>
-  <button mat-button (click)="onNoClick()">Cancelar</button>
+  <button
+    mat-raised-button
+    color="primary"
+    (click)="guardarProveedor()"
+    [disabled]="!proveedoresForm.valid"
+  >
+    <mat-icon>check</mat-icon>
+    Guardar
+  </button>
+
+  <button
+    mat-raised-button
+    color="warn"
+    (click)="onNoClick()"
+  >
+    <mat-icon>close</mat-icon>
+    Cancelar
+  </button>
 </div>
