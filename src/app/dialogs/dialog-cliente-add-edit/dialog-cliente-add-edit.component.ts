@@ -25,8 +25,8 @@ export class DialogClienteAddEditComponent implements OnInit {
   result: Clientes[] = [];
   clientForm: FormGroup;
   facturas = Facturas;
-  errorString = (prop) => {
-    const errorText = `Por favor complete el campo ${prop}`;
+  errorString = (prop: string) => {
+    const errorText = `Por favor complete el campo ${prop.toLocaleUpperCase()}`;
     switch (prop) {
       case 'nombre':
         return `${errorText} sólo con letras`;
@@ -60,7 +60,7 @@ export class DialogClienteAddEditComponent implements OnInit {
         telefono: new FormControl(this.cliente.telefono, [Validators.required, Validators.pattern(/^[0-9]*$/), Validators.minLength(10)]),
         email: new FormControl(this.cliente.email, [Validators.required, Validators.email]),
         direccion: new FormControl(this.cliente.direccion, [Validators.required]),
-        tipoFactura: new FormControl(this.cliente.tipoFactura)
+        tipoFactura: new FormControl(this.cliente.tipoFactura, [Validators.required])
       }
     );
   }

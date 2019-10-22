@@ -36,7 +36,7 @@ const TABLA_USUARIOS = {
     apellido: 'Apellido',
     usuario: 'Usuario',
     email: 'E-mail',
-    fechaNacimiento: 'Fecha de nacimiento',
+    rol: 'Tipo Usuario',
     opciones: 'Opciones'
   },
   cells: {
@@ -44,7 +44,7 @@ const TABLA_USUARIOS = {
     apellido: 'apellido',
     usuario: 'usuario',
     email: 'email',
-    fechaNacimiento: 'fechaNacimiento',
+    rol: 'rol',
     opciones: null
   },
   format: {
@@ -52,7 +52,7 @@ const TABLA_USUARIOS = {
     apellido: null,
     usuario: null,
     email: null,
-    fechaNacimiento: 'date',
+    rol: 'role',
     opciones: null
   }
 };
@@ -92,28 +92,28 @@ const TABLA_PROVEEDORES = {
   title: 'Proveedores',
   headers: {
     nombre: 'Nombre',
+    razonSocial: 'Razón Social',
     cuil: 'CUIL',
     telefono: 'Teléfono',
     email: 'Email',
-    razonSocial: 'Razón Social',
     direccion: 'Dirección',
     opciones: 'Opciones'
   },
   cells: {
     nombre: 'nombre',
+    razonSocial: 'razonSocial',
     cuil: 'cuil',
     telefono: 'telefono',
     email: 'email',
-    razonSocial: 'razonSocial',
     direccion: 'direccion',
     opciones: null
   },
   format: {
     nombre: null,
+    razonSocial: null,
     cuil: 'cuil',
     telefono: 'phone',
     email: null,
-    razonSocial: null,
     direccion: null,
     opciones: null
   }

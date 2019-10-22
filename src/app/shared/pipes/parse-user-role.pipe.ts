@@ -1,16 +1,15 @@
 import { Pipe, PipeTransform } from '@angular/core';
 
 @Pipe({
-  name: 'parseUserRole'
+  name: 'userRolePipe'
 })
 export class ParseUserRolePipe implements PipeTransform {
-
-  transform(value: boolean, args?: any): any {
-    if (value === true) {
-      return 'Admin';
-    } else {
-      return 'Cashier';
+  transform(value: boolean): any {
+    switch (value) {
+      case null:
+        return '-';
+      default:
+        return value ? 'Administrador' : 'Normal';
     }
   }
-
 }
