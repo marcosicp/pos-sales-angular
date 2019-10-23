@@ -8,8 +8,6 @@ import { AdminComponent } from './admin/admin.component';
 import { NgbModalModule } from '@ng-bootstrap/ng-bootstrap';
 // SERVICIOS
 import { AuthService } from '../core/services/auth.service';
-// PIPES
-import { ParseUserRolePipe } from '../shared/pipes/parse-user-role.pipe';
 // OTROS MODULOS
 import { SharedModule } from '../shared/shared.module';
 
@@ -22,9 +20,8 @@ import { SharedModule } from '../shared/shared.module';
     NgbModalModule
   ],
   declarations: [
-      UsersComponent,
-      AdminComponent,
-      ParseUserRolePipe
+    UsersComponent,
+    AdminComponent
   ],
   providers: [AuthService]
 })

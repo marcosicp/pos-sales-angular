@@ -11,19 +11,9 @@
     <mat-error>{{errorString('razon social')}}</mat-error>
   </mat-form-field>
   <mat-form-field class="full-width">
-    <label>DNI</label>
-    <input matInput type="text" formControlName="dni" maxlength="9">
-    <mat-error>{{errorString('dni')}}</mat-error>
-  </mat-form-field>
-  <mat-form-field class="full-width">
     <label>CUIL</label>
     <input matInput type="text" formControlName="cuil" maxlength="15">
     <mat-error>{{errorString('cuil')}}</mat-error>
-  </mat-form-field>
-  <mat-form-field class="full-width">
-    <label>CUIT</label>
-    <input matInput type="text" formControlName="cuit" maxlength="15">
-    <mat-error>{{errorString('cuit')}}</mat-error>
   </mat-form-field>
   <mat-form-field class="full-width">
     <label>Telefono</label>
@@ -52,6 +42,22 @@
 </div>
 
 <div mat-dialog-actions>
-  <button mat-raised-button color="primary" [disabled]="!clientForm.valid" (click)="guardarCliente()">Guardar</button>
-  <button mat-raised-button color="warn" (click)="onNoClick()">Cancelar</button>
+  <button
+    mat-raised-button
+    color="primary"
+    [disabled]="!clientForm.valid"
+    (click)="guardarCliente()"
+  >
+    <mat-icon>check</mat-icon>
+    Guardar
+  </button>
+  
+  <button
+    mat-raised-button
+    color="warn"
+    (click)="onNoClick()"
+  >
+    <mat-icon>close</mat-icon>
+    Cancelar
+  </button>
 </div>

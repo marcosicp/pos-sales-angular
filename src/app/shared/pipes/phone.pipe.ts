@@ -14,7 +14,7 @@ export class PhonePipe implements PipeTransform {
 
     Caracteristicas.forEach(
       item => {
-        const match = value.match(item)
+        const match = value.match(item);
         if (match && match.index === 0 && result === '-') {
           result = `${value.substring(0, item.length)}-${value.split(item)[1]}`;
         }

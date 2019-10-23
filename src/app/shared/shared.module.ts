@@ -7,7 +7,7 @@ import { LoadingService } from './services/loading.service';
 // PIPES
 import { PhonePipe } from './pipes/phone.pipe';
 import { CuilPipe } from './pipes/cuil.pipe';
-// import { ParseUserRolePipe } from './pipes/parse-user-role.pipe';
+import { ParseUserRolePipe } from './pipes/parse-user-role.pipe';
 import { BooleanPipe } from './pipes/boolean.pipe';
 import { ColumnValuePipe } from './pipes/column-value.pipe';
 // OTROS MODULOS
@@ -20,9 +20,6 @@ import { MaterialModule } from '../core/material.module';
   ],
   exports: [
     DynamicTableComponent,
-    BooleanPipe,
-    ColumnValuePipe,
-    // ParseUserRolePipe,
     MaterialModule
   ],
   declarations: [
@@ -31,7 +28,7 @@ import { MaterialModule } from '../core/material.module';
     ColumnValuePipe,
     PhonePipe,
     CuilPipe,
-    // ParseUserRolePipe
+    ParseUserRolePipe
   ],
   providers: [
     LoadingService

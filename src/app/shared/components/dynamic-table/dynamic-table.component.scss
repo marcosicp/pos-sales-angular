@@ -38,7 +38,7 @@
     width: 100%;
     table-layout: fixed;
 
-    td {
+    th, td {
       overflow: hidden;
       width:auto;
       text-overflow: ellipsis;

@@ -10,6 +10,8 @@ import { DialogOperacionOkComponent } from '../dialog-operacion-ok/dialog-operac
 import { DialogSinConexionComponent } from '../dialog-sin-conexion/dialog-sin-conexion.component';
 // URLS DE CONFIGURACION
 import { URL_USER } from '../../shared/configs/urls.config';
+// REGEXP HELPER
+import RegExpHelper from '../../shared/helpers/regex.helper';
 
 @Component({
   selector: 'app-dialog-usuario-add-edit',
@@ -46,7 +48,7 @@ export class DialogUsuarioAddEditComponent implements OnInit {
     private dataService: DataService,
     @Inject(MAT_DIALOG_DATA) public data?: Usuarios
   ) {
-    this.usuario = data ? data : new Usuarios();
+    this.usuario = data || new Usuarios();
     this.dialogTitle = `${data ? 'Modificar' : 'Agregar'}`;
   }
 
@@ -105,18 +107,18 @@ export class DialogUsuarioAddEditComponent implements OnInit {
   private formControlObject() {
     return this.data ?
       {
-        nombre: new FormControl(this.usuario.nombre, [Validators.required, Validators.pattern(/^[a-zA-Z\s]*$/)]),
-        apellido: new FormControl(this.usuario.apellido, [Validators.required, Validators.pattern(/^[a-zA-Z\s]*$/)]),
+        nombre: new FormControl(this.usuario.nombre, [Validators.required, Validators.pattern(RegExpHelper.lettersSpace)]),
+        apellido: new FormControl(this.usuario.apellido, [Validators.required, Validators.pattern(RegExpHelper.lettersSpace)]),
         email: new FormControl(this.usuario.email, [Validators.required, Validators.email]),
-        telefono: new FormControl(this.usuario.telefono, [Validators.required, Validators.pattern(/^[0-9]*$/)]),
-        usuario: new FormControl(this.usuario.usuario, [Validators.required, Validators.pattern(/^[a-zA-Z]*$/)]),
+        telefono: new FormControl(this.usuario.telefono, [Validators.required, Validators.pattern(RegExpHelper.numbers)]),
+        usuario: new FormControl(this.usuario.usuario, [Validators.required, Validators.pattern(RegExpHelper.lettersOnly)]),
         admin: new FormControl(this.usuario.admin, [Validators.required])
       } : {
-        nombre: new FormControl(this.usuario.nombre, [Validators.required, Validators.pattern(/^[a-zA-Z\s]*$/)]),
-        apellido: new FormControl(this.usuario.apellido, [Validators.required, Validators.pattern(/^[a-zA-Z\s]*$/)]),
+        nombre: new FormControl(this.usuario.nombre, [Validators.required, Validators.pattern(RegExpHelper.lettersSpace)]),
+        apellido: new FormControl(this.usuario.apellido, [Validators.required, Validators.pattern(RegExpHelper.lettersSpace)]),
         email: new FormControl(this.usuario.email, [Validators.required, Validators.email]),
-        telefono: new FormControl(this.usuario.telefono, [Validators.required, Validators.pattern(/^[0-9]*$/)]),
-        usuario: new FormControl(this.usuario.usuario, [Validators.required, Validators.pattern(/^[a-zA-Z]*$/)]),
+        telefono: new FormControl(this.usuario.telefono, [Validators.required, Validators.pattern(RegExpHelper.numbers)]),
+        usuario: new FormControl(this.usuario.usuario, [Validators.required, Validators.pattern(RegExpHelper.lettersOnly)]),
         password: new FormControl(this.usuario.password, [Validators.required, Validators.minLength(8)]),
         repetirPass: new FormControl(this.repetirPass, [Validators.required, Validators.minLength(8)]),
         admin: new FormControl(this.usuario.admin, [Validators.required])
