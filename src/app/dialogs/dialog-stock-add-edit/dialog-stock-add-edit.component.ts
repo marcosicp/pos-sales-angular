@@ -10,7 +10,7 @@ import { DialogSinConexionComponent } from '../dialog-sin-conexion/dialog-sin-co
 // URLS DE CONFIGURACION
 import { URL_PRODUCTOS } from '../../shared/configs/urls.config';
 import { FormGroup, FormControl, Validators, FormGroupDirective } from '@angular/forms';
-// REGEX
+// REGEXP HELPER
 import RegExpHelper from '../../shared/helpers/regex.helper';
 
 @Component({
@@ -21,9 +21,25 @@ import RegExpHelper from '../../shared/helpers/regex.helper';
 })
 export class DialogStockAddEditComponent implements OnInit {
   producto: Productos;
-  proveedores: string[];
   dialogTitle: string;
   productForm: FormGroup;
+  proveedores: string[];
+  errorString = (prop: string) => {
+    const errorText = `Por favor complete el campo ${prop.toLocaleUpperCase()}`;
+    switch (prop) {
+      case 'código':
+      case 'stock inicial':
+        return `${errorText} sólo con números (sin puntos, letras ni otros caracteres)`;
+      case 'nombre':
+        return `${errorText} sólo con letras`;
+      case 'precio de venta':
+      case 'precio de compra':
+      case 'peso por unidad':
+        return `${errorText} sólo con números y hasta 2 decimales`;
+      default:
+        return `${errorText}, es obligatorio`;
+    }
+  }
 
   constructor(
     private dialog: MatDialog,

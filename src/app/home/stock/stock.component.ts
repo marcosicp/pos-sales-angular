@@ -101,19 +101,19 @@ export class StockComponent implements OnInit {
     this.dialog.open(
       DialogStockAddEditComponent, {
         width: '900px',
-        data: prod
+        data: {
+          producto: prod,
+          proveedores: this.proveedores
+        }
       }
     );
   }
 
   cambiarStock(prod: Productos) {
     this.dialog.open(
-      DialogStockAddEditComponent, {
+      DialogStockAumentarComponent, {
         width: '900px',
-        data: {
-          producto: prod,
-          proveedores: this.proveedores
-        }
+        data: prod
       }
     );
   }

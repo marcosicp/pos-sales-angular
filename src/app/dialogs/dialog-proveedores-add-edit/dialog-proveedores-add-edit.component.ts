@@ -12,7 +12,7 @@ import Facturas from '../../shared/mocks/facturas.mock';
 import { DialogCerrarCajaComponent } from '../dialog-cerrar-caja/dialog-cerrar-caja.component';
 import { DialogOperacionOkComponent } from '../dialog-operacion-ok/dialog-operacion-ok.component';
 import { DialogSinConexionComponent } from '../dialog-sin-conexion/dialog-sin-conexion.component';
-// REGEX
+// REGEXP HELPER
 import RegExpHelper from '../../shared/helpers/regex.helper';
 
 @Component({

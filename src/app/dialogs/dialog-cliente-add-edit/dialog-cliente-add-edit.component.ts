@@ -12,7 +12,7 @@ import { DialogOperacionOkComponent } from '../dialog-operacion-ok/dialog-operac
 import { DialogSinConexionComponent } from '../dialog-sin-conexion/dialog-sin-conexion.component';
 // URLS DE CONFIGURACION
 import { URL_CLIENTES } from '../../shared/configs/urls.config';
-// REGEX
+// REGEXP HELPER
 import RegExpHelper from '../../shared/helpers/regex.helper';
 
 @Component({
