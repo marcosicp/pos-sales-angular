@@ -29,6 +29,7 @@ export class ClientesComponent implements OnInit {
   formatTableCells = TABLA_CLIENTES.format;
   isLoading: boolean;
   addButton = {
+    label: 'Registrar cliente',
     buttonEvent: () => this.agregarCliente()
   };
   searchButton = {

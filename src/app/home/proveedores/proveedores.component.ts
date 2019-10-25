@@ -29,6 +29,7 @@ export class ProveedoresComponent implements OnInit {
   formatTableCells = TABLA_PROVEEDORES.format;
   isLoading: boolean;
   addButton = {
+    label: 'Registrar proveedor',
     buttonEvent: () => this.agregarProveedor()
   };
   searchButton = {

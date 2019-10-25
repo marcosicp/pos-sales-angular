@@ -27,6 +27,7 @@ export class UsersComponent implements OnInit {
   formatTableCells = TABLA_USUARIOS.format;
   isLoading: boolean;
   addButton = {
+    label: 'Registrar usuario',
     buttonEvent: () => this.agregarUsuario()
   };
   searchButton = {

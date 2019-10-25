@@ -47,7 +47,7 @@ export class DialogUsuarioAddEditComponent implements OnInit {
     @Inject(MAT_DIALOG_DATA) public data?: Usuarios
   ) {
     this.usuario = data ? data : new Usuarios();
-    this.dialogTitle = `${data ? 'Modificar' : 'Agregar'}`;
+    this.dialogTitle = `${data ? 'Modificar' : 'Registrar'} usuario`;
   }
 
   ngOnInit() {

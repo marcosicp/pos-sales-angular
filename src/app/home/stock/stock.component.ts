@@ -29,6 +29,7 @@ export class StockComponent implements OnInit {
     buttonEvent: () => this.agregarProducto()
   };
   searchButton = {
+    label: 'Registrar producto',
     placeHolder: 'nombre, código',
   };
 

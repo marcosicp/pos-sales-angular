@@ -14,8 +14,8 @@ import { DataService } from '../../core/services/data.service';
   styleUrls: ['./dialog-proveedores-add-edit.component.scss']
 })
 export class DialogProveedoresAddEditComponent implements OnInit {
-
-  proveedor: Proveedores = new Proveedores();
+  dialogTitle: string;
+  proveedor: Proveedores;
   // result: Proveedores[] = [];
 
   constructor(
@@ -25,11 +25,9 @@ export class DialogProveedoresAddEditComponent implements OnInit {
     public dialogRef: MatDialogRef<DialogCerrarCajaComponent>,
     private comerciosService: DataService
   ) {
-      debugger;
-      if(data){
-      this.proveedor = data;
-      }
-    }
+    this.proveedor = data || new Proveedores();
+    this.dialogTitle = `${data ? 'Modificar' : 'Registrar'} proveedor`;
+  }
 
   ngOnInit() {
 

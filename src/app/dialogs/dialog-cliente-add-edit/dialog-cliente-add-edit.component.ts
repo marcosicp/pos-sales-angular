@@ -50,7 +50,7 @@ export class DialogClienteAddEditComponent implements OnInit {
     @Inject(MAT_DIALOG_DATA) public data?: Clientes
   ) {
     this.cliente = data ? data : new Clientes();
-    this.dialogTitle = `${data ? 'Modificar' : 'Agregar'}`;
+    this.dialogTitle = `${data ? 'Modificar' : 'Registrar'} cliente`;
   }
 
   ngOnInit() {
