@@ -109,7 +109,17 @@
                   }}
                 </span>
                 <span
-                  *ngSwitchDefault class="test"
+                  *ngSwitchCase="'role'"
+                  [matTooltip]="initTooltip(element, columnCells, column) | userRolePipe"
+                >
+                  {{
+                    element |
+                    columnValue: columnCells: column |
+                    userRolePipe
+                  }}
+                </span>
+                <span
+                  *ngSwitchDefault
                   [matTooltip]="initTooltip(element, columnCells, column)"
                 >
                   {{

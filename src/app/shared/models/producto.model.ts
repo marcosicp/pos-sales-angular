@@ -12,4 +12,6 @@ export class Productos {
     marca: string;
     fechaModificacionPrecio: Date;
     descripcion: string;
+    categoria: string;
+    proveedor: string;
 }

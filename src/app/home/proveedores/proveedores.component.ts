@@ -33,11 +33,11 @@ export class ProveedoresComponent implements OnInit {
     buttonEvent: () => this.agregarProveedor()
   };
   searchButton = {
-    placeHolder: 'nombre, cuil, teléfono, dirección',
+    placeHolder: this.headerTitles.map(item => item.toLowerCase()).join(', ')
   };
 
   constructor(
-    private comerciosService: DataService, private changeDetectorRefs: ChangeDetectorRef,
+    private comerciosService: DataService,
     public dialog: MatDialog
     ) { }
 

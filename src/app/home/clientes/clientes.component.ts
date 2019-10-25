@@ -20,7 +20,6 @@ import { DialogConfirmarComponent } from '../../dialogs/dialog-confirmar/dialog-
 export class ClientesComponent implements OnInit {
   clientes: Clientes[] = [];
 
-
   tableTitle = TABLA_CLIENTES.title;
   dataSource = new MatTableDataSource<Clientes>();
   headerTitles = Object.keys(TABLA_CLIENTES.cells);
@@ -33,26 +32,25 @@ export class ClientesComponent implements OnInit {
     buttonEvent: () => this.agregarCliente()
   };
   searchButton = {
-    placeHolder: 'nombre',
+    placeHolder: this.headerTitles.map(item => item.toLowerCase()).join(', ')
   };
 
   constructor (
-    private comerciosService: DataService,
+    private dataService: DataService,
     public dialog: MatDialog
   ) { }
 
   ngOnInit() {
     this.isLoading = true;
 
-    this.comerciosService.getAsync(URL_CLIENTES.GET_ALL, this.clientes).subscribe(
+    this.dataService.getAsync(URL_CLIENTES.GET_ALL, this.clientes).subscribe(
       data => {
         this.dataSource.data = data;
         this.columnCells.opciones = [{
             buttonIcon: 'edit',
             buttonLabel: 'Modificar',
             buttonEvent: (cliente) => this.editarCliente(cliente)
-          },
-          {
+          }, {
             buttonIcon: 'delete',
             buttonLabel: 'Eliminar',
             buttonEvent: (cliente) => this.eliminarCliente(cliente)
@@ -101,7 +99,7 @@ export class ClientesComponent implements OnInit {
       this.isLoading = true;
 
       if (result.confirm) {
-        this.comerciosService.deleteAsync(URL_CLIENTES.DELETE_CLIENTE, cliente.id, this.clientes).subscribe(
+        this.dataService.deleteAsync(URL_CLIENTES.DELETE_CLIENTE, cliente.id, this.clientes).subscribe(
           data => {
             this.dataSource.data = data;
             this.isLoading = false;

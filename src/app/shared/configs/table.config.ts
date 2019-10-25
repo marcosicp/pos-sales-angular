@@ -1,8 +1,10 @@
 const TABLA_STOCK = {
   title: 'Stock',
   headers: {
-    nombre: 'Nombre',
     codigo: 'Código',
+    categoria: 'Categoría',
+    nombre: 'Nombre',
+    proveedor: 'Proveedor',
     precioVenta: 'Precio de venta',
     precioCompra: 'Precio de compra',
     cantidad: 'Unidades disponibles',
@@ -10,8 +12,10 @@ const TABLA_STOCK = {
     opciones: 'Opciones'
   },
   cells: {
-    nombre: 'nombre',
     codigo: 'codigo',
+    categoria: 'categoria',
+    nombre: 'nombre',
+    proveedor: 'proveedor',
     precioVenta: 'precioVenta',
     precioCompra: 'precioCompra',
     cantidad: 'cantidad',
@@ -19,8 +23,10 @@ const TABLA_STOCK = {
     opciones: null
   },
   format: {
-    nombre: null,
     codigo: null,
+    categoria: null,
+    nombre: null,
+    proveedor: null,
     precioVenta: 'currency',
     precioCompra: 'currency',
     cantidad: null,
@@ -36,7 +42,7 @@ const TABLA_USUARIOS = {
     apellido: 'Apellido',
     usuario: 'Usuario',
     email: 'E-mail',
-    fechaNacimiento: 'Fecha de nacimiento',
+    rol: 'Tipo de usuario',
     opciones: 'Opciones'
   },
   cells: {
@@ -44,7 +50,7 @@ const TABLA_USUARIOS = {
     apellido: 'apellido',
     usuario: 'usuario',
     email: 'email',
-    fechaNacimiento: 'fechaNacimiento',
+    rol: 'rol',
     opciones: null
   },
   format: {
@@ -52,7 +58,7 @@ const TABLA_USUARIOS = {
     apellido: null,
     usuario: null,
     email: null,
-    fechaNacimiento: 'date',
+    rol: 'role',
     opciones: null
   }
 };
@@ -92,28 +98,28 @@ const TABLA_PROVEEDORES = {
   title: 'Proveedores',
   headers: {
     nombre: 'Nombre',
+    razonSocial: 'Razón Social',
     cuil: 'CUIL',
     telefono: 'Teléfono',
     email: 'Email',
-    razonSocial: 'Razón Social',
     direccion: 'Dirección',
     opciones: 'Opciones'
   },
   cells: {
     nombre: 'nombre',
+    razonSocial: 'razonSocial',
     cuil: 'cuil',
     telefono: 'telefono',
     email: 'email',
-    razonSocial: 'razonSocial',
     direccion: 'direccion',
     opciones: null
   },
   format: {
     nombre: null,
+    razonSocial: null,
     cuil: 'cuil',
     telefono: 'phone',
     email: null,
-    razonSocial: null,
     direccion: null,
     opciones: null
   }
