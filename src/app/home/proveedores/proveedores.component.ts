@@ -33,7 +33,7 @@ export class ProveedoresComponent implements OnInit {
     buttonEvent: () => this.agregarProveedor()
   };
   searchButton = {
-    placeHolder: this.headerTitles.map(item => item.toLowerCase()).join(', ')
+    placeHolder: this.headerTitles.map(item => this.tableHeaders[item].toLowerCase()).join(', ')
   };
 
   constructor(

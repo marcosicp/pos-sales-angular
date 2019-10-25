@@ -32,7 +32,7 @@ export class ClientesComponent implements OnInit {
     buttonEvent: () => this.agregarCliente()
   };
   searchButton = {
-    placeHolder: this.headerTitles.map(item => item.toLowerCase()).join(', ')
+    placeHolder: this.headerTitles.map(item => this.tableHeaders[item].toLowerCase()).join(', ')
   };
 
   constructor (

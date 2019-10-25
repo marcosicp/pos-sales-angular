@@ -75,7 +75,7 @@ export class DialogClienteAddEditComponent implements OnInit {
     );
 
     const URL = this.data ?
-      URL_CLIENTES.MODIFY_CLIENTE :
+      URL_CLIENTES.UPDATE_CLIENTE :
       URL_CLIENTES.ADD_CLIENTE;
 
     this.dataservice.createAsync(

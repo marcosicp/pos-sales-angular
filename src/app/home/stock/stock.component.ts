@@ -9,7 +9,7 @@ import { DialogStockAddEditComponent } from '../../dialogs/dialog-stock-add-edit
 import { DialogStockAumentarComponent } from '../../dialogs/dialog-stock-aumentar/dialog-stock-aumentar.component';
 import { DialogConfirmarComponent } from '../../dialogs/dialog-confirmar/dialog-confirmar.component';
 // CONFIGURACIONES
-import { URL_PRODUCTOS, URL_PROVEEDORES } from '../../shared/configs/urls.config';
+import { URL_STOCK, URL_PROVEEDORES } from '../../shared/configs/urls.config';
 import { TABLA_STOCK } from '../../shared/configs/table.config';
 // MOCKS
 import mocks from '../../shared/mocks/stock.mock';
@@ -28,11 +28,11 @@ export class StockComponent implements OnInit {
   formatTableCells = TABLA_STOCK.format;
   isLoading: boolean;
   addButton = {
+    label: 'Registrar producto',
     buttonEvent: () => this.agregarProducto()
   };
   searchButton = {
-    label: 'Registrar producto',
-    placeHolder: Object.keys(this.tableHeaders).map(item => item.toLowerCase()).join(', '),
+    placeHolder: this.headerTitles.map(item => this.tableHeaders[item].toLowerCase()).join(', ')
   };
   proveedores: string[];
 
@@ -43,7 +43,7 @@ export class StockComponent implements OnInit {
 
   ngOnInit() {
     this.isLoading = true;
-    this.dataService.getAsync(URL_PRODUCTOS.GET_ALL, []).subscribe(
+    this.dataService.getAsync(URL_STOCK.GET_ALL, []).subscribe(
       data => {
         this.dataSource.data = data;
         this.columnCells.opciones = [{
@@ -83,7 +83,7 @@ export class StockComponent implements OnInit {
     // }];
 
     this.dataService.getAsync(URL_PROVEEDORES.GET_ALL, []).subscribe(
-      data => this.proveedores = data.map(item => item.razonSocial)
+      data => this.proveedores = data.map(item => `${item.razonSocial} - ${item.cuil || ''}`)
     );
   }
 
@@ -132,7 +132,7 @@ export class StockComponent implements OnInit {
 
     dialogRef.afterClosed().subscribe(result => {
       if (result.confirm) {
-        this.dataService.deleteAsync(URL_PRODUCTOS.DELETE_STOCK, prod.id, []).subscribe(
+        this.dataService.deleteAsync(URL_STOCK.DELETE_STOCK, prod.id, []).subscribe(
           data => {
               this.dataSource.data = data;
               this.isLoading = false;

@@ -11,7 +11,7 @@ import { DialogBuscarProductoComponent } from '../../dialogs/dialog-buscar-produ
 import { DialogSinConexionComponent } from '../../dialogs/dialog-sin-conexion/dialog-sin-conexion.component';
 import { DialogOperacionOkComponent } from '../../dialogs/dialog-operacion-ok/dialog-operacion-ok.component';
 import { Pedido } from '../../shared/models/pedido.model';
-import { URL_PRODUCTOS } from '../../shared/configs/urls.config';
+import { URL_STOCK } from '../../shared/configs/urls.config';
 
 @Component({
   selector: 'app-pos',
@@ -53,7 +53,7 @@ export class PosComponent implements OnInit {
 
   getData() {
     // this.isLoading = true;
-    this.dataService.getAsync(URL_PRODUCTOS.GET_ALL, this.dataService.productos).subscribe(
+    this.dataService.getAsync(URL_STOCK.GET_ALL, this.dataService.productos).subscribe(
       data => {
         this.products[0]=[];
         this.products[1]=[];
@@ -61,7 +61,7 @@ export class PosComponent implements OnInit {
         this.products[3]=[];
 
         data.forEach(element => {
-          
+
           this.products[0].push(element);
           this.products[1].push(element);
           this.products[2].push(element);

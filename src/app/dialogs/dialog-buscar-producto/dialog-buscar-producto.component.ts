@@ -2,7 +2,7 @@ import { OnInit, Component } from '@angular/core';
 import { MatDialogRef, MatTableDataSource } from '@angular/material';
 import { DataService } from '../../../app/core/services/data.service';;
 import { Productos } from '../../shared/models/producto.model';
-import { URL_PRODUCTOS } from '../../shared/configs/urls.config';
+import { URL_STOCK } from '../../shared/configs/urls.config';
 
 @Component({
   selector: 'app-dialog-buscar-producto',
@@ -19,7 +19,7 @@ export class DialogBuscarProductoComponent implements OnInit {
     if (this.comerciosService.productos && this.comerciosService.productos.length) {
       this.productos = new MatTableDataSource(this.comerciosService.productos);
     } else {
-      this.comerciosService.getAsync(URL_PRODUCTOS.GET_ALL, this.comerciosService.productos)
+      this.comerciosService.getAsync(URL_STOCK.GET_ALL, this.comerciosService.productos)
         .subscribe( data => {
           this.productos = new MatTableDataSource(data);
         });

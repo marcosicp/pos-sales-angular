@@ -3,7 +3,7 @@ import { ActivatedRoute, Router, NavigationExtras } from '@angular/router';
 import { Venta } from '../../shared/models/venta.model';
 import { DataService } from '../../core/services/data.service';
 import { ProductoPedido } from '../../shared/models/producto-venta.model';
-import { URL_PRODUCTOS, URL_PEDIDOS } from '../../shared/configs/urls.config';
+import { URL_STOCK, URL_PEDIDOS } from '../../shared/configs/urls.config';
 import { Upload } from '../../shared/models/upload.model';
 
 @Component({
@@ -12,22 +12,22 @@ import { Upload } from '../../shared/models/upload.model';
   styleUrls: ['./confirmacion.component.scss']
 })
 export class ConfirmacionComponent implements OnInit {
-  
+
   currentUpload: Upload;
   // imagenUrl: string = "../../../assets/icons/nointernet.png";
   selectedFiles: FileList;
   ventas= new Venta();
   result: any;
 
-  constructor(private route: ActivatedRoute, private router: Router, private dataService: DataService) { 
+  constructor(private route: ActivatedRoute, private router: Router, private dataService: DataService) {
     this.route.queryParams.subscribe(params => {
-        
+
       this.ventas = JSON.parse(params.pedido);
     })
   }
 
   ngOnInit() {
-    
+
   }
 
   detectFiles(event) {
@@ -45,7 +45,7 @@ export class ConfirmacionComponent implements OnInit {
         if(data[0]){
           this.selectedFiles = null;
           let navigationExtras: NavigationExtras = {
-            queryParams: { pedido: JSON.stringify(this.ventas)} 
+            queryParams: { pedido: JSON.stringify(this.ventas)}
           };
 
           this.router.navigate(['agenda'], navigationExtras)

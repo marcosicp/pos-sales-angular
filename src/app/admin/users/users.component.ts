@@ -31,7 +31,7 @@ export class UsersComponent implements OnInit {
     buttonEvent: () => this.agregarUsuario()
   };
   searchButton = {
-    placeHolder: this.headerTitles.map(item => item.toLowerCase()).join(', '),
+    placeHolder: this.headerTitles.map(item => this.tableHeaders[item].toLowerCase()).join(', ')
   };
 
   constructor(
