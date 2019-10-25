@@ -43,7 +43,7 @@ export class HistorialComponent implements OnInit {
         this.dataSource.data = data;
         this.columnCells.opciones = [{
           buttonIcon: 'search',
-          buttonLabel: 'Ver items',
+          buttonLabel: 'Ver detalle',
           buttonEvent: (venta) => this.verItems(venta)
         },
         {
