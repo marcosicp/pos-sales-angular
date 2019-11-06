@@ -1,5 +1,15 @@
+<div mat-dialog-content class="content">
+  <p>Hay un problema con su conexión. Verifique que está conectado e intente nuevamente</p>
+  <img class="logo" src="../../assets/icons/nointernet.png">
+</div>
 
-<img class="logo" style="background-color: white;height: 135px;float: right;" src="../../assets/icons/nointernet.png">
-<p>
-  SIN CONEXIÓN, VERIFIQUE INTERNET E INTENTE NUEVAMENTE
-</p>
+<div mat-dialog-actions class="button-cerrar">
+  <button
+    mat-raised-button
+    color="primary"
+    (click)="close()"
+  >
+    <mat-icon>exit_to_app</mat-icon>
+    Cerrar
+  </button>
+</div>

@@ -3,6 +3,20 @@
   <p class="mat-body-1">{{confirmText}}</p>
 </div>
 <div mat-dialog-actions>
-  <button mat-raised-button color="warn" (click)="onButtonClick(true)">Aceptar</button>
-  <button mat-raised-button color="primary" (click)="onButtonClick(false)">Cancelar</button>
+  <button
+    mat-raised-button
+    color="warn"
+    (click)="onButtonClick(true)"
+  >
+    <mat-icon>check</mat-icon>
+    Aceptar
+  </button>
+  <button
+    mat-raised-button
+    color="primary"
+    (click)="onButtonClick(false)"
+  >
+    <mat-icon>close</mat-icon>
+    Cancelar
+  </button>
 </div>

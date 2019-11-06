@@ -67,7 +67,11 @@ export class DialogUsuarioAddEditComponent implements OnInit {
       URL_USER.UPDATE_USER :
       URL_USER.ADD_USER;
 
-    this.dataService.createAsync(
+    const ASYNC = this.data ?
+      'updateAsync' :
+      'createAsync';
+
+    this.dataService[ASYNC](
       URL,
       this.usuario,
       this.result

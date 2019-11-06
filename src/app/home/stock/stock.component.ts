@@ -99,14 +99,19 @@ export class StockComponent implements OnInit {
   }
 
   editarProducto(prod: Productos) {
-    this.dialog.open(
-      DialogStockAddEditComponent, {
-        width: '900px',
-        data: {
-          producto: prod,
-          proveedores: this.proveedores
+    const dialogRef =
+      this.dialog.open(
+        DialogStockAddEditComponent, {
+          width: '900px',
+          data: {
+            producto: prod,
+            proveedores: this.proveedores
+          }
         }
-      }
+      );
+
+    dialogRef.afterClosed().subscribe(
+      result => console.warn(result)
     );
   }
 
@@ -126,13 +131,13 @@ export class StockComponent implements OnInit {
         width: '900px',
         data: {
           title: 'Eliminar producto',
-          confirmText: 'Esta seguro que desea eliminar este producto?'
+          confirmText: `¿Esta seguro que desea eliminar ${prod.nombre} del listado de productos?`
         }
     });
 
     dialogRef.afterClosed().subscribe(result => {
       if (result.confirm) {
-        this.dataService.deleteAsync(URL_STOCK.DELETE_STOCK, prod.id, []).subscribe(
+        this.dataService.deleteAsync(URL_STOCK.DELETE_STOCK, prod.id, this.dataSource.data).subscribe(
           data => {
               this.dataSource.data = data;
               this.isLoading = false;

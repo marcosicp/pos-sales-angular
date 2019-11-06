@@ -73,12 +73,17 @@ export class ClientesComponent implements OnInit {
   }
 
   editarCliente(cliente: Clientes) {
-    this.dialog.open(
-      DialogClienteAddEditComponent, {
-        width: '900px',
-        disableClose: true,
-        data: cliente
-      }
+    const dialogRef =
+      this.dialog.open(
+        DialogClienteAddEditComponent, {
+          width: '900px',
+          disableClose: true,
+          data: cliente
+        }
+      );
+
+    dialogRef.afterClosed().subscribe(
+      result => console.warn(result)
     );
   }
 
@@ -90,7 +95,7 @@ export class ClientesComponent implements OnInit {
           disableClose: true,
           data: {
             title: 'Eliminar Cliente',
-            confirmText: `¿Está seguro que desear eliminar a ${cliente.nombre} del sistema?`
+            confirmText: `¿Está seguro que desear eliminar a ${cliente.nombre} de la lista de clientes?`
           }
         }
       );
@@ -99,7 +104,7 @@ export class ClientesComponent implements OnInit {
       this.isLoading = true;
 
       if (result.confirm) {
-        this.dataService.deleteAsync(URL_CLIENTES.DELETE_CLIENTE, cliente.id, this.clientes).subscribe(
+        this.dataService.deleteAsync(URL_CLIENTES.DELETE_CLIENTE, cliente.id, this.dataSource.data).subscribe(
           data => {
             this.dataSource.data = data;
             this.isLoading = false;

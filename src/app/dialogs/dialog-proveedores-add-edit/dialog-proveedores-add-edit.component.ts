@@ -68,6 +68,9 @@ export class DialogProveedoresAddEditComponent implements OnInit {
   }
 
   guardarProveedor() {
+    Object.keys(this.proveedoresForm.value).forEach(
+      prop => this.proveedor[prop] = this.proveedoresForm.value[prop]
+    );
     this.dialogRef.close(this.proveedor);
   }
 

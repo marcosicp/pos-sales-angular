@@ -69,16 +69,18 @@ export class DialogClienteAddEditComponent implements OnInit {
 
   guardarCliente() {
     Object.keys(this.clientForm.value).forEach(
-      prop => {
-        this.cliente[prop] = this.clientForm.value[prop];
-      }
+      prop => this.cliente[prop] = this.clientForm.value[prop]
     );
 
     const URL = this.data ?
       URL_CLIENTES.UPDATE_CLIENTE :
       URL_CLIENTES.ADD_CLIENTE;
 
-    this.dataservice.createAsync(
+    const ASYNC = this.data ?
+      'updateAsync' :
+      'createAsync';
+
+    this.dataservice[ASYNC](
       URL,
       this.cliente,
       this.result

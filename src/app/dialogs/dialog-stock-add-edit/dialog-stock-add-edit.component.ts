@@ -20,8 +20,9 @@ import RegExpHelper from '../../shared/helpers/regex.helper';
   providers: [FormGroupDirective]
 })
 export class DialogStockAddEditComponent implements OnInit {
-  producto: Productos;
   dialogTitle: string;
+  producto: Productos;
+  result: Productos[] = [];
   productForm: FormGroup;
   proveedores: string[];
   errorString = (prop: string) => {
@@ -72,10 +73,14 @@ export class DialogStockAddEditComponent implements OnInit {
       URL_STOCK.UPDATE_STOCK :
       URL_STOCK.ADD_STOCK;
 
-    this.dataService.createAsync(
+    const ASYNC = this.data ?
+      'updateAsync' :
+      'createAsync';
+
+    this.dataService[ASYNC](
       URL,
       this.producto,
-      []
+      this.result
     ).subscribe(
       result => {
         const DialogResult = result ?
