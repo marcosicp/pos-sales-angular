@@ -91,7 +91,10 @@ export class DialogStockAddEditComponent implements OnInit {
 
         const _dialogRef = this.dialog.open(
           DialogResult,
-          { width: '600px' }
+          {
+            width: '600px',
+            disableClose: true
+          }
         );
 
         _dialogRef.afterOpened().subscribe(

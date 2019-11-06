@@ -67,15 +67,24 @@ export class ProveedoresComponent implements OnInit {
     });
 
     dialogRef.afterClosed().subscribe(result => {
-      if(result){
+      if (result) {
         this.comerciosService.createAsync(URL_PROVEEDORES.ADD_PROVEEDOR, result, this.dataSource.data).subscribe(
           data => {
-            this.dataSource.data = data;
+            const dialogResult =
+              this.dialog.open(
+                DialogOperacionOkComponent,
+                {
+                  width: '600px' ,
+                  disableClose: true
+                }
+              );
+
+            dialogResult.afterClosed().subscribe(
+              () => this.dataSource.data = data
+            );
           },
           error => {
-            const dialogRef = this.dialog.open(DialogSinConexionComponent, { width: '600px' ,  disableClose: true });
-              dialogRef.afterClosed().subscribe(result => {
-            });
+            this.dialog.open(DialogSinConexionComponent, { width: '600px', disableClose: true });
             console.log(error);
           }
         );
@@ -87,20 +96,35 @@ export class ProveedoresComponent implements OnInit {
     // MANDO UNA COPIA DEL OBJETO PARA NO TENER QUE HACER UN REFRESH DE LA GRILLA
     const obj2:any = Object.assign({}, proveedor);
 
-    const dialogRef = this.dialog.open(DialogProveedoresAddEditComponent, {
-      width: '900px' ,  disableClose: true, data: obj2
-    });
+    const dialogRef =
+      this.dialog.open(
+        DialogProveedoresAddEditComponent,
+        {
+          width: '900px',
+          disableClose: true,
+          data: obj2
+        }
+      );
 
     dialogRef.afterClosed().subscribe(result => {
-      if(result){
+      if (result) {
         this.comerciosService.updateAsync(URL_PROVEEDORES.UPDATE_PROVEEDOR, result, this.dataSource.data).subscribe(
           data => {
-            this.dataSource.data = data;
+            const dialogResult =
+              this.dialog.open(
+                DialogOperacionOkComponent,
+                {
+                  width: '600px' ,
+                  disableClose: true
+                }
+              );
+
+            dialogResult.afterClosed().subscribe(
+              () => this.dataSource.data = data
+            );
           },
           error => {
-            const dialogRef = this.dialog.open(DialogSinConexionComponent, { width: '600px' ,  disableClose: true });
-              dialogRef.afterClosed().subscribe(result => {
-            });
+            this.dialog.open(DialogSinConexionComponent, { width: '600px', disableClose: true });
             console.log(error);
           }
         );
