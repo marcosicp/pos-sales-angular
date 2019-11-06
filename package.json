@@ -108,8 +108,7 @@
   },
   "husky": {
     "hooks": {
-      "pre-push": "git stash && npm run build",
-      "pre-receive": "git stash apply"
+      "pre-push": "npm run build"
     }
   }
 }
