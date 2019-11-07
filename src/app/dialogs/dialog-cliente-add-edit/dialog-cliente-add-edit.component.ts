@@ -49,8 +49,8 @@ export class DialogClienteAddEditComponent implements OnInit {
     private dataservice: DataService,
     @Inject(MAT_DIALOG_DATA) public data?: Clientes
   ) {
-    this.cliente = data || new Clientes();
-    this.dialogTitle = `${data ? 'Modificar' : 'Agregar'}`;
+    this.cliente = data ? data : new Clientes();
+    this.dialogTitle = `${data ? 'Modificar' : 'Registrar'} cliente`;
   }
 
   ngOnInit() {
@@ -69,16 +69,18 @@ export class DialogClienteAddEditComponent implements OnInit {
 
   guardarCliente() {
     Object.keys(this.clientForm.value).forEach(
-      prop => {
-        this.cliente[prop] = this.clientForm.value[prop];
-      }
+      prop => this.cliente[prop] = this.clientForm.value[prop]
     );
 
     const URL = this.data ?
-      URL_CLIENTES.MODIFY_CLIENTE :
+      URL_CLIENTES.UPDATE_CLIENTE :
       URL_CLIENTES.ADD_CLIENTE;
 
-    this.dataservice.createAsync(
+    const ASYNC = this.data ?
+      'updateAsync' :
+      'createAsync';
+
+    this.dataservice[ASYNC](
       URL,
       this.cliente,
       this.result
@@ -93,7 +95,10 @@ export class DialogClienteAddEditComponent implements OnInit {
 
         const _dialogRef = this.dialog.open(
           DialogResult,
-          { width: '600px' }
+          {
+            width: '600px',
+            disableClose: true
+          }
         );
 
         _dialogRef.afterOpened().subscribe(

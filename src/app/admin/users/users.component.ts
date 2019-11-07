@@ -27,10 +27,11 @@ export class UsersComponent implements OnInit {
   formatTableCells = TABLA_USUARIOS.format;
   isLoading: boolean;
   addButton = {
+    label: 'Registrar usuario',
     buttonEvent: () => this.agregarUsuario()
   };
   searchButton = {
-    placeHolder: this.headerTitles.map(item => item.toLowerCase()).join(', '),
+    placeHolder: this.headerTitles.map(item => this.tableHeaders[item].toLowerCase()).join(', ')
   };
 
   constructor(
@@ -74,20 +75,30 @@ export class UsersComponent implements OnInit {
   }
 
   editarUsuario(usuario: Usuarios) {
-    this.dialog.open(
-      DialogUsuarioAddEditComponent, {
-        width: '900px',
-        data: usuario
-      }
+    const dialogRef =
+      this.dialog.open(
+        DialogUsuarioAddEditComponent, {
+          width: '900px',
+          data: usuario
+        }
+      );
+
+    dialogRef.afterClosed().subscribe(
+      result => console.warn(result)
     );
   }
 
   cambiarPass(usuario: Usuarios) {
-    this.dialog.open(
-      DialogCambiarPassComponent, {
-        width: '900px',
-        data: usuario
-      }
+    const dialogRef =
+      this.dialog.open(
+        DialogCambiarPassComponent, {
+          width: '900px',
+          data: usuario
+        }
+      );
+
+    dialogRef.afterClosed().subscribe(
+      result => console.warn(result)
     );
   }
 
@@ -98,18 +109,20 @@ export class UsersComponent implements OnInit {
         width: '900px',
         data: {
           title: 'Dar de baja usuario',
-          confirmText: `¿Está seguro que desea dar de baja a ${usuario.nombre} ${usuario.apellido}?`
+          confirmText: `¿Está seguro que desea dar de baja a ${usuario.nombre} ${usuario.apellido} del listado de usuarios?`
         }
     });
 
     dialogRef.afterClosed().subscribe(result => {
       if (result.confirm) {
-        this.dataService.deleteAsync(URL_USER.DELETE_USER, usuario._id, []).subscribe(
+        this.dataService.deleteAsync(URL_USER.DELETE_USER, usuario._id, this.dataSource.data).subscribe(
           data => {
               this.dataSource.data = data;
               this.isLoading = false;
           }
         );
+      } else {
+        this.isLoading = false;
       }
     });
   }

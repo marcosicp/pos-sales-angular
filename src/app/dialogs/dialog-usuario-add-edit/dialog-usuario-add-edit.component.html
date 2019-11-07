@@ -47,6 +47,21 @@
 </div>
 
 <div mat-dialog-actions>
-  <button mat-raised-button color="primary" (click)="guardarUsuario()" [disabled]="!userForm.valid">Guardar</button>
-  <button mat-raised-button color="warn" (click)="onNoClick()">Cancelar</button>
+  <button
+    mat-raised-button
+    color="primary"
+    (click)="guardarUsuario()"
+    [disabled]="!userForm.valid"
+  >
+    <mat-icon>check</mat-icon>
+    Guardar
+  </button>
+  <button
+    mat-raised-button
+    color="warn"
+    (click)="onNoClick()"
+  >
+    <mat-icon>close</mat-icon>
+    Cancelar
+  </button>
 </div>

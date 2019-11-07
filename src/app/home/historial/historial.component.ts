@@ -25,6 +25,7 @@ export class HistorialComponent implements OnInit {
   formatTableCells = TABLA_PEDIDOS.format;
   isLoading: boolean;
   addButton = {
+    label: 'Registrar pedido',
     buttonEvent: () => this.router.navigate(['home'])
   };
 
@@ -42,7 +43,7 @@ export class HistorialComponent implements OnInit {
         this.dataSource.data = data;
         this.columnCells.opciones = [{
           buttonIcon: 'search',
-          buttonLabel: 'Ver items',
+          buttonLabel: 'Ver detalle',
           buttonEvent: (venta) => this.verItems(venta)
         },
         {

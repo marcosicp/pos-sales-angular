@@ -49,7 +49,7 @@ export class DialogUsuarioAddEditComponent implements OnInit {
     @Inject(MAT_DIALOG_DATA) public data?: Usuarios
   ) {
     this.usuario = data || new Usuarios();
-    this.dialogTitle = `${data ? 'Modificar' : 'Agregar'}`;
+    this.dialogTitle = `${data ? 'Modificar' : 'Registrar'} usuario`;
   }
 
   ngOnInit() {
@@ -64,10 +64,14 @@ export class DialogUsuarioAddEditComponent implements OnInit {
     }
 
     const URL = this.data ?
-      URL_USER.MODIFY_USER :
+      URL_USER.UPDATE_USER :
       URL_USER.ADD_USER;
 
-    this.dataService.createAsync(
+    const ASYNC = this.data ?
+      'updateAsync' :
+      'createAsync';
+
+    this.dataService[ASYNC](
       URL,
       this.usuario,
       this.result
@@ -81,7 +85,10 @@ export class DialogUsuarioAddEditComponent implements OnInit {
 
         const _dialogRef = this.dialog.open(
           DialogResult,
-          { width: '600px' }
+          {
+            width: '600px',
+            disableClose: true
+          }
         );
 
         _dialogRef.afterOpened().subscribe(

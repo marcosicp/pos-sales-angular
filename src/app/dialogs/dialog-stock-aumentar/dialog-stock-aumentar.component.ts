@@ -8,7 +8,7 @@ import { Productos } from '../../shared/models/producto.model';
 import { DialogOperacionOkComponent } from '../dialog-operacion-ok/dialog-operacion-ok.component';
 import { DialogSinConexionComponent } from '../dialog-sin-conexion/dialog-sin-conexion.component';
 // URLS DE CONFIGURACION
-import { URL_PRODUCTOS } from '../../shared/configs/urls.config';
+import { URL_STOCK } from '../../shared/configs/urls.config';
 
 @Component({
   selector: 'app-dialog-stock-aumentar',
@@ -31,7 +31,7 @@ export class DialogStockAumentarComponent {
 
   guardar() {
     this.dataService.updateAsync(
-      URL_PRODUCTOS.RENEW_STOCK,
+      URL_STOCK.ADD_STOCK,
       this.producto,
       []
     ).subscribe(
@@ -44,7 +44,10 @@ export class DialogStockAumentarComponent {
 
         const _dialogRef = this.dialog.open(
           DialogResult,
-          { width: '600px' }
+          {
+            width: '600px',
+            disableClose: true
+          }
         );
 
         _dialogRef.afterOpened().subscribe(

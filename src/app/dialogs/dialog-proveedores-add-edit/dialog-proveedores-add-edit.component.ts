@@ -50,7 +50,7 @@ export class DialogProveedoresAddEditComponent implements OnInit {
     private comerciosService: DataService
   ) {
     this.proveedor = data || new Proveedores();
-    this.dialogTitle = `${data ? 'Modificar' : 'Agregar'}`;
+    this.dialogTitle = `${data ? 'Modificar' : 'Registrar'} proveedor`;
   }
 
   ngOnInit() {
@@ -68,6 +68,9 @@ export class DialogProveedoresAddEditComponent implements OnInit {
   }
 
   guardarProveedor() {
+    Object.keys(this.proveedoresForm.value).forEach(
+      prop => this.proveedor[prop] = this.proveedoresForm.value[prop]
+    );
     this.dialogRef.close(this.proveedor);
   }
 

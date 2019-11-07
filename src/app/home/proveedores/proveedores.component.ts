@@ -29,10 +29,11 @@ export class ProveedoresComponent implements OnInit {
   formatTableCells = TABLA_PROVEEDORES.format;
   isLoading: boolean;
   addButton = {
+    label: 'Registrar proveedor',
     buttonEvent: () => this.agregarProveedor()
   };
   searchButton = {
-    placeHolder: this.headerTitles.map(item => item.toLowerCase()).join(', ')
+    placeHolder: this.headerTitles.map(item => this.tableHeaders[item].toLowerCase()).join(', ')
   };
 
   constructor(
@@ -66,15 +67,24 @@ export class ProveedoresComponent implements OnInit {
     });
 
     dialogRef.afterClosed().subscribe(result => {
-      if(result){
-        this.comerciosService.createAsync('proveedores/AddProveedor', result, this.dataSource.data).subscribe(
+      if (result) {
+        this.comerciosService.createAsync(URL_PROVEEDORES.ADD_PROVEEDOR, result, this.dataSource.data).subscribe(
           data => {
-            this.dataSource.data = data;
+            const dialogResult =
+              this.dialog.open(
+                DialogOperacionOkComponent,
+                {
+                  width: '600px' ,
+                  disableClose: true
+                }
+              );
+
+            dialogResult.afterClosed().subscribe(
+              () => this.dataSource.data = data
+            );
           },
           error => {
-            const dialogRef = this.dialog.open(DialogSinConexionComponent, { width: '600px' ,  disableClose: true });
-              dialogRef.afterClosed().subscribe(result => {
-            });
+            this.dialog.open(DialogSinConexionComponent, { width: '600px', disableClose: true });
             console.log(error);
           }
         );
@@ -86,20 +96,35 @@ export class ProveedoresComponent implements OnInit {
     // MANDO UNA COPIA DEL OBJETO PARA NO TENER QUE HACER UN REFRESH DE LA GRILLA
     const obj2:any = Object.assign({}, proveedor);
 
-    const dialogRef = this.dialog.open(DialogProveedoresAddEditComponent, {
-      width: '900px' ,  disableClose: true, data: obj2
-    });
+    const dialogRef =
+      this.dialog.open(
+        DialogProveedoresAddEditComponent,
+        {
+          width: '900px',
+          disableClose: true,
+          data: obj2
+        }
+      );
 
     dialogRef.afterClosed().subscribe(result => {
-      if(result){
-        this.comerciosService.updateAsync('proveedores/UpdateProveedor', result, this.dataSource.data).subscribe(
+      if (result) {
+        this.comerciosService.updateAsync(URL_PROVEEDORES.UPDATE_PROVEEDOR, result, this.dataSource.data).subscribe(
           data => {
-            this.dataSource.data = data;
+            const dialogResult =
+              this.dialog.open(
+                DialogOperacionOkComponent,
+                {
+                  width: '600px' ,
+                  disableClose: true
+                }
+              );
+
+            dialogResult.afterClosed().subscribe(
+              () => this.dataSource.data = data
+            );
           },
           error => {
-            const dialogRef = this.dialog.open(DialogSinConexionComponent, { width: '600px' ,  disableClose: true });
-              dialogRef.afterClosed().subscribe(result => {
-            });
+            this.dialog.open(DialogSinConexionComponent, { width: '600px', disableClose: true });
             console.log(error);
           }
         );
@@ -108,15 +133,20 @@ export class ProveedoresComponent implements OnInit {
   }
 
   eliminarProveedor(proveedor: Proveedores) {
-    const dialogRef = this.dialog.open(DialogConfirmarComponent, {
-      width: '900px' ,  disableClose: true, data: {title: 'Eliminar Proveedor', confirmText: 'Esta seguro que desear eliminar este proveedor?'}
+    const dialogRef = this.dialog.open(
+      DialogConfirmarComponent, {
+        width: '900px' ,
+        disableClose: true,
+        data: {
+          title: 'Eliminar Proveedor',
+          confirmText: `¿Esta seguro que desear eliminar a ${proveedor.razonSocial} de la lista de proveedores?`
+        }
     });
 
     dialogRef.afterClosed().subscribe(result => {
       if (result.confirm) {
         this.comerciosService.deleteAsync(URL_PROVEEDORES.DELETE_PROVEEDOR, proveedor.id, this.dataSource.data).subscribe(
           data => {
-            debugger;
               this.dataSource.data = data;
               this.isLoading = false;
           }

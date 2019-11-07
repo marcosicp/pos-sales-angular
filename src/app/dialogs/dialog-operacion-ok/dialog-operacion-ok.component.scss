@@ -1,0 +1,19 @@
+div.content {
+  p {
+    font-family: 'Hind Madurai';
+    display: inline;
+    font-weight: bold;
+    font-size: larger;
+  }
+  img {
+    background-color: white;
+    height: 100px;
+    float: right
+  }
+}
+
+div.button-cerrar {
+  clear: both;
+  float: right;
+  margin-top: 20px;
+}

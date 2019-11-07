@@ -8,7 +8,7 @@ import { Productos } from '../../shared/models/producto.model';
 import { DialogOperacionOkComponent } from '../dialog-operacion-ok/dialog-operacion-ok.component';
 import { DialogSinConexionComponent } from '../dialog-sin-conexion/dialog-sin-conexion.component';
 // URLS DE CONFIGURACION
-import { URL_PRODUCTOS } from '../../shared/configs/urls.config';
+import { URL_STOCK } from '../../shared/configs/urls.config';
 import { FormGroup, FormControl, Validators, FormGroupDirective } from '@angular/forms';
 // REGEXP HELPER
 import RegExpHelper from '../../shared/helpers/regex.helper';
@@ -20,8 +20,9 @@ import RegExpHelper from '../../shared/helpers/regex.helper';
   providers: [FormGroupDirective]
 })
 export class DialogStockAddEditComponent implements OnInit {
-  producto: Productos;
   dialogTitle: string;
+  producto: Productos;
+  result: Productos[] = [];
   productForm: FormGroup;
   proveedores: string[];
   errorString = (prop: string) => {
@@ -49,7 +50,7 @@ export class DialogStockAddEditComponent implements OnInit {
   ) {
     this.producto = data.producto || new Productos();
     this.proveedores = data.proveedores;
-    this.dialogTitle = `${data.producto ? 'Modificar' : 'Agregar'}`;
+    this.dialogTitle = `${data.producto ? 'Modificar' : 'Registrar'} producto`;
   }
 
   ngOnInit() {
@@ -69,13 +70,17 @@ export class DialogStockAddEditComponent implements OnInit {
 
   guardar() {
     const URL = this.data ?
-      URL_PRODUCTOS.MODIFY_STOCK :
-      URL_PRODUCTOS.ADD_STOCK;
+      URL_STOCK.UPDATE_STOCK :
+      URL_STOCK.ADD_STOCK;
 
-    this.dataService.createAsync(
+    const ASYNC = this.data ?
+      'updateAsync' :
+      'createAsync';
+
+    this.dataService[ASYNC](
       URL,
       this.producto,
-      []
+      this.result
     ).subscribe(
       result => {
         const DialogResult = result ?
@@ -86,7 +91,10 @@ export class DialogStockAddEditComponent implements OnInit {
 
         const _dialogRef = this.dialog.open(
           DialogResult,
-          { width: '600px' }
+          {
+            width: '600px',
+            disableClose: true
+          }
         );
 
         _dialogRef.afterOpened().subscribe(

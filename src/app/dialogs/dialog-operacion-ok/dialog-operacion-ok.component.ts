@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { MatDialogRef } from '@angular/material';
 
 @Component({
   selector: 'app-dialog-operacion-ok',
@@ -6,10 +7,15 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./dialog-operacion-ok.component.scss']
 })
 export class DialogOperacionOkComponent implements OnInit {
-
-  constructor() { }
+  constructor(
+    public dialogRef: MatDialogRef<any>
+  ) { }
 
   ngOnInit() {
+
   }
 
+  close() {
+    this.dialogRef.close(false)
+  }
 }
