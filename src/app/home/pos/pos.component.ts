@@ -21,7 +21,8 @@ import { URL_STOCK } from '../../shared/configs/urls.config';
 export class PosComponent implements OnInit {
 
   products = [];
-  productTypes = ['HIERRO', 'PALOS', 'BLOQUES', 'ARENA', 'ELECTRICIDAD'];
+  productTypes = ['ARENA', 'GRANZA', 'CEMENTO', 'TIERRA', 'LADRILLOS', 'BOLSAS',
+                'VIGUETAS', 'TELGOPOR', 'LIJA', 'FERRETERIA', 'DISCOS', 'CINTAS', 'AUTOMOTOR', 'OTROS'];
   ticket: Productos[];
   cartTotal = 0;
   cartNumItems = 0;
@@ -55,19 +56,58 @@ export class PosComponent implements OnInit {
     // this.isLoading = true;
     this.dataService.getAsync(URL_STOCK.GET_ALL, this.dataService.productos).subscribe(
       data => {
-        this.products[0]=[];
-        this.products[1]=[];
-        this.products[2]=[];
-        this.products[3]=[];
+        for (let index = 0; index < this.productTypes.length; index++) {
+          this.products[index] = [];
+        }
 
         data.forEach(element => {
 
-          this.products[0].push(element);
-          this.products[1].push(element);
-          this.products[2].push(element);
-          this.products[3].push(element);
+          switch (element.categoria) {
+            case 'ARENA':
+              this.products[0].push(element);
+              break;
+            case 'GRANZA':
+              this.products[1].push(element);
+              break;
+            case 'CEMENTO':
+              this.products[2].push(element);
+              break;
+            case 'TIERRA':
+              this.products[3].push(element);
+              break;
+            case 'LADRILLOS':
+              this.products[4].push(element);
+              break;
+            case 'BOLSAS':
+              this.products[5].push(element);
+              break;
+            case 'VIGUETAS':
+              this.products[6].push(element);
+              break;
+            case 'TELGOPOR':
+              this.products[7].push(element);
+              break;
+            case 'LIJA':
+              this.products[8].push(element);
+              break;
+            case 'FERRETERIA':
+              this.products[9].push(element);
+              break;
+            case 'DISCOS':
+              this.products[10].push(element);
+              break;
+            case 'CINTAS':
+              this.products[11].push(element);
+              break;
+            case 'AUTOMOTOR':
+              this.products[12].push(element);
+              break;
+            default:
+                this.products[13].push(element);
+              break;
+          }
         });
-        // this.products[0] = data;
+
         this.loadData();
       },
       error => {
@@ -91,7 +131,7 @@ export class PosComponent implements OnInit {
     if (this.ticket.includes(item)) {
       this.ticket[this.ticket.indexOf(item)].cantidad += 1;
     } else {
-      item.cantidad=1;
+      item.cantidad = 1;
       this.ticket.push(item);
     }
     this.calculateTotal();
@@ -216,7 +256,6 @@ export class PosComponent implements OnInit {
             error => {
               const dialogRef = this.dialog.open(DialogSinConexionComponent, { width: '600px' ,  disableClose: true });
               dialogRef.afterClosed().subscribe(result => {
-                ;
 
               });
             }
@@ -236,7 +275,6 @@ export class PosComponent implements OnInit {
             error => {
               const dialogRef = this.dialog.open(DialogSinConexionComponent, { width: '600px' ,  disableClose: true });
               dialogRef.afterClosed().subscribe(result => {
-                ;
 
               });
             }

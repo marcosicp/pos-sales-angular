@@ -24,7 +24,7 @@ import { Venta } from '../../shared/models/venta.model';
   styleUrls: ['./ticket.component.scss']
 })
 export class TicketComponent implements OnInit {
-  
+
   clientes: Clientes[] = [];
   // selectedClienteId = String;
   clientesResponse: Clientes[] = [];
@@ -47,12 +47,12 @@ export class TicketComponent implements OnInit {
   ngOnInit() {
     this.dataService.getAsync(URL_CLIENTES.GET_ALL, this.clientesResponse).subscribe(
       data => {
-        debugger;
+
         this.clientes = data;
         this.clientes.forEach(unCliente => {
           unCliente.displayName = unCliente.nombre + " " + unCliente.cuit;
-        });  
-        this.clienteId=null; 
+        });
+        this.clienteId=null;
       },
       error => {
         const dialogRef = this.dialog.open(DialogSinConexionComponent, { width: '600px' ,  disableClose: true });
@@ -66,11 +66,11 @@ export class TicketComponent implements OnInit {
     this.ticketSync.currentTotal.subscribe(total => this.cartTotal = total);
     this.ticketSync.currentPeso.subscribe(pesoTotal => this.cartPeso = pesoTotal);
     this.ticketSync.currentCartNum.subscribe(num => this.cartNumItems = num);
-    debugger;
+
     this.ticketSync.currentClienteId.subscribe(cli => this.clienteId = cli);
 
     this.usuario = JSON.parse(localStorage.getItem('currentUser'));
-    
+
   }
 
   updateClienteId(cliente: any) {
@@ -174,7 +174,7 @@ export class TicketComponent implements OnInit {
 
   validarCliente(){
     if(this.clienteId==null||this.clienteId==""){
-      const dialogRef = this.dialog.open(DialogConfirmarComponent, { 
+      const dialogRef = this.dialog.open(DialogConfirmarComponent, {
         width: '600px' ,  disableClose: true,
         data: {title: "Revisar Cliente", confirmText: "Por favor seleccione un cliente para continuar."} });
       dialogRef.afterClosed().subscribe(result => {
@@ -188,7 +188,7 @@ export class TicketComponent implements OnInit {
   checkout() {
     if (this.validarCliente()){
       if (this.ticket.length === 0) {
-        const dialogRef = this.dialog.open(DialogConfirmarComponent, { 
+        const dialogRef = this.dialog.open(DialogConfirmarComponent, {
           width: '600px' ,  disableClose: true,
           data: {title: "Sin productos", confirmText: "Debe incluir al menos un producto en el pedido."} });
         dialogRef.afterClosed().subscribe(result => {
@@ -213,21 +213,21 @@ export class TicketComponent implements OnInit {
 
           if (result === true) {
             // Guardar venta
-            this.dataService.createAsync('pedidos/AddPedido',this.nuevoPedido, ventaOk).subscribe(
+            this.dataService.createAsync('pedidos/AddPedido', this.nuevoPedido, ventaOk).subscribe(
               data => {
                 this.nuevoPedido = data[1];
                 const dialogRef = this.dialog.open(DialogOperacionOkComponent, { width: '600px' ,  disableClose: true });
                 dialogRef.afterClosed().subscribe(result => {
-                  
+
                 this.resetear();
                 this.clearCart();
 
                 var venta = new Venta;
-                
+
                 Object.keys(this.nuevoPedido).forEach(key=>venta[key]=this.nuevoPedido[key]);
-                  
+
                 let navigationExtras: NavigationExtras = {
-                  queryParams: { pedido: JSON.stringify(venta)} 
+                  queryParams: { pedido: JSON.stringify(venta)}
                 };
 
                 this.router.navigate(['confirmacion'], navigationExtras);
@@ -245,10 +245,23 @@ export class TicketComponent implements OnInit {
             this.nuevoPedido.imprimioTicket = false;
               this.dataService.createAsync('pedidos/AddPedido', this.nuevoPedido, ventaOk).subscribe(
                 data => {
+                  this.nuevoPedido = data[1];
                   const dialogRef = this.dialog.open(DialogOperacionOkComponent, { width: '600px' ,  disableClose: true });
                   dialogRef.afterClosed().subscribe(result => {
-                    this.resetear();
-                    this.clearCart();
+
+                  this.resetear();
+                  this.clearCart();
+
+                  var venta = new Venta;
+
+                  Object.keys(this.nuevoPedido).forEach(key=>venta[key]=this.nuevoPedido[key]);
+
+                  let navigationExtras: NavigationExtras = {
+                    queryParams: { pedido: JSON.stringify(venta)}
+                  };
+
+                  this.router.navigate(['confirmacion'], navigationExtras);
+
                   });
                 },
                 error => {
@@ -259,10 +272,7 @@ export class TicketComponent implements OnInit {
               );
           }
         });
-
-
       }
     }
   }
-
 }

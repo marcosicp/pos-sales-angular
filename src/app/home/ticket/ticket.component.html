@@ -1,4 +1,4 @@
-<mat-card class="ticket-section flex flex-direction-column justify-between">
+<mat-card class="ticket-section flex flex-direction-column justify-between" style="height: 90%;">
     <div class="ticket add-margin">
         <h3 style="text-align: left;" class="module-title">Cliente: </h3>
           <ng-select placeholder="Seleccione Cliente" [items]="clientes" bindLabel="nombre" bindValue="id" [(ngModel)]="clienteId">
@@ -9,20 +9,28 @@
           </ng-select>
     </div>
   <mat-card-title class="add-padding heading">Detalle de Pedido</mat-card-title>
-  <table class="items">
+  <table class="items" style="font-size: small;">
     <tr class="table-header">
-      <th>Cant</th>
+      <th style="width: 10%;">Cant</th>
       <th>Item</th>
-      <th>Precio</th>
+      <th style="width: 10%;">Peso</th>
+      <th>PC</th>
+      <th>PV</th>
+      <th>$ Total</th>
+      <th style="width: 10%;">Kg Total</th>
       <th>Modificar</th>
     </tr>
     <tr *ngFor="let item of ticket" class="item">
-      <td>{{item.cantidad}}</td>
+      <td><input style="width: 50%;" matInput [(ngModel)]="item.cantidad" value="item.cantidad"/> </td>
       <td>{{item.nombre}}</td>
+      <td>{{item.peso}} kg</td>
+      <td>{{item.precioCompra | currency:'$':true}}</td>
       <td>{{item.precioVenta | currency:'$':true}}</td>
-      <td>
-        <mat-icon (click)="addItem(item)" class="del">control_point</mat-icon>
-        <mat-icon (click)="subtractOne(item)" class="del">indeterminate_check_box</mat-icon>
+      <td>{{item.precioVenta*item.cantidad | currency:'$':true}}</td>
+      <td>{{item.peso*item.cantidad}} kg</td>
+      <td style="position: center;">
+        <!-- <mat-icon (click)="addItem(item)" class="del">control_point</mat-icon>
+        <mat-icon (click)="subtractOne(item)" class="del">indeterminate_check_box</mat-icon> -->
         <mat-icon (click)="removeItem(item)" class="del">cancel</mat-icon></td>
     </tr>
   </table>

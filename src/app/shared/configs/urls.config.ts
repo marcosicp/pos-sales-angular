@@ -3,7 +3,7 @@ import BaseConfig from './base.config';
 const isProd = true;
 const URL_BASE = isProd ?
   BaseConfig.URL_PROD : BaseConfig.URL_LOCAL;
-  
+
 // API USUARIOS
 const URL_USER = {
   HOME: 'usuarios',
