@@ -1,12 +1,12 @@
 <mat-card class="ticket-section flex flex-direction-column justify-between" style="height: 90%;">
     <div class="ticket add-margin">
-        <h3 style="text-align: left;" class="module-title">Cliente: </h3>
-          <ng-select placeholder="Seleccione Cliente" [items]="clientes" bindLabel="nombre" bindValue="id" [(ngModel)]="clienteId">
-            <ng-template ng-option-tmp let-item="item" let-search="searchTerm">
-              <div><span [ngOptionHighlight]="search">{{item.nombre}}</span></div>
-              <small><strong>Cuit:</strong> {{item.cuit}} | <strong>Razon Social:</strong> {{item.razonSocial}}</small>
-            </ng-template>
-          </ng-select>
+        <mat-card-title style="text-align: left;" class="heading">Cliente: </mat-card-title>
+        <ng-select placeholder="Seleccione Cliente" [items]="clientes" bindLabel="nombre" bindValue="id" [(ngModel)]="clienteId">
+          <ng-template ng-option-tmp let-item="item" let-search="searchTerm">
+            <div><span [ngOptionHighlight]="search">{{item.nombre}}</span></div>
+            <small><strong>Cuit:</strong> {{item.cuit}} | <strong>Razon Social:</strong> {{item.razonSocial}}</small>
+          </ng-template>
+        </ng-select>
     </div>
   <mat-card-title class="add-padding heading">Detalle de Pedido</mat-card-title>
   <table class="items" style="font-size: small;">
@@ -21,7 +21,7 @@
       <th>Modificar</th>
     </tr>
     <tr *ngFor="let item of ticket" class="item">
-      <td><input style="width: 50%;" matInput [(ngModel)]="item.cantidad" value="item.cantidad"/> </td>
+      <td><input style="width: 50%;" matInput (ngModelChange)="calcularTotal($event, item.id)" [(ngModel)]="item.cantidad" value="item.cantidad"/> </td>
       <td>{{item.nombre}}</td>
       <td>{{item.peso}} kg</td>
       <td>{{item.precioCompra | currency:'$':true}}</td>

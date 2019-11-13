@@ -37,11 +37,11 @@ export class TicketComponent implements OnInit {
   total = 0;
   pesoTotal = 0;
   clienteId: string = null;
-  usuario : Usuarios;
-  nuevoPedido :  Pedido;
+  usuario: Usuarios;
+  nuevoPedido:  Pedido;
 
   constructor(private config: NgSelectConfig, private router: Router, private ticketSync: PosService, private dataService: DataService, public dialog: MatDialog) {
-    this.clienteId=null;
+    this.clienteId = null;
    }
 
   ngOnInit() {
@@ -50,9 +50,9 @@ export class TicketComponent implements OnInit {
 
         this.clientes = data;
         this.clientes.forEach(unCliente => {
-          unCliente.displayName = unCliente.nombre + " " + unCliente.cuit;
+          unCliente.displayName = unCliente.nombre + ' ' + unCliente.cuit;
         });
-        this.clienteId=null;
+        this.clienteId = null;
       },
       error => {
         const dialogRef = this.dialog.open(DialogSinConexionComponent, { width: '600px' ,  disableClose: true });
@@ -86,7 +86,7 @@ export class TicketComponent implements OnInit {
       this.ticket.push(item);
     }
     this.syncTicket();
-    this.calculateTotal();
+    this.calcularTotal(null, null);
     this.calculatePeso();
   }
 
@@ -103,7 +103,7 @@ export class TicketComponent implements OnInit {
       }
     }
     this.syncTicket();
-    this.calculateTotal();
+    this.calcularTotal(null, null);
   }
 
   // Reduce quantity by one
@@ -115,40 +115,70 @@ export class TicketComponent implements OnInit {
       this.ticket[this.ticket.indexOf(item)].cantidad = this.ticket[this.ticket.indexOf(item)].cantidad - 1;
     }
     this.syncTicket();
-    this.calculateTotal();
+    this.calcularTotal(null, null);
   }
 
   // Calculate cart total
-  calculateTotal() {
+  calcularTotal(cantidad: number, id: any) {
+
     let total = 0;
     let peso = 0;
     let cartitems = 0;
-    // Multiply item price by item quantity, add to total
-    this.ticket.forEach(function(item: Productos) {
-      total += (item.precioVenta * item.cantidad);
-      peso += (item.peso * item.cantidad);
-      cartitems += item.cantidad;
-    });
-    this.cartTotal = total;
-    this.cartPeso = peso;
-    this.cartNumItems = cartitems;
 
-    // Sync total with ticketSync service.
-    this.ticketSync.updateNumItems(this.cartNumItems);
-    this.ticketSync.updateTotal(this.cartTotal);
-    this.ticketSync.updatePeso(this.cartPeso);
+    if (cantidad != null) {
+
+      // Multiply item price by item quantity, add to total
+      this.ticket.forEach(function(item: Productos) {
+        if (id === item.id) {
+          total += (item.precioVenta * cantidad);
+        peso += (item.peso * cantidad);
+        cartitems += cantidad;
+        } else {
+          total += (item.precioVenta * item.cantidad);
+          peso += (item.peso * item.cantidad);
+          cartitems += item.cantidad;
+        }
+      });
+      this.cartTotal = total;
+      this.cartPeso = peso;
+      this.cartNumItems = cartitems;
+
+      // Sync total with ticketSync service.
+      this.ticketSync.updateNumItems(this.cartNumItems);
+      this.ticketSync.updateTotal(this.cartTotal);
+      this.ticketSync.updatePeso(this.cartPeso);
+
+    } else {
+
+      // Multiply item price by item quantity, add to total
+      this.ticket.forEach(function(item: Productos) {
+        total += (item.precioVenta * item.cantidad);
+        peso += (item.peso * item.cantidad);
+        cartitems += item.cantidad;
+      });
+      this.cartTotal = total;
+      this.cartPeso = peso;
+      this.cartNumItems = cartitems;
+
+      // Sync total with ticketSync service.
+      this.ticketSync.updateNumItems(this.cartNumItems);
+      this.ticketSync.updateTotal(this.cartTotal);
+      this.ticketSync.updatePeso(this.cartPeso);
+    }
   }
 
    // Calculate cart total
-   calculatePeso() {
+  calculatePeso() {
     let peso = 0;
+
     this.ticket.forEach(function(item: Productos) {
-      peso += item.peso;
+      peso += item.peso * item.cantidad;
     });
+
     this.cartPeso = peso;
 
     // Sync total with ticketSync service.
-    this.ticketSync.updateTotal(this.cartTotal);
+    this.ticketSync.updatePeso(this.cartPeso);
   }
 
   // Remove all items from cart
@@ -160,7 +190,7 @@ export class TicketComponent implements OnInit {
     // Empty local ticket variable then sync
     this.ticket = [];
     this.syncTicket();
-    this.calculateTotal();
+    this.calcularTotal(null, null);
   }
 
   syncTicket() {
@@ -173,10 +203,10 @@ export class TicketComponent implements OnInit {
   }
 
   validarCliente(){
-    if(this.clienteId==null||this.clienteId==""){
+    if (this.clienteId == null || this.clienteId == ''){
       const dialogRef = this.dialog.open(DialogConfirmarComponent, {
         width: '600px' ,  disableClose: true,
-        data: {title: "Revisar Cliente", confirmText: "Por favor seleccione un cliente para continuar."} });
+        data: {title: 'Revisar Cliente', confirmText: 'Por favor seleccione un cliente para continuar.'} });
       dialogRef.afterClosed().subscribe(result => {
       });
 
@@ -190,43 +220,45 @@ export class TicketComponent implements OnInit {
       if (this.ticket.length === 0) {
         const dialogRef = this.dialog.open(DialogConfirmarComponent, {
           width: '600px' ,  disableClose: true,
-          data: {title: "Sin productos", confirmText: "Debe incluir al menos un producto en el pedido."} });
+          data: {title: 'Sin productos', confirmText: 'Debe incluir al menos un producto en el pedido.'} });
         dialogRef.afterClosed().subscribe(result => {
         });
         return;
       } else {
-        let prodsDesc = '';
+        const prodsDesc = '';
         const dialogRef = this.dialog.open(DialogCajaCerradaComponent, { width: '900px' ,  disableClose: true });
         dialogRef.afterClosed().subscribe(result => {
-            this.nuevoPedido = new Pedido();
-            const ventaOk = [Pedido];
+          this.nuevoPedido = new Pedido();
+          const ventaOk = [Pedido];
 
-            // nuevoPedido.usuarioVendio = this.usuario;
-            this.nuevoPedido.productosPedidos = this.ticket;
-            this.nuevoPedido.fechaPedido = new Date();
-            this.nuevoPedido.fechaPedido.setHours(this.nuevoPedido.fechaPedido.getHours() - 3)
-            this.nuevoPedido.total = this.cartTotal;
-            this.nuevoPedido.usuario = this.usuario.usuario.toString();
-            this.nuevoPedido.pesoTotal = this.cartPeso;
-            this.nuevoPedido.clienteId = this.clienteId;
-            this.nuevoPedido.imprimioTicket = true;
+          // nuevoPedido.usuarioVendio = this.usuario;
+          this.nuevoPedido.productosPedidos = this.ticket;
+          this.nuevoPedido.fechaPedido = new Date();
+          this.nuevoPedido.fechaPedido.setHours(this.nuevoPedido.fechaPedido.getHours() - 3)
+          this.nuevoPedido.total = this.cartTotal;
+          this.nuevoPedido.usuario = this.usuario.usuario.toString();
+          this.nuevoPedido.pesoTotal = this.cartPeso;
+          this.nuevoPedido.clienteId = this.clienteId;
+          this.nuevoPedido.imprimioTicket = true;
+
+          const venta = new Venta;
+          venta.cliente = this.clientes.find(x => x.id === this.clienteId);
 
           if (result === true) {
             // Guardar venta
             this.dataService.createAsync('pedidos/AddPedido', this.nuevoPedido, ventaOk).subscribe(
               data => {
                 this.nuevoPedido = data[1];
+                // tslint:disable-next-line: no-shadowed-variable
                 const dialogRef = this.dialog.open(DialogOperacionOkComponent, { width: '600px' ,  disableClose: true });
                 dialogRef.afterClosed().subscribe(result => {
 
                 this.resetear();
                 this.clearCart();
 
-                var venta = new Venta;
+                Object.keys(this.nuevoPedido).forEach(key => venta[key] = this.nuevoPedido[key]);
 
-                Object.keys(this.nuevoPedido).forEach(key=>venta[key]=this.nuevoPedido[key]);
-
-                let navigationExtras: NavigationExtras = {
+                const navigationExtras: NavigationExtras = {
                   queryParams: { pedido: JSON.stringify(venta)}
                 };
 
@@ -251,12 +283,9 @@ export class TicketComponent implements OnInit {
 
                   this.resetear();
                   this.clearCart();
+                  Object.keys(this.nuevoPedido).forEach(key => venta[key] = this.nuevoPedido[key]);
 
-                  var venta = new Venta;
-
-                  Object.keys(this.nuevoPedido).forEach(key=>venta[key]=this.nuevoPedido[key]);
-
-                  let navigationExtras: NavigationExtras = {
+                  const navigationExtras: NavigationExtras = {
                     queryParams: { pedido: JSON.stringify(venta)}
                   };
 

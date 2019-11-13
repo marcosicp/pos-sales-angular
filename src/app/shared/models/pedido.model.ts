@@ -1,4 +1,5 @@
 import { ProductoPedido } from './producto-venta.model';
+import { Clientes } from './clientes.model';
 
 export class Pedido {
     id: string;
@@ -8,6 +9,7 @@ export class Pedido {
     fechaPedido: Date;
     pesoTotal: number;
     clienteId: string;
+    cliente: Clientes;
     fechaModificacion: Date;
     usuario: string;
     estado: string;
