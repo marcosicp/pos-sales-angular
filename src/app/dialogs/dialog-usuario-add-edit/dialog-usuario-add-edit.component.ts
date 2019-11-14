@@ -1,15 +1,8 @@
 import { Component, Inject, OnInit } from '@angular/core';
 import { FormGroup, FormControl, Validators, FormGroupDirective, AbstractControl } from '@angular/forms';
-import { MatDialogRef, MatDialog, MAT_DIALOG_DATA } from '@angular/material';
-// SERVICIOS
-import { DataService } from '../../core/services/data.service';
+import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
 // MODELOS
 import { Usuarios } from '../../shared/models/usuarios.model';
-// DIALOGOS
-import { DialogOperacionOkComponent } from '../dialog-operacion-ok/dialog-operacion-ok.component';
-import { DialogSinConexionComponent } from '../dialog-sin-conexion/dialog-sin-conexion.component';
-// URLS DE CONFIGURACION
-import { URL_USER } from '../../shared/configs/urls.config';
 // REGEXP HELPER
 import RegExpHelper from '../../shared/helpers/regex.helper';
 
@@ -43,9 +36,7 @@ export class DialogUsuarioAddEditComponent implements OnInit {
   }
 
   constructor(
-    private dialog: MatDialog,
-    public dialogRef: MatDialogRef<DialogOperacionOkComponent>,
-    private dataService: DataService,
+    public dialogRef: MatDialogRef<any>,
     @Inject(MAT_DIALOG_DATA) public data?: Usuarios
   ) {
     this.usuario = data || new Usuarios();
@@ -62,42 +53,7 @@ export class DialogUsuarioAddEditComponent implements OnInit {
         this.usuario[prop] = this.userForm.value[prop];
       }
     }
-
-    const URL = this.data ?
-      URL_USER.UPDATE_USER :
-      URL_USER.ADD_USER;
-
-    const ASYNC = this.data ?
-      'updateAsync' :
-      'createAsync';
-
-    this.dataService[ASYNC](
-      URL,
-      this.usuario,
-      this.result
-    ).subscribe(
-      result => {
-        const DialogResult = result ?
-          DialogOperacionOkComponent :
-          DialogSinConexionComponent;
-        const response = result ?
-          result[0] : false;
-
-        const _dialogRef = this.dialog.open(
-          DialogResult,
-          {
-            width: '600px',
-            disableClose: true
-          }
-        );
-
-        _dialogRef.afterOpened().subscribe(
-          () => {
-            this.dialogRef.close(response);
-          }
-        );
-      }
-    );
+    this.dialogRef.close(this.usuario);
   }
 
   onNoClick() {
@@ -129,6 +85,6 @@ export class DialogUsuarioAddEditComponent implements OnInit {
         password: new FormControl(this.usuario.password, [Validators.required, Validators.minLength(8)]),
         repetirPass: new FormControl(this.repetirPass, [Validators.required, Validators.minLength(8)]),
         admin: new FormControl(this.usuario.admin, [Validators.required])
-      }
+      };
   }
 }

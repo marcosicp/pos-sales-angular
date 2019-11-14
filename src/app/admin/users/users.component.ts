@@ -1,17 +1,19 @@
 import { Component, OnInit } from '@angular/core';
 import { MatTableDataSource, MatDialog } from '@angular/material';
-// SERVICIOS
-import { AuthService } from '../../core/services/auth.service';
-import { DataService } from '../../core/services/data.service';
 // MODELOS
 import { Usuarios } from '../../shared/models/usuarios.model';
+// SERVICIOS
+import { DataService } from '../../core/services/data.service';
+import { LoadingService } from '../../shared/services/loading.service';
+// CONFIGURACIONES
+import { URL_USUARIOS } from '../../shared/configs/urls.config';
+import { TABLA_USUARIOS } from '../../shared/configs/table.config';
 // DIALOGOS
 import { DialogUsuarioAddEditComponent } from '../../dialogs/dialog-usuario-add-edit/dialog-usuario-add-edit.component';
+import { DialogOperacionOkComponent } from '../../dialogs/dialog-operacion-ok/dialog-operacion-ok.component';
+import { DialogSinConexionComponent } from '../../dialogs/dialog-sin-conexion/dialog-sin-conexion.component';
 import { DialogConfirmarComponent } from '../../dialogs/dialog-confirmar/dialog-confirmar.component';
 import { DialogCambiarPassComponent } from '../../dialogs/dialog-cambiar-pass/dialog-cambiar-pass.component';
-// CONFIGURACIONES
-import { URL_USER } from '../../shared/configs/urls.config';
-import { TABLA_USUARIOS } from '../../shared/configs/table.config';
 
 @Component({
   selector: 'app-users',
@@ -36,13 +38,13 @@ export class UsersComponent implements OnInit {
 
   constructor(
     private dataService: DataService,
-    private authService: AuthService,
-    public dialog: MatDialog
+    public dialog: MatDialog,
+    private loadingService: LoadingService
   ) { }
 
   ngOnInit() {
     this.isLoading = true;
-    this.dataService.getAsync(URL_USER.HOME, []).subscribe(
+    this.dataService.getAsync(URL_USUARIOS.GET_ALL, []).subscribe(
       data => {
         this.dataSource.data = data;
         this.columnCells.opciones = [{
@@ -67,24 +69,92 @@ export class UsersComponent implements OnInit {
   }
 
   agregarUsuario() {
-    this.dialog.open(
+    const dialogRef = this.dialog.open(
       DialogUsuarioAddEditComponent, {
-        width: '900px'
+        width: '900px',
+        disableClose: true,
+      }
+    );
+
+    dialogRef.afterClosed().subscribe(
+      newUser => {
+        if (newUser) {
+          this.loadingService.toggleLoading();
+
+          this.dataService.createAsync(
+            URL_USUARIOS.ADD_USUARIO,
+            newUser,
+            this.dataSource.data
+          ).subscribe(
+            result => {
+              this.loadingService.toggleLoading();
+
+              const dialogResult = this.dialog.open(
+                DialogOperacionOkComponent,
+                { width: '600px', disableClose: true }
+              );
+
+              dialogResult.afterClosed().subscribe(
+                () => this.dataSource.data = result
+              );
+            },
+            error => {
+              this.loadingService.toggleLoading();
+
+              this.dialog.open(
+                DialogSinConexionComponent,
+                { width: '600px', disableClose: true }
+              );
+            }
+          );
+        }
       }
     );
   }
 
   editarUsuario(usuario: Usuarios) {
-    const dialogRef =
-      this.dialog.open(
-        DialogUsuarioAddEditComponent, {
-          width: '900px',
-          data: usuario
-        }
-      );
+    const usuarioMod = Object.assign({}, usuario);
+    const dialogRef = this.dialog.open(
+      DialogUsuarioAddEditComponent, {
+        width: '900px',
+        disableClose: true,
+        data: usuarioMod
+      }
+    );
 
     dialogRef.afterClosed().subscribe(
-      result => console.warn(result)
+      newUser => {
+        if (newUser) {
+          this.loadingService.toggleLoading();
+
+          this.dataService.updateAsync(
+            URL_USUARIOS.UPDATE_USUARIO,
+            newUser,
+            this.dataSource.data
+          ).subscribe(
+            result => {
+              this.loadingService.toggleLoading();
+
+              const dialogResult = this.dialog.open(
+                DialogOperacionOkComponent,
+                { width: '600px', disableClose: true }
+              );
+
+              dialogResult.afterClosed().subscribe(
+                () => this.dataSource.data = result
+              );
+            },
+            error => {
+              this.loadingService.toggleLoading();
+
+              this.dialog.open(
+                DialogSinConexionComponent,
+                { width: '600px', disableClose: true }
+              );
+            }
+          );
+        }
+      }
     );
   }
 
@@ -108,21 +178,41 @@ export class UsersComponent implements OnInit {
       {
         width: '900px',
         data: {
-          title: 'Dar de baja usuario',
-          confirmText: `¿Está seguro que desea dar de baja a ${usuario.nombre} ${usuario.apellido} del listado de usuarios?`
+          title: 'Eliminar usuario',
+          confirmText: `¿Está seguro que desea eliminar a ${usuario.nombre} ${usuario.apellido} del listado de usuarios?`
         }
     });
 
     dialogRef.afterClosed().subscribe(result => {
       if (result.confirm) {
-        this.dataService.deleteAsync(URL_USER.DELETE_USER, usuario._id, this.dataSource.data).subscribe(
+        this.loadingService.toggleLoading();
+
+        this.dataService.deleteAsync(
+          URL_USUARIOS.DELETE_USUARIO,
+          usuario._id,
+          this.dataSource.data
+        ).subscribe(
           data => {
-              this.dataSource.data = data;
-              this.isLoading = false;
+            this.loadingService.toggleLoading();
+
+            const dialogResult = this.dialog.open(
+              DialogOperacionOkComponent,
+              { width: '600px', disableClose: true }
+            );
+
+            dialogResult.afterClosed().subscribe(
+              () => this.dataSource.data = data
+            );
+          },
+          error => {
+            this.loadingService.toggleLoading();
+
+            this.dialog.open(
+              DialogSinConexionComponent,
+              { width: '600px', disableClose: true }
+            );
           }
         );
-      } else {
-        this.isLoading = false;
       }
     });
   }

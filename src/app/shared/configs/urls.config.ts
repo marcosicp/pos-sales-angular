@@ -3,14 +3,14 @@ import BaseConfig from './base.config';
 const isProd = true;
 const URL_BASE = isProd ?
   BaseConfig.URL_PROD : BaseConfig.URL_LOCAL;
-  
+
 // API USUARIOS
-const URL_USER = {
-  HOME: 'usuarios',
+const URL_USUARIOS = {
+  GET_ALL: 'usuarios/GetAllUsuarios',
+  ADD_USUARIO: 'usuarios/AddUsuario',
+  UPDATE_USUARIO: 'usuarios/UpdateUsuario',
+  DELETE_USUARIO: 'usuarios/DeleteUsuario',
   EMAIL_LOGIN: 'usuarios/login',
-  ADD_USER: 'usuarios/AddUser',
-  UPDATE_USER: 'usuarios/UpdateUser',
-  DELETE_USER: 'usuarios/DeleteUser',
   MODIFY_PASS: 'usuarios/CambiarPass'
 };
 // API STOCK
@@ -53,7 +53,7 @@ const URL_PROVEEDORES = {
 
 export {
   URL_BASE,
-  URL_USER,
+  URL_USUARIOS,
   URL_STOCK,
   URL_ADMIN,
   URL_PEDIDOS,

@@ -1,16 +1,19 @@
 import { Component, OnInit } from '@angular/core';
-import { MatTableDataSource, MatDialog, MatButtonToggle } from '@angular/material';
-// ENTIDADES
+import { MatTableDataSource, MatDialog } from '@angular/material';
+// MODELOS
 import { Productos } from '../../shared/models/producto.model';
 // SERVICIOS
 import { DataService } from '../../core/services/data.service';
+import { LoadingService } from '../../shared/services/loading.service';
+// CONFIGURACIONES
+import { URL_STOCK, URL_PROVEEDORES } from '../../shared/configs/urls.config';
+import { TABLA_STOCK } from '../../shared/configs/table.config';
 // DIALOGOS
 import { DialogStockAddEditComponent } from '../../dialogs/dialog-stock-add-edit/dialog-stock-add-edit.component';
 import { DialogStockAumentarComponent } from '../../dialogs/dialog-stock-aumentar/dialog-stock-aumentar.component';
 import { DialogConfirmarComponent } from '../../dialogs/dialog-confirmar/dialog-confirmar.component';
-// CONFIGURACIONES
-import { URL_STOCK, URL_PROVEEDORES } from '../../shared/configs/urls.config';
-import { TABLA_STOCK } from '../../shared/configs/table.config';
+import { DialogOperacionOkComponent } from '../../dialogs/dialog-operacion-ok/dialog-operacion-ok.component';
+import { DialogSinConexionComponent } from '../../dialogs/dialog-sin-conexion/dialog-sin-conexion.component';
 // MOCKS
 import mocks from '../../shared/mocks/stock.mock';
 
@@ -38,7 +41,8 @@ export class StockComponent implements OnInit {
 
   constructor(
     private dataService: DataService,
-    public dialog: MatDialog
+    public dialog: MatDialog,
+    private loadingService: LoadingService
   ) { }
 
   ngOnInit() {
@@ -88,7 +92,7 @@ export class StockComponent implements OnInit {
   }
 
   agregarProducto() {
-    this.dialog.open(
+    const dialogRef = this.dialog.open(
       DialogStockAddEditComponent, {
         width: '900px',
         data: {
@@ -96,23 +100,90 @@ export class StockComponent implements OnInit {
         }
       }
     );
+
+    dialogRef.afterClosed().subscribe(
+      newProducto => {
+        if (newProducto) {
+          this.loadingService.toggleLoading();
+
+          this.dataService.createAsync(
+            URL_STOCK.ADD_STOCK,
+            newProducto,
+            this.dataSource.data
+          ).subscribe(
+            result => {
+              this.loadingService.toggleLoading();
+
+              const dialogResult = this.dialog.open(
+                DialogOperacionOkComponent,
+                { width: '600px', disableClose: true }
+              );
+
+              dialogResult.afterClosed().subscribe(
+                () => this.dataSource.data = result
+              );
+            },
+            error => {
+              this.loadingService.toggleLoading();
+
+              this.dialog.open(
+                DialogSinConexionComponent,
+                { width: '600px', disableClose: true }
+              );
+            }
+          );
+        }
+      }
+    );
   }
 
   editarProducto(prod: Productos) {
+    const productoMod = Object.assign({}, prod);
     const dialogRef =
       this.dialog.open(
         DialogStockAddEditComponent, {
           width: '900px',
           data: {
-            producto: prod,
+            producto: productoMod,
             proveedores: this.proveedores
           }
         }
       );
 
-    dialogRef.afterClosed().subscribe(
-      result => console.warn(result)
-    );
+      dialogRef.afterClosed().subscribe(
+        newProducto => {
+          if (newProducto) {
+            this.loadingService.toggleLoading();
+
+            this.dataService.updateAsync(
+              URL_STOCK.UPDATE_STOCK,
+              newProducto,
+              this.dataSource.data
+            ).subscribe(
+              result => {
+                this.loadingService.toggleLoading();
+
+                const dialogResult = this.dialog.open(
+                  DialogOperacionOkComponent,
+                  { width: '600px', disableClose: true }
+                );
+
+                dialogResult.afterClosed().subscribe(
+                  () => this.dataSource.data = result
+                );
+              },
+              error => {
+                this.loadingService.toggleLoading();
+
+                this.dialog.open(
+                  DialogSinConexionComponent,
+                  { width: '600px', disableClose: true }
+                );
+              }
+            );
+          }
+        }
+      );
   }
 
   cambiarStock(prod: Productos) {
@@ -137,10 +208,32 @@ export class StockComponent implements OnInit {
 
     dialogRef.afterClosed().subscribe(result => {
       if (result.confirm) {
-        this.dataService.deleteAsync(URL_STOCK.DELETE_STOCK, prod.id, this.dataSource.data).subscribe(
+        this.loadingService.toggleLoading();
+
+        this.dataService.deleteAsync(
+          URL_STOCK.DELETE_STOCK,
+          prod.id,
+          this.dataSource.data
+        ).subscribe(
           data => {
-              this.dataSource.data = data;
-              this.isLoading = false;
+            this.loadingService.toggleLoading();
+
+            const dialogResult = this.dialog.open(
+              DialogOperacionOkComponent,
+              { width: '600px', disableClose: true }
+            );
+
+            dialogResult.afterClosed().subscribe(
+              () => this.dataSource.data = data
+            );
+          },
+          error => {
+            this.loadingService.toggleLoading();
+
+            this.dialog.open(
+              DialogSinConexionComponent,
+              { width: '600px', disableClose: true }
+            );
           }
         );
       }

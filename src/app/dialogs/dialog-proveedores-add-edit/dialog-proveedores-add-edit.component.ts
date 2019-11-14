@@ -75,6 +75,6 @@ export class DialogProveedoresAddEditComponent implements OnInit {
   }
 
   onNoClick() {
-    this.dialogRef.close();
+    this.dialogRef.close(false);
   }
 }

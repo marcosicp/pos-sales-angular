@@ -1,11 +1,11 @@
-import { Component, OnInit, ChangeDetectorRef, ViewChild  } from '@angular/core';
-import { MatDialog, MatTableDataSource, MatTable } from '@angular/material';
-import { SelectionModel } from '@angular/cdk/collections';
-// ENTIDADES
+import { Component, OnInit  } from '@angular/core';
+import { MatDialog, MatTableDataSource } from '@angular/material';
+// MODELOS
 // import { Venta } from '../../shared/models/venta.model';
 import { Proveedores } from '../../shared/models/proveedores.model';
 // SERVICIOS
 import { DataService } from '../../core/services/data.service';
+import { LoadingService } from '../../shared/services/loading.service';
 // CONFIGURACIONES
 import { URL_PROVEEDORES } from '../../shared/configs/urls.config';
 import { TABLA_PROVEEDORES } from '../../shared/configs/table.config';
@@ -38,7 +38,8 @@ export class ProveedoresComponent implements OnInit {
 
   constructor(
     private comerciosService: DataService,
-    public dialog: MatDialog
+    public dialog: MatDialog,
+    private loadingService: LoadingService
     ) { }
 
   ngOnInit() {
@@ -62,39 +63,50 @@ export class ProveedoresComponent implements OnInit {
   }
 
   agregarProveedor() {
-    const dialogRef = this.dialog.open(DialogProveedoresAddEditComponent, {
-      width: '900px' ,  disableClose: true
-    });
+    const dialogRef = this.dialog.open(
+      DialogProveedoresAddEditComponent,
+      { width: '900px', disableClose: true }
+    );
 
-    dialogRef.afterClosed().subscribe(result => {
-      if (result) {
-        this.comerciosService.createAsync(URL_PROVEEDORES.ADD_PROVEEDOR, result, this.dataSource.data).subscribe(
-          data => {
-            const dialogResult =
-              this.dialog.open(
+    dialogRef.afterClosed().subscribe(
+      newProveedor => {
+        if (newProveedor) {
+          this.loadingService.toggleLoading();
+
+          this.comerciosService.createAsync(
+            URL_PROVEEDORES.ADD_PROVEEDOR,
+            newProveedor,
+            this.dataSource.data
+          ).subscribe(
+            result => {
+              this.loadingService.toggleLoading();
+
+              const dialogResult = this.dialog.open(
                 DialogOperacionOkComponent,
-                {
-                  width: '600px' ,
-                  disableClose: true
-                }
+                { width: '600px', disableClose: true }
               );
 
-            dialogResult.afterClosed().subscribe(
-              () => this.dataSource.data = data
-            );
-          },
-          error => {
-            this.dialog.open(DialogSinConexionComponent, { width: '600px', disableClose: true });
-            console.log(error);
-          }
-        );
+              dialogResult.afterClosed().subscribe(
+                () => this.dataSource.data = result
+              );
+            },
+            error => {
+              this.loadingService.toggleLoading();
+
+              this.dialog.open(
+                DialogSinConexionComponent,
+                { width: '600px', disableClose: true }
+              );
+            }
+          );
+        }
       }
-    });
+    );
   }
 
   editarProveedor(proveedor: Proveedores) {
     // MANDO UNA COPIA DEL OBJETO PARA NO TENER QUE HACER UN REFRESH DE LA GRILLA
-    const obj2:any = Object.assign({}, proveedor);
+    const proveedorMod: Proveedores = Object.assign({}, proveedor);
 
     const dialogRef =
       this.dialog.open(
@@ -102,34 +114,44 @@ export class ProveedoresComponent implements OnInit {
         {
           width: '900px',
           disableClose: true,
-          data: obj2
+          data: proveedorMod
         }
       );
 
-    dialogRef.afterClosed().subscribe(result => {
-      if (result) {
-        this.comerciosService.updateAsync(URL_PROVEEDORES.UPDATE_PROVEEDOR, result, this.dataSource.data).subscribe(
-          data => {
-            const dialogResult =
-              this.dialog.open(
-                DialogOperacionOkComponent,
-                {
-                  width: '600px' ,
-                  disableClose: true
-                }
-              );
+      dialogRef.afterClosed().subscribe(
+        newProveedor => {
+          if (newProveedor) {
+            this.loadingService.toggleLoading();
 
-            dialogResult.afterClosed().subscribe(
-              () => this.dataSource.data = data
+            this.comerciosService.updateAsync(
+              URL_PROVEEDORES.UPDATE_PROVEEDOR,
+              newProveedor,
+              this.dataSource.data
+            ).subscribe(
+              result => {
+                this.loadingService.toggleLoading();
+
+                const dialogResult = this.dialog.open(
+                  DialogOperacionOkComponent,
+                  { width: '600px', disableClose: true }
+                );
+
+                dialogResult.afterClosed().subscribe(
+                  () => this.dataSource.data = result
+                );
+              },
+              error => {
+                this.loadingService.toggleLoading();
+
+                this.dialog.open(
+                  DialogSinConexionComponent,
+                  { width: '600px', disableClose: true }
+                );
+              }
             );
-          },
-          error => {
-            this.dialog.open(DialogSinConexionComponent, { width: '600px', disableClose: true });
-            console.log(error);
           }
-        );
-      }
-    });
+        }
+      );
   }
 
   eliminarProveedor(proveedor: Proveedores) {
@@ -145,10 +167,32 @@ export class ProveedoresComponent implements OnInit {
 
     dialogRef.afterClosed().subscribe(result => {
       if (result.confirm) {
-        this.comerciosService.deleteAsync(URL_PROVEEDORES.DELETE_PROVEEDOR, proveedor.id, this.dataSource.data).subscribe(
+        this.loadingService.toggleLoading();
+
+        this.comerciosService.deleteAsync(
+          URL_PROVEEDORES.DELETE_PROVEEDOR,
+          proveedor.id,
+          this.dataSource.data
+        ).subscribe(
           data => {
-              this.dataSource.data = data;
-              this.isLoading = false;
+            this.loadingService.toggleLoading();
+
+            const dialogResult = this.dialog.open(
+              DialogOperacionOkComponent,
+              { width: '600px', disableClose: true }
+            );
+
+            dialogResult.afterClosed().subscribe(
+              () => this.dataSource.data = data
+            );
+          },
+          error => {
+            this.loadingService.toggleLoading();
+
+            this.dialog.open(
+              DialogSinConexionComponent,
+              { width: '600px', disableClose: true }
+            );
           }
         );
       }
