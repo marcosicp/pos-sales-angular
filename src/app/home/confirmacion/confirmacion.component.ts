@@ -16,14 +16,16 @@ export class ConfirmacionComponent implements OnInit {
   currentUpload: Upload;
   // imagenUrl: string = "../../../assets/icons/nointernet.png";
   selectedFiles: FileList;
-  ventas= new Venta();
+  ventas = new Venta();
   result: any;
 
   constructor(private route: ActivatedRoute, private router: Router, private dataService: DataService) {
     this.route.queryParams.subscribe(params => {
 
       this.ventas = JSON.parse(params.pedido);
-    })
+      debugger;
+    });
+
   }
 
   ngOnInit() {
@@ -32,23 +34,23 @@ export class ConfirmacionComponent implements OnInit {
 
   detectFiles(event) {
     this.selectedFiles = event.target.files;
-    var reader = new FileReader();
+    let reader = new FileReader();
     reader.onload = (event: any) => {
       this.ventas.imagenUrl = event.target.result;
-    }
+    };
     reader.readAsDataURL(this.selectedFiles.item(0));
   }
 
   confirmar() {
     this.dataService.postAsync(URL_PEDIDOS.CONFIRMAR, this.ventas).subscribe(
       data => {
-        if(data[0]){
+        if (data[0]) {
           this.selectedFiles = null;
-          let navigationExtras: NavigationExtras = {
+          const navigationExtras: NavigationExtras = {
             queryParams: { pedido: JSON.stringify(this.ventas)}
           };
 
-          this.router.navigate(['agenda'], navigationExtras)
+          this.router.navigate(['agenda'], navigationExtras);
         }
       },
       error => {

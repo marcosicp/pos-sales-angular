@@ -117,13 +117,13 @@ export class PactarEntregaComponent {
   activeDayIsOpen: boolean = true;
 
   constructor(private modal: NgbModal, private zone:NgZone, private dataService: DataService, private route: ActivatedRoute, public dialog: MatDialog, private router: Router) {
-    
+
     this.route.queryParams.subscribe(params => {
         if(params){
           this.venta = JSON.parse(params.pedido);
           const dialogRef = this.dialog.open(DialogConfirmarComponent, {
             width: '450px',
-            data: {title: "Seleccione un dia para su entrega.", confirmText: "Recuerde que debe hacer doble click sobre el dia que considere conveniente."} 
+            data: {title: "Seleccione un dia para su entrega.", confirmText: "Recuerde que debe hacer doble click sobre el dia que considere conveniente."}
           });
         }
     })
@@ -132,7 +132,7 @@ export class PactarEntregaComponent {
       data => {
         if(data){
          data.forEach(element => {
-           debugger;
+
           element.agenda.start = startOfDay(new Date(element.agenda.start))
           this.events.push(element.agenda);
          });
@@ -224,14 +224,14 @@ export class PactarEntregaComponent {
                   afterEnd: true
                 }
               }
-        
+
         this.addEvent(evento);
       }
 
-      
-    });      
-    
-    
+
+    });
+
+
 
   }
 
@@ -250,7 +250,7 @@ export class PactarEntregaComponent {
         });
       }
     );
-    
+
     this.events = [
       ...this.events,
       data1

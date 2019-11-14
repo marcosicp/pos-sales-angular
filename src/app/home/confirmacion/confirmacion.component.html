@@ -1,42 +1,60 @@
 <div class="card-container mat-elevation-z8">
-  <mat-card class="add-margin">
+  <mat-card class="add-margin" style="text-align: center;">
     <mat-card-title>Confirmar pedido</mat-card-title>
     <mat-card-content>
       <div class="form">
           <!-- Nombre -->
           <mat-form-field>
             <label>Cliente</label>
-            <input matInput  [(ngModel)]="ventas.cliente">
+            <input matInput disabled [(ngModel)]="ventas.cliente.displayName">
           </mat-form-field>
           <!-- Precio -->
           <mat-form-field>
-              <label>Peso Total</label>
-            <input matInput type="text" [(ngModel)]="ventas.pesoTotal">
+            <label>CUIT/CUIL</label>
+            <input matInput type="text" disabled [(ngModel)]="ventas.cliente.cuil">
           </mat-form-field>
           <!-- Tipo Producto dropdown -->
           <mat-form-field>
-              <label>Estado</label>
-              <input matInput type="text" [(ngModel)]="ventas.estado">
+              <label>Email</label>
+              <input matInput type="text" disabled [(ngModel)]="ventas.cliente.email">
           </mat-form-field>
 
-           <mat-form-field>
-              <label>Fecha Pedido</label>
-              <input matInput [(ngModel)]="ventas.fechaVenta">
-            </mat-form-field>
+          <mat-form-field>
+            <label>Razon Social</label>
+            <input matInput disabled type="text" [(ngModel)]="ventas.cliente.razonSocial">
+          </mat-form-field>
+      </div>
+      <mat-divider></mat-divider>
+      <div class="form">
+        <mat-form-field>
+            <label>Estado</label>
+            <input matInput type="text" disabled  [(ngModel)]="ventas.estado">
+        </mat-form-field>
 
-            <mat-form-field>
-                <label>Total</label>
-                <input matInput type="text" [(ngModel)]="ventas.total">
-            </mat-form-field>
+        <mat-form-field>
+          <label>Fecha Pedido</label>
+          <input type="datetime" disabled  matInput [(ngModel)]="ventas.fechaPedido" [value]="ventas.fechaPedido | date:'short'">
+        </mat-form-field>
 
+        <mat-form-field>
+          <label>Monto Total</label>
+          <input matInput disabled type="text" [(ngModel)]="ventas.total" />
+        </mat-form-field>
+
+        <mat-form-field>
+          <label>Peso Total</label>
+          <input matInput type="text" disabled [value]="ventas.pesoTotal + ' KG'" [(ngModel)]="ventas.pesoTotal">
+        </mat-form-field>
+
+        <div style="padding-left: 245px;">
           <label for="upload" class="file-upload__label">Subir Imagen</label>
           <input id="upload" class="file-upload__input" type="file" name="file-upload" accept="image/*" (change)="detectFiles($event)">
-
-          <div class="flex flex-direction-row product-image-section">
-            <img *ngIf="ventas.imagenUrl != null" [src]="ventas.imagenUrl"  style="width:250px;height:200px">
-
-          </div>
         </div>
+        <div class="flex flex-direction-row product-image-section">
+          <img *ngIf="ventas.imagenUrl != null" [src]="ventas.imagenUrl"  style="width:250px;height:200px">
+
+        </div>
+      </div>
     </mat-card-content>
 
     <!-- Guardar/Cancelar -->

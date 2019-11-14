@@ -12,13 +12,14 @@ export class Venta {
     pagoCon: number;
     pesoTotal: number;
     fechaVenta: Date;
+    fechaPedido: Date;
     vuelto: number;
     fechaModificacion: Date;
     usuario: string;
     clienteId: string;
+    cliente: Clientes;
     direccion: string;
     observacion: string;
-    cliente: Clientes;
     imprimioTicket: boolean;
     creado: Date;
     estado: string;

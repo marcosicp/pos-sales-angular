@@ -9,7 +9,7 @@
 
 .heading {
   color: $main-color;
-  font-family: $main-font;  
+  font-family: $main-font;
 }
 
 .menu {
@@ -48,4 +48,7 @@
 .item-name {
   text-align: center;
   padding: 0.5rem;
+  float:right;
+  width:calc(100% - 2.5em); height:2em;
+  content:'';
 }
