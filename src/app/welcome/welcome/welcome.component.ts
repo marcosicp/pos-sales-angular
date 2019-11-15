@@ -3,6 +3,7 @@ import { EstadoCaja } from '../../shared/models/estado-caja.model';
 import { DataService } from '../../core/services/data.service';
 import { MatDialog  } from '@angular/material';
 import { DialogSinConexionComponent } from '../../dialogs/dialog-sin-conexion/dialog-sin-conexion.component';
+import { URL_MOVIMIENTOS } from '../../shared/configs/urls.config';
 
 @Component({
   selector: 'app-welcome',
@@ -16,7 +17,7 @@ export class WelcomeComponent implements OnInit {
   usuario= '';
 
   constructor( private dialog: MatDialog, private comerciosService: DataService) {
-    this.comerciosService.getAsync('movimientos/EstadoCaja', this.result).subscribe(
+    this.comerciosService.getAsync(URL_MOVIMIENTOS.GET_ESTADO, this.result).subscribe(
       data => {
         if(data[0]){
           this.estadoCaja.estado = "ABIERTA";

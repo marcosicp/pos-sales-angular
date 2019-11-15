@@ -50,6 +50,10 @@ const URL_PROVEEDORES = {
   UPDATE_PROVEEDOR: 'proveedores/UpdateProveedor',
   DELETE_PROVEEDOR: 'proveedores/DeleteProveedor'
 };
+// API MOVIMIENTOS
+const URL_MOVIMIENTOS = {
+  GET_ESTADO: 'movimientos/EstadoCaja'
+};
 
 export {
   URL_BASE,
@@ -59,5 +63,6 @@ export {
   URL_PEDIDOS,
   URL_PROVEEDORES,
   URL_CLIENTES,
-  URL_VENTAS
+  URL_VENTAS,
+  URL_MOVIMIENTOS
 };
