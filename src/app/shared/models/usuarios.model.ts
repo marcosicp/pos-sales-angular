@@ -1,7 +1,7 @@
 // import { Item } from './item';
 
 export class Usuarios {
-  _id: string;
+  id: string;
   usuario: String;
   password: String;
   nombre: String;
