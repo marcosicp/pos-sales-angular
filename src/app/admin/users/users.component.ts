@@ -189,7 +189,7 @@ export class UsersComponent implements OnInit {
 
         this.dataService.deleteAsync(
           URL_USUARIOS.DELETE_USUARIO,
-          usuario._id,
+          usuario.id,
           this.dataSource.data
         ).subscribe(
           data => {
