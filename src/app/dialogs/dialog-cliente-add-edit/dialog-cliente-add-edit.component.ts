@@ -1,17 +1,10 @@
 import { Component, Inject, OnInit } from '@angular/core';
 import { FormGroup, FormControl, Validators, FormGroupDirective } from '@angular/forms';
-import { MatDialogRef, MatDialog, MAT_DIALOG_DATA } from '@angular/material';
-// SERVICIOS
-import { DataService } from '../../core/services/data.service';
+import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
 // MODELOS
 import { Clientes } from '../../shared/models/clientes.model';
 // MOCKS
 import Facturas from '../../shared/mocks/facturas.mock';
-// DIALOGOS
-import { DialogOperacionOkComponent } from '../dialog-operacion-ok/dialog-operacion-ok.component';
-import { DialogSinConexionComponent } from '../dialog-sin-conexion/dialog-sin-conexion.component';
-// URLS DE CONFIGURACION
-import { URL_CLIENTES } from '../../shared/configs/urls.config';
 // REGEXP HELPER
 import RegExpHelper from '../../shared/helpers/regex.helper';
 
@@ -44,9 +37,7 @@ export class DialogClienteAddEditComponent implements OnInit {
   }
 
   constructor(
-    private dialog: MatDialog,
-    public dialogRef: MatDialogRef<DialogClienteAddEditComponent>,
-    private dataservice: DataService,
+    public dialogRef: MatDialogRef<any>,
     @Inject(MAT_DIALOG_DATA) public data?: Clientes
   ) {
     this.cliente = data ? data : new Clientes();
@@ -71,46 +62,10 @@ export class DialogClienteAddEditComponent implements OnInit {
     Object.keys(this.clientForm.value).forEach(
       prop => this.cliente[prop] = this.clientForm.value[prop]
     );
-
-    const URL = this.data ?
-      URL_CLIENTES.UPDATE_CLIENTE :
-      URL_CLIENTES.ADD_CLIENTE;
-
-    const ASYNC = this.data ?
-      'updateAsync' :
-      'createAsync';
-
-    this.dataservice[ASYNC](
-      URL,
-      this.cliente,
-      this.result
-    ).subscribe(
-      result => {
-        const DialogResult = result ?
-          DialogOperacionOkComponent :
-          DialogSinConexionComponent;
-
-        const response = result ?
-          result[0] : false;
-
-        const _dialogRef = this.dialog.open(
-          DialogResult,
-          {
-            width: '600px',
-            disableClose: true
-          }
-        );
-
-        _dialogRef.afterOpened().subscribe(
-          () => {
-            this.dialogRef.close(response);
-          }
-        );
-      }
-    );
+    this.dialogRef.close(this.cliente);
   }
 
   onNoClick() {
-    this.dialogRef.close();
+    this.dialogRef.close(false);
   }
 }

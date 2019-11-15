@@ -8,7 +8,7 @@ import { Usuarios } from '../../shared/models/usuarios.model';
 import { DialogOperacionOkComponent } from '../dialog-operacion-ok/dialog-operacion-ok.component';
 import { DialogSinConexionComponent } from '../dialog-sin-conexion/dialog-sin-conexion.component';
 // URLS DE CONFIGURACION
-import { URL_USER } from '../../shared/configs/urls.config';
+import { URL_USUARIOS } from '../../shared/configs/urls.config';
 
 @Component({
   selector: 'app-dialog-cambiar-pass',
@@ -47,7 +47,7 @@ export class DialogCambiarPassComponent {
     };
 
     this.dataService.postAsync(
-      URL_USER.MODIFY_PASS,
+      URL_USUARIOS.MODIFY_PASS,
       postObj
     ).subscribe(
       result => {

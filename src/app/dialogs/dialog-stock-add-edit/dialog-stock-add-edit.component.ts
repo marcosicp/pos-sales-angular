@@ -1,15 +1,8 @@
 import { Component, OnInit, Inject } from '@angular/core';
-import { MatDialogRef, MatDialog, MAT_DIALOG_DATA } from '@angular/material';
-// SERVICIOS
-import { DataService } from '../../core/services/data.service';
+import { FormGroup, FormControl, Validators, FormGroupDirective } from '@angular/forms';
+import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
 // MODELOS
 import { Productos } from '../../shared/models/producto.model';
-// DIALOGOS
-import { DialogOperacionOkComponent } from '../dialog-operacion-ok/dialog-operacion-ok.component';
-import { DialogSinConexionComponent } from '../dialog-sin-conexion/dialog-sin-conexion.component';
-// URLS DE CONFIGURACION
-import { URL_STOCK } from '../../shared/configs/urls.config';
-import { FormGroup, FormControl, Validators, FormGroupDirective } from '@angular/forms';
 // REGEXP HELPER
 import RegExpHelper from '../../shared/helpers/regex.helper';
 
@@ -43,9 +36,7 @@ export class DialogStockAddEditComponent implements OnInit {
   }
 
   constructor(
-    private dialog: MatDialog,
-    public dialogRef: MatDialogRef<DialogOperacionOkComponent>,
-    private dataService: DataService,
+    public dialogRef: MatDialogRef<any>,
     @Inject(MAT_DIALOG_DATA) public data: any,
   ) {
     this.producto = data.producto || new Productos();
@@ -69,41 +60,10 @@ export class DialogStockAddEditComponent implements OnInit {
   }
 
   guardar() {
-    const URL = this.data ?
-      URL_STOCK.UPDATE_STOCK :
-      URL_STOCK.ADD_STOCK;
-
-    const ASYNC = this.data ?
-      'updateAsync' :
-      'createAsync';
-
-    this.dataService[ASYNC](
-      URL,
-      this.producto,
-      this.result
-    ).subscribe(
-      result => {
-        const DialogResult = result ?
-          DialogOperacionOkComponent :
-          DialogSinConexionComponent;
-        const response = result ?
-          result[0] : false;
-
-        const _dialogRef = this.dialog.open(
-          DialogResult,
-          {
-            width: '600px',
-            disableClose: true
-          }
-        );
-
-        _dialogRef.afterOpened().subscribe(
-          () => {
-            this.dialogRef.close(response);
-          }
-        );
-      }
+    Object.keys(this.productForm.value).forEach(
+      prop => this.producto[prop] = this.productForm.value[prop]
     );
+    this.dialogRef.close(this.producto);
   }
 
   cancelar() {

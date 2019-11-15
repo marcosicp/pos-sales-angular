@@ -4,12 +4,15 @@ import { MatDialog, MatTableDataSource } from '@angular/material';
 import { Clientes } from '../../shared/models/clientes.model';
 // SERVICIOS
 import { DataService } from '../../core/services/data.service';
+import { LoadingService } from '../../shared/services/loading.service';
 // CONFIGURACIONES
 import { URL_CLIENTES } from '../../shared/configs/urls.config';
 import { TABLA_CLIENTES } from '../../shared/configs/table.config';
 // DIALOGOS
 import { DialogClienteAddEditComponent } from '../../dialogs/dialog-cliente-add-edit/dialog-cliente-add-edit.component';
 import { DialogConfirmarComponent } from '../../dialogs/dialog-confirmar/dialog-confirmar.component';
+import { DialogOperacionOkComponent } from '../../dialogs/dialog-operacion-ok/dialog-operacion-ok.component';
+import { DialogSinConexionComponent } from '../../dialogs/dialog-sin-conexion/dialog-sin-conexion.component';
 
 
 @Component({
@@ -18,8 +21,6 @@ import { DialogConfirmarComponent } from '../../dialogs/dialog-confirmar/dialog-
   styleUrls: ['./clientes.component.scss']
 })
 export class ClientesComponent implements OnInit {
-  clientes: Clientes[] = [];
-
   tableTitle = TABLA_CLIENTES.title;
   dataSource = new MatTableDataSource<Clientes>();
   headerTitles = Object.keys(TABLA_CLIENTES.cells);
@@ -37,13 +38,14 @@ export class ClientesComponent implements OnInit {
 
   constructor (
     private dataService: DataService,
-    public dialog: MatDialog
+    public dialog: MatDialog,
+    private loadingService: LoadingService
   ) { }
 
   ngOnInit() {
     this.isLoading = true;
 
-    this.dataService.getAsync(URL_CLIENTES.GET_ALL, this.clientes).subscribe(
+    this.dataService.getAsync(URL_CLIENTES.GET_ALL, []).subscribe(
       data => {
         this.dataSource.data = data;
         this.columnCells.opciones = [{
@@ -64,26 +66,86 @@ export class ClientesComponent implements OnInit {
   }
 
   agregarCliente() {
-    this.dialog.open(
+    const dialogRef = this.dialog.open(
       DialogClienteAddEditComponent, {
         width: '900px',
         disableClose: true
       }
     );
+
+    dialogRef.afterClosed().subscribe(
+      newCliente => {
+        if (newCliente) {
+          this.loadingService.toggleLoading();
+          this.dataService.createAsync(
+            URL_CLIENTES.ADD_CLIENTE,
+            newCliente,
+            this.dataSource.data
+          ).subscribe(
+            result => {
+              this.loadingService.toggleLoading();
+              const dialogResult = this.dialog.open(
+                DialogOperacionOkComponent,
+                { width: '600px', disableClose: true }
+              );
+
+              dialogResult.afterClosed().subscribe(
+                () => this.dataSource.data = result
+              );
+            },
+            error => {
+              this.loadingService.toggleLoading();
+              this.dialog.open(
+                DialogSinConexionComponent,
+                { width: '600px', disableClose: true }
+              );
+            }
+          );
+        }
+      }
+    );
   }
 
   editarCliente(cliente: Clientes) {
-    const dialogRef =
-      this.dialog.open(
-        DialogClienteAddEditComponent, {
-          width: '900px',
-          disableClose: true,
-          data: cliente
-        }
-      );
+    const clienteMod = Object.assign({}, cliente);
+    const dialogRef = this.dialog.open(
+      DialogClienteAddEditComponent, {
+        width: '900px',
+        disableClose: true,
+        data: clienteMod
+      }
+    );
 
     dialogRef.afterClosed().subscribe(
-      result => console.warn(result)
+      newUser => {
+        if (newUser) {
+          this.loadingService.toggleLoading();
+          this.dataService.updateAsync(
+            URL_CLIENTES.UPDATE_CLIENTE,
+            newUser,
+            this.dataSource.data
+          ).subscribe(
+            result => {
+              this.loadingService.toggleLoading();
+              const dialogResult = this.dialog.open(
+                DialogOperacionOkComponent,
+                { width: '600px', disableClose: true }
+              );
+
+              dialogResult.afterClosed().subscribe(
+                () => this.dataSource.data = result
+              );
+            },
+            error => {
+              this.loadingService.toggleLoading();
+              this.dialog.open(
+                DialogSinConexionComponent,
+                { width: '600px', disableClose: true }
+              );
+            }
+          );
+        }
+      }
     );
   }
 
@@ -104,14 +166,34 @@ export class ClientesComponent implements OnInit {
       this.isLoading = true;
 
       if (result.confirm) {
-        this.dataService.deleteAsync(URL_CLIENTES.DELETE_CLIENTE, cliente.id, this.dataSource.data).subscribe(
+        this.loadingService.toggleLoading();
+
+        this.dataService.deleteAsync(
+          URL_CLIENTES.DELETE_CLIENTE,
+          cliente.id,
+          this.dataSource.data
+        ).subscribe(
           data => {
-            this.dataSource.data = data;
-            this.isLoading = false;
+            this.loadingService.toggleLoading();
+
+            const dialogResult = this.dialog.open(
+              DialogOperacionOkComponent,
+              { width: '600px', disableClose: true }
+            );
+
+            dialogResult.afterClosed().subscribe(
+              () => this.dataSource.data = data
+            );
+          },
+          error => {
+            this.loadingService.toggleLoading();
+
+            this.dialog.open(
+              DialogSinConexionComponent,
+              { width: '600px', disableClose: true }
+            );
           }
         );
-      } else {
-        this.isLoading = false;
       }
     });
   }
