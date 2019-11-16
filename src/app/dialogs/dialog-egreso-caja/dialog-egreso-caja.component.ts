@@ -13,18 +13,21 @@ import { AuthService } from '../../core/services/auth.service';
 })
 export class DialogEgresoCajaComponent implements OnInit {
   usuario = '';
-  retiroCaja:  RetiroCaja = new RetiroCaja();
+  retiroCaja: RetiroCaja = new RetiroCaja();
   result: RetiroCaja[] = [];
 
   constructor(
     private auth: AuthService,
     public dialogRef: MatDialogRef<DialogEgresoCajaComponent>,
     private comerciosService: DataService,
-    private dialog: MatDialog) {
-    this.auth.getUser.subscribe((data: any) => {
-      this.usuario = data;
-    });
-   }
+    private dialog: MatDialog
+  ) {
+    this.auth.getUser.subscribe(
+      (data: any) => {
+        this.usuario = data;
+      }
+    );
+  }
 
 
   ngOnInit() { }
@@ -48,5 +51,9 @@ export class DialogEgresoCajaComponent implements OnInit {
         console.log(error);
       }
     );
+  }
+
+  cancelar() {
+    this.dialogRef.close(false);
   }
 }

@@ -86,15 +86,37 @@ export class AdministracionComponent {
     );
 
     dialogRef.afterClosed().subscribe(
-      result => {
+      newCierreDeCaja => {
+        if (newCierreDeCaja) {
+          this.dataService.createAsync(URL_MOVIMIENTOS.CERRAR_CAJA, newCierreDeCaja, [])
+            .subscribe(
+              result => {
+                this.loadingService.toggleLoading();
 
+                this.dialog.open(
+                  DialogOperacionOkComponent,
+                  { width: '600px', disableClose: true }
+                );
+              },
+              error => {
+                this.loadingService.toggleLoading();
+
+                this.dialog.open(
+                  DialogSinConexionComponent,
+                  { width: '600px', disableClose: true }
+                );
+              }
+            );
+        }
       }
     );
   }
 
   registrarRetiro() {
-    const dialogRef = this.dialog.open(DialogEgresoCajaComponent,
-      { width: '600px', disableClose: true });
+    const dialogRef = this.dialog.open(
+      DialogEgresoCajaComponent,
+      { width: '600px', disableClose: true }
+    );
 
     dialogRef.afterClosed().subscribe(
       result => {

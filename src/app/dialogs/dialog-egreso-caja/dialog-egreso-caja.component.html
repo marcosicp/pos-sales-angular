@@ -7,11 +7,24 @@
       <label>Descripcion</label>
     <input matInput type="text" [(ngModel)]="retiroCaja.descripcion">
   </mat-form-field>
-  
 </div>
+
 <div mat-dialog-actions>
-  <button mat-button (click)="guardar()">
+  <button
+    mat-raised-button
+    color="primary"
+    (click)="guardar()"
+  >
+    <mat-icon>check</mat-icon>
     Guardar
   </button>
-  <!-- <button mat-button (click)="onNoClick()">Cancelar</button> -->
+
+  <button
+    mat-raised-button
+    color="warn"
+    (click)="cancelar()"
+  >
+    <mat-icon>close</mat-icon>
+    Cancelar
+  </button>
 </div>

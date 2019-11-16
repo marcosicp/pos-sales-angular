@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { RetiroCaja } from '../../shared/models/retiro-caja.model';
+import { MatDialogRef } from '@angular/material';
+import { IngresoCaja } from '../../shared/models/ingreso-caja.model';
 
 @Component({
   selector: 'app-dialog-ingreso-caja',
@@ -7,13 +8,20 @@ import { RetiroCaja } from '../../shared/models/retiro-caja.model';
   styleUrls: ['./dialog-ingreso-caja.component.scss']
 })
 export class DialogIngresoCajaComponent implements OnInit {
-  ingresoCaja:  RetiroCaja = new RetiroCaja();
-  constructor() { }
+  ingresoCaja: IngresoCaja = new IngresoCaja();
+
+  constructor(
+    public dialogRef: MatDialogRef<DialogIngresoCajaComponent>
+  ) { }
 
   ngOnInit() {
   }
 
   guardar() {
+    this.dialogRef.close(true);
   }
 
+  cancelar() {
+    this.dialogRef.close(false);
+  }
 }

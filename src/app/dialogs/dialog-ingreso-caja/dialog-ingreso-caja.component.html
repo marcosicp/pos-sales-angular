@@ -1,17 +1,30 @@
 <div mat-dialog-content fxLayout="column">
-  <!-- <mat-form-field class="full-width">
-    <label>Monto ingreso</label>
-    <input matInput type="text" [(ngModel)]="ingresoCaja.montoApertura">
+  <mat-form-field class="full-width">
+    <label>Monto depósito</label>
+    <input matInput type="text" [(ngModel)]="ingresoCaja.montoIngreso">
   </mat-form-field>
   <mat-form-field class="full-width">
       <label>Descripcion</label>
     <input matInput type="text" [(ngModel)]="ingresoCaja.descripcion">
-  </mat-form-field> -->
-  
+  </mat-form-field>
 </div>
+
 <div mat-dialog-actions>
-  <button mat-button (click)="guardar()">
+  <button
+    mat-raised-button
+    color="primary"
+    (click)="guardar()"
+  >
+    <mat-icon>check</mat-icon>
     Guardar
   </button>
-  <!-- <button mat-button (click)="onNoClick()">Cancelar</button> -->
+
+  <button
+    mat-raised-button
+    color="warn"
+    (click)="cancelar()"
+  >
+    <mat-icon>close</mat-icon>
+    Cancelar
+  </button>
 </div>

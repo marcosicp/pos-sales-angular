@@ -16,7 +16,23 @@
     <input matInput type="text" [(ngModel)]="cierreCaja.descripcion">
   </mat-form-field>
 </div>
+
 <div mat-dialog-actions>
-  <button mat-button (click)="cerrarCaja()" >Guardar</button>
-  <button mat-button (click)="onNoClick()">Cancelar</button>
+  <button
+    mat-raised-button
+    color="primary"
+    (click)="cerrarCaja()"
+  >
+    <mat-icon>check</mat-icon>
+    Guardar
+  </button>
+
+  <button
+    mat-raised-button
+    color="warn"
+    (click)="onNoClick()"
+  >
+    <mat-icon>close</mat-icon>
+    Cancelar
+  </button>
 </div>
