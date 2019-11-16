@@ -8,7 +8,6 @@ import { AdminGuard } from './guards/admin.guard';
 import { WelcomeComponent } from '../welcome/welcome/welcome.component';
 import { ConfirmacionComponent } from '../home/confirmacion/confirmacion.component';
 import { HomeComponent } from '../home/home/home.component';
-import { AdminComponent } from '../admin/admin/admin.component';
 import { PageNotFoundComponent } from '../page-not-found/page-not-found.component';
 import { LoginComponent } from '../welcome/login/login.component';
 import { ResetPasswordComponent } from '../welcome/reset-password/reset-password.component';
@@ -21,6 +20,7 @@ import { ProveedoresComponent } from '../home/proveedores/proveedores.component'
 import { VentasComponent } from '../ventas/ventas.component';
 import { PactarEntregaComponent } from '../pactar-entrega/pactar-entrega.component';
 import { ListaMovimientosComponent } from '../home/lista-movimientos/lista-movimientos.component';
+import { ReportesComponent } from '../home/reportes/reportes.component';
 
 const appRoutes: Routes = [
   {
@@ -41,13 +41,11 @@ const appRoutes: Routes = [
     path: 'home',
     component: HomeComponent ,
     canActivate: [AuthGuard]
-  },
-  {
+  }, {
     path: 'agenda',
     component: PactarEntregaComponent ,
     canActivate: [AuthGuard]
-  },
-  {
+  }, {
     path: 'clientes',
     component: ClientesComponent ,
     canActivate: [AuthGuard]
@@ -82,6 +80,10 @@ const appRoutes: Routes = [
   }, {
     path: 'ventas',
     component: VentasComponent,
+    canActivate: [AuthGuard]
+  }, {
+    path: 'reportes',
+    component: ReportesComponent,
     canActivate: [AuthGuard]
   }, {
     path: '**',
