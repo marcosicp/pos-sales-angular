@@ -18,6 +18,8 @@
 
 .item {
   margin: 0.75rem;
+  width: 21.5%;
+  height: 170px;
   font-family: $body-font;
   border: 1px grey solid;
   border-radius: 10px;
@@ -48,7 +50,9 @@
 .item-name {
   text-align: center;
   padding: 0.5rem;
+  font-size: smaller;
   float:right;
-  width:calc(100% - 2.5em); height:2em;
+  width: calc(100% - 1.0em);
+  height:5.5em;
   content:'';
 }
