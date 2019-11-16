@@ -80,7 +80,7 @@ export class AuthService {
     console.log('Logged out');
     // remove user from local storage to log user out
     localStorage.removeItem('currentUser');
-    if(!this.isAuthenticated()){
+    if (!this.isAuthenticated()) {
      this.router.navigate(['login']);
     }
   }

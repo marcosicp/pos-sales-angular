@@ -2,11 +2,14 @@ import { Component, OnInit } from '@angular/core';
 import { FormGroupDirective, FormGroup, FormControl, Validators } from '@angular/forms';
 import { MatDialogRef } from '@angular/material';
 // MODELOS
-import { AperturaCaja } from '../../shared/models/apertura-caja.model';
+import { Usuarios } from '../../shared/models/usuarios.model';
+import { MovimientosCaja } from '../../shared/models/movimientos-caja.model';
 // SERVICIOS
 import { AuthService } from '../../core/services/auth.service';
 // REGEXP HELPER
 import RegExpHelper from '../../shared/helpers/regex.helper';
+import getFechaArg from '../../shared/helpers/date.helper';
+
 
 @Component({
   selector: 'app-dialog-abrir-caja',
@@ -15,9 +18,8 @@ import RegExpHelper from '../../shared/helpers/regex.helper';
   providers: [FormGroupDirective]
 })
 export class DialogAbrirCajaComponent implements OnInit {
-  aperturaCaja: AperturaCaja = new AperturaCaja();
-  result: AperturaCaja[] = [];
-  usuario;
+  aperturaCaja: MovimientosCaja = new MovimientosCaja();
+  usuario: Usuarios;
   abrirCajaForm: FormGroup;
   errorString = (prop: string) => {
     const errorMsj = prop === 'monto' ?
@@ -28,13 +30,13 @@ export class DialogAbrirCajaComponent implements OnInit {
   constructor(
     private authService: AuthService,
     public dialogRef: MatDialogRef<DialogAbrirCajaComponent>
-  ) { }
+  ) {
+    this.authService.getUser.subscribe((data: any) => {
+      this.usuario = JSON.parse(data);
+    });
+  }
 
   ngOnInit() {
-    this.authService.getUser.subscribe((data: any) => {
-      this.usuario = data;
-    });
-
     this.abrirCajaForm = new FormGroup(
       {
         monto: new FormControl(this.aperturaCaja.monto, [Validators.required, Validators.pattern(RegExpHelper.numbers)]),
@@ -46,7 +48,7 @@ export class DialogAbrirCajaComponent implements OnInit {
   guardar() {
     const otrosDatos = {
       usuario: this.usuario,
-      fechaMovimiento: new Date(),
+      fechaMovimiento: getFechaArg(),
       tipo: 'APERTURA'
     };
 

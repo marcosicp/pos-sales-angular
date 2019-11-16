@@ -1,10 +1,17 @@
 import { Component, OnInit } from '@angular/core';
-import { RetiroCaja } from '../../shared/models/retiro-caja.model';
+import { FormGroupDirective, FormGroup, FormControl, Validators } from '@angular/forms';
 import { MatDialogRef, MatDialog } from '@angular/material';
+// MODELOS
+import { Usuarios } from '../../shared/models/usuarios.model';
+import { MovimientosCaja } from '../../shared/models/movimientos-caja.model';
+// SERVICIOS
 import { DataService } from '../../../app/core/services/data.service';
+import { AuthService } from '../../core/services/auth.service';
+// HELPERS
+import getFechaArg from '../../shared/helpers/date.helper';
+// DIALOGOS
 import { DialogSinConexionComponent } from '../dialog-sin-conexion/dialog-sin-conexion.component';
 import { DialogOperacionOkComponent } from '../dialog-operacion-ok/dialog-operacion-ok.component';
-import { AuthService } from '../../core/services/auth.service';
 
 @Component({
   selector: 'app-dialog-egreso-caja',
@@ -12,9 +19,8 @@ import { AuthService } from '../../core/services/auth.service';
   styleUrls: ['./dialog-egreso-caja.component.scss']
 })
 export class DialogEgresoCajaComponent implements OnInit {
-  usuario = '';
-  retiroCaja: RetiroCaja = new RetiroCaja();
-  result: RetiroCaja[] = [];
+  retiroCaja: MovimientosCaja = new MovimientosCaja();
+  usuario: Usuarios;
 
   constructor(
     private auth: AuthService,
@@ -22,22 +28,25 @@ export class DialogEgresoCajaComponent implements OnInit {
     private comerciosService: DataService,
     private dialog: MatDialog
   ) {
-    this.auth.getUser.subscribe(
-      (data: any) => {
-        this.usuario = data;
-      }
-    );
+    this.auth.getUser.subscribe((data: any) => {
+      this.usuario = JSON.parse(data);
+    });
   }
-
 
   ngOnInit() { }
 
   guardar() {
+    const otrosDatos = {
+      usuario: this.usuario,
+      fechaMovimiento: getFechaArg(),
+      tipo: 'RETIRO'
+    };
+
     this.retiroCaja.usuario = this.usuario;
     this.retiroCaja.fechaMovimiento = new Date();
     this.retiroCaja.fechaMovimiento.setHours(this.retiroCaja.fechaMovimiento.getHours() - 3);
     this.retiroCaja.tipo = 'RETIRO';
-    this.comerciosService.createAsync('administracion/retiroCaja', this.retiroCaja, this.result).subscribe(
+    this.comerciosService.createAsync('administracion/retiroCaja', this.retiroCaja, []).subscribe(
       data => {
         this.retiroCaja = data[0];
         const dialogRefOk = this.dialog.open(DialogOperacionOkComponent, { width: '600px' ,  disableClose: true });
