@@ -1,38 +1,44 @@
 <div class="container">
   <mat-card class="module-card agenda-card" [routerLink]="['/welcome']" fxLayout="column">
-    <mat-icon class="module-icon">event</mat-icon>
+    <mat-icon class="module-icon">home</mat-icon>
     <h1 class="module-title">Volver al menú principal</h1>
   </mat-card>
 
   <mat-grid-list cols="4" rowHeight="9:8">
     <mat-grid-tile *ngIf="cajaAbierta === false">
       <mat-card class="module-card" (click)="abrirCaja()" fxLayout="column">
-        <mat-icon class="module-icon">shopping_cart</mat-icon>
+        <mat-icon class="module-icon">add_shopping_cart</mat-icon>
         <h1 class="module-title">Abrir Caja</h1>
       </mat-card>
     </mat-grid-tile>
     <mat-grid-tile *ngIf="cajaAbierta === true">
       <mat-card class="module-card" (click)="cerrarCaja()" fxLayout="column">
-        <mat-icon class="module-icon">history</mat-icon>
+        <mat-icon class="module-icon">remove_shopping_cart</mat-icon>
         <h1 class="module-title">Cerrar Caja</h1>
       </mat-card>
     </mat-grid-tile>
     <mat-grid-tile>
-      <mat-card class="module-card" (click)="registrarRetiro()" fxLayout="column">
-        <mat-icon class="module-icon">assessment</mat-icon>
-        <h1 class="module-title">Registrar retiro</h1>
-      </mat-card>
-    </mat-grid-tile>
-    <mat-grid-tile>
       <mat-card class="module-card" (click)="registrarDeposito()" fxLayout="column">
-        <mat-icon class="module-icon">insert_chart</mat-icon>
+        <mat-icon class="module-icon">add_circle</mat-icon>
         <h1 class="module-title">Registrar depósito</h1>
       </mat-card>
     </mat-grid-tile>
     <mat-grid-tile>
+      <mat-card class="module-card" (click)="registrarRetiro()" fxLayout="column">
+        <mat-icon class="module-icon">remove_circle</mat-icon>
+        <h1 class="module-title">Registrar retiro</h1>
+      </mat-card>
+    </mat-grid-tile>
+    <mat-grid-tile>
       <mat-card class="module-card" routerLink="/movimientos" fxLayout="column">
-        <mat-icon class="module-icon">insert_chart</mat-icon>
+        <mat-icon class="module-icon">trending_up</mat-icon>
         <h1 class="module-title">Ver movimientos</h1>
+      </mat-card>
+    </mat-grid-tile>
+    <mat-grid-tile>
+      <mat-card class="module-card" routerLink="/reportes" fxLayout="column">
+        <mat-icon class="module-icon">insert_chart</mat-icon>
+        <h1 class="module-title">Reportes</h1>
       </mat-card>
     </mat-grid-tile>
   </mat-grid-list>

@@ -26,10 +26,6 @@ export class AdministracionComponent {
     private dialog: MatDialog,
     private loadingService: LoadingService
   ) {
-    this.dataService.getAsync(URL_MOVIMIENTOS.GET_ALL, []).subscribe(
-      result => console.warn(result)
-    );
-
     this.dataService.getAsync(URL_MOVIMIENTOS.GET_ESTADO, []).subscribe(
       data => this.cajaAbierta = data[0],
       error => {
