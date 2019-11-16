@@ -6,7 +6,7 @@ import { AperturaCaja } from '../../shared/models/apertura-caja.model';
 import { AuthService } from '../../core/services/auth.service';
 import { DialogSinConexionComponent } from '../dialog-sin-conexion/dialog-sin-conexion.component';
 import { DialogOperacionOkComponent } from '../dialog-operacion-ok/dialog-operacion-ok.component';
-import { URL_ADMIN } from '../../shared/configs/urls.config';
+import { URL_MOVIMIENTOS } from '../../shared/configs/urls.config';
 
 
 @Component({
@@ -16,7 +16,7 @@ import { URL_ADMIN } from '../../shared/configs/urls.config';
 })
 export class DialogCerrarCajaComponent {
   result: CierreCaja[] = [];
-  aperturaArr: AperturaCaja[] = [];
+  aperturas: AperturaCaja[] = [];
   apertura: AperturaCaja = new AperturaCaja();
   cierreCaja: CierreCaja = new CierreCaja();
   usuario = '';
@@ -27,12 +27,11 @@ export class DialogCerrarCajaComponent {
       this.usuario = data;
     });
 
-    this.comerciosService.getAsync(URL_ADMIN.ULTIMA_APERTURA, this.aperturaArr).subscribe(
+    this.comerciosService.getAsync(URL_MOVIMIENTOS.GET_ULTIMA_APERTURA, []).subscribe(
       data1 => {
-          
         // this.apertura = data1[0];
         this.apertura.monto = data1[0];
-        this.comerciosService.getAsync(URL_ADMIN.CERRAR_CAJA, this.result).subscribe(
+        this.comerciosService.getAsync(URL_MOVIMIENTOS.CERRAR_CAJA, this.result).subscribe(
           data2 => {
             this.cierreCaja = data2[0];
             this.cierreCaja.totalCierreCaja = this.apertura.monto + this.cierreCaja.totalPrecioPedido;

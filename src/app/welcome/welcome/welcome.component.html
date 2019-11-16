@@ -4,7 +4,7 @@
     <mat-icon class="module-icon">event</mat-icon>
     <h1 class="module-title">Agenda</h1>
   </mat-card>
-  
+
   <mat-grid-list cols="4" rowHeight="9:8">
     <mat-grid-tile>
       <mat-card *ngIf="verEstado(); else notShow" routerLink="/home" fxLayout="column">
@@ -12,7 +12,7 @@
         <h1 class="module-title">Caja</h1>
       </mat-card>
       <ng-template #notShow>
-        <mat-card (click)="cajaCerrada()" fxLayout="column">
+        <mat-card fxLayout="column">
           <mat-icon class="module-icon">cancel</mat-icon>
           <h1 class="module-title">Caja Cerrada</h1>
         </mat-card>
@@ -38,7 +38,7 @@
     </mat-grid-tile>
   </mat-grid-list>
 
-  <mat-grid-list cols="4" rowHeight="5:4" style="margin-top: -5%">
+  <mat-grid-list cols="4" rowHeight="5:4">
     <mat-grid-tile>
       <mat-card routerLink="/administracion" fxLayout="column">
         <mat-icon class="module-icon">store</mat-icon>
@@ -61,7 +61,7 @@
     </mat-grid-tile>
 
     <mat-grid-tile >
-      <mat-card routerLink="/admin/users" fxLayout="column">
+      <mat-card routerLink="/users" fxLayout="column">
         <mat-icon class="module-icon">supervisor_account</mat-icon>
         <h1 class="module-title">Usuarios</h1>
       </mat-card>

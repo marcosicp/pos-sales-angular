@@ -40,7 +40,7 @@ export class ProveedoresComponent implements OnInit {
     private comerciosService: DataService,
     public dialog: MatDialog,
     private loadingService: LoadingService
-    ) { }
+  ) { }
 
   ngOnInit() {
     this.isLoading = true;

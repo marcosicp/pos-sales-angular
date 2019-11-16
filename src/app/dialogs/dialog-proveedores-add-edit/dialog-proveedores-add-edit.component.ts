@@ -1,17 +1,12 @@
 import { Component, OnInit, Inject } from '@angular/core';
 import { FormControl, Validators, FormGroup } from '@angular/forms';
-import { MatDialogRef, MatDialog, MAT_DIALOG_DATA } from '@angular/material';
-// SERVICIOS
-import { AuthService } from '../../core/services/auth.service';
-import { DataService } from '../../core/services/data.service';
+import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
 // MODELOS
 import { Proveedores } from '../../shared/models/proveedores.model';
 // MOCKS
 import Facturas from '../../shared/mocks/facturas.mock';
 // DIALOGOS
 import { DialogCerrarCajaComponent } from '../dialog-cerrar-caja/dialog-cerrar-caja.component';
-import { DialogOperacionOkComponent } from '../dialog-operacion-ok/dialog-operacion-ok.component';
-import { DialogSinConexionComponent } from '../dialog-sin-conexion/dialog-sin-conexion.component';
 // REGEXP HELPER
 import RegExpHelper from '../../shared/helpers/regex.helper';
 
@@ -23,7 +18,6 @@ import RegExpHelper from '../../shared/helpers/regex.helper';
 export class DialogProveedoresAddEditComponent implements OnInit {
   dialogTitle: string;
   proveedor: Proveedores;
-  // result: Proveedores[] = [];
   proveedoresForm: FormGroup;
   facturas = Facturas;
   errorString = (prop: string) => {
@@ -43,11 +37,8 @@ export class DialogProveedoresAddEditComponent implements OnInit {
   }
 
   constructor(
-    private auth: AuthService,
-    private dialog: MatDialog,
     @Inject(MAT_DIALOG_DATA) public data: Proveedores,
-    public dialogRef: MatDialogRef<DialogCerrarCajaComponent>,
-    private comerciosService: DataService
+    public dialogRef: MatDialogRef<DialogCerrarCajaComponent>
   ) {
     this.proveedor = data || new Proveedores();
     this.dialogTitle = `${data ? 'Modificar' : 'Registrar'} proveedor`;

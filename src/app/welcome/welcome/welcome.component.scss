@@ -30,6 +30,8 @@ mat-grid-list {
   }
 
   &:not(:first-of-type) {
+    margin-top: -5%;
+
     :nth-child(n) {
       mat-card {
         margin-top: -30%;

@@ -20,6 +20,7 @@ import { ClientesComponent } from '../home/clientes/clientes.component';
 import { ProveedoresComponent } from '../home/proveedores/proveedores.component';
 import { VentasComponent } from '../ventas/ventas.component';
 import { PactarEntregaComponent } from '../pactar-entrega/pactar-entrega.component';
+import { ListaMovimientosComponent } from '../home/lista-movimientos/lista-movimientos.component';
 
 const appRoutes: Routes = [
   {
@@ -63,19 +64,17 @@ const appRoutes: Routes = [
     component: AdministracionComponent ,
     canActivate: [AuthGuard]
   }, {
+    path: 'movimientos',
+    component: ListaMovimientosComponent,
+    canActivate: [AuthGuard],
+  }, {
     path: 'pedidos',
     component: HistorialComponent ,
     canActivate: [AuthGuard]
   }, {
-    path: 'admin',
-    component: AdminComponent,
+    path: 'users',
+    component: UsersComponent,
     canActivate: [AuthGuard],
-    children: [
-      {
-        path: 'users',
-        component: UsersComponent
-      }
-    ]
   }, {
     path: 'stock',
     component: StockComponent,
