@@ -1,54 +1,41 @@
-.tituloCard {
-  text-align: center;
-}
-
-.agenda-card {
+mat-card {
   margin-left: 15%;
-}
-
-.module-card {
   width: 70%;
   height: 50%;
   display: flex;
   background-color: #C3C8EA;
   align-items: center;
   cursor: pointer;
+
+  .module-icon {
+    padding-top: 10px;
+    padding-bottom: 20px;
+    padding-right: 30px;
+    padding-left: 0px;
+    color: white;
+    font-size: 60px;
+  }
+
+  h1.module-title {
+    margin-top: 25px;
+    font-size: 1.6em;
+  }
 }
 
-.module-card1 {
-  width: 70%;
-  height: 50%;
-  display: flex;
-  background-color: #C3C8EA;
-  align-items: center;
-  margin-top: -30%;
-  cursor: pointer;
-}
+mat-grid-list {
+  :nth-child(n) {
+    mat-card {
+      margin-top: -20%;
+    }
+  }
 
-.module-card2 {
-  width: 70%;
-  height: 60%;
-  display: flex;
-  background-color: #C3C8EA;
-  align-items: center;
-  // margin-top: -50%;
-  cursor: pointer;
-}
+  &:not(:first-of-type) {
+    margin-top: -5%;
 
-.module-card:hover {
-  opacity: 0.8;
-}
-
-.module-icon {
-  padding-top: 10px;
-  padding-bottom: 20px;
-  padding-right: 30px;
-  padding-left: 0px;
-  color: white;
-  font-size: 60px;
-}
-
-.module-title {
-  margin-top: 25px;
-  font-size: 1.6em;
+    :nth-child(n) {
+      mat-card {
+        margin-top: -30%;
+      }
+    }
+  }
 }

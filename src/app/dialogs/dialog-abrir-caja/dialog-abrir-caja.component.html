@@ -1,17 +1,34 @@
-<div mat-dialog-content fxLayout="column">
+<div mat-dialog-title fxLayout="column" style="text-align: center">Abrir caja</div>
+<div [formGroup]="abrirCajaForm" mat-dialog-content fxLayout="column">
   <mat-form-field class="full-width">
     <label>Monto apertura</label>
-    <input matInput type="text" [(ngModel)]="aperturaCaja.monto">
+    <input matInput type="text" formControlName="monto">
+    <mat-error>{{errorString('monto')}}</mat-error>
   </mat-form-field>
   <mat-form-field class="full-width">
-      <label>Descripcion</label>
-    <input matInput type="text" [(ngModel)]="aperturaCaja.descripcion">
+    <label>Descripcion</label>
+    <input matInput type="text" formControlName="descripcion">
+    <mat-error>{{errorString('descripcion')}}</mat-error>
   </mat-form-field>
-  
 </div>
+
 <div mat-dialog-actions>
-  <button mat-button (click)="guardar()">
+  <button
+    mat-raised-button
+    color="primary"
+    [disabled]="!abrirCajaForm.valid"
+    (click)="guardar()"
+  >
+    <mat-icon>check</mat-icon>
     Guardar
   </button>
-  <!-- <button mat-button (click)="onNoClick()">Cancelar</button> -->
+
+  <button
+    mat-raised-button
+    color="warn"
+    (click)="cancelar()"
+  >
+    <mat-icon>close</mat-icon>
+    Cancelar
+  </button>
 </div>

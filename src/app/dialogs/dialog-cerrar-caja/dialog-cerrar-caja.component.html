@@ -1,22 +1,39 @@
+<div mat-dialog-title fxLayout="column" style="text-align: center">Cerrar caja</div>
 <div mat-dialog-content fxLayout="column">
   <mat-form-field class="full-width">
     <label>Caja abierta con</label>
-    <input matInput type="text" readonly [(ngModel)]="apertura.monto">
+    <input matInput type="text" readonly [(ngModel)]="aperturaCaja.monto">
   </mat-form-field>
-  <mat-form-field class="full-width">
+  <!-- <mat-form-field class="full-width">
     <label>Debe tener en caja aproximadamente</label>
     <input matInput type="text" readonly [(ngModel)]="cierreCaja.totalCierreCaja">
   </mat-form-field>
   <mat-form-field class="full-width">
     <label>Total ventas en turno</label>
     <input matInput type="text" readonly [(ngModel)]="cierreCaja.totalPrecioPedido">
-  </mat-form-field>
+  </mat-form-field> -->
   <mat-form-field class="full-width">
     <label>Descripción</label>
     <input matInput type="text" [(ngModel)]="cierreCaja.descripcion">
   </mat-form-field>
 </div>
+
 <div mat-dialog-actions>
-  <button mat-button (click)="cerrarCaja()" >Guardar</button>
-  <button mat-button (click)="onNoClick()">Cancelar</button>
+  <button
+    mat-raised-button
+    color="primary"
+    (click)="cerrarCaja()"
+  >
+    <mat-icon>check</mat-icon>
+    Guardar
+  </button>
+
+  <button
+    mat-raised-button
+    color="warn"
+    (click)="onNoClick()"
+  >
+    <mat-icon>close</mat-icon>
+    Cancelar
+  </button>
 </div>

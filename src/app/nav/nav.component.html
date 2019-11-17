@@ -34,7 +34,7 @@
     <mat-icon>category</mat-icon>
     <span>Stock</span>
   </button>
-  <button mat-menu-item routerLink="/administracion">
+  <button mat-menu-item [matMenuTriggerFor]="administracion">
     <mat-icon>store</mat-icon>
     <span>Administración</span>
   </button>
@@ -46,12 +46,27 @@
     <mat-icon>person</mat-icon>
     <span>Clientes</span>
   </button>
-  <button mat-menu-item routerLink="/admin/users">
+  <button mat-menu-item routerLink="/users">
     <mat-icon>supervisor_account</mat-icon>
     <span>Usuarios</span>
   </button>
   <button mat-menu-item routerLink="/" (click)="logout()">
     <mat-icon>exit_to_app</mat-icon>
     <span>Cerrar sesion</span>
+  </button>
+</mat-menu>
+
+<mat-menu #administracion="matMenu">
+  <button mat-menu-item routerLink="/administracion">
+    <mat-icon>add_circle</mat-icon>
+    <span>Depósitos/Retiros</span>
+  </button>
+  <button mat-menu-item routerLink="/movimientos">
+    <mat-icon>trending_up</mat-icon>
+    <span>Movimientos</span>
+  </button>
+  <button mat-menu-item routerLink="/reportes">
+    <mat-icon>insert_chart</mat-icon>
+    <span>Reportes</span>
   </button>
 </mat-menu>

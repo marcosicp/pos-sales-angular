@@ -19,8 +19,10 @@ import { ReportsComponent } from './reports/reports.component';
 import { LineChartComponent } from './reports/line-chart/line-chart.component';
 import { AdministracionComponent } from './administracion/administracion.component';
 import { StockComponent } from './stock/stock.component';
+import { ListaMovimientosComponent } from './lista-movimientos/lista-movimientos.component';
+import { ReportesComponent } from './reportes/reportes.component';
 // OTROS MODULOS
-import { SharedModule } from '../shared/shared.module'
+import { SharedModule } from '../shared/shared.module';
 
 @NgModule({
   imports: [
@@ -44,7 +46,9 @@ import { SharedModule } from '../shared/shared.module'
     AdministracionComponent,
     ClientesComponent,
     ProveedoresComponent,
-    StockComponent
+    StockComponent,
+    ListaMovimientosComponent,
+    ReportesComponent
     // ChartsModule
   ],
   entryComponents: [

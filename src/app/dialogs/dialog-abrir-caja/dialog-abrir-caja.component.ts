@@ -1,56 +1,62 @@
 import { Component, OnInit } from '@angular/core';
-import { AperturaCaja } from '../../shared/models/apertura-caja.model';
-import { MatDialogRef, MatDialog  } from '@angular/material';
-import { DataService } from '../../../app/core/services/data.service';
+import { FormGroupDirective, FormGroup, FormControl, Validators } from '@angular/forms';
+import { MatDialogRef } from '@angular/material';
+// MODELOS
+import { Usuarios } from '../../shared/models/usuarios.model';
+import { MovimientosCaja } from '../../shared/models/movimientos-caja.model';
+// SERVICIOS
 import { AuthService } from '../../core/services/auth.service';
-import { DialogSinConexionComponent } from '../dialog-sin-conexion/dialog-sin-conexion.component';
-import { DialogOperacionOkComponent } from '../dialog-operacion-ok/dialog-operacion-ok.component';
+// HELPERS
+import RegExpHelper from '../../shared/helpers/regex.helper';
+import getFechaArg from '../../shared/helpers/date.helper';
+
 
 @Component({
   selector: 'app-dialog-abrir-caja',
   templateUrl: './dialog-abrir-caja.component.html',
-  styleUrls: ['./dialog-abrir-caja.component.scss']
+  styleUrls: ['./dialog-abrir-caja.component.scss'],
+  providers: [FormGroupDirective]
 })
 export class DialogAbrirCajaComponent implements OnInit {
-  aperturaCaja: AperturaCaja = new AperturaCaja();
-  result: AperturaCaja[] = [];
-  usuario = '';
-
-  constructor(
-    private auth: AuthService,
-    public dialogRef: MatDialogRef<DialogAbrirCajaComponent>,
-    private dialog: MatDialog,
-    private comerciosService: DataService) {
-    this.auth.getUser.subscribe((data: any) => {
-      this.usuario = data;
-    });
-   }
-
-  ngOnInit() {
-
+  aperturaCaja: MovimientosCaja = new MovimientosCaja();
+  usuario: Usuarios;
+  abrirCajaForm: FormGroup;
+  errorString = (prop: string) => {
+    const errorMsj = prop === 'monto' ?
+      ' sólo con números' : ', es obligatorio';
+    return `Por favor complete el campo ${prop.toLocaleUpperCase()}${errorMsj}`;
   }
 
-  guardar() {
-    this.aperturaCaja.usuario = this.usuario;
-    this.aperturaCaja.fechaMovimiento = new Date();
-    this.aperturaCaja.fechaMovimiento.setHours(this.aperturaCaja.fechaMovimiento.getHours() - 3);
-    this.aperturaCaja.tipo = 'APERTURA';
-    this.comerciosService.createAsync('movimientos/AbrirCaja', this.aperturaCaja, this.result).subscribe(
-      data => {
-        const dialogRef = this.dialog.open(DialogOperacionOkComponent, { width: '600px' ,  disableClose: true });
-        dialogRef.afterClosed().subscribe(result => {
+  constructor(
+    private authService: AuthService,
+    public dialogRef: MatDialogRef<DialogAbrirCajaComponent>
+  ) {
+    this.authService.getUser.subscribe((data: any) => {
+      this.usuario = JSON.parse(data);
+    });
+  }
 
-        });
-
-        this.dialogRef.close();
-      },
-      error => {
-        const dialogRef = this.dialog.open(DialogSinConexionComponent, { width: '600px' ,  disableClose: true });
-          dialogRef.afterClosed().subscribe(result => {
-        });
-        console.log(error);
+  ngOnInit() {
+    this.abrirCajaForm = new FormGroup(
+      {
+        monto: new FormControl(this.aperturaCaja.monto, [Validators.required, Validators.pattern(RegExpHelper.numbers)]),
+        descripcion: new FormControl(this.aperturaCaja.descripcion, [Validators.required])
       }
     );
   }
 
+  guardar() {
+    const otrosDatos = {
+      usuario: this.usuario,
+      tipo: 'APERTURA'
+    };
+
+    this.aperturaCaja = {...this.abrirCajaForm.value, ...otrosDatos};
+
+    this.dialogRef.close(this.aperturaCaja);
+  }
+
+  cancelar() {
+    this.dialogRef.close(false);
+  }
 }
