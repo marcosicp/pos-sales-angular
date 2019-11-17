@@ -49,11 +49,8 @@ const URL_PROVEEDORES = {
 const URL_MOVIMIENTOS = {
   GET_ESTADO: 'movimientos/EstadoCaja',
   GET_ALL: 'movimientos/GetAllMovimientos',
-  ABRIR_CAJA: 'movimientos/AbrirCaja',
-  CERRAR_CAJA: 'movimientos/CerrarCaja',
-  GET_ULTIMA_APERTURA: 'movimientos/AperturaInicialCaja',
-  ADD_DEPOSITO: 'movimientos/',
-  ADD_RETIRO: 'movimientos/'
+  ADD_MOVIMIENTO: 'movimientos/AddMovimiento',
+  GET_ULTIMA_APERTURA: 'movimientos/AperturaInicialCaja'
 };
 
 export {

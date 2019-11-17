@@ -26,65 +26,47 @@ export class AdministracionComponent {
     private dialog: MatDialog,
     private loadingService: LoadingService
   ) {
-    this.dataService.getAsync(URL_MOVIMIENTOS.GET_ESTADO, []).subscribe(
-      data => this.cajaAbierta = data[0],
-      error => {
-        this.cajaAbierta = null,
-        this.dialog.open(
-          DialogSinConexionComponent,
-          { width: '600px', disableClose: true }
-        );
-      }
-    );
+    this.dataService.getAsync(URL_MOVIMIENTOS.GET_ESTADO, [])
+      .subscribe(
+        data => this.cajaAbierta = data[0],
+        error => {
+          this.cajaAbierta = null,
+          this.dialog.open(
+            DialogSinConexionComponent,
+            { width: '600px', disableClose: true }
+          );
+        }
+      );
   }
 
   abrirCaja() {
-    const dialogRef = this.dialog.open(
-      DialogAbrirCajaComponent,
-      { width: '600px', disableClose: true }
-    );
-
-    dialogRef.afterClosed().subscribe(
-      newApertura => {
-        if (newApertura) {
-          this.loadingService.toggleLoading();
-          this.dataService.createAsync(
-            URL_MOVIMIENTOS.ABRIR_CAJA,
-            newApertura,
-            []
-          ).subscribe(
-            result => {
-              this.loadingService.toggleLoading();
-
-              this.dialog.open(
-                DialogOperacionOkComponent,
-                { width: '600px', disableClose: true }
-              );
-            },
-            error => {
-              this.loadingService.toggleLoading();
-
-              this.dialog.open(
-                DialogSinConexionComponent,
-                { width: '600px', disableClose: true }
-              );
-            }
-          );
-        }
-      }
-    );
+    this.logicaDeMovimientos(DialogAbrirCajaComponent);
   }
 
   cerrarCaja() {
+    this.logicaDeMovimientos(DialogCerrarCajaComponent);
+  }
+
+  registrarDeposito() {
+    this.logicaDeMovimientos(DialogIngresoCajaComponent);
+  }
+
+  registrarRetiro() {
+    this.logicaDeMovimientos(DialogEgresoCajaComponent);
+  }
+
+  private logicaDeMovimientos(DialogComponent: any) {
     const dialogRef = this.dialog.open(
-      DialogCerrarCajaComponent,
+      DialogComponent,
       { width: '600px', disableClose: true }
     );
 
     dialogRef.afterClosed().subscribe(
-      newCierreDeCaja => {
-        if (newCierreDeCaja) {
-          this.dataService.createAsync(URL_MOVIMIENTOS.CERRAR_CAJA, newCierreDeCaja, [])
+      dialogResult => {
+        if (dialogResult) {
+          this.loadingService.toggleLoading();
+
+          this.dataService.createAsync(URL_MOVIMIENTOS.ADD_MOVIMIENTO, dialogResult, [])
             .subscribe(
               result => {
                 this.loadingService.toggleLoading();
@@ -104,32 +86,6 @@ export class AdministracionComponent {
               }
             );
         }
-      }
-    );
-  }
-
-  registrarRetiro() {
-    const dialogRef = this.dialog.open(
-      DialogEgresoCajaComponent,
-      { width: '600px', disableClose: true }
-    );
-
-    dialogRef.afterClosed().subscribe(
-      result => {
-
-      }
-    );
-  }
-
-  registrarDeposito() {
-    const dialogRef = this.dialog.open(
-      DialogIngresoCajaComponent,
-      { width: '600px', disableClose: true }
-    );
-
-    dialogRef.afterClosed().subscribe(
-      result => {
-
       }
     );
   }

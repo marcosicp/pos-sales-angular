@@ -52,20 +52,20 @@ export class DialogCerrarCajaComponent implements OnInit {
         // this.aperturaCaja = data1[0];
         this.aperturaCaja.monto = data1[0];
         // NO ENTIENDO ESTA PARTE
-        this.comerciosService.getAsync(URL_MOVIMIENTOS.CERRAR_CAJA, []).subscribe(
-          data2 => {
-            console.warn('errer');
-            this.cierreCaja = data2[0];
-            // this.totalCierreCaja = this.aperturaCaja.monto + this.cierreCaja.totalPrecioPedido;
-            this.totalCierreCaja = this.aperturaCaja.monto + 0;
-          },
-          error => {
-            const dialogRef2 = this.dialog.open(DialogSinConexionComponent, { width: '600px' ,  disableClose: true });
-            dialogRef2.afterClosed().subscribe(result => {
-            });
-            console.log(error);
-          }
-        );
+        // this.comerciosService.getAsync(URL_MOVIMIENTOS.CERRAR_CAJA, []).subscribe(
+        //   data2 => {
+        //     console.warn('errer');
+        //     this.cierreCaja = data2[0];
+        //     // this.totalCierreCaja = this.aperturaCaja.monto + this.cierreCaja.totalPrecioPedido;
+        //     this.totalCierreCaja = this.aperturaCaja.monto + 0;
+        //   },
+        //   error => {
+        //     const dialogRef2 = this.dialog.open(DialogSinConexionComponent, { width: '600px' ,  disableClose: true });
+        //     dialogRef2.afterClosed().subscribe(result => {
+        //     });
+        //     console.log(error);
+        //   }
+        // );
       },
       error => {
         console.warn('errer');
@@ -96,9 +96,7 @@ export class DialogCerrarCajaComponent implements OnInit {
       tipo: 'CIERRE'
     };
 
-    Object.keys(this.cerrarCajaForm).forEach(
-      prop => this.cierreCaja[prop] = this.cerrarCajaForm.value[prop] || otrosDatos[prop] || null
-    );
+    this.cierreCaja = {...this.cerrarCajaForm.value, ...otrosDatos};
 
     this.dialogRef.close(this.cierreCaja);
   }

@@ -1,12 +1,14 @@
 <div mat-dialog-title fxLayout="column" style="text-align: center">Registrar retiro</div>
-<div mat-dialog-content fxLayout="column">
+<div [formGroup]="retiroForm" mat-dialog-content fxLayout="column">
   <mat-form-field class="full-width">
     <label>Monto retiro</label>
-    <input matInput type="text" [(ngModel)]="retiroCaja.monto">
+    <input matInput type="text" formControlName="monto">
+    <mat-error>{{errorString('monto')}}</mat-error>
   </mat-form-field>
   <mat-form-field class="full-width">
       <label>Descripcion</label>
-    <input matInput type="text" [(ngModel)]="retiroCaja.descripcion">
+    <input matInput type="text" formControlName="descripcion">
+    <mat-error>{{errorString('descripcion')}}</mat-error>
   </mat-form-field>
 </div>
 
@@ -14,6 +16,7 @@
   <button
     mat-raised-button
     color="primary"
+    [disabled]="!retiroForm.valid"
     (click)="guardar()"
   >
     <mat-icon>check</mat-icon>

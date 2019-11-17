@@ -6,7 +6,7 @@ import { Usuarios } from '../../shared/models/usuarios.model';
 import { MovimientosCaja } from '../../shared/models/movimientos-caja.model';
 // SERVICIOS
 import { AuthService } from '../../core/services/auth.service';
-// REGEXP HELPER
+// HELPERS
 import RegExpHelper from '../../shared/helpers/regex.helper';
 import getFechaArg from '../../shared/helpers/date.helper';
 
@@ -52,9 +52,7 @@ export class DialogAbrirCajaComponent implements OnInit {
       tipo: 'APERTURA'
     };
 
-    Object.keys(this.aperturaCaja).forEach(
-      prop => this.aperturaCaja[prop] = this.abrirCajaForm.value[prop] || otrosDatos[prop] || null
-    );
+    this.aperturaCaja = {...this.abrirCajaForm.value, ...otrosDatos};
 
     this.dialogRef.close(this.aperturaCaja);
   }
