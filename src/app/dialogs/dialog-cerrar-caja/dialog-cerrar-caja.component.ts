@@ -92,7 +92,6 @@ export class DialogCerrarCajaComponent implements OnInit {
   cerrarCaja() {
     const otrosDatos = {
       usuario: this.usuario,
-      fechaMovimiento: getFechaArg(),
       tipo: 'CIERRE'
     };
 

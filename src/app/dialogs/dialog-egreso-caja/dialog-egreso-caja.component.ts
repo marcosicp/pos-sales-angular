@@ -46,7 +46,6 @@ export class DialogEgresoCajaComponent implements OnInit {
   guardar() {
     const otrosDatos = {
       usuario: this.usuario,
-      fechaMovimiento: getFechaArg(),
       tipo: 'RETIRO'
     };
 

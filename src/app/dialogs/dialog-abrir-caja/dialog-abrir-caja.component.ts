@@ -48,7 +48,6 @@ export class DialogAbrirCajaComponent implements OnInit {
   guardar() {
     const otrosDatos = {
       usuario: this.usuario,
-      fechaMovimiento: getFechaArg(),
       tipo: 'APERTURA'
     };
 
