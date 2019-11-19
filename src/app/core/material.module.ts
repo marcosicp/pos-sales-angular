@@ -32,7 +32,8 @@ import {
   MatToolbarModule,
   MatTooltipModule,
   MatTreeModule,
-  MatStepperModule
+  MatStepperModule,
+  MatPaginatorIntl
 } from '@angular/material';
 import { CdkTableModule } from '@angular/cdk/table';
 import { A11yModule } from '@angular/cdk/a11y';
@@ -41,6 +42,7 @@ import { OverlayModule } from '@angular/cdk/overlay';
 import { PlatformModule } from '@angular/cdk/platform';
 import { ObserversModule } from '@angular/cdk/observers';
 import { PortalModule } from '@angular/cdk/portal';
+import { paginatorEsp } from './configs/table-paginator';
 
 @NgModule({
   exports: [
@@ -86,6 +88,9 @@ import { PortalModule } from '@angular/cdk/portal';
     PlatformModule,
     PortalModule,
   ],
-  declarations: []
+  declarations: [],
+  providers: [
+    { provide: MatPaginatorIntl, useValue: paginatorEsp() }
+  ]
 })
 export class MaterialModule { }
