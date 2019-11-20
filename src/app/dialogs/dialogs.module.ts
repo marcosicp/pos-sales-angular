@@ -25,6 +25,7 @@ import { DialogUsuarioAddEditComponent } from './dialog-usuario-add-edit/dialog-
 import { DialogCambiarPassComponent } from './dialog-cambiar-pass/dialog-cambiar-pass.component';
 import { DialogStockAddEditComponent } from './dialog-stock-add-edit/dialog-stock-add-edit.component';
 import { DialogStockAumentarComponent } from './dialog-stock-aumentar/dialog-stock-aumentar.component';
+import { DialogAdvertenciaComponent } from './dialog-advertencia/dialog-advertencia.component';
 
 @NgModule({
   imports: [
@@ -55,7 +56,8 @@ import { DialogStockAumentarComponent } from './dialog-stock-aumentar/dialog-sto
     DialogUsuarioAddEditComponent,
     DialogCambiarPassComponent,
     DialogStockAddEditComponent,
-    DialogStockAumentarComponent
+    DialogStockAumentarComponent,
+    DialogAdvertenciaComponent
   ],
   entryComponents: [
     DialogAbrirCajaComponent,
@@ -75,7 +77,8 @@ import { DialogStockAumentarComponent } from './dialog-stock-aumentar/dialog-sto
     DialogUsuarioAddEditComponent,
     DialogCambiarPassComponent,
     DialogStockAddEditComponent,
-    DialogStockAumentarComponent
+    DialogStockAumentarComponent,
+    DialogAdvertenciaComponent
   ]
 })
 export class DialogsModule { }

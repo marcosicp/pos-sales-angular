@@ -13,7 +13,7 @@ import { AuthService } from '../../core/services/auth.service';
 import { Pedido } from '../../shared/models/pedido.model';
 import { MatDialog } from '@angular/material';
 import { ProductoPedido } from '../../shared/models/producto-venta.model';
-import { DialogConfirmarComponent } from '../../dialogs/dialog-confirmar/dialog-confirmar.component';
+import { DialogAdvertenciaComponent } from '../../dialogs/dialog-advertencia/dialog-advertencia.component';
 import { Clientes } from '../../shared/models/clientes.model';
 import { URL_CLIENTES } from '../../shared/configs/urls.config';
 import { Venta } from '../../shared/models/venta.model';
@@ -204,7 +204,7 @@ export class TicketComponent implements OnInit {
 
   validarCliente(){
     if (this.clienteId == null || this.clienteId == ''){
-      const dialogRef = this.dialog.open(DialogConfirmarComponent, {
+      const dialogRef = this.dialog.open(DialogAdvertenciaComponent, {
         width: '600px' ,  disableClose: true,
         data: {title: 'Revisar Cliente', confirmText: 'Por favor seleccione un cliente para continuar.'} });
       dialogRef.afterClosed().subscribe(result => {
@@ -218,7 +218,7 @@ export class TicketComponent implements OnInit {
   checkout() {
     if (this.validarCliente()){
       if (this.ticket.length === 0) {
-        const dialogRef = this.dialog.open(DialogConfirmarComponent, {
+        const dialogRef = this.dialog.open(DialogAdvertenciaComponent, {
           width: '600px' ,  disableClose: true,
           data: {title: 'Sin productos', confirmText: 'Debe incluir al menos un producto en el pedido.'} });
         dialogRef.afterClosed().subscribe(result => {

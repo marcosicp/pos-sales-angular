@@ -55,10 +55,6 @@ export class StockComponent implements OnInit {
           buttonLabel: 'Modificar',
           buttonEvent: (prod) => this.editarProducto(prod)
         }, {
-          buttonIcon: 'add',
-          buttonLabel: 'Agregar stock',
-          buttonEvent: (prod) => this.cambiarStock(prod)
-        }, {
           buttonIcon: 'delete',
           buttonLabel: 'Eliminar',
           buttonEvent: (prod) => this.eliminarProducto(prod)
@@ -76,10 +72,6 @@ export class StockComponent implements OnInit {
     //   buttonIcon: 'edit',
     //   buttonLabel: 'Modificar',
     //   buttonEvent: (prod) => this.editarProducto(prod)
-    // }, {
-    //   buttonIcon: 'add',
-    //   buttonLabel: 'Agregar stock',
-    //   buttonEvent: (prod) => this.cambiarStock(prod)
     // }, {
     //   buttonIcon: 'delete',
     //   buttonLabel: 'Eliminar',
@@ -186,15 +178,6 @@ export class StockComponent implements OnInit {
       );
   }
 
-  cambiarStock(prod: Productos) {
-    this.dialog.open(
-      DialogStockAumentarComponent, {
-        width: '900px',
-        data: prod
-      }
-    );
-  }
-
   eliminarProducto(prod: Productos) {
     const dialogRef = this.dialog.open(
       DialogConfirmarComponent,
@@ -202,7 +185,7 @@ export class StockComponent implements OnInit {
         width: '900px',
         data: {
           title: 'Eliminar producto',
-          confirmText: `¿Esta seguro que desea eliminar ${prod.nombre} del listado de productos?`
+          confirmText: `¿Esta seguro que desea eliminar ${prod.nombre} de la lista de productos?`
         }
     });
 
