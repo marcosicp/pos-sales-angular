@@ -1,10 +1,7 @@
-div.chart {
-  div {
-    // font: 10px sans-serif;
-    background-color: steelblue;
-    text-align: right;
-    padding: 3px;
-    margin: 1px;
-    color: white;
-  }
+rect.bar {
+  fill: steelblue;
+}
+
+rect.bar:hover {
+  fill: brown;
 }

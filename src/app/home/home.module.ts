@@ -48,7 +48,7 @@ import { SharedModule } from '../shared/shared.module';
     ProveedoresComponent,
     StockComponent,
     ListaMovimientosComponent,
-    ReportesComponent
+    ReportesComponent,
     // ChartsModule
   ],
   entryComponents: [
