@@ -94,14 +94,14 @@ export class ReporteGraficoComponent implements AfterViewInit {
         } else {
           this.data.sort((a, b) => new Date(b.valorX) > new Date(a.valorX) ? 1 : -1)
         }
-        this.createGraphic();
+        this.createGraphic(reportData);
 
         this.loadingService.toggleLoading();
       }
     );
   }
 
-  createGraphic() {
+  createGraphic(reportData: any) {
     d3.select('svg').remove();
 
     const element = this.chartContainer1.nativeElement;
@@ -154,8 +154,7 @@ export class ReporteGraficoComponent implements AfterViewInit {
       .attr('transform', 'rotate(-90)')
       .attr('y', 6)
       .attr('dy', '0.71em')
-      .attr('text-anchor', 'end')
-      .text('Frequency');
+      .attr('text-anchor', 'end');
 
     g.selectAll('.bar')
       .data(data)
@@ -166,7 +165,7 @@ export class ReporteGraficoComponent implements AfterViewInit {
       .on('mouseover', function (d) {
         d3.select(this).attr('fill', '#d66666');
         tooltip
-          .html(`${d._valorX ? 'Mes ' + d._valorX : 'Producto: ' + d.valorX} <br> Total: ${d._valorY || d.valorY}`)
+          .html(`${reportData.itemX + ': ' + (d._valorX || d.valorX)} <br> ${reportData.itemY + ': ' + (d._valorY || d.valorY)}`)
           .style('visibility', 'visible')
           .style('left', `${d3.select(this).node().getBoundingClientRect().left}px`)
           .style('top', `${d3.select(this).node().getBoundingClientRect().top - 5}px`)

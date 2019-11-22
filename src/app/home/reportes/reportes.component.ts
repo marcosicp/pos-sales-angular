@@ -12,16 +12,20 @@ export class ReportesComponent {
     ventas: {
       type: 'ventas',
       url: URL_VENTAS.GET_ALL,
-      data: []
+      itemX: 'Mes',
+      itemY: 'Total'
     },
     pedidos: {
       type: 'pedidos',
       url: URL_PEDIDOS.GET_ALL,
-      data: []
+      itemX: 'Mes',
+      itemY: 'Pedidos'
     },
     stock: {
       type: 'stock',
-      url: URL_STOCK.GET_ALL
+      url: URL_STOCK.GET_ALL,
+      itemX: 'Producto',
+      itemY: 'Unidades'
     }
   };
   masterTab = 'ventas';
