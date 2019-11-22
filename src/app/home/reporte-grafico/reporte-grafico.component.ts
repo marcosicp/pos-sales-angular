@@ -14,9 +14,8 @@ import { LoadingService } from '../../shared/services/loading.service';
 })
 export class ReporteGraficoComponent implements AfterViewInit {
   @ViewChild('barChart')
-  private chartContainer1: ElementRef;
+  private chartContainer: ElementRef;
   @Input() report = null;
-  margin = { top: 20, right: 20, bottom: 30, left: 50 };
   data = [];
 
   constructor(
@@ -90,10 +89,11 @@ export class ReporteGraficoComponent implements AfterViewInit {
 
         if (reportData.type === 'stock') {
           this.data.sort((a, b) => b.valorY < a.valorY ? 1 : -1);
-          this.data = this.data.slice(0, 10);
         } else {
           this.data.sort((a, b) => new Date(b.valorX) > new Date(a.valorX) ? 1 : -1)
         }
+        this.data = this.data.slice(0, 12);
+
         this.createGraphic(reportData);
 
         this.loadingService.toggleLoading();
@@ -104,15 +104,16 @@ export class ReporteGraficoComponent implements AfterViewInit {
   createGraphic(reportData: any) {
     d3.select('svg').remove();
 
-    const element = this.chartContainer1.nativeElement;
+    const element = this.chartContainer.nativeElement;
+    const margin = { top: 20, right: 20, bottom: 30, left: 70 };
     const data = this.data;
 
     const svg = d3.select(element).append('svg')
       .attr('width', element.offsetWidth)
       .attr('height', 800);
 
-    const contentWidth = element.offsetWidth - this.margin.left - this.margin.right;
-    const contentHeight = element.offsetHeight - this.margin.top - this.margin.bottom;
+    const contentWidth = element.offsetWidth - margin.left - margin.right;
+    const contentHeight = element.offsetHeight - margin.top - margin.bottom;
 
     const x = d3
       .scaleBand()
@@ -126,7 +127,7 @@ export class ReporteGraficoComponent implements AfterViewInit {
       .domain([0, d3.max(data, d => d.valorY)]);
 
     const g = svg.append('g')
-      .attr('transform', `translate(${this.margin.left}, ${this.margin.top})`);
+      .attr('transform', `translate(${margin.left}, ${margin.top})`);
 
     const tooltip = d3.select('body')
       .append('div')
@@ -145,11 +146,17 @@ export class ReporteGraficoComponent implements AfterViewInit {
     g.append('g')
       .attr('class', 'axis axis--x')
       .attr('transform', `translate(0, ${contentHeight})`)
-      .call(d3.axisBottom(x));
+      .call(d3.axisBottom(x))
+      .style('font-family', 'Hind Madurai')
+      .style('font-size', '0.95em')
+      .style('font-weight', 'bold');
 
     g.append('g')
       .attr('class', 'axis axis--y')
       .call(d3.axisLeft(y).ticks(10))
+      .style('font-family', 'Hind Madurai')
+      .style('font-size', '0.95em')
+      .style('font-weight', 'bold')
       .append('text')
       .attr('transform', 'rotate(-90)')
       .attr('y', 6)
