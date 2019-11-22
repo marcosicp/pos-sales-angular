@@ -1,9 +1,12 @@
 import { Component, OnInit, ViewChild, ElementRef, AfterViewInit } from '@angular/core';
 import * as d3 from 'd3';
-import { DataService } from '../../core/services/data.service';
-import { URL_VENTAS } from '../../shared/configs/urls.config';
+// PIPES
 import { DatePipe, CurrencyPipe } from '@angular/common';
+// SERVICIOS
+import { DataService } from '../../core/services/data.service';
 import { LoadingService } from '../../shared/services/loading.service';
+// CONFIGURACIONES
+import { URL_VENTAS } from '../../shared/configs/urls.config';
 
 @Component({
   selector: 'app-reportes',
@@ -37,14 +40,17 @@ export class ReportesComponent implements OnInit, AfterViewInit {
               this.data.push({
                 id: this.data.length,
                 fecha: creado,
-                valor: pedido.total
+                valor: pedido.total,
+                _fecha: this._fecha(creado),
+                _valor: this._valor(pedido.total),
               });
             } else {
               this.data[item.id].valor += pedido.total;
+              this.data[item.id]._valor = this._valor(this.data[item.id].valor);
             }
           }
         );
-        this.data = this.data.slice().sort((a, b) => b.creado - a.creado);
+        this.data = this.data.reverse();
         this.createGraphic();
         this.loadingService.toggleLoading();
       }
@@ -82,6 +88,20 @@ export class ReportesComponent implements OnInit, AfterViewInit {
     const g = svg.append('g')
       .attr('transform', `translate(${this.margin.left}, ${ this.margin.top})`);
 
+    const tooltip = d3.select('body')
+      .append('div')
+      .style('position', 'absolute')
+      .style('top', '0')
+      .style('border', 'solid')
+      .style('border-width', '1px')
+      .style('border-radius', '5px')
+      .style('padding', '10px')
+      .style('font-family', 'Hind Madurai')
+      .style('z-index', '10')
+      .style('visibility', 'hidden')
+      .style('background', '#000')
+      .style('color', 'white');
+
     g.append('g')
       .attr('class', 'axis axis--x')
       .attr('transform', 'translate(0,' + contentHeight + ')')
@@ -103,8 +123,19 @@ export class ReportesComponent implements OnInit, AfterViewInit {
       .append('rect')
       .attr('class', 'bar')
       .attr('fill', '#3f51b5')
-      .on('mouseover', function () { d3.select(this).attr('fill', '#d66666'); })
-      .on('mouseout', function () { d3.select(this).attr('fill', '#3f51b5'); })
+      .on('mouseover', function (d) {
+        d3.select(this).attr('fill', '#d66666');
+        tooltip
+          .html(`Mes: ${d._fecha} <br> Total: ${d._valor}`)
+          .style('visibility', 'visible')
+          .style('left', `${d3.select(this).node().getBoundingClientRect().left}px`)
+          .style('top', `${d3.select(this).node().getBoundingClientRect().top - 5}px`)
+          .style('display', 'inline-block');
+        })
+      .on('mouseout', function () {
+        d3.select(this).attr('fill', '#3f51b5');
+        tooltip.style('visibility', 'hidden');
+      })
       .attr('x', d => x(this._fecha(d.fecha)))
       .attr('y', d => y(d.valor))
       .attr('width', x.bandwidth())
@@ -112,6 +143,10 @@ export class ReportesComponent implements OnInit, AfterViewInit {
   }
 
   _fecha(date) {
-    return this.datePipe.transform(date, 'd/M/yyyy');
+    return this.datePipe.transform(date, 'MMMM yyyy');
+  }
+
+  _valor(value) {
+    return this.currencyPipe.transform(value, '$');
   }
 }
