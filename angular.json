@@ -27,8 +27,8 @@
             "scripts": [
               "node_modules/chart.js/dist/Chart.bundle.min.js",
               "node_modules/d3/dist/d3.js",
-              "node_modulos/d3/dist/d3.node.js",
-              "node_modulos/d3/dist/package.js"
+              "node_modules/d3/dist/d3.node.js",
+              "node_modules/d3/dist/package.js"
             ]
           },
           "configurations": {
@@ -79,8 +79,8 @@
             "scripts": [
               "node_modules/chart.js/dist/Chart.bundle.min.js",
               "node_modules/d3/dist/d3.js",
-              "node_modulos/d3/dist/d3.node.js",
-              "node_modulos/d3/dist/package.js"
+              "node_modules/d3/dist/d3.node.js",
+              "node_modules/d3/dist/package.js"
             ],
             "styles": [
               "src/styles.scss"
