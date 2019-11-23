@@ -13,6 +13,7 @@ import { DialogOperacionOkComponent } from '../dialogs/dialog-operacion-ok/dialo
 import { DialogSinConexionComponent } from '../dialogs/dialog-sin-conexion/dialog-sin-conexion.component';
 import { DataService } from '../core/services/data.service';
 import { URL_VENTAS } from '../shared/configs/urls.config';
+import { DialogConfirmarCambioFechaComponent } from '../dialogs/dialog-confirmar-cambio-fecha/dialog-confirmar-cambio-fecha.component';
 
 const colors: any = {
   red: {
@@ -42,10 +43,10 @@ export class PactarEntregaComponent {
 
   view: CalendarView = CalendarView.Month;
 
-  locale: string = 'es-AR';
+  locale = 'es-AR';
   pedidosConEntregas: Venta[];
   CalendarView = CalendarView;
-
+  opcionSeleccionada = false;
   viewDate: Date = new Date();
 
   modalData: {
@@ -114,26 +115,32 @@ export class PactarEntregaComponent {
   //   }
   // ];
 
-  activeDayIsOpen: boolean = true;
+  activeDayIsOpen = true;
+  oldDates: {oldStart: Date, oldEnd: Date};
 
-  constructor(private modal: NgbModal, private zone:NgZone, private dataService: DataService, private route: ActivatedRoute, public dialog: MatDialog, private router: Router) {
+  constructor(private modal: NgbModal, private zone: NgZone, private dataService: DataService, private route: ActivatedRoute, public dialog: MatDialog, private router: Router) {
 
     this.route.queryParams.subscribe(params => {
-        if(params){
+        if (params) {
           this.venta = JSON.parse(params.pedido);
           const dialogRef = this.dialog.open(DialogConfirmarComponent, {
             width: '450px',
-            data: {title: "Seleccione un dia para su entrega.", confirmText: "Recuerde que debe hacer doble click sobre el dia que considere conveniente."}
+            data: {title: 'Seleccione un dia para su entrega.', confirmText: 'Recuerde que debe hacer doble click sobre el dia que considere conveniente.'}
           });
         }
-    })
+    });
 
     this.dataService.getAsync(URL_VENTAS.GET_ALL_ENTREGAS, this.pedidosConEntregas).subscribe(
       data => {
-        if(data){
+        if (data) {
          data.forEach(element => {
 
-          element.agenda.start = startOfDay(new Date(element.agenda.start))
+          element.agenda.start = startOfDay(new Date(element.agenda.start));
+          if (element.agenda.start < Date.now()) {
+            element.agenda.title = element.agenda.title.replace('ENTREGA', 'ENTREGADO');
+            element.agenda.color.primary = '#a3a3a3';
+          }
+
           this.events.push(element.agenda);
          });
         }
@@ -164,21 +171,21 @@ export class PactarEntregaComponent {
     }
   }
 
-  doubleClick(day: CalendarMonthViewDay) {
-    if (day) {
-      let event : CalendarEvent = { title: "Test", start: day.date,
-      end: day.date,
-      color: colors.red,
-      draggable: true,
-      resizable: {
-          beforeStart: true,
-          afterEnd: true
-        }
-      }
+  // doubleClick(day: CalendarMonthViewDay) {
+  //   if (day) {
+  //     const event: CalendarEvent = { title: 'Test', start: day.date,
+  //     end: day.date,
+  //     color: colors.red,
+  //     draggable: true,
+  //     resizable: {
+  //         beforeStart: true,
+  //         afterEnd: true
+  //       }
+  //     };
 
-      this.handleEvent("", event);
-    }
-  }
+  //     this.handleEvent('', event);
+  //   }
+  // }
 
   eventTimesChanged({
     event,
@@ -187,6 +194,13 @@ export class PactarEntregaComponent {
   }: CalendarEventTimesChangedEvent): void {
     this.events = this.events.map(iEvent => {
       if (iEvent === event) {
+        const eventoNuevo = {
+          ...event,
+          start: newStart,
+          end: newEnd
+        };
+
+        this.notificarCambio(eventoNuevo);
         return {
           ...event,
           start: newStart,
@@ -195,7 +209,22 @@ export class PactarEntregaComponent {
       }
       return iEvent;
     });
-    this.handleEvent('Dropped or resized', event);
+  }
+
+  notificarCambio(event: CalendarEvent) {
+    this.updateEvent(event);
+
+    const dialogRef = this.dialog.open(DialogConfirmarCambioFechaComponent, {
+      width: '500px', disableClose: true,
+      data: { event: event }
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      if (result) {
+        return this.opcionSeleccionada = true;
+      }
+      return this.opcionSeleccionada = false;
+    });
   }
 
   refreshView(): void {
@@ -204,7 +233,7 @@ export class PactarEntregaComponent {
 
   handleEvent(action: string, event: CalendarEvent): void {
     if (!this.venta) {
-      this.venta= new Venta();
+      this.venta = new Venta();
     }
 
     const dialogRef = this.dialog.open(DialogEditarEntregaComponent, {
@@ -213,8 +242,8 @@ export class PactarEntregaComponent {
         });
 
     dialogRef.afterClosed().subscribe(result => {
-      if(result){
-        let evento : CalendarEvent = { title: 'ENTREGA --> Direccion: ' + result.evento.venta.direccion,
+      if (result) {
+        const evento: CalendarEvent = { title: 'ENTREGA --> Direccion: ' + result.evento.venta.direccion,
               start: startOfDay(new Date(result.evento.event.start)),
               end: endOfDay(new Date(result.evento.event.start)),
               color: colors.red,
@@ -223,16 +252,11 @@ export class PactarEntregaComponent {
                   beforeStart: true,
                   afterEnd: true
                 }
-              }
+              };
 
         this.addEvent(evento);
       }
-
-
     });
-
-
-
   }
 
   addEvent(data1: CalendarEvent): void {
@@ -241,7 +265,31 @@ export class PactarEntregaComponent {
       data2 => {
         const dialogRef = this.dialog.open(DialogOperacionOkComponent, { width: '600px' ,  disableClose: true });
         dialogRef.afterClosed().subscribe(result => {
-          this.venta= new Venta();
+          this.venta = new Venta();
+        });
+      },
+      error => {
+        const dialogRef = this.dialog.open(DialogSinConexionComponent, { width: '600px' ,  disableClose: true });
+        dialogRef.afterClosed().subscribe(result => {
+        });
+      }
+    );
+
+    this.events = [
+      ...this.events,
+      data1
+    ];
+
+    this.refreshView();
+  }
+
+  updateEvent(data1: CalendarEvent): void {
+    this.venta.agenda = data1;
+    this.dataService.postAsync('ventas/UpdateEntrega', this.venta).subscribe(
+      data2 => {
+        const dialogRef = this.dialog.open(DialogOperacionOkComponent, { width: '600px' ,  disableClose: true });
+        dialogRef.afterClosed().subscribe(result => {
+          this.venta = new Venta();
         });
       },
       error => {

@@ -14,7 +14,7 @@
     </mat-form-field>
     <mat-form-field class="full-width">
         <label>Responsable:</label>
-        <input matInput type="text" readonly [(ngModel)]="venta.usuario">        
+        <input matInput type="text" readonly [(ngModel)]="venta.usuario">
     </mat-form-field>
     <mat-form-field class="full-width">
       <label>Direccion:</label>
@@ -35,7 +35,14 @@
     </mat-form-field>
     <div class="modal-footer">
       <button type="button" mat-button class="btn btn-outline-secondary" (click)="guardarEnvio()">
-          GUARDAR
+        GUARDAR
+      </button>
+      <button
+        mat-raised-button
+        color="warn"
+        (click)="onNoClick()">
+        <mat-icon>close</mat-icon>
+        Cancelar
       </button>
     </div>
   </div>

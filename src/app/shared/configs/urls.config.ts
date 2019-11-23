@@ -1,6 +1,6 @@
 import BaseConfig from './base.config';
 
-const isProd = true;
+const isProd = false;
 const URL_BASE = isProd ?
   BaseConfig.URL_PROD : BaseConfig.URL_LOCAL;
 

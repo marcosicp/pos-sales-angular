@@ -35,7 +35,7 @@ export class DialogAbrirCajaComponent implements OnInit {
     this.aperturaCaja.fechaMovimiento = new Date();
     this.aperturaCaja.fechaMovimiento.setHours(this.aperturaCaja.fechaMovimiento.getHours() - 3);
     this.aperturaCaja.tipo = 'APERTURA';
-    this.comerciosService.createAsync('movimientos/AbrirCaja', this.aperturaCaja, this.result).subscribe(
+    this.comerciosService.postAsync('movimientos/AbrirCaja', this.aperturaCaja).subscribe(
       data => {
         const dialogRef = this.dialog.open(DialogOperacionOkComponent, { width: '600px' ,  disableClose: true });
         dialogRef.afterClosed().subscribe(result => {

@@ -1,0 +1,24 @@
+
+    <div mat-dialog-header class="modal-header">
+      <h5 mat-dialog-title class="modal-title">Cambio en fecha de entrega</h5>
+      <!-- <h5 mat-title class="modal-title">{{ evento?.event.start | date: 'dd/MM/yyyy' }}</h5> -->
+    </div>
+    <div mat-dialog-content fxLayout="column">
+    <mat-form-field class="full-width">
+      <label>La fecha de entrega fue actualizada:</label>
+      <input matInput type="text" [(ngModel)]="evento.event.start">
+    </mat-form-field>
+
+    <div class="modal-footer">
+      <!-- <button type="button" mat-button class="btn btn-outline-secondary" (click)="guardarEnvio()">
+        GUARDAR
+      </button> -->
+      <button
+        mat-raised-button
+        color="warn"
+        (click)="onNoClick()">
+        <mat-icon>close</mat-icon>
+        Cancelar
+      </button>
+    </div>
+  </div>
