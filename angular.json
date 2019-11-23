@@ -26,7 +26,9 @@
             ],
             "scripts": [
               "node_modules/chart.js/dist/Chart.bundle.min.js",
-              "node_modules/d3/dist/d3.js"
+              "node_modules/d3/dist/d3.js",
+              "node_modulos/d3/dist/d3.node.js",
+              "node_modulos/d3/dist/package.js"
             ]
           },
           "configurations": {
@@ -76,7 +78,9 @@
             "tsConfig": "src/tsconfig.spec.json",
             "scripts": [
               "node_modules/chart.js/dist/Chart.bundle.min.js",
-              "node_modules/d3/dist/d3.js"
+              "node_modules/d3/dist/d3.js",
+              "node_modulos/d3/dist/d3.node.js",
+              "node_modulos/d3/dist/package.js"
             ],
             "styles": [
               "src/styles.scss"
