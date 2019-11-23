@@ -21,6 +21,7 @@ import { AdministracionComponent } from './administracion/administracion.compone
 import { StockComponent } from './stock/stock.component';
 import { ListaMovimientosComponent } from './lista-movimientos/lista-movimientos.component';
 import { ReportesComponent } from './reportes/reportes.component';
+import { ReporteGraficoComponent } from './reporte-grafico/reporte-grafico.component';
 // OTROS MODULOS
 import { SharedModule } from '../shared/shared.module';
 
@@ -48,7 +49,8 @@ import { SharedModule } from '../shared/shared.module';
     ProveedoresComponent,
     StockComponent,
     ListaMovimientosComponent,
-    ReportesComponent
+    ReportesComponent,
+    ReporteGraficoComponent,
     // ChartsModule
   ],
   entryComponents: [
