@@ -26,6 +26,7 @@ import { DialogCambiarPassComponent } from './dialog-cambiar-pass/dialog-cambiar
 import { DialogStockAddEditComponent } from './dialog-stock-add-edit/dialog-stock-add-edit.component';
 import { DialogStockAumentarComponent } from './dialog-stock-aumentar/dialog-stock-aumentar.component';
 import { DialogAdvertenciaComponent } from './dialog-advertencia/dialog-advertencia.component';
+import { DialogConfirmarCambioFechaComponent } from './dialog-confirmar-cambio-fecha/dialog-confirmar-cambio-fecha.component';
 
 @NgModule({
   imports: [
@@ -45,6 +46,7 @@ import { DialogAdvertenciaComponent } from './dialog-advertencia/dialog-adverten
     DialogCajaCerradaComponent,
     DialogCerrarCajaComponent,
     DialogConfirmarComponent,
+    DialogConfirmarCambioFechaComponent,
     DialogEgresoCajaComponent,
     DialogIngresoCajaComponent,
     DialogOperacionOkComponent,
@@ -67,6 +69,7 @@ import { DialogAdvertenciaComponent } from './dialog-advertencia/dialog-adverten
     DialogEditarEntregaComponent,
     DialogCerrarCajaComponent,
     DialogConfirmarComponent,
+    DialogConfirmarCambioFechaComponent,
     DialogEgresoCajaComponent,
     DialogIngresoCajaComponent,
     DialogOperacionOkComponent,
