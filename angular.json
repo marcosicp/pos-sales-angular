@@ -25,7 +25,8 @@
               "src/styles.scss"
             ],
             "scripts": [
-              "node_modules/chart.js/dist/Chart.bundle.min.js"
+              "node_modules/chart.js/dist/Chart.bundle.min.js",
+              "node_modules/d3/dist/d3.js"
             ]
           },
           "configurations": {
@@ -74,7 +75,8 @@
             "polyfills": "src/polyfills.ts",
             "tsConfig": "src/tsconfig.spec.json",
             "scripts": [
-              "node_modules/chart.js/dist/Chart.bundle.min.js"
+              "node_modules/chart.js/dist/Chart.bundle.min.js",
+              "node_modules/d3/dist/d3.js"
             ],
             "styles": [
               "src/styles.scss"
