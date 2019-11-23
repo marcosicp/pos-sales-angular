@@ -21,11 +21,6 @@ const URL_STOCK = {
   UPDATE_STOCK: 'productos/UpdateProducto',
   DELETE_STOCK: 'productos/DeleteProducto',
 };
-// API CAJA/ADMIN
-const URL_ADMIN = {
-  ULTIMA_APERTURA: 'movimientos/AperturaInicialCaja',
-  CERRAR_CAJA: 'movimientos/cerrarCaja'
-};
 // API PEDIDOS
 const URL_PEDIDOS = {
   GET_ALL: 'pedidos/GetAllPedidos',
@@ -50,14 +45,21 @@ const URL_PROVEEDORES = {
   UPDATE_PROVEEDOR: 'proveedores/UpdateProveedor',
   DELETE_PROVEEDOR: 'proveedores/DeleteProveedor'
 };
+// API MOVIMIENTOS
+const URL_MOVIMIENTOS = {
+  GET_ESTADO: 'movimientos/EstadoCaja',
+  GET_ALL: 'movimientos/GetAllMovimientos',
+  ADD_MOVIMIENTO: 'movimientos/AddMovimiento',
+  GET_ULTIMA_APERTURA: 'movimientos/AperturaInicialCaja'
+};
 
 export {
   URL_BASE,
   URL_USUARIOS,
   URL_STOCK,
-  URL_ADMIN,
   URL_PEDIDOS,
   URL_PROVEEDORES,
   URL_CLIENTES,
-  URL_VENTAS
+  URL_VENTAS,
+  URL_MOVIMIENTOS
 };

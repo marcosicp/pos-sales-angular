@@ -187,11 +187,34 @@ const TABLA_PEDIDOS = {
   }
 };
 
+const TABLA_MOVIMIENTOS = {
+  title: 'Movimientos',
+  headers: {
+    fechaMovimiento: 'Fecha movimiento',
+    tipo: 'Tipo',
+    monto: 'Monto',
+    // usuario: 'Usuario'
+  },
+  cells: {
+    fechaMovimiento: 'fechaMovimiento',
+    tipo: 'tipo',
+    monto: 'monto',
+    // usuario: 'usuario'
+  },
+  format: {
+    fechaMovimiento: 'date',
+    tipo: null,
+    monto: 'currency',
+    // usuario: null
+  }
+};
+
 export  {
   TABLA_STOCK,
   TABLA_USUARIOS,
   TABLA_CLIENTES,
   TABLA_PROVEEDORES,
   TABLA_VENTAS,
-  TABLA_PEDIDOS
+  TABLA_PEDIDOS,
+  TABLA_MOVIMIENTOS
 };

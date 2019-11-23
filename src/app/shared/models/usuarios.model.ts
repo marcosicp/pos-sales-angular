@@ -1,5 +1,3 @@
-// import { Item } from './item';
-
 export class Usuarios {
   id: string;
   usuario: String;

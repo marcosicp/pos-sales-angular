@@ -1,12 +1,18 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
+import { FormGroupDirective, FormGroup, FormControl, Validators } from '@angular/forms';
 import { MatDialogRef, MatDialog } from '@angular/material';
-import { DataService } from '../../../app/core/services/data.service';
-import { CierreCaja } from '../../shared/models/cierre-caja.model';
-import { AperturaCaja } from '../../shared/models/apertura-caja.model';
+// MODELOS
+import { Usuarios } from '../../shared/models/usuarios.model';
+import { MovimientosCaja } from '../../shared/models/movimientos-caja.model';
+// SERVICIOS
 import { AuthService } from '../../core/services/auth.service';
+import { DataService } from '../../../app/core/services/data.service';
+// URLS
+import { URL_MOVIMIENTOS } from '../../shared/configs/urls.config';
+// HELPERS
+import getFechaArg from '../../shared/helpers/date.helper';
+// DIALOGOS
 import { DialogSinConexionComponent } from '../dialog-sin-conexion/dialog-sin-conexion.component';
-import { DialogOperacionOkComponent } from '../dialog-operacion-ok/dialog-operacion-ok.component';
-import { URL_ADMIN } from '../../shared/configs/urls.config';
 
 
 @Component({
@@ -14,72 +20,87 @@ import { URL_ADMIN } from '../../shared/configs/urls.config';
   templateUrl: './dialog-cerrar-caja.component.html',
   styleUrls: ['./dialog-cerrar-caja.component.scss']
 })
-export class DialogCerrarCajaComponent {
-  result: CierreCaja[] = [];
-  aperturaArr: AperturaCaja[] = [];
-  apertura: AperturaCaja = new AperturaCaja();
-  cierreCaja: CierreCaja = new CierreCaja();
-  usuario = '';
+export class DialogCerrarCajaComponent implements OnInit {
+  cierreCaja: MovimientosCaja = new MovimientosCaja();
+  aperturaCaja: MovimientosCaja = new MovimientosCaja();
+  aperturas: MovimientosCaja[] = [];
+  totalCierreCaja: number;
+  usuario: Usuarios;
+  cerrarCajaForm: FormGroup;
+  errorString = (prop: string) => {
+    return 'TEST';
+  }
 
-  constructor(private auth: AuthService, public dialogRef: MatDialogRef<DialogCerrarCajaComponent>,
-    private dialog: MatDialog, private comerciosService: DataService) {
-    this.auth.getUser.subscribe((data: any) => {
-      this.usuario = data;
+  constructor(
+    private authService: AuthService,
+    public dialogRef: MatDialogRef<DialogCerrarCajaComponent>,
+    private dialog: MatDialog,
+    private comerciosService: DataService
+  ) {
+    this.authService.getUser.subscribe((data: any) => {
+      this.usuario = JSON.parse(data);
     });
+  }
 
-    this.comerciosService.getAsync(URL_ADMIN.ULTIMA_APERTURA, this.aperturaArr).subscribe(
+  ngOnInit() {
+    this.comerciosService.getAsync(
+      URL_MOVIMIENTOS.GET_ULTIMA_APERTURA,
+      []
+    ).subscribe(
       data1 => {
-          
-        // this.apertura = data1[0];
-        this.apertura.monto = data1[0];
-        this.comerciosService.getAsync(URL_ADMIN.CERRAR_CAJA, this.result).subscribe(
-          data2 => {
-            this.cierreCaja = data2[0];
-            this.cierreCaja.totalCierreCaja = this.apertura.monto + this.cierreCaja.totalPrecioPedido;
-          },
-          error => {
-            const dialogRef2 = this.dialog.open(DialogSinConexionComponent, { width: '600px' ,  disableClose: true });
-            dialogRef2.afterClosed().subscribe(result => {
-            });
-            console.log(error);
-          }
-        );
+        console.warn('errer');
+        // this.aperturaCaja = data1[0];
+        this.aperturaCaja.monto = data1[0];
+        // NO ENTIENDO ESTA PARTE
+        // this.comerciosService.getAsync(URL_MOVIMIENTOS.CERRAR_CAJA, []).subscribe(
+        //   data2 => {
+        //     console.warn('errer');
+        //     this.cierreCaja = data2[0];
+        //     // this.totalCierreCaja = this.aperturaCaja.monto + this.cierreCaja.totalPrecioPedido;
+        //     this.totalCierreCaja = this.aperturaCaja.monto + 0;
+        //   },
+        //   error => {
+        //     const dialogRef2 = this.dialog.open(DialogSinConexionComponent, { width: '600px' ,  disableClose: true });
+        //     dialogRef2.afterClosed().subscribe(result => {
+        //     });
+        //     console.log(error);
+        //   }
+        // );
       },
       error => {
-        const dialogRef3 = this.dialog.open(DialogSinConexionComponent, { width: '600px' ,  disableClose: true });
-        dialogRef3.afterClosed().subscribe(result => {
-        });
-        console.log(error);
+        console.warn('errer');
+        const errorDialog = this.dialog.open(
+          DialogSinConexionComponent,
+          { width: '600px', disableClose: true }
+        );
+
+        errorDialog.afterOpen().subscribe(
+          result => {
+            this.dialogRef.close(false);
+          }
+        );
       }
     );
 
+    this.cerrarCajaForm = new FormGroup(
+      {
+        test: new FormControl('')
+      }
+    );
   }
 
   cerrarCaja() {
-    this.cierreCaja.fechaMovimiento = new Date();
-    this.cierreCaja.fechaMovimiento.setHours(this.cierreCaja.fechaMovimiento.getHours() - 3);
-    this.cierreCaja.usuario = this.usuario;
+    const otrosDatos = {
+      usuario: this.usuario,
+      tipo: 'CIERRE'
+    };
 
-    this.comerciosService.createAsync('movimientos/cerrarCaja', this.cierreCaja, this.result).subscribe(
-      data => {
-        const dialogRef = this.dialog.open(DialogOperacionOkComponent, { width: '600px' ,  disableClose: true });
-        dialogRef.afterClosed().subscribe(result => {
+    this.cierreCaja = {...this.cerrarCajaForm.value, ...otrosDatos};
 
-        });
-
-        this.dialogRef.close();
-      },
-      error => {
-        const dialogRef = this.dialog.open(DialogSinConexionComponent, { width: '600px' ,  disableClose: true });
-          dialogRef.afterClosed().subscribe(result => {
-        });
-        console.log(error);
-      }
-    );
+    this.dialogRef.close(this.cierreCaja);
   }
 
   onNoClick() {
-    this.dialogRef.close();
+    this.dialogRef.close(false);
   }
-
 }

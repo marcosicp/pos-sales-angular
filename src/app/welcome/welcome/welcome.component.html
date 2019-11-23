@@ -4,67 +4,67 @@
     <mat-icon class="module-icon">event</mat-icon>
     <h1 class="module-title">Agenda</h1>
   </mat-card>
+
   <mat-grid-list cols="4" rowHeight="9:8">
     <mat-grid-tile>
-      <mat-card class="module-card1" *ngIf="verEstado(); else notShow" routerLink="/home" fxLayout="column">
+      <mat-card *ngIf="verEstado(); else notShow" routerLink="/home" fxLayout="column">
         <mat-icon class="module-icon">shopping_cart</mat-icon>
         <h1 class="module-title">Caja</h1>
       </mat-card>
       <ng-template #notShow>
-        <mat-card class="module-card1" (click)="cajaCerrada()" fxLayout="column">
+        <mat-card fxLayout="column">
           <mat-icon class="module-icon">cancel</mat-icon>
           <h1 class="module-title">Caja Cerrada</h1>
         </mat-card>
       </ng-template>
     </mat-grid-tile>
     <mat-grid-tile>
-      <mat-card class="module-card1" routerLink="/pedidos" fxLayout="column">
+      <mat-card routerLink="/pedidos" fxLayout="column">
         <mat-icon class="module-icon">history</mat-icon>
         <h1 class="module-title">Pedidos</h1>
       </mat-card>
     </mat-grid-tile>
     <mat-grid-tile>
-      <mat-card class="module-card1" routerLink="/ventas" fxLayout="column">
+      <mat-card routerLink="/ventas" fxLayout="column">
         <mat-icon class="module-icon">assessment</mat-icon>
         <h1 class="module-title">Ventas</h1>
       </mat-card>
     </mat-grid-tile>
     <mat-grid-tile>
-      <mat-card class="module-card1" routerLink="/stock" fxLayout="column">
+      <mat-card routerLink="/stock" fxLayout="column">
         <mat-icon class="module-icon">category</mat-icon>
         <h1 class="module-title">Stock</h1>
       </mat-card>
     </mat-grid-tile>
   </mat-grid-list>
 
-  <mat-grid-list cols="4" rowHeight="5:4" style="margin-top: -5%">
+  <mat-grid-list cols="4" rowHeight="5:4">
     <mat-grid-tile>
-      <mat-card class="module-card2" routerLink="/administracion" fxLayout="column">
+      <mat-card routerLink="/administracion" fxLayout="column">
         <mat-icon class="module-icon">store</mat-icon>
         <h1 class="module-title">Administración</h1>
       </mat-card>
     </mat-grid-tile>
 
     <mat-grid-tile>
-      <mat-card class="module-card2" routerLink="/proveedores" fxLayout="column">
+      <mat-card routerLink="/proveedores" fxLayout="column">
         <mat-icon class="module-icon">business</mat-icon>
         <h1 class="module-title">Proveedores</h1>
       </mat-card>
     </mat-grid-tile>
 
     <mat-grid-tile>
-      <mat-card class="module-card2" routerLink="/clientes" fxLayout="column">
+      <mat-card routerLink="/clientes" fxLayout="column">
         <mat-icon class="module-icon">person</mat-icon>
         <h1 class="module-title">Clientes</h1>
       </mat-card>
     </mat-grid-tile>
 
     <mat-grid-tile >
-      <mat-card class="module-card2" routerLink="/admin/users" fxLayout="column">
+      <mat-card routerLink="/users" fxLayout="column">
         <mat-icon class="module-icon">supervisor_account</mat-icon>
         <h1 class="module-title">Usuarios</h1>
       </mat-card>
     </mat-grid-tile>
   </mat-grid-list>
-
 </div>

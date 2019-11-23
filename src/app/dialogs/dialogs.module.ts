@@ -25,7 +25,7 @@ import { DialogUsuarioAddEditComponent } from './dialog-usuario-add-edit/dialog-
 import { DialogCambiarPassComponent } from './dialog-cambiar-pass/dialog-cambiar-pass.component';
 import { DialogStockAddEditComponent } from './dialog-stock-add-edit/dialog-stock-add-edit.component';
 import { DialogStockAumentarComponent } from './dialog-stock-aumentar/dialog-stock-aumentar.component';
-import { DialogConfirmarCambioFechaComponent } from './dialog-confirmar-cambio-fecha/dialog-confirmar-cambio-fecha.component';
+import { DialogAdvertenciaComponent } from './dialog-advertencia/dialog-advertencia.component';
 
 @NgModule({
   imports: [
@@ -57,7 +57,7 @@ import { DialogConfirmarCambioFechaComponent } from './dialog-confirmar-cambio-f
     DialogCambiarPassComponent,
     DialogStockAddEditComponent,
     DialogStockAumentarComponent,
-    DialogConfirmarCambioFechaComponent
+    DialogAdvertenciaComponent
   ],
   entryComponents: [
     DialogAbrirCajaComponent,
@@ -78,7 +78,7 @@ import { DialogConfirmarCambioFechaComponent } from './dialog-confirmar-cambio-f
     DialogCambiarPassComponent,
     DialogStockAddEditComponent,
     DialogStockAumentarComponent,
-    DialogConfirmarCambioFechaComponent
+    DialogAdvertenciaComponent
   ]
 })
 export class DialogsModule { }

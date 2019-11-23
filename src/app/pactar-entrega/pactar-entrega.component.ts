@@ -2,12 +2,12 @@ import { Component, ChangeDetectionStrategy, ViewChild, TemplateRef, NgZone, Inj
 import { startOfDay, endOfDay, subDays, addDays, endOfMonth, isSameDay, isSameMonth, addHours } from 'date-fns';
 import { Subject } from 'rxjs';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
-import {  CalendarEvent, CalendarEventAction, CalendarEventTimesChangedEvent, CalendarView, CalendarMonthViewDay, DAYS_OF_WEEK } from 'angular-calendar';
+import { CalendarEvent, CalendarEventAction, CalendarEventTimesChangedEvent, CalendarView, CalendarMonthViewDay, DAYS_OF_WEEK } from 'angular-calendar';
 import { DialogEditarEntregaComponent } from '../dialogs/dialog-editar-entrega/dialog-editar-entrega.component';
 import { MatDialog, MAT_DIALOG_DATA } from '@angular/material';
 import { Router, ActivatedRoute } from '@angular/router';
 import { CalendarEventActionsComponent } from 'angular-calendar/modules/common/calendar-event-actions.component';
-import { DialogConfirmarComponent } from '../dialogs/dialog-confirmar/dialog-confirmar.component';
+import { DialogAdvertenciaComponent } from '../dialogs/dialog-advertencia/dialog-advertencia.component';
 import { Venta } from '../shared/models/venta.model';
 import { DialogOperacionOkComponent } from '../dialogs/dialog-operacion-ok/dialog-operacion-ok.component';
 import { DialogSinConexionComponent } from '../dialogs/dialog-sin-conexion/dialog-sin-conexion.component';
@@ -123,7 +123,7 @@ export class PactarEntregaComponent {
     this.route.queryParams.subscribe(params => {
         if (params) {
           this.venta = JSON.parse(params.pedido);
-          const dialogRef = this.dialog.open(DialogConfirmarComponent, {
+          const dialogRef = this.dialog.open(DialogAdvertenciaComponent, {
             width: '450px',
             data: {title: 'Seleccione un dia para su entrega.', confirmText: 'Recuerde que debe hacer doble click sobre el dia que considere conveniente.'}
           });
