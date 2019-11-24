@@ -5,6 +5,7 @@ import { FormsModule } from '@angular/forms';
 import { AppRoutingModule } from '../core/app-routing.module';
 import { FlexLayoutModule } from '@angular/flex-layout';
 import { NgSelectModule } from '@ng-select/ng-select';
+import { ChartsModule } from 'ng2-charts';
 // COMPONENTES
 import { HistorialComponent } from './historial/historial.component';
 import { ClientesComponent } from './clientes/clientes.component';
@@ -32,7 +33,8 @@ import { SharedModule } from '../shared/shared.module';
     FormsModule,
     FlexLayoutModule,
     NgSelectModule,
-    SharedModule
+    SharedModule,
+    ChartsModule
   ],
   declarations: [
     HomeComponent,
@@ -50,8 +52,7 @@ import { SharedModule } from '../shared/shared.module';
     StockComponent,
     ListaMovimientosComponent,
     ReportesComponent,
-    ReporteGraficoComponent,
-    // ChartsModule
+    ReporteGraficoComponent
   ],
   entryComponents: [
     LineItemModalComponent

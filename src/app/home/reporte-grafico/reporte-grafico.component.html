@@ -1,1 +1,12 @@
-<div #barChart id="bar-chart" (window:resize)="loadData(report)"></div>
+<div class="chart-container">
+  <canvas
+    baseChart
+    height="110%"
+    [datasets]="barChartData"
+    [labels]="barChartLabels"
+    [options]="barChartOptions"
+    [plugins]="barChartPlugins"
+    [legend]="barChartLegend"
+    [chartType]="barChartType">
+  </canvas>
+</div>

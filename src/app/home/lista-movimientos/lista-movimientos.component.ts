@@ -31,7 +31,6 @@ export class ListaMovimientosComponent implements OnInit {
     this.dataService.getAsync(URL_MOVIMIENTOS.GET_ALL, [])
       .subscribe(
         data => {
-          console.warn(data);
           this.dataSource.data = data;
           this.isLoading = false;
         }

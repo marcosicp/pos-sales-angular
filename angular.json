@@ -25,10 +25,7 @@
               "src/styles.scss"
             ],
             "scripts": [
-              "node_modules/chart.js/dist/Chart.bundle.min.js",
-              "node_modules/d3/dist/d3.js",
-              "node_modules/d3/dist/d3.node.js",
-              "node_modules/d3/dist/package.js"
+              "node_modules/chart.js/dist/Chart.bundle.min.js"
             ]
           },
           "configurations": {
@@ -77,10 +74,7 @@
             "polyfills": "src/polyfills.ts",
             "tsConfig": "src/tsconfig.spec.json",
             "scripts": [
-              "node_modules/chart.js/dist/Chart.bundle.min.js",
-              "node_modules/d3/dist/d3.js",
-              "node_modules/d3/dist/d3.node.js",
-              "node_modules/d3/dist/package.js"
+              "node_modules/chart.js/dist/Chart.bundle.min.js"
             ],
             "styles": [
               "src/styles.scss"

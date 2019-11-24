@@ -1,11 +1,11 @@
 <mat-tab-group mat-stretch-tabs (selectedTabChange)="tabChanged($event)">
-  <mat-tab label="Ventas totales por mes">
+  <mat-tab [label]="reports.ventas.tabLabel">
     <app-reporte-grafico *ngIf="masterTab === 'ventas'" [report]="reports.ventas"></app-reporte-grafico>
   </mat-tab>
-  <mat-tab label="Pedidos sin entregar por mes">
+  <mat-tab [label]="reports.pedidos.tabLabel">
     <app-reporte-grafico *ngIf="masterTab === 'pedidos'" [report]="reports.pedidos"></app-reporte-grafico>
   </mat-tab>
-  <mat-tab label="Producos con poco stock">
+  <mat-tab [label]="reports.stock.tabLabel">
     <app-reporte-grafico *ngIf="masterTab === 'stock'" [report]="reports.stock"></app-reporte-grafico>
   </mat-tab>
 </mat-tab-group>

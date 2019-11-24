@@ -49,7 +49,6 @@ export class StockComponent implements OnInit {
     this.isLoading = true;
     this.dataService.getAsync(URL_STOCK.GET_ALL, []).subscribe(
       data => {
-        console.warn(data)
         this.dataSource.data = data;
         this.columnCells.opciones = [{
           buttonIcon: 'edit',

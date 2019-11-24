@@ -1,7 +1,9 @@
-import { Component, ViewChild, ElementRef, AfterViewInit, Input } from '@angular/core';
-import * as d3 from 'd3';
+import { Component, AfterViewInit, Input } from '@angular/core';
+import { ChartOptions, ChartType, ChartDataSets } from 'chart.js';
+import * as pluginDataLabels from 'chartjs-plugin-datalabels';
+import { Label } from 'ng2-charts';
 // PIPES
-import { DatePipe, CurrencyPipe } from '@angular/common';
+import { DatePipe } from '@angular/common';
 // SERVICIOS
 import { DataService } from '../../core/services/data.service';
 import { LoadingService } from '../../shared/services/loading.service';
@@ -10,18 +12,64 @@ import { LoadingService } from '../../shared/services/loading.service';
   selector: 'app-reporte-grafico',
   templateUrl: './reporte-grafico.component.html',
   styleUrls: ['./reporte-grafico.component.scss'],
-  providers: [DatePipe, CurrencyPipe]
+  providers: [DatePipe]
 })
 export class ReporteGraficoComponent implements AfterViewInit {
-  @ViewChild('barChart')
-  private chartContainer: ElementRef;
   @Input() report = null;
-  data = [];
+
+  barChartOptions: ChartOptions = {
+    responsive: true,
+    scales: {
+      xAxes: [{
+        ticks: {
+          callback: value => this._truncate(value)
+        }
+      }],
+      yAxes: [{}]
+    },
+    legend: {
+      labels: {
+        fontFamily: 'Hind Madurai',
+        fontSize: 18
+      }
+    },
+    tooltips: {
+      titleFontFamily: 'Hind Madurai',
+      titleFontSize: 16,
+      bodyFontFamily: 'Hind Madurai',
+      bodyFontSize: 16,
+      footerFontFamily: 'Hind Madurai',
+      footerFontSize: 16
+    },
+    plugins: {
+      datalabels: {
+        color: 'white',
+        font: {
+          weight: 'bold',
+          family : 'Hind Madurai',
+          size: 16
+        }
+      }
+    }
+  };
+  barChartLabels: Label[] = [];
+  barChartType: ChartType = 'bar';
+  barChartLegend: true;
+  barChartPlugins = [pluginDataLabels];
+  barChartData: ChartDataSets[] = [
+    {
+      data: [],
+      backgroundColor: '#3f51b5',
+      borderColor: '#3f51b5',
+      hoverBackgroundColor: '#d66666',
+      hoverBorderColor: '#d66666',
+      label: 'Ventas'
+    },
+  ];
 
   constructor(
     private dataService: DataService,
     private datePipe: DatePipe,
-    private currencyPipe: CurrencyPipe,
     private loadingService: LoadingService
   ) { }
 
@@ -34,53 +82,56 @@ export class ReporteGraficoComponent implements AfterViewInit {
 
     this.dataService.getAsync(reportData.url, []).subscribe(
       result => {
-        this.data = [];
+        let data = [];
 
         result.forEach(
           v => {
             switch (reportData.type) {
               case 'ventas': {
                 const {creado, pedido} = v;
-                const item = this.data.find(t => this._fecha(t.valorX) === this._fecha(creado));
+                const itemFinded = data.find(i => i._valorX === this._fecha(creado));
 
-                if (!item) {
-                  this.data.push({
-                    id: this.data.length,
+                if (!itemFinded) {
+                  data.push({
+                    id: data.length,
                     valorX: creado,
                     valorY: pedido.total,
                     _valorX: this._fecha(creado),
-                    _valorY: this._moneda(pedido.total),
+                    // _valorY: this._numero(pedido.total),
                   });
                 } else {
-                  this.data[item.id].valorY += pedido.total;
-                  this.data[item.id]._valorY = this._moneda(this.data[item.id].valorY);
+                  data[itemFinded.id].valorY += pedido.total;
+                  // data[itemFinded.id]._valorY = this._numero(data[itemFinded.id].valorY);
                 }
+
                 break;
               }
               case 'pedidos': {
                 const {creado} = v;
-                const item = this.data.find(t => this._fecha(t.valorX) === this._fecha(creado));
+                const itemFinded = data.find(i => i._valorX === this._fecha(creado));
 
-                if (!item) {
-                  this.data.push({
-                    id: this.data.length,
+                if (!itemFinded) {
+                  data.push({
+                    id: data.length,
                     valorX: creado,
                     valorY: 0,
                     _valorX: this._fecha(creado)
                   });
                 } else {
-                  ++this.data[item.id].valorY;
+                  ++data[itemFinded.id].valorY;
                 }
+
                 break;
               }
               case 'stock': {
-                const {cantidad, nombre} = v;
+                const {cantidad, codigo, nombre} = v;
 
-                this.data.push({
-                  id: this.data.length,
-                  valorX: nombre,
+                data.push({
+                  id: data.length,
+                  valorX: `${codigo + ' - ' + nombre}`,
                   valorY: cantidad
                 });
+
                 break;
               }
             }
@@ -88,111 +139,21 @@ export class ReporteGraficoComponent implements AfterViewInit {
         );
 
         if (reportData.type === 'stock') {
-          this.data.sort((a, b) => b.valorY < a.valorY ? 1 : -1);
+          data = data.slice(0, 12).sort((a, b) => b.valorY < a.valorY ? 1 : -1);
         } else {
-          this.data.sort((a, b) => new Date(b.valorX) > new Date(a.valorX) ? 1 : -1)
+          data = data.slice(0, 12).sort((a, b) => new Date(b.valorX) > new Date(a.valorX) ? 1 : -1);
         }
-        this.data = this.data.slice(0, 12);
 
-        this.createGraphic(reportData);
+        this.barChartData[0].data = data.map(item => (item._valorY || item.valorY));
+        this.barChartLabels = data.map(item => (item._valorX || item.valorX));
+        this.barChartData[0].label = this.report.label;
 
         this.loadingService.toggleLoading();
       }
     );
   }
 
-  createGraphic(reportData: any) {
-    d3.select('svg').remove();
+  _truncate = (word: string): string => word.length > 25 ? word.substring(0, 25).concat('...') : word;
 
-    const element = this.chartContainer.nativeElement;
-    const margin = { top: 20, right: 20, bottom: 30, left: 70 };
-    const data = this.data;
-
-    const svg = d3.select(element).append('svg')
-      .attr('width', element.offsetWidth)
-      .attr('height', 800);
-
-    const contentWidth = element.offsetWidth - margin.left - margin.right;
-    const contentHeight = element.offsetHeight - margin.top - margin.bottom;
-
-    const x = d3
-      .scaleBand()
-      .rangeRound([0, contentWidth])
-      .padding(0.1)
-      .domain(data.map(d => d._valorX || d.valorX));
-
-    const y = d3
-      .scaleLinear()
-      .rangeRound([contentHeight, 0])
-      .domain([0, d3.max(data, d => d.valorY)]);
-
-    const g = svg.append('g')
-      .attr('transform', `translate(${margin.left}, ${margin.top})`);
-
-    const tooltip = d3.select('body')
-      .append('div')
-      .style('position', 'absolute')
-      .style('top', '0')
-      .style('border', 'solid')
-      .style('border-width', '1px')
-      .style('border-radius', '5px')
-      .style('padding', '10px')
-      .style('font-family', 'Hind Madurai')
-      .style('z-index', '10')
-      .style('visibility', 'hidden')
-      .style('background', '#000')
-      .style('color', 'white');
-
-    g.append('g')
-      .attr('class', 'axis axis--x')
-      .attr('transform', `translate(0, ${contentHeight})`)
-      .call(d3.axisBottom(x))
-      .style('font-family', 'Hind Madurai')
-      .style('font-size', '0.95em')
-      .style('font-weight', 'bold');
-
-    g.append('g')
-      .attr('class', 'axis axis--y')
-      .call(d3.axisLeft(y).ticks(10))
-      .style('font-family', 'Hind Madurai')
-      .style('font-size', '0.95em')
-      .style('font-weight', 'bold')
-      .append('text')
-      .attr('transform', 'rotate(-90)')
-      .attr('y', 6)
-      .attr('dy', '0.71em')
-      .attr('text-anchor', 'end');
-
-    g.selectAll('.bar')
-      .data(data)
-      .enter()
-      .append('rect')
-      .attr('class', 'bar')
-      .attr('fill', '#3f51b5')
-      .on('mouseover', function (d) {
-        d3.select(this).attr('fill', '#d66666');
-        tooltip
-          .html(`${reportData.itemX + ': ' + (d._valorX || d.valorX)} <br> ${reportData.itemY + ': ' + (d._valorY || d.valorY)}`)
-          .style('visibility', 'visible')
-          .style('left', `${d3.select(this).node().getBoundingClientRect().left}px`)
-          .style('top', `${d3.select(this).node().getBoundingClientRect().top - 5}px`)
-          .style('display', 'inline-block');
-        })
-      .on('mouseout', function () {
-        d3.select(this).attr('fill', '#3f51b5');
-        tooltip.style('visibility', 'hidden');
-      })
-      .attr('x', d => x(d._valorX || d.valorX))
-      .attr('y', d => y(d.valorY))
-      .attr('width', x.bandwidth())
-      .attr('height', d => contentHeight - y(d.valorY));
-  }
-
-  _fecha(date) {
-    return this.datePipe.transform(date, 'MMMM yyyy');
-  }
-
-  _moneda(value) {
-    return this.currencyPipe.transform(value, '$');
-  }
+  _fecha = (date) => this.datePipe.transform(date, 'MMMM yyyy');
 }
