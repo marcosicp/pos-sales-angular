@@ -3,7 +3,7 @@ import { ActivatedRoute, Router, NavigationExtras } from '@angular/router';
 import { Venta } from '../../shared/models/venta.model';
 import { DataService } from '../../core/services/data.service';
 import { ProductoPedido } from '../../shared/models/producto-venta.model';
-import { URL_STOCK, URL_PEDIDOS } from '../../shared/configs/urls.config';
+import { URL_STOCK, URL_PEDIDOS, URL_CLIENTES } from '../../shared/configs/urls.config';
 import { Upload } from '../../shared/models/upload.model';
 
 @Component({
@@ -19,11 +19,19 @@ export class ConfirmacionComponent implements OnInit {
   ventas = new Venta();
   result: any;
 
-  constructor(private route: ActivatedRoute, private router: Router, private dataService: DataService) {
+  constructor(
+    private route: ActivatedRoute,
+    private router: Router,
+    private dataService: DataService
+  ) {
     this.route.queryParams.subscribe(params => {
-
       this.ventas = JSON.parse(params.pedido);
-      debugger;
+
+      this.dataService.getAsync(URL_CLIENTES.GET_ALL, []).subscribe(
+        result => {
+          this.ventas.cliente = result.find(item => item.id === this.ventas.clienteId);
+        }
+      );
     });
 
   }

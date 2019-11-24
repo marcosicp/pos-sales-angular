@@ -6,7 +6,7 @@
           <!-- Nombre -->
           <mat-form-field>
             <label>Cliente</label>
-            <input matInput disabled [(ngModel)]="ventas.cliente.displayName">
+            <input matInput disabled [(ngModel)]="ventas.cliente.displayName || ventas.cliente.nombre">
           </mat-form-field>
           <!-- Precio -->
           <mat-form-field>
@@ -59,8 +59,22 @@
 
     <!-- Guardar/Cancelar -->
     <mat-action-row class="new-item-action-row">
-      <button mat-button (click)="confirmar()">CONFIRMAR</button>
-      <button mat-button color="warn" routerLink="/pedidos/">CANCELAR</button>
+      <button
+        mat-raised-button
+        color="primary"
+        (click)="confirmar()"
+      >
+        <mat-icon>check</mat-icon>
+        Confirmar
+      </button>
+      <button
+        mat-raised-button
+        color="warn"
+        routerLink="/pedidos/"
+      >
+        <mat-icon>close</mat-icon>
+        Cancelar
+      </button>
     </mat-action-row>
   </mat-card>
 </div>
