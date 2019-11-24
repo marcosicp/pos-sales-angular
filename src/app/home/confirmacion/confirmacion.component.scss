@@ -19,6 +19,10 @@ mat-form-field {
 
 .new-item-action-row {
   padding-bottom: 0;
+  
+  button {
+    margin-right: 5px;
+  }
 }
 
 .product-image {
@@ -44,13 +48,13 @@ mat-form-field {
   height: 1.25rem;
   max-width: 15%;
   margin-top: 0.75rem;
-  
+
   &:hover {
      cursor: pointer;
      background: rgb(66, 66, 66);
   }
 }
-    
+
 .file-upload__input {
     position: absolute;
     left: 0;
