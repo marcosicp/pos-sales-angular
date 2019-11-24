@@ -28,7 +28,13 @@
         <p routerLink="/resetpassword" class="reset error">¿Olvidaste la contraseña?</p>
       </form>
 
-      <button mat-raised-button (click)="userLogin()" [disabled]="!loginForm.valid">
+      <button
+        mat-raised-button
+        color="primary"
+        (click)="userLogin()"
+        [disabled]="!loginForm.valid"
+      >
+      <mat-icon>done</mat-icon>
         Entrar
       </button>
     </mat-card-content>

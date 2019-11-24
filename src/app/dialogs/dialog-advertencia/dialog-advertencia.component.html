@@ -1,8 +1,8 @@
 <h1 mat-dialog-title style="text-align: center">{{title}}</h1>
-<div mat-dialog-content>
+<div mat-dialog-content fxLayout="column">
   <p class="mat-body-1">{{confirmText}}</p>
 </div>
-<div mat-dialog-actions>
+<div mat-dialog-actions align="end">
   <button mat-raised-button color="primary" (click)="cerrar()">
     <mat-icon>exit_to_app</mat-icon>
     Cerrar

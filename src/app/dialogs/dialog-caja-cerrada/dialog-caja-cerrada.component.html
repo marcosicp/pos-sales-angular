@@ -1,6 +1,6 @@
 <p mat-dialog-title class="add-padding heading" style="text-align: center">Formas de Cobro</p>
 <mat-dialog-content class="mat-typography" style="width:100%">
-  
+
     <mat-grid-list cols="2" rowHeight="2:2">
         <!-- <mat-grid-tile>
           <mat-card class="module-card" (click)="cerrarConTicket()" fxLayout="column" fxLayoutAlign="center center">
@@ -26,11 +26,14 @@
             <h1 class="module-title">Efectivo</h1>
           </mat-card>
         </mat-grid-tile>
-       
+
       </mat-grid-list>
 </mat-dialog-content>
-<mat-dialog-actions >
-
+<mat-dialog-actions align="end">
+  <button mat-raised-button color="primary" (click)="cancelar()">
+    <mat-icon>clear</mat-icon>
+    Cancelar
+  </button>
 </mat-dialog-actions>
 
 <style>

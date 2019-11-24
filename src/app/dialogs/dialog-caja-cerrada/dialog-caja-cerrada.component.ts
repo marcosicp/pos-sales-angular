@@ -37,4 +37,8 @@ export class DialogCajaCerradaComponent {
     this.dialogRef.close(row);
   }
 
+  cancelar() {
+    this.dialogRef.close(null);
+  }
+
 }

@@ -228,6 +228,10 @@ export class TicketComponent implements OnInit {
         const prodsDesc = '';
         const dialogRef = this.dialog.open(DialogCajaCerradaComponent, { width: '900px' ,  disableClose: true });
         dialogRef.afterClosed().subscribe(result => {
+          if (result === null) {
+            return;
+          }
+
           this.nuevoPedido = new Pedido();
           const ventaOk = [Pedido];
 
