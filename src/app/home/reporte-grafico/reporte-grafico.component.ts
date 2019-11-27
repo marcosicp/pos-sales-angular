@@ -43,7 +43,29 @@ export class ReporteGraficoComponent implements AfterViewInit {
     },
     plugins: {
       datalabels: {
-        color: 'white',
+        color: (context) => {
+          return context.dataset.backgroundColor !== '#3f51b5' ? 'black' : 'white';
+        },
+        formatter: (value, context) => {
+          switch (context.dataset.label) {
+            case 'Total': {
+              return `$ ${value.toFixed(2)}`;
+            }
+            default: {
+              return value;
+            }
+          }
+        },
+        align: (context) => {
+          switch (context.dataset.label) {
+            case 'Acumulado': {
+              return 'end';
+            }
+            default: {
+              return 'center';
+            }
+          }
+        },
         font: {
           weight: 'bold',
           family : 'Hind Madurai',
@@ -85,10 +107,10 @@ export class ReporteGraficoComponent implements AfterViewInit {
         let data = [];
 
         result.forEach(
-          v => {
+          item => {
             switch (reportData.type) {
               case 'ventas': {
-                const {creado, pedido} = v;
+                const {creado, pedido} = item;
                 const itemFinded = data.find(i => i._valorX === this._fecha(creado));
 
                 if (!itemFinded) {
@@ -107,7 +129,7 @@ export class ReporteGraficoComponent implements AfterViewInit {
                 break;
               }
               case 'pedidos': {
-                const {creado} = v;
+                const {creado} = item;
                 const itemFinded = data.find(i => i._valorX === this._fecha(creado));
 
                 if (!itemFinded) {
@@ -124,7 +146,7 @@ export class ReporteGraficoComponent implements AfterViewInit {
                 break;
               }
               case 'stock': {
-                const {cantidad, codigo, nombre} = v;
+                const {cantidad, codigo, nombre} = item;
 
                 data.push({
                   id: data.length,
@@ -134,26 +156,73 @@ export class ReporteGraficoComponent implements AfterViewInit {
 
                 break;
               }
+              case 'productos': {
+                item.pedido.productosPedidos.forEach(
+                  prod => {
+                    const {nombre, codigo, cantidad} = prod;
+                    const finded = data.find(obj => obj.valorX === nombre);
+
+                    if (!finded) {
+                      data.push({
+                        id: data.length,
+                        valorX: nombre,
+                        valorY: cantidad,
+                        _valorX: `${codigo} - ${nombre}`
+                      });
+                    } else {
+                      data[finded.id].valorY += cantidad;
+                    }
+                  }
+                );
+              }
             }
           }
         );
 
-        if (reportData.type === 'stock') {
-          data = data.slice(0, 12).sort((a, b) => b.valorY < a.valorY ? 1 : -1);
-        } else {
-          data = data.slice(0, 12).sort((a, b) => new Date(b.valorX) > new Date(a.valorX) ? 1 : -1);
-        }
+        data = this._sort(data, reportData.type, 20);
 
         this.barChartData[0].data = data.map(item => (item._valorY || item.valorY));
         this.barChartLabels = data.map(item => (item._valorX || item.valorX));
         this.barChartData[0].label = this.report.label;
+
+        if (reportData.type === 'productos') {
+          const acumulado = data.map(item => item.valorY);
+
+          this.barChartData.push({
+            data: acumulado.map((item, index) => index === 0 ? item : acumulado.slice(0, index).reduce((a, b) => a + b) + item),
+            type: 'line',
+            fill: false,
+            backgroundColor: '#d66666',
+            borderColor: '#d66666',
+            borderJoinStyle: 'round',
+            label: 'Acumulado'
+          });
+        }
 
         this.loadingService.toggleLoading();
       }
     );
   }
 
-  _truncate = (word: string): string => word.length > 25 ? word.substring(0, 25).concat('...') : word;
+  _truncate = (word: string, maxLenght: number = 25): string => word.length > maxLenght ? word.substring(0, maxLenght).concat('...') : word;
 
   _fecha = (date) => this.datePipe.transform(date, 'MMMM yyyy');
+
+  _sort = (array: any[], sortingType: string, maxLenght: number = 12): any[] => {
+    return array
+            .slice(0, maxLenght)
+            .sort((a, b) => {
+              switch (sortingType) {
+                case 'stock': {
+                  return b.valorY < a.valorY ? 1 : -1;
+                }
+                case 'productos': {
+                  return b.valorY > a.valorY ? 1 : -1;
+                }
+                default: {
+                  return new Date(b.valorX) > new Date(a.valorX) ? 1 : -1;
+                }
+              }
+            });
+  }
 }

@@ -29,6 +29,13 @@ export class ReportesComponent {
       url: URL_STOCK.GET_ALL,
       itemX: 'Producto',
       label: 'Unidades'
+    },
+    productos: {
+      tabLabel: 'Productos más vendidos',
+      type: 'productos',
+      url: URL_VENTAS.GET_ALL,
+      itemX: 'Producto',
+      label: 'Unidades vendidas'
     }
   };
   masterTab = 'ventas';
