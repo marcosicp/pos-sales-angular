@@ -43,7 +43,29 @@ export class ReporteGraficoComponent implements AfterViewInit {
     },
     plugins: {
       datalabels: {
-        color: 'black',
+        color: (context) => {
+          return context.dataset.backgroundColor !== '#3f51b5' ? 'black' : 'white';
+        },
+        formatter: (value, context) => {
+          switch (context.dataset.label) {
+            case 'Total': {
+              return `$ ${value.toFixed(2)}`;
+            }
+            default: {
+              return value;
+            }
+          }
+        },
+        align: (context) => {
+          switch (context.dataset.label) {
+            case 'Acumulado': {
+              return 'end';
+            }
+            default: {
+              return 'center';
+            }
+          }
+        },
         font: {
           weight: 'bold',
           family : 'Hind Madurai',
@@ -169,6 +191,8 @@ export class ReporteGraficoComponent implements AfterViewInit {
           this.barChartData.push({
             data: acumulado.map((item, index) => index === 0 ? item : acumulado.slice(0, index).reduce((a, b) => a + b) + item),
             type: 'line',
+            fill: false,
+            backgroundColor: '#d66666',
             borderColor: '#d66666',
             borderJoinStyle: 'round',
             label: 'Acumulado'
@@ -180,7 +204,7 @@ export class ReporteGraficoComponent implements AfterViewInit {
     );
   }
 
-  _truncate = (word: string): string => word.length > 25 ? word.substring(0, 25).concat('...') : word;
+  _truncate = (word: string, maxLenght: number = 25): string => word.length > maxLenght ? word.substring(0, maxLenght).concat('...') : word;
 
   _fecha = (date) => this.datePipe.transform(date, 'MMMM yyyy');
 
