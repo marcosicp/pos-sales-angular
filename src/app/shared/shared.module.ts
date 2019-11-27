@@ -12,6 +12,7 @@ import { BooleanPipe } from './pipes/boolean.pipe';
 import { ColumnValuePipe } from './pipes/column-value.pipe';
 // OTROS MODULOS
 import { MaterialModule } from '../core/material.module';
+import { WeightPipe } from './pipes/weight.pipe';
 
 @NgModule({
   imports: [
@@ -20,7 +21,13 @@ import { MaterialModule } from '../core/material.module';
   ],
   exports: [
     DynamicTableComponent,
-    MaterialModule
+    MaterialModule,
+    BooleanPipe,
+    ColumnValuePipe,
+    PhonePipe,
+    CuilPipe,
+    ParseUserRolePipe,
+    WeightPipe
   ],
   declarations: [
     DynamicTableComponent,
@@ -28,7 +35,8 @@ import { MaterialModule } from '../core/material.module';
     ColumnValuePipe,
     PhonePipe,
     CuilPipe,
-    ParseUserRolePipe
+    ParseUserRolePipe,
+    WeightPipe
   ],
   providers: [
     LoadingService
