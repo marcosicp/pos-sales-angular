@@ -119,6 +119,17 @@
                   }}
                 </span>
                 <span
+                  *ngSwitchCase="'weight'"
+                  [matTooltip]="initTooltip(element, columnCells, column) | number: '1.2' | weightPipe"
+                >
+                  {{
+                    element |
+                    columnValue: columnCells: column |
+                    number: '1.2' |
+                    weightPipe
+                  }}
+                </span>
+                <span
                   *ngSwitchDefault
                   [matTooltip]="initTooltip(element, columnCells, column)"
                 >

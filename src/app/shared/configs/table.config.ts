@@ -30,7 +30,7 @@ const TABLA_STOCK = {
     precioVenta: 'currency',
     precioCompra: 'currency',
     cantidad: null,
-    peso: 'number',
+    peso: 'weight',
     opciones: null
   }
 };
