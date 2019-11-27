@@ -11,7 +11,7 @@
           <!-- Precio -->
           <mat-form-field>
             <label>CUIT/CUIL</label>
-            <input matInput type="text" disabled [(ngModel)]="ventas.cliente.cuil">
+            <input matInput type="text" disabled [value]="ventas.cliente.cuil | cuilPipe">
           </mat-form-field>
           <!-- Tipo Producto dropdown -->
           <mat-form-field>
@@ -33,17 +33,17 @@
 
         <mat-form-field>
           <label>Fecha Pedido</label>
-          <input type="datetime" disabled  matInput [(ngModel)]="ventas.fechaPedido" [value]="ventas.fechaPedido | date:'short'">
+          <input type="datetime" disabled  matInput [value]="ventas.fechaPedido | date:'short'" />
         </mat-form-field>
 
         <mat-form-field>
           <label>Monto Total</label>
-          <input matInput disabled type="text" [(ngModel)]="ventas.total" />
+          <input matInput disabled type="text" [value]="ventas.total | currency:'$'" />
         </mat-form-field>
 
         <mat-form-field>
           <label>Peso Total</label>
-          <input matInput type="text" disabled [value]="ventas.pesoTotal + ' KG'" [(ngModel)]="ventas.pesoTotal">
+          <input matInput type="text" disabled [value]="ventas.pesoTotal | number : '1.2' | weightPipe" />
         </mat-form-field>
 
         <div style="padding-left: 245px;">
@@ -51,8 +51,7 @@
           <input id="upload" class="file-upload__input" type="file" name="file-upload" accept="image/*" (change)="detectFiles($event)">
         </div>
         <div class="flex flex-direction-row product-image-section">
-          <img *ngIf="ventas.imagenUrl != null" [src]="ventas.imagenUrl"  style="width:250px;height:200px">
-
+          <img *ngIf="ventas.imagenUrl != null" [src]="ventas.imagenUrl" style="width:250px;height:200px">
         </div>
       </div>
     </mat-card-content>
