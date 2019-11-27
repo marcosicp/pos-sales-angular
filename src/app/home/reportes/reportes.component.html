@@ -8,4 +8,7 @@
   <mat-tab [label]="reports.stock.tabLabel">
     <app-reporte-grafico *ngIf="masterTab === 'stock'" [report]="reports.stock"></app-reporte-grafico>
   </mat-tab>
+  <mat-tab [label]="reports.productos.tabLabel">
+    <app-reporte-grafico *ngIf="masterTab === 'productos'" [report]="reports.productos"></app-reporte-grafico>
+  </mat-tab>
 </mat-tab-group>
