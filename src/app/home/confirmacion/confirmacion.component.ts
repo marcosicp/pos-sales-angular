@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 import { ActivatedRoute, Router, NavigationExtras } from '@angular/router';
 import { Venta } from '../../shared/models/venta.model';
 import { DataService } from '../../core/services/data.service';
@@ -11,7 +11,7 @@ import { Upload } from '../../shared/models/upload.model';
   templateUrl: './confirmacion.component.html',
   styleUrls: ['./confirmacion.component.scss']
 })
-export class ConfirmacionComponent implements OnInit {
+export class ConfirmacionComponent {
 
   currentUpload: Upload;
   // imagenUrl: string = "../../../assets/icons/nointernet.png";
@@ -33,11 +33,6 @@ export class ConfirmacionComponent implements OnInit {
         }
       );
     });
-
-  }
-
-  ngOnInit() {
-
   }
 
   detectFiles(event) {
