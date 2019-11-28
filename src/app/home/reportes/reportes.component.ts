@@ -10,6 +10,7 @@ import { URL_VENTAS, URL_STOCK, URL_PEDIDOS } from '../../shared/configs/urls.co
 export class ReportesComponent {
   reports = {
     ventas: {
+      maxItems: 12,
       tabLabel: 'Ventas totales por mes',
       type: 'ventas',
       url: URL_VENTAS.GET_ALL,
@@ -17,6 +18,7 @@ export class ReportesComponent {
       label: 'Total'
     },
     pedidos: {
+      maxItems: 12,
       tabLabel: 'Pedidos sin entregar por mes',
       type: 'pedidos',
       url: URL_PEDIDOS.GET_ALL,
@@ -24,6 +26,7 @@ export class ReportesComponent {
       label: 'Pedidos'
     },
     stock: {
+      maxItems: 12,
       tabLabel: 'Productos con menor stock',
       type: 'stock',
       url: URL_STOCK.GET_ALL,
@@ -31,11 +34,12 @@ export class ReportesComponent {
       label: 'Unidades'
     },
     productos: {
+      maxItems: 12,
       tabLabel: 'Productos más vendidos',
       type: 'productos',
       url: URL_VENTAS.GET_ALL,
       itemX: 'Producto',
-      label: 'Unidades vendidas'
+      label: '% de Ventas'
     }
   };
   masterTab = 'ventas';

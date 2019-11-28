@@ -3,7 +3,7 @@ import { ChartOptions, ChartType, ChartDataSets } from 'chart.js';
 import * as pluginDataLabels from 'chartjs-plugin-datalabels';
 import { Label } from 'ng2-charts';
 // PIPES
-import { DatePipe } from '@angular/common';
+import { DatePipe, CurrencyPipe, PercentPipe } from '@angular/common';
 // SERVICIOS
 import { DataService } from '../../core/services/data.service';
 import { LoadingService } from '../../shared/services/loading.service';
@@ -12,7 +12,7 @@ import { LoadingService } from '../../shared/services/loading.service';
   selector: 'app-reporte-grafico',
   templateUrl: './reporte-grafico.component.html',
   styleUrls: ['./reporte-grafico.component.scss'],
-  providers: [DatePipe]
+  providers: [CurrencyPipe, PercentPipe, DatePipe]
 })
 export class ReporteGraficoComponent implements AfterViewInit {
   @Input() report = null;
@@ -49,7 +49,11 @@ export class ReporteGraficoComponent implements AfterViewInit {
         formatter: (value, context) => {
           switch (context.dataset.label) {
             case 'Total': {
-              return `$ ${value.toFixed(2)}`;
+              return this.currencyPipe.transform(value, '$');
+            }
+            case '% de Ventas':
+            case '% Acumulado': {
+              return this.percentPipe.transform(value);
             }
             default: {
               return value;
@@ -58,7 +62,7 @@ export class ReporteGraficoComponent implements AfterViewInit {
         },
         align: (context) => {
           switch (context.dataset.label) {
-            case 'Acumulado': {
+            case '% Acumulado': {
               return 'end';
             }
             default: {
@@ -91,6 +95,8 @@ export class ReporteGraficoComponent implements AfterViewInit {
 
   constructor(
     private dataService: DataService,
+    private currencyPipe: CurrencyPipe,
+    private percentPipe: PercentPipe,
     private datePipe: DatePipe,
     private loadingService: LoadingService
   ) { }
@@ -179,25 +185,28 @@ export class ReporteGraficoComponent implements AfterViewInit {
           }
         );
 
-        data = this._sort(data, reportData.type, 20);
-
-        this.barChartData[0].data = data.map(item => (item._valorY || item.valorY));
-        this.barChartLabels = data.map(item => (item._valorX || item.valorX));
-        this.barChartData[0].label = this.report.label;
+        data = this._sort(data, reportData.type, reportData.maxItems);
 
         if (reportData.type === 'productos') {
-          const acumulado = data.map(item => item.valorY);
+          const arrayUnidades = data.map(item => item.valorY);
+          const totalPerc = data.map(item => (item.valorY / arrayUnidades.reduce((a, b) => a + b)));
 
+          this.barChartData[0].data = totalPerc;
           this.barChartData.push({
-            data: acumulado.map((item, index) => index === 0 ? item : acumulado.slice(0, index).reduce((a, b) => a + b) + item),
+            data: totalPerc.map((item, index) => index === 0 ? item : totalPerc.slice(0, index).reduce((a, b) => a + b) + item),
             type: 'line',
             fill: false,
             backgroundColor: '#d66666',
             borderColor: '#d66666',
             borderJoinStyle: 'round',
-            label: 'Acumulado'
+            label: '% Acumulado'
           });
+        } else {
+          this.barChartData[0].data = data.map(item => (item._valorY || item.valorY));
         }
+
+        this.barChartLabels = data.map(item => (item._valorX || item.valorX));
+        this.barChartData[0].label = this.report.label;
 
         this.loadingService.toggleLoading();
       }
@@ -208,9 +217,9 @@ export class ReporteGraficoComponent implements AfterViewInit {
 
   _fecha = (date) => this.datePipe.transform(date, 'MMMM yyyy');
 
-  _sort = (array: any[], sortingType: string, maxLenght: number = 12): any[] => {
+  _sort = (array: any[], sortingType: string, maxItems: number = 12): any[] => {
     return array
-            .slice(0, maxLenght)
+            .slice(0, maxItems)
             .sort((a, b) => {
               switch (sortingType) {
                 case 'stock': {
