@@ -22,7 +22,6 @@
   width: 100%;
 }
 
-
 .item {
   font-family: $body-font;
 }
@@ -35,13 +34,12 @@
   cursor: pointer;
 }
 
-
 .summary {
   margin-top: auto;
-}
 
-.total {
-  padding: 0.75rem;
+  h3.total {
+    font-weight: bold;
+  }
 }
 
 td, th {
@@ -52,8 +50,6 @@ td, th {
 tr:nth-child(even) {
   background-color: #dddddd;
 }
-
-
 
 .checkout {
   margin-right: 0.75rem;

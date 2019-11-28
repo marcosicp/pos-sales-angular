@@ -6,6 +6,8 @@ import { FlexLayoutModule } from '@angular/flex-layout';
 import { NgbModalModule } from '@ng-bootstrap/ng-bootstrap';
 import { RxReactiveFormsModule } from '@rxweb/reactive-form-validators';
 import { CustomFormsModule } from 'ngx-custom-validators';
+// IMPORT DE MODULES
+import { SharedModule } from '../shared/shared.module';
 // IMPORTS
 import { DialogAbrirCajaComponent } from './dialog-abrir-caja/dialog-abrir-caja.component';
 import { DialogGestionarProductoComponent } from './dialog-gestionar-producto/dialog-gestionar-producto.component';
@@ -37,7 +39,8 @@ import { DialogConfirmarCambioFechaComponent } from './dialog-confirmar-cambio-f
     RxReactiveFormsModule,
     CustomFormsModule,
     NgbModalModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    SharedModule
   ],
   declarations: [
     DialogAbrirCajaComponent,
