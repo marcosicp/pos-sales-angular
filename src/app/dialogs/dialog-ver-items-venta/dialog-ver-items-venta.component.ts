@@ -1,7 +1,5 @@
 import { Component, Inject } from '@angular/core';
 import { MAT_DIALOG_DATA, MatTableDataSource, MatDialogRef } from '@angular/material';
-// SERVICIOS
-import { DataService } from '../../../app/core/services/data.service';
 // MODELOS
 import { ProductoPedido } from '../../shared/models/producto-venta.model';
 
@@ -15,32 +13,33 @@ export class DialogVerItemsPedidoComponent {
   productosPedido: ProductoPedido[] = [];
   item: any;
   dataSource = new MatTableDataSource<ProductoPedido>();
-  displayedColumns: string[] = ['producto', 'cantidad', 'peso', 'precioVenta'];
+  displayedColumns: string[] = ['producto', 'cantidad', 'peso', 'precioVenta', 'montoNeto', 'iva', 'montoFinal'];
   totals: any;
 
   constructor(
-    private comerciosService: DataService,
     public dialogRef: MatDialogRef<any>,
     @Inject(MAT_DIALOG_DATA) public data: any
   ) {
-    // this.comerciosService.getAsync('ventas/productosPedido?id=' + data.item.id, this.productosPedido).subscribe(
-    //   data => {
-    //     // this.productosPedido.forEach(function(item) {
-    //       this.dataSource.data = this.productosPedido;
-    //     // });
-    //   }
-    // );
-
-    // this.dataSource.data = this.productosPedido;
     const estado = data.estado === 'CONFIRMADO';
     this.dialogTitle = `Listado de productos ${estado ? 'vendidos' : 'pedidos'}`;
+
+    data.productosPedidos.forEach(
+      producto => {
+        producto['montoFinal'] = producto.precioVenta * producto.cantidad;
+        producto['iva'] = producto.montoFinal * 0.21;
+        producto['montoNeto'] = producto.montoFinal - producto.iva;
+      }
+    );
 
     this.dataSource.data = data.productosPedidos;
 
     this.totals = {
       cantidad: this.calculateTotal('cantidad'),
       peso: this.calculateTotal('peso'),
-      precioVenta: this.calculateTotal('precioVenta')
+      precioVenta: this.calculateTotal('precioVenta'),
+      montoNeto: this.calculateTotal('montoNeto'),
+      iva: this.calculateTotal('iva'),
+      montoFinal: this.calculateTotal('montoFinal'),
     };
   }
 
@@ -48,9 +47,6 @@ export class DialogVerItemsPedidoComponent {
     this.dialogRef.close(false);
   }
 
-  private calculateTotal(property: string) {
-    return this.dataSource.data.reduce(
-      (accumulator, currentVal) => (accumulator[property] || 0) + currentVal[property]
-    );
-  }
+  private calculateTotal = (property: string) =>
+    this.dataSource.data.map(item => item[property]).reduce((acumulador, valor) => acumulador + valor)
 }

@@ -1,22 +1,25 @@
 import { Component, OnInit } from '@angular/core';
 import { NgSelectConfig } from '@ng-select/ng-select';
 import { Router, NavigationExtras } from '@angular/router';
+import { MatDialog } from '@angular/material';
+// MODELOS
 import { Productos } from '../../shared/models/producto.model';
+import { Usuarios } from '../../shared/models/usuarios.model';
+import { Pedido } from '../../shared/models/pedido.model';
+import { Clientes } from '../../shared/models/clientes.model';
+import { Venta } from '../../shared/models/venta.model';
+// SERVICIOS
 import { PosService } from '../../core/services/pos.service';
 import { DataService } from '../../core/services/data.service';
+import { ProductoPedido } from '../../shared/models/producto-venta.model';
+// URLS
+import { URL_CLIENTES } from '../../shared/configs/urls.config';
+// DIALOGOS
 import { DialogCajaCerradaComponent } from '../../dialogs/dialog-caja-cerrada/dialog-caja-cerrada.component';
 import { DialogBuscarProductoComponent } from '../../dialogs/dialog-buscar-producto/dialog-buscar-producto.component';
-import { Usuarios } from '../../shared/models/usuarios.model';
 import { DialogSinConexionComponent } from '../../dialogs/dialog-sin-conexion/dialog-sin-conexion.component';
 import { DialogOperacionOkComponent } from '../../dialogs/dialog-operacion-ok/dialog-operacion-ok.component';
-import { AuthService } from '../../core/services/auth.service';
-import { Pedido } from '../../shared/models/pedido.model';
-import { MatDialog } from '@angular/material';
-import { ProductoPedido } from '../../shared/models/producto-venta.model';
 import { DialogAdvertenciaComponent } from '../../dialogs/dialog-advertencia/dialog-advertencia.component';
-import { Clientes } from '../../shared/models/clientes.model';
-import { URL_CLIENTES } from '../../shared/configs/urls.config';
-import { Venta } from '../../shared/models/venta.model';
 
 @Component({
   selector: 'app-ticket',
@@ -24,15 +27,15 @@ import { Venta } from '../../shared/models/venta.model';
   styleUrls: ['./ticket.component.scss']
 })
 export class TicketComponent implements OnInit {
-
   clientes: Clientes[] = [];
-  // selectedClienteId = String;
   clientesResponse: Clientes[] = [];
   ticket: Productos[] = [];
 
   cartTotal = 0;
   cartPeso = 0;
   cartNumItems = 0;
+  totalIva = 0;
+  totalFinal = 0;
   productosPedido: ProductoPedido[] = [];
   total = 0;
   pesoTotal = 0;
@@ -40,9 +43,14 @@ export class TicketComponent implements OnInit {
   usuario: Usuarios;
   nuevoPedido:  Pedido;
 
-  constructor(private config: NgSelectConfig, private router: Router, private ticketSync: PosService, private dataService: DataService, public dialog: MatDialog) {
+  constructor(
+    private router: Router,
+    private ticketSync: PosService,
+    private dataService: DataService,
+    public dialog: MatDialog
+  ) {
     this.clienteId = null;
-   }
+  }
 
   ngOnInit() {
     this.dataService.getAsync(URL_CLIENTES.GET_ALL, this.clientesResponse).subscribe(
