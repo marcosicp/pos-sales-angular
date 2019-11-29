@@ -8,7 +8,6 @@ import { MovimientosCaja } from '../../shared/models/movimientos-caja.model';
 import { AuthService } from '../../core/services/auth.service';
 // HELPERS
 import RegExpHelper from '../../shared/helpers/regex.helper';
-import getFechaArg from '../../shared/helpers/date.helper';
 
 
 @Component({
@@ -23,7 +22,7 @@ export class DialogAbrirCajaComponent implements OnInit {
   abrirCajaForm: FormGroup;
   errorString = (prop: string) => {
     const errorMsj = prop === 'monto' ?
-      ' sólo con números' : ', es obligatorio';
+      ' sólo con números y hasta 2 decimales' : ', es obligatorio';
     return `Por favor complete el campo ${prop.toLocaleUpperCase()}${errorMsj}`;
   }
 
@@ -39,7 +38,7 @@ export class DialogAbrirCajaComponent implements OnInit {
   ngOnInit() {
     this.abrirCajaForm = new FormGroup(
       {
-        monto: new FormControl(this.aperturaCaja.monto, [Validators.required, Validators.pattern(RegExpHelper.numbers)]),
+        monto: new FormControl(this.aperturaCaja.monto, [Validators.required, Validators.pattern(RegExpHelper.numberDecimals)]),
         descripcion: new FormControl(this.aperturaCaja.descripcion, [Validators.required])
       }
     );

@@ -21,7 +21,7 @@ export class DialogEgresoCajaComponent implements OnInit {
   retiroForm: FormGroup;
   errorString = (prop: string) => {
     const errorMsj = prop === 'monto' ?
-      ' sólo con números' : ', es obligatorio';
+      ' sólo con números y hasta 2 decimales' : ', es obligatorio';
     return `Por favor complete el campo ${prop.toLocaleUpperCase()}${errorMsj}`;
   }
 
@@ -37,7 +37,7 @@ export class DialogEgresoCajaComponent implements OnInit {
   ngOnInit() {
     this.retiroForm = new FormGroup(
       {
-        monto: new FormControl(this.retiroCaja.monto, [Validators.required, Validators.pattern(RegExpHelper.numbers)]),
+        monto: new FormControl(this.retiroCaja.monto, [Validators.required, Validators.pattern(RegExpHelper.numberDecimals)]),
         descripcion: new FormControl(this.retiroCaja.descripcion)
       }
     );

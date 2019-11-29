@@ -18,7 +18,21 @@
   </mat-form-field>
 </div>
 
-<div mat-dialog-actions>
-  <button mat-raised-button color="primary" (click)="guardarCambios()">Guardar</button>
-  <button mat-raised-button color="warn" (click)="cancelarCambios()">Cancelar</button>
+<div mat-dialog-actions align="end">
+  <button
+    mat-raised-button
+    color="primary"
+    (click)="guardarCambios()"
+  >
+    <mat-icon>check</mat-icon>
+    Guardar
+  </button>
+  <button
+    mat-raised-button
+    color="warn"
+    (click)="cancelarCambios()"
+  >
+    <mat-icon>close</mat-icon>
+    Cancelar
+  </button>
 </div>

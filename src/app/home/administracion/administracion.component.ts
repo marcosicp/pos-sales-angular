@@ -20,7 +20,7 @@ import { URL_MOVIMIENTOS } from '../../shared/configs/urls.config';
   styleUrls: ['./administracion.component.scss']
 })
 export class AdministracionComponent {
-  cajaAbierta: any;
+  cajaAbierta = null;
 
   constructor(
     private dataService: DataService,
@@ -31,7 +31,6 @@ export class AdministracionComponent {
       .subscribe(
         data => this.cajaAbierta = data[0],
         error => {
-          this.cajaAbierta = null,
           this.dialog.open(
             DialogSinConexionComponent,
             { width: '600px', disableClose: true }

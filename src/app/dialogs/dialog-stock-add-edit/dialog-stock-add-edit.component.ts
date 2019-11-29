@@ -23,9 +23,9 @@ export class DialogStockAddEditComponent implements OnInit {
     switch (prop) {
       case 'código':
       case 'stock inicial':
-        return `${errorText} sólo con números (sin puntos, letras ni otros caracteres)`;
+        return `${errorText} sólo con números y letras (sin puntos ni otros caracteres)`;
       case 'nombre':
-        return `${errorText} sólo con letras`;
+        return `${errorText} sólo con letras (se pueden usar espacios)`;
       case 'precio de venta':
       case 'precio de compra':
       case 'peso por unidad':
@@ -47,12 +47,12 @@ export class DialogStockAddEditComponent implements OnInit {
   ngOnInit() {
     this.productForm = new FormGroup(
       {
-        codigo: new FormControl(this.producto.codigo, [Validators.required, Validators.pattern(RegExpHelper.numbers)]),
+        codigo: new FormControl(this.producto.codigo, [Validators.required, Validators.pattern(RegExpHelper.alphaNumeric)]),
         nombre: new FormControl(this.producto.nombre, [Validators.required, Validators.pattern(RegExpHelper.lettersSpace)]),
-        precioCompra: new FormControl(this.producto.precioCompra, [Validators.required, Validators.pattern(RegExpHelper.numbers)]),
-        precioVenta: new FormControl(this.producto.precioVenta, [Validators.required, Validators.pattern(RegExpHelper.numbers)]),
+        precioCompra: new FormControl(this.producto.precioCompra, [Validators.required, Validators.pattern(RegExpHelper.numberDecimals)]),
+        precioVenta: new FormControl(this.producto.precioVenta, [Validators.required, Validators.pattern(RegExpHelper.numberDecimals)]),
         cantidad: new FormControl(this.producto.cantidad, [Validators.required, Validators.pattern(RegExpHelper.numbers)]),
-        peso: new FormControl(this.producto.peso, [Validators.required, Validators.pattern(RegExpHelper.numbers)]),
+        peso: new FormControl(this.producto.peso, [Validators.required, Validators.pattern(RegExpHelper.numberDecimals)]),
         proveedor: new FormControl(this.producto.proveedor, [Validators.required]),
         categoria: new FormControl(this.producto.categoria, [Validators.required]),
       }

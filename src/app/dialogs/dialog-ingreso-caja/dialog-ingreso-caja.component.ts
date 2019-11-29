@@ -21,7 +21,7 @@ export class DialogIngresoCajaComponent implements OnInit {
   depositoForm: FormGroup;
   errorString = (prop: string) => {
     const errorMsj = prop === 'monto' ?
-      ' sólo con números' : ', es obligatorio';
+      ' sólo con números y hasta 2 decimales' : ', es obligatorio';
     return `Por favor complete el campo ${prop.toLocaleUpperCase()}${errorMsj}`;
   }
   // TODO: campo de cuanto tendria que tener hipoteticamente apertura + depositos - retiros
@@ -37,7 +37,7 @@ export class DialogIngresoCajaComponent implements OnInit {
   ngOnInit() {
     this.depositoForm = new FormGroup(
       {
-        monto: new FormControl(this.depositoCaja.monto, [Validators.required, Validators.pattern(RegExpHelper.numbers)]),
+        monto: new FormControl(this.depositoCaja.monto, [Validators.required, Validators.pattern(RegExpHelper.numberDecimals)]),
         descripcion: new FormControl(this.depositoCaja.descripcion)
       }
     );
