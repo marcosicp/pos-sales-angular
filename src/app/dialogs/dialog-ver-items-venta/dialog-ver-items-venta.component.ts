@@ -13,7 +13,7 @@ export class DialogVerItemsPedidoComponent {
   productosPedido: ProductoPedido[] = [];
   item: any;
   dataSource = new MatTableDataSource<ProductoPedido>();
-  displayedColumns: string[] = ['producto', 'cantidad', 'peso', 'precioVenta', 'montoNeto', 'iva', 'montoFinal'];
+  displayedColumns: string[] = ['producto', 'cantidad', 'peso', 'precioVenta', 'pesoTotal', 'montoNeto', 'iva', 'montoFinal'];
   totals: any;
 
   constructor(
@@ -25,6 +25,7 @@ export class DialogVerItemsPedidoComponent {
 
     data.productosPedidos.forEach(
       producto => {
+        producto['pesoTotal'] = producto.cantidad * producto.peso;
         producto['montoFinal'] = producto.precioVenta * producto.cantidad;
         producto['iva'] = producto.montoFinal * 0.21;
         producto['montoNeto'] = producto.montoFinal - producto.iva;
@@ -35,8 +36,8 @@ export class DialogVerItemsPedidoComponent {
 
     this.totals = {
       cantidad: this.calculateTotal('cantidad'),
-      peso: this.calculateTotal('peso'),
       precioVenta: this.calculateTotal('precioVenta'),
+      pesoTotal: this.calculateTotal('pesoTotal'),
       montoNeto: this.calculateTotal('montoNeto'),
       iva: this.calculateTotal('iva'),
       montoFinal: this.calculateTotal('montoFinal'),

@@ -20,7 +20,7 @@ import { DialogSinConexionComponent } from '../../dialogs/dialog-sin-conexion/di
 export class ResetPasswordComponent implements OnInit, AfterContentInit {
   @ViewChild('emailInput') emailInput: ElementRef;
   resetPassForm: FormGroup;
-  errorString = () => 'El campo EMAIL es obligatorio, debe ser llenado con un email valido';
+  errorString = () => 'Por favor complete el campo con el email completo';
 
   constructor(
     private auth: AuthService,
