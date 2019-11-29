@@ -43,12 +43,12 @@ export class AuthService {
   }
 
   emailLogin(email: string, password: string) {
-    const test = {
+    const userLogin = {
       email: email,
       pass: password
     };
 
-    return this.dataService.postAsync(URL_USUARIOS.EMAIL_LOGIN, test);
+    return this.dataService.postAsync(URL_USUARIOS.EMAIL_LOGIN, userLogin);
   }
 
   public isAuthenticated(): boolean {
@@ -59,7 +59,7 @@ export class AuthService {
   }
 
   resetPassword(email: string) {
-    return null;
+    return this.dataService.postAsync(URL_USUARIOS.RESET_PASS, email);
     //  this.afAuth.auth.sendPasswordResetEmail(email)
     //   .then(() => console.log('email sent'));
   }

@@ -1,9 +1,15 @@
 import { Component, OnInit, ViewChild, ElementRef, AfterContentInit } from '@angular/core';
-import { AuthService } from '../../core/services/auth.service';
+import { Router } from '@angular/router';
+import { MatDialog } from '@angular/material';
 import { FormControl, Validators, FormGroup, FormGroupDirective } from '@angular/forms';
+// SERVICIOS
+import { AuthService } from '../../core/services/auth.service';
+import { LoadingService } from '../../shared/services/loading.service';
 // REGEXP HELPER
 import RegExpHelper from '../../shared/helpers/regex.helper';
-import { Router } from '@angular/router';
+// DIALOGOS
+import { DialogOperacionOkComponent } from '../../dialogs/dialog-operacion-ok/dialog-operacion-ok.component';
+import { DialogSinConexionComponent } from '../../dialogs/dialog-sin-conexion/dialog-sin-conexion.component';
 
 @Component({
   selector: 'app-resetpassword',
@@ -18,7 +24,9 @@ export class ResetPasswordComponent implements OnInit, AfterContentInit {
 
   constructor(
     private auth: AuthService,
-    private router: Router
+    public dialog: MatDialog,
+    private router: Router,
+    private loadingService: LoadingService
   ) { }
 
   ngOnInit() {
@@ -35,9 +43,28 @@ export class ResetPasswordComponent implements OnInit, AfterContentInit {
 
   resetPassword() {
     if (this.resetPassForm.valid) {
-      this.auth.resetPassword(this.resetPassForm.value.email)
-      .then(value => console.warn(value))
-      .catch(error => console.warn(error));
+      this.loadingService.toggleLoading();
+
+      this.auth.resetPassword(this.resetPassForm.value.email).subscribe(
+        result => {
+          this.loadingService.toggleLoading();
+          if (result) {
+            const dialogResult = this.dialog.open(
+              DialogOperacionOkComponent,
+              { width: '600px', disableClose: true }
+            );
+
+            dialogResult.afterClosed().subscribe(
+              () => this.router.navigate(['login'])
+            );
+          } else {
+            this.dialog.open(
+              DialogSinConexionComponent,
+              { width: '600px', disableClose: true }
+            );
+          }
+        }
+      );
     }
   }
 
