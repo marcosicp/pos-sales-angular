@@ -8,7 +8,6 @@ import { MovimientosCaja } from '../../shared/models/movimientos-caja.model';
 import { AuthService } from '../../core/services/auth.service';
 // HELPERS
 import RegExpHelper from '../../shared/helpers/regex.helper';
-import getFechaArg from '../../shared/helpers/date.helper';
 
 @Component({
   selector: 'app-dialog-ingreso-caja',
@@ -25,7 +24,7 @@ export class DialogIngresoCajaComponent implements OnInit {
       ' sólo con números' : ', es obligatorio';
     return `Por favor complete el campo ${prop.toLocaleUpperCase()}${errorMsj}`;
   }
-
+  // TODO: campo de cuanto tendria que tener hipoteticamente apertura + depositos - retiros
   constructor(
     private authService: AuthService,
     public dialogRef: MatDialogRef<DialogIngresoCajaComponent>

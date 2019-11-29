@@ -46,12 +46,12 @@
           <input matInput type="text" disabled [value]="ventas.pesoTotal | number : '1.2' | weightPipe" />
         </mat-form-field>
 
-        <div style="padding-left: 245px;">
+        <div class="file-upload">
           <label for="upload" class="file-upload__label">Subir Imagen</label>
           <input id="upload" class="file-upload__input" type="file" name="file-upload" accept="image/*" (change)="detectFiles($event)">
         </div>
-        <div class="flex flex-direction-row product-image-section">
-          <img *ngIf="ventas.imagenUrl != null" [src]="ventas.imagenUrl" style="width:250px;height:200px">
+        <div class="flex flex-direction-row file-upload-img">
+          <img *ngIf="ventas.imagenUrl != null" [src]="ventas.imagenUrl">
         </div>
       </div>
     </mat-card-content>

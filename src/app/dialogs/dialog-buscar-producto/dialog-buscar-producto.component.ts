@@ -7,10 +7,11 @@ import { URL_STOCK } from '../../shared/configs/urls.config';
 @Component({
   selector: 'app-dialog-buscar-producto',
   templateUrl: 'dialog-buscar-producto.component.html',
+  styleUrls: ['dialog-buscar-producto.component.scss']
 })
 export class DialogBuscarProductoComponent implements OnInit {
 
-  displayedColumns: string[] = ['producto', 'cantidad', 'codigo', 'precioVenta'];
+  displayedColumns: string[] = ['codigo', 'producto', 'cantidad', 'precioVenta'];
   productos: MatTableDataSource<Productos>;
 
   constructor(public dialogRef: MatDialogRef<DialogBuscarProductoComponent>, private comerciosService: DataService) { }

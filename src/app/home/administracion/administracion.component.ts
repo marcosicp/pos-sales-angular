@@ -10,6 +10,7 @@ import { DialogIngresoCajaComponent } from '../../dialogs/dialog-ingreso-caja/di
 import { DialogEgresoCajaComponent } from '../../dialogs/dialog-egreso-caja/dialog-egreso-caja.component';
 import { DialogOperacionOkComponent } from '../../dialogs/dialog-operacion-ok/dialog-operacion-ok.component';
 import { DialogSinConexionComponent } from '../../dialogs/dialog-sin-conexion/dialog-sin-conexion.component';
+import { DialogAdvertenciaComponent } from '../../dialogs/dialog-advertencia/dialog-advertencia.component';
 // CONFIGURACIONES
 import { URL_MOVIMIENTOS } from '../../shared/configs/urls.config';
 
@@ -48,45 +49,57 @@ export class AdministracionComponent {
   }
 
   registrarDeposito() {
-    this.logicaDeMovimientos(DialogIngresoCajaComponent);
+    this.logicaDeMovimientos(DialogIngresoCajaComponent, true);
   }
 
   registrarRetiro() {
-    this.logicaDeMovimientos(DialogEgresoCajaComponent);
+    this.logicaDeMovimientos(DialogEgresoCajaComponent, true);
   }
 
-  private logicaDeMovimientos(DialogComponent: any) {
-    const dialogRef = this.dialog.open(
-      DialogComponent,
-      { width: '600px', disableClose: true }
-    );
+  private logicaDeMovimientos(DialogComponent: any, isRegistring: boolean = false) {
+    if (isRegistring && !this.cajaAbierta) {
+      this.dialog.open(
+        DialogAdvertenciaComponent, {
+          width: '600px',
+          disableClose: true,
+          data: {
+            title: 'Caja cerrada',
+            confirmText: 'Para registrar un depósito o retiro, primero debe abrir la caja.'
+          }
+        });
+    } else {
+      const dialogRef = this.dialog.open(
+        DialogComponent,
+        { width: '600px', disableClose: true }
+      );
 
-    dialogRef.afterClosed().subscribe(
-      dialogResult => {
-        if (dialogResult) {
-          this.loadingService.toggleLoading();
+      dialogRef.afterClosed().subscribe(
+        dialogResult => {
+          if (dialogResult) {
+            this.loadingService.toggleLoading();
 
-          this.dataService.createAsync(URL_MOVIMIENTOS.ADD_MOVIMIENTO, dialogResult, [])
-            .subscribe(
-              result => {
-                this.loadingService.toggleLoading();
+            this.dataService.createAsync(URL_MOVIMIENTOS.ADD_MOVIMIENTO, dialogResult, [])
+              .subscribe(
+                result => {
+                  this.loadingService.toggleLoading();
 
-                this.dialog.open(
-                  DialogOperacionOkComponent,
-                  { width: '600px', disableClose: true }
-                );
-              },
-              error => {
-                this.loadingService.toggleLoading();
+                  this.dialog.open(
+                    DialogOperacionOkComponent,
+                    { width: '600px', disableClose: true }
+                  );
+                },
+                error => {
+                  this.loadingService.toggleLoading();
 
-                this.dialog.open(
-                  DialogSinConexionComponent,
-                  { width: '600px', disableClose: true }
-                );
-              }
-            );
+                  this.dialog.open(
+                    DialogSinConexionComponent,
+                    { width: '600px', disableClose: true }
+                  );
+                }
+              );
+          }
         }
-      }
-    );
+      );
+    }
   }
 }

@@ -19,7 +19,7 @@ mat-form-field {
 
 .new-item-action-row {
   padding-bottom: 0;
-  
+
   button {
     margin-right: 5px;
   }
@@ -33,8 +33,7 @@ mat-form-field {
 }
 
 .file-upload {
-	position: relative;
-	display: inline-block;
+	text-align: -webkit-center;
 }
 
 .file-upload__label {
@@ -65,4 +64,14 @@ mat-form-field {
     width:0;
     height: 100%;
     opacity: 0;
+}
+
+.file-upload-img {
+  margin: 10px 0;
+  display: inline-flex;
+
+  img {
+    width:250px;
+    height:200px;
+  }
 }
