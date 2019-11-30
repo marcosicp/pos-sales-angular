@@ -5,6 +5,7 @@ import { Usuarios } from '../../shared/models/usuarios.model';
 // SERVICIOS
 import { DataService } from '../../core/services/data.service';
 import { LoadingService } from '../../shared/services/loading.service';
+import { AuthService } from '../../core/services/auth.service';
 // CONFIGURACIONES
 import { URL_USUARIOS } from '../../shared/configs/urls.config';
 import { TABLA_USUARIOS } from '../../shared/configs/table.config';
@@ -14,6 +15,7 @@ import { DialogOperacionOkComponent } from '../../dialogs/dialog-operacion-ok/di
 import { DialogSinConexionComponent } from '../../dialogs/dialog-sin-conexion/dialog-sin-conexion.component';
 import { DialogConfirmarComponent } from '../../dialogs/dialog-confirmar/dialog-confirmar.component';
 import { DialogCambiarPassComponent } from '../../dialogs/dialog-cambiar-pass/dialog-cambiar-pass.component';
+import { DialogAdvertenciaComponent } from '../../dialogs/dialog-advertencia/dialog-advertencia.component';
 
 @Component({
   selector: 'app-users',
@@ -21,6 +23,8 @@ import { DialogCambiarPassComponent } from '../../dialogs/dialog-cambiar-pass/di
   styleUrls: ['./users.component.scss']
 })
 export class UsersComponent implements OnInit {
+  userLogin: Usuarios;
+
   tableTitle = TABLA_USUARIOS.title;
   dataSource = new MatTableDataSource<Usuarios>();
   headerTitles = Object.keys(TABLA_USUARIOS.cells);
@@ -37,10 +41,15 @@ export class UsersComponent implements OnInit {
   };
 
   constructor(
-    private dataService: DataService,
     public dialog: MatDialog,
-    private loadingService: LoadingService
-  ) { }
+    private dataService: DataService,
+    private loadingService: LoadingService,
+    private authService: AuthService,
+  ) {
+    this.authService.getUser.subscribe((data: any) => {
+      this.userLogin = JSON.parse(data);
+    });
+  }
 
   ngOnInit() {
     this.isLoading = true;
@@ -184,9 +193,8 @@ export class UsersComponent implements OnInit {
     });
 
     dialogRef.afterClosed().subscribe(result => {
-      if (result.confirm) {
+      if (result.confirm && usuario.id !== this.userLogin.id) {
         this.loadingService.toggleLoading();
-
         this.dataService.deleteAsync(
           URL_USUARIOS.DELETE_USUARIO,
           usuario.id,
@@ -213,6 +221,16 @@ export class UsersComponent implements OnInit {
             );
           }
         );
+      } else {
+        this.dialog.open(
+          DialogAdvertenciaComponent, {
+            width: '600px',
+            disableClose: true,
+            data: {
+              title: 'Eliminar usuario',
+              confirmText: 'Esta intentando eliminar su propio usuario (con el que ha ingresado al sistema).'
+            }
+          });
       }
     });
   }

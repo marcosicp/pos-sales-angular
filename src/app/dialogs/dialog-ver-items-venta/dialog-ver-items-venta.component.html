@@ -24,7 +24,7 @@
         <span>{{element.peso | number:'1.2' | weightPipe}}</span>
       </td>
       <td mat-footer-cell *matFooterCellDef>
-        <span>{{totals.peso | number:'1.2' | weightPipe}}</span>
+        <span>-</span>
       </td>
     </ng-container>
     <ng-container matColumnDef="precioVenta">
@@ -34,6 +34,15 @@
       </td>
       <td mat-footer-cell *matFooterCellDef>
         <span>-</span>
+      </td>
+    </ng-container>
+    <ng-container matColumnDef="pesoTotal">
+      <th mat-header-cell *matHeaderCellDef>Peso Total</th>
+      <td mat-cell *matCellDef="let element">
+        <span>{{element.pesoTotal | number:'1.2' | weightPipe}}</span>
+      </td>
+      <td mat-footer-cell *matFooterCellDef>
+        <span>{{totals.pesoTotal | number:'1.2' | weightPipe}}</span>
       </td>
     </ng-container>
     <ng-container matColumnDef="montoNeto">

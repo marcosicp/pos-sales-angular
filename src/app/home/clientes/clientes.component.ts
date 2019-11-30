@@ -77,6 +77,7 @@ export class ClientesComponent implements OnInit {
       newCliente => {
         if (newCliente) {
           this.loadingService.toggleLoading();
+
           this.dataService.createAsync(
             URL_CLIENTES.ADD_CLIENTE,
             newCliente,

@@ -2,7 +2,7 @@
 <div mat-dialog-content fxLayout="column">
   <mat-form-field class="full-width">
     <label>Caja abierta con</label>
-    <input matInput type="text" readonly [(ngModel)]="aperturaCaja.monto">
+    <input matInput type="text" readonly [value]="aperturaCaja.monto | currency : '$'">
   </mat-form-field>
   <!-- <mat-form-field class="full-width">
     <label>Debe tener en caja aproximadamente</label>
@@ -14,11 +14,11 @@
   </mat-form-field> -->
   <mat-form-field class="full-width">
     <label>Descripción</label>
-    <input matInput type="text" [(ngModel)]="cierreCaja.descripcion">
+    <input matInput type="text"  [(ngModel)]="cierreCaja.descripcion">
   </mat-form-field>
 </div>
 
-<div mat-dialog-actions>
+<div mat-dialog-actions align="end">
   <button
     mat-raised-button
     color="primary"

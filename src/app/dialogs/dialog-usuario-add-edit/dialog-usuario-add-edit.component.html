@@ -36,17 +36,17 @@
     <mat-error>{{errorString('repetir contraseña')}}</mat-error>
   </mat-form-field>
   <mat-form-field class="full-width">
-    <label>Va a ser administrador?</label>
-    <input matInput type="text" disabled>
-    <mat-radio-group formControlName="admin">
-      <mat-radio-button [value]="true">SI</mat-radio-button>
-      <mat-radio-button [value]="false">NO</mat-radio-button>
-    </mat-radio-group>
-    <mat-error>{{errorString('administrador')}}</mat-error>
+    <label>Rol</label>
+    <mat-select formControlName="admin">
+      <mat-option *ngFor="let rol of roles" [value]="rol.value">
+        {{rol.name}}
+      </mat-option>
+    </mat-select>
+    <mat-error>{{errorString('rol')}}</mat-error>
   </mat-form-field>
 </div>
 
-<div mat-dialog-actions>
+<div mat-dialog-actions align="end">
   <button
     mat-raised-button
     color="primary"

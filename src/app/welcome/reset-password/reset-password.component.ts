@@ -1,29 +1,78 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild, ElementRef, AfterContentInit } from '@angular/core';
+import { Router } from '@angular/router';
+import { MatDialog } from '@angular/material';
+import { FormControl, Validators, FormGroup, FormGroupDirective } from '@angular/forms';
+// SERVICIOS
 import { AuthService } from '../../core/services/auth.service';
-import { FormControl, Validators } from '@angular/forms';
-
-const EMAIL_REGEX = /^[a-zA-Z0-9.!#$%&’*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/;
+import { LoadingService } from '../../shared/services/loading.service';
+// REGEXP HELPER
+import RegExpHelper from '../../shared/helpers/regex.helper';
+// DIALOGOS
+import { DialogOperacionOkComponent } from '../../dialogs/dialog-operacion-ok/dialog-operacion-ok.component';
+import { DialogSinConexionComponent } from '../../dialogs/dialog-sin-conexion/dialog-sin-conexion.component';
 
 @Component({
   selector: 'app-resetpassword',
   templateUrl: './reset-password.component.html',
-  styleUrls: ['./reset-password.component.scss']
+  styleUrls: ['./reset-password.component.scss'],
+  providers: [FormGroupDirective]
 })
-export class ResetPasswordComponent implements OnInit {
+export class ResetPasswordComponent implements OnInit, AfterContentInit {
+  @ViewChild('emailInput') emailInput: ElementRef;
+  resetPassForm: FormGroup;
+  errorString = () => 'Por favor complete el campo con el email completo';
 
-  emailFormControl = new FormControl('', [
-    Validators.required,
-    Validators.pattern(EMAIL_REGEX)]);
-
-  emailSent = false;
-
-  constructor(private auth: AuthService) { }
+  constructor(
+    private auth: AuthService,
+    public dialog: MatDialog,
+    private router: Router,
+    private loadingService: LoadingService
+  ) { }
 
   ngOnInit() {
+    this.resetPassForm = new FormGroup(
+      {
+        email: new FormControl('', [Validators.required, Validators.pattern(RegExpHelper.email)])
+      }
+    );
   }
 
-  resetPassword(email: string) {
-    this.auth.resetPassword(email).then(value => this.emailSent = true).catch((error) => this.emailSent = false);
+  ngAfterContentInit() {
+    this.focusOnEmail();
   }
 
+  resetPassword() {
+    if (this.resetPassForm.valid) {
+      this.loadingService.toggleLoading();
+
+      this.auth.resetPassword(this.resetPassForm.value.email).subscribe(
+        result => {
+          this.loadingService.toggleLoading();
+          if (result) {
+            const dialogResult = this.dialog.open(
+              DialogOperacionOkComponent,
+              { width: '600px', disableClose: true }
+            );
+
+            dialogResult.afterClosed().subscribe(
+              () => this.router.navigate(['login'])
+            );
+          } else {
+            this.dialog.open(
+              DialogSinConexionComponent,
+              { width: '600px', disableClose: true }
+            );
+          }
+        }
+      );
+    }
+  }
+
+  cancel() {
+    return this.router.navigate(['login']);
+  }
+
+  private focusOnEmail() {
+    this.emailInput.nativeElement.focus();
+  }
 }

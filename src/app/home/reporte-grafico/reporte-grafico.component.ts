@@ -123,13 +123,11 @@ export class ReporteGraficoComponent implements AfterViewInit {
                   data.push({
                     id: data.length,
                     valorX: creado,
-                    valorY: pedido.total,
+                    valorY: pedido ? pedido.total : 0,
                     _valorX: this._fecha(creado),
-                    // _valorY: this._numero(pedido.total),
                   });
                 } else {
-                  data[itemFinded.id].valorY += pedido.total;
-                  // data[itemFinded.id]._valorY = this._numero(data[itemFinded.id].valorY);
+                  data[itemFinded.id].valorY += pedido ? pedido.total : 0;
                 }
 
                 break;

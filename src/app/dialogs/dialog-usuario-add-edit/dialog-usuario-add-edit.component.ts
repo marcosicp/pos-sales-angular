@@ -3,6 +3,8 @@ import { FormGroup, FormControl, Validators, FormGroupDirective, AbstractControl
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
 // MODELOS
 import { Usuarios } from '../../shared/models/usuarios.model';
+// MOCKS
+import Roles from '../../shared/mocks/roles.mock';
 // REGEXP HELPER
 import RegExpHelper from '../../shared/helpers/regex.helper';
 
@@ -18,8 +20,9 @@ export class DialogUsuarioAddEditComponent implements OnInit {
   result: Usuarios[] = [];
   repetirPass: string;
   userForm: FormGroup;
-  errorString = (prop) => {
-    const errorText = `Por favor complete el campo ${prop}`;
+  roles = Roles;
+  errorString = (prop: string) => {
+    const errorText = `Por favor complete el campo ${prop.toUpperCase()}`;
     switch (prop) {
       case 'email':
         return `${errorText} con el email completo (@gmail.com, por ejemplo)`;

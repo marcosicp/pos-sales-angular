@@ -11,7 +11,8 @@ const URL_USUARIOS = {
   UPDATE_USUARIO: 'usuarios/UpdateUsuario',
   DELETE_USUARIO: 'usuarios/DeleteUsuario',
   EMAIL_LOGIN: 'usuarios/login',
-  MODIFY_PASS: 'usuarios/CambiarPass'
+  MODIFY_PASS: 'usuarios/CambiarPass',
+  RESET_PASS: 'usuarios/ResetPass'
 };
 // API STOCK
 const URL_STOCK = {

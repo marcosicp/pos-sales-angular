@@ -128,7 +128,6 @@ export class TicketComponent implements OnInit {
 
   // Calculate cart total
   calcularTotal(cantidad: number, id: any) {
-
     let total = 0;
     let peso = 0;
     let cartitems = 0;

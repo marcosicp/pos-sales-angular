@@ -14,10 +14,9 @@ import strings from '../../shared/configs/strings.config';
   providers: [FormGroupDirective]
 })
 export class LoginComponent implements AfterContentInit, OnDestroy {
-  error: string;
-  loginForm: FormGroup;
-
   @ViewChild('userInput') userInput: ElementRef;
+  loginForm: FormGroup;
+  error: string;
 
   constructor(
     private router: Router,
