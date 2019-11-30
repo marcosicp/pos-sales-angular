@@ -44,7 +44,7 @@ export class PactarEntregaComponent {
   view: CalendarView = CalendarView.Month;
 
   locale = 'es-AR';
-  pedidosConEntregas: Venta[];
+  allVentas: Venta[];
   CalendarView = CalendarView;
   opcionSeleccionada = false;
   viewDate: Date = new Date();
@@ -55,6 +55,7 @@ export class PactarEntregaComponent {
   };
 
   venta: Venta;
+  allVenta: Venta[];
   actions: CalendarEventAction[] = [
     {
       label: '<i class="fa fa-fw fa-pencil"></i>',
@@ -70,76 +71,42 @@ export class PactarEntregaComponent {
       }
     }
   ];
+  weekStartsOn: number = DAYS_OF_WEEK.MONDAY;
+  weekendDays: number[] = [DAYS_OF_WEEK.FRIDAY, DAYS_OF_WEEK.SATURDAY];
 
   refresh: Subject<any> = new Subject();
-
   events: CalendarEvent[] = [];
-  // = [
-  //   {
-  //     start: subDays(startOfDay(new Date()), 1),
-  //     end: addDays(new Date(), 1),
-  //     title: 'A 3 day event',
-  //     color: colors.red,
-  //     actions: this.actions,
-  //     allDay: true,
-  //     resizable: {
-  //       beforeStart: true,
-  //       afterEnd: true
-  //     },
-  //     draggable: true
-  //   },
-  //   {
-  //     start: startOfDay(new Date()),
-  //     title: 'An event with no end date',
-  //     color: colors.yellow,
-  //     actions: this.actions
-  //   },
-  //   {
-  //     start: subDays(endOfMonth(new Date()), 3),
-  //     end: addDays(endOfMonth(new Date()), 3),
-  //     title: 'A long event that spans 2 months',
-  //     color: colors.blue,
-  //     allDay: true
-  //   },
-  //   {
-  //     start: addHours(startOfDay(new Date()), 2),
-  //     end: new Date(),
-  //     title: 'A draggable and resizable event',
-  //     color: colors.yellow,
-  //     actions: this.actions,
-  //     resizable: {
-  //       beforeStart: true,
-  //       afterEnd: true
-  //     },
-  //     draggable: true
-  //   }
-  // ];
-
   activeDayIsOpen = true;
   oldDates: {oldStart: Date, oldEnd: Date};
 
-  constructor(private modal: NgbModal, private zone: NgZone, private dataService: DataService, private route: ActivatedRoute, public dialog: MatDialog, private router: Router) {
-
+  constructor(private modal: NgbModal, private zone: NgZone, private dataService: DataService, private route: ActivatedRoute,
+    public dialog: MatDialog, private router: Router) {
     this.route.queryParams.subscribe(params => {
         if (params) {
           this.venta = JSON.parse(params.pedido);
+          this.venta.pedido = JSON.parse(params.pedido);
           const dialogRef = this.dialog.open(DialogAdvertenciaComponent, {
             width: '450px',
             data: {title: 'Seleccione un dia para su entrega.', confirmText: 'Recuerde que debe hacer doble click sobre el dia que considere conveniente.'}
           });
+        } else {
+          this.venta = new Venta();
         }
     });
 
-    this.dataService.getAsync(URL_VENTAS.GET_ALL_ENTREGAS, this.pedidosConEntregas).subscribe(
+    this.dataService.getAsync(URL_VENTAS.GET_ALL_ENTREGAS, this.allVentas).subscribe(
       data => {
         if (data) {
-         data.forEach(element => {
+          this.allVentas = data;
 
-          element.agenda.start = startOfDay(new Date(element.agenda.start));
-          if (element.agenda.start < Date.now()) {
-            element.agenda.title = element.agenda.title.replace('ENTREGA', 'ENTREGADO');
-            element.agenda.color.primary = '#a3a3a3';
-          }
+          data.forEach(element => {
+            element.agenda.id = element.id;
+            element.agenda.start = startOfDay(new Date(element.agenda.start));
+
+            if (element.agenda.start < Date.now()) {
+              element.agenda.title = element.agenda.title.replace('ENTREGA', 'ENTREGADO');
+              element.agenda.color.primary = '#a3a3a3';
+            }
 
           this.events.push(element.agenda);
          });
@@ -152,10 +119,6 @@ export class PactarEntregaComponent {
       }
     );
   }
-
-  weekStartsOn: number = DAYS_OF_WEEK.MONDAY;
-
-  weekendDays: number[] = [DAYS_OF_WEEK.FRIDAY, DAYS_OF_WEEK.SATURDAY];
 
   dayClicked({ date, events }: { date: Date; events: CalendarEvent[] }): void {
     if (isSameMonth(date, this.viewDate)) {
@@ -171,21 +134,35 @@ export class PactarEntregaComponent {
     }
   }
 
-  // doubleClick(day: CalendarMonthViewDay) {
-  //   if (day) {
-  //     const event: CalendarEvent = { title: 'Test', start: day.date,
-  //     end: day.date,
-  //     color: colors.red,
-  //     draggable: true,
-  //     resizable: {
-  //         beforeStart: true,
-  //         afterEnd: true
-  //       }
-  //     };
+  doubleClick(day: CalendarMonthViewDay) {
+    if (this.venta){
+      if (day) {
+        // const event: CalendarEvent = { title: 'Test', start: day.date,
+        // end: day.date,
+        // color: colors.red,
+        // draggable: true,
+        // resizable: {
+        //     beforeStart: true,
+        //     afterEnd: true
+        //   }
+        // };
 
-  //     this.handleEvent('', event);
-  //   }
-  // }
+        const evento: CalendarEvent = { title: 'ENTREGA --> Direccion: ' + this.venta.direccion,
+              start: startOfDay(new Date(this.venta.agenda.start)),
+              end: endOfDay(new Date(this.venta.agenda.start)),
+              color: colors.red,
+              draggable: true,
+              resizable: {
+                  beforeStart: true,
+                  afterEnd: true
+                }
+              };
+        this.addEvent(evento);
+
+        //this.handleEvent('', evento);
+      }
+    }
+  }
 
   eventTimesChanged({
     event,
@@ -200,7 +177,7 @@ export class PactarEntregaComponent {
           end: newEnd
         };
 
-        this.notificarCambio(eventoNuevo);
+        this.updateEvent(eventoNuevo);
         return {
           ...event,
           start: newStart,
@@ -211,57 +188,53 @@ export class PactarEntregaComponent {
     });
   }
 
-  notificarCambio(event: CalendarEvent) {
-    this.updateEvent(event);
+  // notificarCambio(event: CalendarEvent) {
+  //   debugger;
+  //   this.updateEvent(event);
 
-    const dialogRef = this.dialog.open(DialogConfirmarCambioFechaComponent, {
-      width: '500px', disableClose: true,
-      data: { event: event }
-    });
+  //   const dialogRef = this.dialog.open(DialogConfirmarCambioFechaComponent, {
+  //     width: '500px', disableClose: true,
+  //     data: { event: event }
+  //   });
 
-    dialogRef.afterClosed().subscribe(result => {
-      if (result) {
-        return this.opcionSeleccionada = true;
-      }
-      return this.opcionSeleccionada = false;
-    });
-  }
+  //   dialogRef.afterClosed().subscribe(result => {
+  //     if (result) {
+  //       return this.opcionSeleccionada = true;
+  //     }
+  //     return this.opcionSeleccionada = false;
+  //   });
+  // }
 
   refreshView(): void {
     this.refresh.next();
   }
 
   handleEvent(action: string, event: CalendarEvent): void {
-    if (!this.venta) {
-      this.venta = new Venta();
-    }
+    this.venta = this.allVentas.find(x => x.id == event.id);
+    this.venta.agenda = event;
 
     const dialogRef = this.dialog.open(DialogEditarEntregaComponent, {
           width: '300px', disableClose: true,
-          data: { event: event, action: action, venta: this.venta }
+          data: { action: action, venta: this.venta }
         });
 
     dialogRef.afterClosed().subscribe(result => {
       if (result) {
-        const evento: CalendarEvent = { title: 'ENTREGA --> Direccion: ' + result.evento.venta.direccion,
-              start: startOfDay(new Date(result.evento.event.start)),
-              end: endOfDay(new Date(result.evento.event.start)),
-              color: colors.red,
-              draggable: true,
-              resizable: {
-                  beforeStart: true,
-                  afterEnd: true
-                }
-              };
-
-        this.addEvent(evento);
+          this.events.forEach(evento => {
+            if (evento.id == result.venta.idPedido) {
+              evento.title == 'ENTREGA --> Direccion: ' + result.venta.direccion;
+              result.venta.agenda.title == 'ENTREGA --> Direccion: ' + result.venta.direccion;
+            }
+          });
+        this.updateEvent(this.venta.agenda);
       }
     });
   }
 
   addEvent(data1: CalendarEvent): void {
     this.venta.agenda = data1;
-    this.dataService.postAsync('ventas/AddEntrega', this.venta).subscribe(
+    this.venta.idPedido = this.venta.id;
+    this.dataService.postAsync('ventas/AddVenta', this.venta).subscribe(
       data2 => {
         const dialogRef = this.dialog.open(DialogOperacionOkComponent, { width: '600px' ,  disableClose: true });
         dialogRef.afterClosed().subscribe(result => {
@@ -283,9 +256,12 @@ export class PactarEntregaComponent {
     this.refreshView();
   }
 
-  updateEvent(data1: CalendarEvent): void {
-    this.venta.agenda = data1;
-    this.dataService.postAsync('ventas/UpdateEntrega', this.venta).subscribe(
+  updateEvent(event: CalendarEvent): void {
+    if (!this.venta) {
+      this.venta = this.allVentas.find(x => x.id == event.id);
+    }
+    this.venta.agenda = event;
+    this.dataService.postAsync('ventas/UpdateVenta', this.venta).subscribe(
       data2 => {
         const dialogRef = this.dialog.open(DialogOperacionOkComponent, { width: '600px' ,  disableClose: true });
         dialogRef.afterClosed().subscribe(result => {
@@ -299,10 +275,10 @@ export class PactarEntregaComponent {
       }
     );
 
-    this.events = [
-      ...this.events,
-      data1
-    ];
+    // this.events = [
+    //   ...this.events,
+    //   event
+    // ];
 
     this.refreshView();
   }

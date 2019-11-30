@@ -19,7 +19,6 @@ export class DialogEditarEntregaComponent implements OnInit {
   venta = new Venta;
 
   constructor(public dialogRef: MatDialogRef<DialogEditarEntregaComponent>, @Inject(MAT_DIALOG_DATA) public data: any) {
-    this.evento = data;
     this.venta = data.venta;
   }
 
@@ -28,7 +27,7 @@ export class DialogEditarEntregaComponent implements OnInit {
   }
 
   guardarEnvio() {
-    this.dialogRef.close({ evento: this.evento });
+    this.dialogRef.close({ venta: this.venta });
   }
 
   onNoClick() {

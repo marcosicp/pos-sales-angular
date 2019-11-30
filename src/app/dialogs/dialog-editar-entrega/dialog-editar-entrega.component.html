@@ -1,16 +1,16 @@
 
     <div mat-dialog-header class="modal-header">
       <h5 mat-dialog-title class="modal-title">Fecha de Entrega</h5>
-      <h5 mat-title class="modal-title">{{ evento?.event.start | date: 'dd/MM/yyyy' }}</h5>
+      <h5 mat-title class="modal-title">{{ venta.agenda.start | date: 'dd/MM/yyyy' }}</h5>
     </div>
     <div mat-dialog-content fxLayout="column">
     <mat-form-field class="full-width">
       <label>Cliente</label>
-      <input matInput type="text" [(ngModel)]="evento.venta.cliente">
+      <input matInput type="text" [(ngModel)]="venta.cliente.razonSocial">
     </mat-form-field>
     <mat-form-field class="full-width">
         <label>Codigo de Venta:</label>
-        <input matInput type="text" readonly [(ngModel)]="venta.codigo">
+        <input matInput type="text" readonly [(ngModel)]="venta.id">
     </mat-form-field>
     <mat-form-field class="full-width">
         <label>Responsable:</label>
@@ -24,11 +24,11 @@
       <label>Observaciones:</label>
       <input matInput [(ngModel)]="venta.observacion" type="text" />
     </mat-form-field>
-    <mat-form-field>
+    <!-- <mat-form-field>
         <label>Estado:</label>
         <input matInput readonly type="text" [(ngModel)]="venta.pedido.estado">
-      <!-- <pre>{{ evento?.venta.pedido.estado }}</pre> -->
-    </mat-form-field>
+      <pre>{{ evento?.venta.pedido.estado }}</pre>
+    </mat-form-field> -->
     <mat-form-field>
         <label>NroVenta:</label>
         <input matInput type="text" [(ngModel)]="venta.id">

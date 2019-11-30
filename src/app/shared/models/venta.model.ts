@@ -8,6 +8,7 @@ export class Venta {
     codigo: string;
     productosVenta: ProductoPedido[];
     pedido: Pedido;
+    idPedido: string;
     total: number;
     pagoCon: number;
     pesoTotal: number;

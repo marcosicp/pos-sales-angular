@@ -138,7 +138,7 @@ const TABLA_VENTAS = {
   },
   cells: {
     creado: 'creado',
-    cliente: 'pedido.cliente',
+    cliente: 'cliente.razonSocial',
     responsable: 'pedido.usuario',
     estado: 'pedido.estado',
     imprimioTicket: 'imprimioTicket',
@@ -171,7 +171,7 @@ const TABLA_PEDIDOS = {
     creado: 'creado',
     imprimioTicket: 'imprimioTicket',
     responsable: 'usuario',
-    cliente: 'cliente',
+    cliente: 'cliente.razonSocial',
     total: 'total',
     estado: 'estado',
     opciones: null

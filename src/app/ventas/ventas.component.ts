@@ -76,17 +76,4 @@ export class VentasComponent implements OnInit {
 
     });
   }
-
-  // isAllSelected() {
-  //   const numSelected = this.selection.selected.length;
-  //   const numRows = this.dataSource.data.length;
-  //   return numSelected === numRows;
-  // }
-
-  // masterToggle() {
-  //   this.isAllSelected()
-  //     ? this.selection.clear()
-  //     : this.dataSource.data.forEach(row => this.selection.select(row));
-  // }
-
 }
