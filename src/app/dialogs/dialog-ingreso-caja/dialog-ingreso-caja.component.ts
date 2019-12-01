@@ -38,7 +38,7 @@ export class DialogIngresoCajaComponent implements OnInit {
     this.depositoForm = new FormGroup(
       {
         monto: new FormControl(this.depositoCaja.monto, [Validators.required, Validators.pattern(RegExpHelper.numberDecimals)]),
-        descripcion: new FormControl(this.depositoCaja.descripcion)
+        descripcion: new FormControl(this.depositoCaja.descripcion, [Validators.required])
       }
     );
   }

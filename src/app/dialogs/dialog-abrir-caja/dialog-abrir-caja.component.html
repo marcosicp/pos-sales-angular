@@ -2,11 +2,13 @@
 <div [formGroup]="abrirCajaForm" mat-dialog-content fxLayout="column">
   <mat-form-field class="full-width">
     <label>Monto apertura</label>
+    <span class="required">*</span>
     <input matInput type="text" formControlName="monto">
     <mat-error>{{errorString('monto')}}</mat-error>
   </mat-form-field>
   <mat-form-field class="full-width">
     <label>Descripcion</label>
+    <span class="required">*</span>
     <input matInput type="text" formControlName="descripcion">
     <mat-error>{{errorString('descripcion')}}</mat-error>
   </mat-form-field>

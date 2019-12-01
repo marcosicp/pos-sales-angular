@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 import { FormGroupDirective, FormGroup, FormControl, Validators } from '@angular/forms';
 import { MatDialogRef, MatDialog } from '@angular/material';
 // MODELOS
@@ -10,7 +11,7 @@ import { DataService } from '../../../app/core/services/data.service';
 // URLS
 import { URL_MOVIMIENTOS } from '../../shared/configs/urls.config';
 // HELPERS
-import getFechaArg from '../../shared/helpers/date.helper';
+import RegExpHelper from '../../shared/helpers/regex.helper';
 // DIALOGOS
 import { DialogSinConexionComponent } from '../dialog-sin-conexion/dialog-sin-conexion.component';
 
@@ -18,7 +19,8 @@ import { DialogSinConexionComponent } from '../dialog-sin-conexion/dialog-sin-co
 @Component({
   selector: 'app-dialog-cerrar-caja',
   templateUrl: './dialog-cerrar-caja.component.html',
-  styleUrls: ['./dialog-cerrar-caja.component.scss']
+  styleUrls: ['./dialog-cerrar-caja.component.scss'],
+  providers: [FormGroupDirective]
 })
 export class DialogCerrarCajaComponent implements OnInit {
   cierreCaja: MovimientosCaja = new MovimientosCaja();
@@ -28,14 +30,17 @@ export class DialogCerrarCajaComponent implements OnInit {
   usuario: Usuarios;
   cerrarCajaForm: FormGroup;
   errorString = (prop: string) => {
-    return 'TEST';
+    const errorMsj = prop === 'monto' ?
+      ' sólo con números y hasta 2 decimales' : ', es obligatorio';
+    return `Por favor complete el campo ${prop.toLocaleUpperCase()}${errorMsj}`;
   }
 
   constructor(
+    private router: Router,
     private authService: AuthService,
+    private comerciosService: DataService,
     public dialogRef: MatDialogRef<DialogCerrarCajaComponent>,
-    private dialog: MatDialog,
-    private comerciosService: DataService
+    private dialog: MatDialog
   ) {
     this.authService.getUser.subscribe((data: any) => {
       this.usuario = JSON.parse(data);
@@ -47,44 +52,24 @@ export class DialogCerrarCajaComponent implements OnInit {
       URL_MOVIMIENTOS.GET_ULTIMA_APERTURA,
       []
     ).subscribe(
-      data1 => {
-        console.warn('errer');
-        // this.aperturaCaja = data1[0];
-        this.aperturaCaja.monto = data1[0];
-        // NO ENTIENDO ESTA PARTE
-        // this.comerciosService.getAsync(URL_MOVIMIENTOS.CERRAR_CAJA, []).subscribe(
-        //   data2 => {
-        //     console.warn('errer');
-        //     this.cierreCaja = data2[0];
-        //     // this.totalCierreCaja = this.aperturaCaja.monto + this.cierreCaja.totalPrecioPedido;
-        //     this.totalCierreCaja = this.aperturaCaja.monto + 0;
-        //   },
-        //   error => {
-        //     const dialogRef2 = this.dialog.open(DialogSinConexionComponent, { width: '600px' ,  disableClose: true });
-        //     dialogRef2.afterClosed().subscribe(result => {
-        //     });
-        //     console.log(error);
-        //   }
-        // );
-      },
-      error => {
-        console.warn('errer');
-        const errorDialog = this.dialog.open(
-          DialogSinConexionComponent,
-          { width: '600px', disableClose: true }
-        );
+      result => {
+        if (!result) {
+          const dialogRef = this.dialog.open(
+            DialogSinConexionComponent,
+            { width: '900px',  disableClose: true}
+          );
 
-        errorDialog.afterOpen().subscribe(
-          result => {
-            this.dialogRef.close(false);
-          }
-        );
+          dialogRef.afterClosed().subscribe(() => this.router.navigate(['welcome']));
+        }
+
+        this.aperturaCaja.monto = result[0];
       }
     );
 
     this.cerrarCajaForm = new FormGroup(
       {
-        test: new FormControl('')
+        monto: new FormControl(this.cierreCaja.monto, [Validators.required, Validators.pattern(RegExpHelper.numberDecimals)]),
+        descripcion: new FormControl(this.cierreCaja.descripcion, [Validators.required])
       }
     );
   }

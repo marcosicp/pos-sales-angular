@@ -27,16 +27,7 @@ export class AdministracionComponent {
     private dialog: MatDialog,
     private loadingService: LoadingService
   ) {
-    this.dataService.getAsync(URL_MOVIMIENTOS.GET_ESTADO, [])
-      .subscribe(
-        data => this.cajaAbierta = data[0],
-        error => {
-          this.dialog.open(
-            DialogSinConexionComponent,
-            { width: '600px', disableClose: true }
-          );
-        }
-      );
+    this.getEstado();
   }
 
   abrirCaja() {
@@ -53,6 +44,25 @@ export class AdministracionComponent {
 
   registrarRetiro() {
     this.logicaDeMovimientos(DialogEgresoCajaComponent, true);
+  }
+
+  getEstado() {
+    this.loadingService.toggleLoading();
+    this.dataService.getAsync(URL_MOVIMIENTOS.GET_ESTADO, [])
+      .subscribe(
+        data => {
+          this.loadingService.toggleLoading();
+          this.cajaAbierta = data[0];
+        },
+        error => {
+          this.loadingService.toggleLoading();
+
+          this.dialog.open(
+            DialogSinConexionComponent,
+            { width: '600px', disableClose: true }
+          );
+        }
+      );
   }
 
   private logicaDeMovimientos(DialogComponent: any, isRegistring: boolean = false) {
@@ -82,9 +92,13 @@ export class AdministracionComponent {
                 result => {
                   this.loadingService.toggleLoading();
 
-                  this.dialog.open(
+                  const _dialogRef = this.dialog.open(
                     DialogOperacionOkComponent,
                     { width: '600px', disableClose: true }
+                  );
+
+                  _dialogRef.afterClosed().subscribe(
+                    () => !isRegistring && this.getEstado()
                   );
                 },
                 error => {

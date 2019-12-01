@@ -193,19 +193,22 @@ const TABLA_MOVIMIENTOS = {
     fechaMovimiento: 'Fecha movimiento',
     tipo: 'Tipo',
     monto: 'Monto',
-    // usuario: 'Usuario'
+    usuario: 'Usuario',
+    descripcion: 'Descripción'
   },
   cells: {
     fechaMovimiento: 'fechaMovimiento',
     tipo: 'tipo',
     monto: 'monto',
-    // usuario: 'usuario'
+    usuario: 'usuario.usuario',
+    descripcion: 'descripcion'
   },
   format: {
     fechaMovimiento: 'date',
     tipo: null,
     monto: 'currency',
-    // usuario: null
+    usuario: null,
+    descripcion: null
   }
 };
 

@@ -1,5 +1,5 @@
 <div mat-dialog-title fxLayout="column" style="text-align: center">Cerrar caja</div>
-<div mat-dialog-content fxLayout="column">
+<div [formGroup]="cerrarCajaForm" mat-dialog-content fxLayout="column">
   <mat-form-field class="full-width">
     <label>Caja abierta con</label>
     <input matInput type="text" readonly [value]="aperturaCaja.monto | currency : '$'">
@@ -13,8 +13,16 @@
     <input matInput type="text" readonly [(ngModel)]="cierreCaja.totalPrecioPedido">
   </mat-form-field> -->
   <mat-form-field class="full-width">
-    <label>Descripción</label>
-    <input matInput type="text"  [(ngModel)]="cierreCaja.descripcion">
+    <label>Monto cierre</label>
+    <span class="required">*</span>
+    <input matInput type="text" formControlName="monto">
+    <mat-error>{{errorString('monto')}}</mat-error>
+  </mat-form-field>
+  <mat-form-field class="full-width">
+    <label>Descripcion</label>
+    <span class="required">*</span>
+    <input matInput type="text" formControlName="descripcion">
+    <mat-error>{{errorString('descripcion')}}</mat-error>
   </mat-form-field>
 </div>
 
@@ -23,6 +31,7 @@
     mat-raised-button
     color="primary"
     (click)="cerrarCaja()"
+    [disabled]="!cerrarCajaForm.valid"
   >
     <mat-icon>check</mat-icon>
     Guardar

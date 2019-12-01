@@ -8,7 +8,6 @@ import { MovimientosCaja } from '../../shared/models/movimientos-caja.model';
 import { AuthService } from '../../core/services/auth.service';
 // HELPERS
 import RegExpHelper from '../../shared/helpers/regex.helper';
-import getFechaArg from '../../shared/helpers/date.helper';
 
 @Component({
   selector: 'app-dialog-egreso-caja',
@@ -38,7 +37,7 @@ export class DialogEgresoCajaComponent implements OnInit {
     this.retiroForm = new FormGroup(
       {
         monto: new FormControl(this.retiroCaja.monto, [Validators.required, Validators.pattern(RegExpHelper.numberDecimals)]),
-        descripcion: new FormControl(this.retiroCaja.descripcion)
+        descripcion: new FormControl(this.retiroCaja.descripcion, [Validators.required])
       }
     );
   }
