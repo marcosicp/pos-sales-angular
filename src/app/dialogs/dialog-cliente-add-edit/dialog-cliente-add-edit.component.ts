@@ -40,7 +40,7 @@ export class DialogClienteAddEditComponent implements OnInit {
     public dialogRef: MatDialogRef<any>,
     @Inject(MAT_DIALOG_DATA) public data?: Clientes
   ) {
-    this.cliente = data ? data : new Clientes();
+    this.cliente = data || new Clientes();
     this.dialogTitle = `${data ? 'Modificar' : 'Registrar'} cliente`;
   }
 

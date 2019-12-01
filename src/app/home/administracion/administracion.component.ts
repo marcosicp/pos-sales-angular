@@ -21,6 +21,7 @@ import { URL_MOVIMIENTOS } from '../../shared/configs/urls.config';
 })
 export class AdministracionComponent {
   cajaAbierta = null;
+  montoAntesCierre = 0;
 
   constructor(
     private dataService: DataService,
@@ -47,12 +48,48 @@ export class AdministracionComponent {
   }
 
   getEstado() {
+    this.montoAntesCierre = 0;
     this.loadingService.toggleLoading();
+
     this.dataService.getAsync(URL_MOVIMIENTOS.GET_ESTADO, [])
       .subscribe(
         data => {
           this.loadingService.toggleLoading();
           this.cajaAbierta = data[0];
+
+          if (this.cajaAbierta) {
+            this.dataService.getAsync(URL_MOVIMIENTOS.GET_ALL, [])
+              .subscribe(
+                _data => {
+                  let finDeCaja = false;
+                  _data
+                    .sort((a, b) => new Date(b.creado) > new Date(a.creado) ? 1 : -1)
+                    .forEach(
+                      item => {
+                        if (!finDeCaja) {
+                          switch (item.tipo) {
+                            case 'APERTURA':
+                            case 'DEPOSITO': {
+                              this.montoAntesCierre += item.monto;
+                              break;
+                            }
+                            case 'RETIRO': {
+                              this.montoAntesCierre -= item.monto;
+                              break;
+                            }
+                            case 'CIERRE': {
+                              finDeCaja = true;
+                              return;
+                            }
+                          }
+                        } else {
+                          return;
+                        }
+                      }
+                    );
+                }
+              );
+          }
         },
         error => {
           this.loadingService.toggleLoading();
@@ -63,6 +100,7 @@ export class AdministracionComponent {
           );
         }
       );
+
   }
 
   private logicaDeMovimientos(DialogComponent: any, isRegistring: boolean = false) {
@@ -79,7 +117,11 @@ export class AdministracionComponent {
     } else {
       const dialogRef = this.dialog.open(
         DialogComponent,
-        { width: '600px', disableClose: true }
+        {
+          width: '600px',
+          disableClose: true,
+          data: this.montoAntesCierre
+        }
       );
 
       dialogRef.afterClosed().subscribe(
@@ -93,12 +135,18 @@ export class AdministracionComponent {
                   this.loadingService.toggleLoading();
 
                   const _dialogRef = this.dialog.open(
-                    DialogOperacionOkComponent,
-                    { width: '600px', disableClose: true }
+                    DialogOperacionOkComponent, { width: '600px', disableClose: true }
                   );
 
                   _dialogRef.afterClosed().subscribe(
-                    () => !isRegistring && this.getEstado()
+                    () => {
+                      if (!isRegistring) {
+                        this.getEstado();
+                      } else {
+                        this.montoAntesCierre += dialogResult.tipo === 'DEPOSITO' ?
+                          dialogResult.monto * 1 : dialogResult.monto * -1;
+                      }
+                    }
                   );
                 },
                 error => {

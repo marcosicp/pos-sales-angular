@@ -1,7 +1,7 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Inject } from '@angular/core';
 import { Router } from '@angular/router';
 import { FormGroupDirective, FormGroup, FormControl, Validators } from '@angular/forms';
-import { MatDialogRef, MatDialog } from '@angular/material';
+import { MatDialogRef, MatDialog, MAT_DIALOG_DATA } from '@angular/material';
 // MODELOS
 import { Usuarios } from '../../shared/models/usuarios.model';
 import { MovimientosCaja } from '../../shared/models/movimientos-caja.model';
@@ -15,7 +15,6 @@ import RegExpHelper from '../../shared/helpers/regex.helper';
 // DIALOGOS
 import { DialogSinConexionComponent } from '../dialog-sin-conexion/dialog-sin-conexion.component';
 
-
 @Component({
   selector: 'app-dialog-cerrar-caja',
   templateUrl: './dialog-cerrar-caja.component.html',
@@ -25,8 +24,7 @@ import { DialogSinConexionComponent } from '../dialog-sin-conexion/dialog-sin-co
 export class DialogCerrarCajaComponent implements OnInit {
   cierreCaja: MovimientosCaja = new MovimientosCaja();
   aperturaCaja: MovimientosCaja = new MovimientosCaja();
-  aperturas: MovimientosCaja[] = [];
-  totalCierreCaja: number;
+  montoAntesCierre: number;
   usuario: Usuarios;
   cerrarCajaForm: FormGroup;
   errorString = (prop: string) => {
@@ -40,11 +38,13 @@ export class DialogCerrarCajaComponent implements OnInit {
     private authService: AuthService,
     private comerciosService: DataService,
     public dialogRef: MatDialogRef<DialogCerrarCajaComponent>,
-    private dialog: MatDialog
+    private dialog: MatDialog,
+    @Inject(MAT_DIALOG_DATA) public data?: number
   ) {
-    this.authService.getUser.subscribe((data: any) => {
-      this.usuario = JSON.parse(data);
+    this.authService.getUser.subscribe((_data: any) => {
+      this.usuario = JSON.parse(_data);
     });
+    this.montoAntesCierre = data;
   }
 
   ngOnInit() {

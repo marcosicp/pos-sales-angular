@@ -4,14 +4,10 @@
     <label>Caja abierta con</label>
     <input matInput type="text" readonly [value]="aperturaCaja.monto | currency : '$'">
   </mat-form-field>
-  <!-- <mat-form-field class="full-width">
-    <label>Debe tener en caja aproximadamente</label>
-    <input matInput type="text" readonly [(ngModel)]="cierreCaja.totalCierreCaja">
-  </mat-form-field>
   <mat-form-field class="full-width">
-    <label>Total ventas en turno</label>
-    <input matInput type="text" readonly [(ngModel)]="cierreCaja.totalPrecioPedido">
-  </mat-form-field> -->
+    <label>Debe tener en caja aproximadamente</label>
+    <input matInput type="text" readonly [value]="montoAntesCierre | currency : '$'">
+  </mat-form-field>
   <mat-form-field class="full-width">
     <label>Monto cierre</label>
     <span class="required">*</span>

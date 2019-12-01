@@ -6,7 +6,7 @@
           <!-- Nombre -->
           <mat-form-field>
             <label>Cliente</label>
-            <input matInput disabled [(ngModel)]="ventas.cliente.displayName || ventas.cliente.nombre">
+            <input matInput disabled [(ngModel)]="ventas.cliente.nombre">
           </mat-form-field>
           <!-- Precio -->
           <mat-form-field>
@@ -47,6 +47,7 @@
         </mat-form-field>
 
         <div class="file-upload">
+          <label>Si paga por medio de transferencia, por favor adjuntar comprobante de transacción.</label>
           <label for="upload" class="file-upload__label">Subir Imagen</label>
           <input id="upload" class="file-upload__input" type="file" name="file-upload" accept="image/*" (change)="detectFiles($event)">
         </div>
