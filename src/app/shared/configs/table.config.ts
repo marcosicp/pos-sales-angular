@@ -42,6 +42,7 @@ const TABLA_USUARIOS = {
     apellido: 'Apellido',
     usuario: 'Usuario',
     email: 'E-mail',
+    telefono: 'Teléfono',
     rol: 'Tipo de usuario',
     opciones: 'Opciones'
   },
@@ -50,6 +51,7 @@ const TABLA_USUARIOS = {
     apellido: 'apellido',
     usuario: 'usuario',
     email: 'email',
+    telefono: 'telefono',
     rol: 'rol',
     opciones: null
   },
@@ -58,6 +60,7 @@ const TABLA_USUARIOS = {
     apellido: null,
     usuario: null,
     email: null,
+    telefono: null,
     rol: 'role',
     opciones: null
   }

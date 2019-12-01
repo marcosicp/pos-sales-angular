@@ -193,56 +193,60 @@ export class UsersComponent implements OnInit {
   }
 
   eliminarUsuario(usuario: Usuarios) {
-    const dialogRef = this.dialog.open(
-      DialogConfirmarComponent,
-      {
-        width: '900px',
-        data: {
-          title: 'Eliminar usuario',
-          confirmText: `¿Está seguro que desea eliminar a ${usuario.nombre} ${usuario.apellido} del listado de usuarios?`
-        }
-    });
-
-    dialogRef.afterClosed().subscribe(result => {
-      if (result.confirm && usuario.id !== this.userLogin.id) {
-        this.loadingService.toggleLoading();
-        this.dataService.deleteAsync(
-          URL_USUARIOS.DELETE_USUARIO,
-          usuario.id,
-          this.dataSource.data
-        ).subscribe(
-          data => {
-            this.loadingService.toggleLoading();
-
-            const dialogResult = this.dialog.open(
-              DialogOperacionOkComponent,
-              { width: '600px', disableClose: true }
-            );
-
-            dialogResult.afterClosed().subscribe(
-              () => this.dataSource.data = data
-            );
-          },
-          error => {
-            this.loadingService.toggleLoading();
-
-            this.dialog.open(
-              DialogSinConexionComponent,
-              { width: '600px', disableClose: true }
-            );
+    if (usuario.id === this.userLogin.id) {
+      this.dialog.open(
+        DialogAdvertenciaComponent, {
+          width: '600px',
+          disableClose: true,
+          data: {
+            title: 'Eliminar usuario',
+            confirmText: 'Esta intentando eliminar su propio usuario (con el que ha ingresado al sistema).'
           }
-        );
-      } else {
-        this.dialog.open(
-          DialogAdvertenciaComponent, {
-            width: '600px',
-            disableClose: true,
-            data: {
-              title: 'Eliminar usuario',
-              confirmText: 'Esta intentando eliminar su propio usuario (con el que ha ingresado al sistema).'
+        });
+    } else {
+      const dialogRef = this.dialog.open(
+        DialogConfirmarComponent,
+        {
+          width: '900px',
+          disableClose: true,
+          data: {
+            title: 'Eliminar usuario',
+            confirmText: `¿Está seguro que desea eliminar a ${usuario.nombre} ${usuario.apellido} del listado de usuarios?`
+          }
+      });
+
+      dialogRef.afterClosed().subscribe(result => {
+        if (result.confirm) {
+          this.loadingService.toggleLoading();
+
+          this.dataService.deleteAsync(
+            URL_USUARIOS.DELETE_USUARIO,
+            usuario.id,
+            this.dataSource.data
+          ).subscribe(
+            data => {
+              this.loadingService.toggleLoading();
+
+              const dialogResult = this.dialog.open(
+                DialogOperacionOkComponent,
+                { width: '600px', disableClose: true }
+              );
+
+              dialogResult.afterClosed().subscribe(
+                () => this.dataSource.data = data
+              );
+            },
+            error => {
+              this.loadingService.toggleLoading();
+
+              this.dialog.open(
+                DialogSinConexionComponent,
+                { width: '600px', disableClose: true }
+              );
             }
-          });
-      }
-    });
+          );
+        }
+      });
+    };
   }
 }

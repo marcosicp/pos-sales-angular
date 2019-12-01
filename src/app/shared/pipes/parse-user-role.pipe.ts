@@ -4,7 +4,7 @@ import { Pipe, PipeTransform } from '@angular/core';
   name: 'userRolePipe'
 })
 export class ParseUserRolePipe implements PipeTransform {
-  transform(value: boolean): any {
+  transform(value: any): string {
     switch (value) {
       case null:
         return '-';
