@@ -226,7 +226,7 @@ export class PactarEntregaComponent {
     this.venta.agenda = event;
 
     const dialogRef = this.dialog.open(DialogEditarEntregaComponent, {
-          width: '300px', disableClose: true,
+          width: '600px', disableClose: true,
           data: { action: action, venta: this.venta }
         });
 
