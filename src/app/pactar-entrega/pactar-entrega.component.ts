@@ -54,6 +54,7 @@ export class PactarEntregaComponent {
     event: CalendarEvent;
   };
 
+  vista = 'mes';
   venta: Venta;
   allVenta: Venta[];
   actions: CalendarEventAction[] = [
@@ -79,15 +80,26 @@ export class PactarEntregaComponent {
   activeDayIsOpen = true;
   oldDates: {oldStart: Date, oldEnd: Date};
 
-  constructor(private modal: NgbModal, private zone: NgZone, private dataService: DataService, private route: ActivatedRoute,
-    public dialog: MatDialog, private router: Router) {
+  constructor(
+    private modal: NgbModal,
+    private zone: NgZone,
+    private dataService: DataService,
+    private route: ActivatedRoute,
+    public dialog: MatDialog,
+    private router: Router
+  ) {
     this.route.queryParams.subscribe(params => {
-        if (params) {
+        if (params && Object.keys(params).length > 0 && params.constructor === Object) {
           this.venta = JSON.parse(params.pedido);
           this.venta.pedido = JSON.parse(params.pedido);
-          const dialogRef = this.dialog.open(DialogAdvertenciaComponent, {
+
+          this.dialog.open(
+            DialogAdvertenciaComponent, {
             width: '450px',
-            data: {title: 'Seleccione un dia para su entrega.', confirmText: 'Recuerde que debe hacer doble click sobre el dia que considere conveniente.'}
+            data: {
+              title: 'Seleccione un dia para su entrega.',
+              confirmText: 'Recuerde que debe hacer doble click sobre el dia que considere conveniente.'
+            }
           });
         } else {
           this.venta = new Venta();
@@ -110,9 +122,16 @@ export class PactarEntregaComponent {
 
           this.events.push(element.agenda);
          });
-        }
 
-        this.refreshView();
+         this.refreshView();
+        } else {
+          const dialogRef = this.dialog.open(
+            DialogSinConexionComponent,
+            { width: '900px',  disableClose: true}
+          );
+
+          dialogRef.afterClosed().subscribe(() => this.router.navigate(['welcome']));
+        }
       },
       error => {
         console.log(error);
@@ -212,7 +231,7 @@ export class PactarEntregaComponent {
   handleEvent(action: string, event: CalendarEvent): void {
     this.venta = this.allVentas.find(x => x.id == event.id);
     this.venta.agenda = event;
-
+    
     const dialogRef = this.dialog.open(DialogEditarEntregaComponent, {
           width: '300px', disableClose: true,
           data: { action: action, venta: this.venta }
@@ -288,6 +307,20 @@ export class PactarEntregaComponent {
   }
 
   setView(view: CalendarView) {
+    switch (view) {
+      case 'day': {
+        this.vista = 'día';
+        break;
+      }
+      case 'week': {
+        this.vista = 'semana';
+        break;
+      }
+      default: {
+        this.vista = 'mes';
+        break;
+      }
+    }
     this.view = view;
   }
 

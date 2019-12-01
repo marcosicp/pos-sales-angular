@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 import { MatTableDataSource, MatDialog } from '@angular/material';
 // MODELOS
 import { Productos } from '../../shared/models/producto.model';
@@ -40,6 +41,7 @@ export class StockComponent implements OnInit {
   proveedores: string[];
 
   constructor(
+    private router: Router,
     private dataService: DataService,
     public dialog: MatDialog,
     private loadingService: LoadingService
@@ -49,6 +51,15 @@ export class StockComponent implements OnInit {
     this.isLoading = true;
     this.dataService.getAsync(URL_STOCK.GET_ALL, []).subscribe(
       data => {
+        if (!data) {
+          const dialogRef = this.dialog.open(
+            DialogSinConexionComponent,
+            { width: '900px',  disableClose: true}
+          );
+
+          dialogRef.afterClosed().subscribe(() => this.router.navigate(['welcome']));
+        }
+
         this.dataSource.data = data;
         this.columnCells.opciones = [{
           buttonIcon: 'edit',

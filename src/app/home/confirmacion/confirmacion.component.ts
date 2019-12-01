@@ -49,11 +49,11 @@ export class ConfirmacionComponent {
       data => {
         if (data[0]) {
           this.selectedFiles = null;
-          const navigationExtras: NavigationExtras = {
-            queryParams: { pedido: JSON.stringify(this.ventas)}
-          };
+          // const navigationExtras: NavigationExtras = {
+          //   queryParams: { pedido: JSON.stringify(this.ventas)}
+          // };
 
-          this.router.navigate(['agenda'], navigationExtras);
+          this.router.navigate(['ventas']);
         }
       },
       error => {

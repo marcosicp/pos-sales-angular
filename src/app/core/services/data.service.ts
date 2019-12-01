@@ -20,14 +20,20 @@ export class DataService {
 
   getAsync = (uri: string, dataCollection: any[]) => Observable.create(observer => {
     this.http.get(`${URL_BASE}/${uri}`)
-      .subscribe(data => {
-        dataCollection = [];
-        for (const d of data as any[]) {
-          dataCollection.push(d);
+      .subscribe(
+        data => {
+          dataCollection = [];
+          for (const d of data as any[]) {
+            dataCollection.push(d);
+          }
+          observer.next(dataCollection);
+          observer.complete();
+        },
+        error => {
+          observer.next(false);
+          observer.complete();
         }
-        observer.next(dataCollection);
-        observer.complete();
-      });
+      );
   })
 
   createAsync = (uri: string, object: any, dataCollection: any[]) => Observable.create(observer => {
@@ -81,7 +87,7 @@ export class DataService {
         const objectToUpdate = dataCollection.filter(x => x.id === id)[0];
         const objectIndex = dataCollection.indexOf(objectToUpdate);
         dataCollection.splice(objectIndex, 1);
-        
+
         observer.next(dataCollection);
         observer.complete();
       },

@@ -1,4 +1,6 @@
 import { Component, AfterViewInit, Input } from '@angular/core';
+import { Router } from '@angular/router';
+// CHARTJS
 import { ChartOptions, ChartType, ChartDataSets } from 'chart.js';
 import * as pluginDataLabels from 'chartjs-plugin-datalabels';
 import { Label } from 'ng2-charts';
@@ -7,6 +9,9 @@ import { DatePipe, CurrencyPipe, PercentPipe } from '@angular/common';
 // SERVICIOS
 import { DataService } from '../../core/services/data.service';
 import { LoadingService } from '../../shared/services/loading.service';
+import { MatDialog } from '@angular/material';
+// DIALOGOS
+import { DialogSinConexionComponent } from '../../dialogs/dialog-sin-conexion/dialog-sin-conexion.component';
 
 @Component({
   selector: 'app-reporte-grafico',
@@ -94,6 +99,8 @@ export class ReporteGraficoComponent implements AfterViewInit {
   ];
 
   constructor(
+    private router: Router,
+    public dialog: MatDialog,
     private dataService: DataService,
     private currencyPipe: CurrencyPipe,
     private percentPipe: PercentPipe,
@@ -110,6 +117,16 @@ export class ReporteGraficoComponent implements AfterViewInit {
 
     this.dataService.getAsync(reportData.url, []).subscribe(
       result => {
+        if (!result) {
+          this.loadingService.toggleLoading();
+          const dialogRef = this.dialog.open(
+            DialogSinConexionComponent,
+            { width: '900px',  disableClose: true}
+          );
+
+          dialogRef.afterClosed().subscribe(() => this.router.navigate(['administracion']));
+        }
+
         let data = [];
 
         result.forEach(

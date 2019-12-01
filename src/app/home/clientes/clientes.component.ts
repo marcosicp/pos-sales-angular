@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 import { MatDialog, MatTableDataSource } from '@angular/material';
 // MODELOS
 import { Clientes } from '../../shared/models/clientes.model';
@@ -13,7 +14,6 @@ import { DialogClienteAddEditComponent } from '../../dialogs/dialog-cliente-add-
 import { DialogConfirmarComponent } from '../../dialogs/dialog-confirmar/dialog-confirmar.component';
 import { DialogOperacionOkComponent } from '../../dialogs/dialog-operacion-ok/dialog-operacion-ok.component';
 import { DialogSinConexionComponent } from '../../dialogs/dialog-sin-conexion/dialog-sin-conexion.component';
-
 
 @Component({
   selector: 'app-clientes',
@@ -37,6 +37,7 @@ export class ClientesComponent implements OnInit {
   };
 
   constructor (
+    private router: Router,
     private dataService: DataService,
     public dialog: MatDialog,
     private loadingService: LoadingService
@@ -47,6 +48,15 @@ export class ClientesComponent implements OnInit {
 
     this.dataService.getAsync(URL_CLIENTES.GET_ALL, []).subscribe(
       data => {
+        if (!data) {
+          const dialogRef = this.dialog.open(
+            DialogSinConexionComponent,
+            { width: '900px',  disableClose: true}
+          );
+
+          dialogRef.afterClosed().subscribe(() => this.router.navigate(['welcome']));
+        }
+
         this.dataSource.data = data;
         this.columnCells.opciones = [{
             buttonIcon: 'edit',

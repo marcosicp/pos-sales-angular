@@ -7,6 +7,7 @@ import { Venta } from '../../shared/models/venta.model';
 import { DataService } from '../../core/services/data.service';
 // DIALOGOS
 import { DialogVerItemsPedidoComponent } from '../../dialogs/dialog-ver-items-venta/dialog-ver-items-venta.component';
+import { DialogSinConexionComponent } from '../../dialogs/dialog-sin-conexion/dialog-sin-conexion.component';
 // CONFIGURACIONES
 import { URL_PEDIDOS } from '../../shared/configs/urls.config';
 import { TABLA_PEDIDOS } from '../../shared/configs/table.config';
@@ -40,6 +41,15 @@ export class HistorialComponent implements OnInit {
   ngOnInit() {
     this.comerciosService.getAsync(URL_PEDIDOS.GET_ALL, []).subscribe(
       data => {
+        if (!data) {
+          const dialogRef = this.dialog.open(
+            DialogSinConexionComponent,
+            { width: '900px',  disableClose: true}
+          );
+
+          dialogRef.afterClosed().subscribe(() => this.router.navigate(['welcome']));
+        }
+
         this.dataSource.data = data;
         this.columnCells.opciones = [{
           buttonIcon: 'search',

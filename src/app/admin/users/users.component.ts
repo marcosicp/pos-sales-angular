@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 import { MatTableDataSource, MatDialog } from '@angular/material';
 // MODELOS
 import { Usuarios } from '../../shared/models/usuarios.model';
@@ -41,6 +42,7 @@ export class UsersComponent implements OnInit {
   };
 
   constructor(
+    private router: Router,
     public dialog: MatDialog,
     private dataService: DataService,
     private loadingService: LoadingService,
@@ -55,6 +57,15 @@ export class UsersComponent implements OnInit {
     this.isLoading = true;
     this.dataService.getAsync(URL_USUARIOS.GET_ALL, []).subscribe(
       data => {
+        if (!data) {
+          const dialogRef = this.dialog.open(
+            DialogSinConexionComponent,
+            { width: '900px',  disableClose: true}
+          );
+
+          dialogRef.afterClosed().subscribe(() => this.router.navigate(['welcome']));
+        }
+
         this.dataSource.data = data;
         this.columnCells.opciones = [{
           buttonIcon: 'edit',

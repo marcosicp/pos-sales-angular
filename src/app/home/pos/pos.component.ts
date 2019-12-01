@@ -12,6 +12,7 @@ import { DialogSinConexionComponent } from '../../dialogs/dialog-sin-conexion/di
 import { DialogOperacionOkComponent } from '../../dialogs/dialog-operacion-ok/dialog-operacion-ok.component';
 import { Pedido } from '../../shared/models/pedido.model';
 import { URL_STOCK } from '../../shared/configs/urls.config';
+import { LoadingService } from '../../shared/services/loading.service';
 
 @Component({
   selector: 'app-pos',
@@ -19,7 +20,6 @@ import { URL_STOCK } from '../../shared/configs/urls.config';
   styleUrls: ['./pos.component.scss']
 })
 export class PosComponent implements OnInit {
-
   products = [];
   productTypes = ['ARENA', 'GRANZA', 'CEMENTO', 'TIERRA', 'LADRILLOS', 'BOLSAS',
                 'VIGUETAS', 'TELGOPOR', 'LIJA', 'FERRETERIA', 'DISCOS', 'CINTAS', 'AUTOMOTOR', 'OTROS'];
@@ -35,25 +35,20 @@ export class PosComponent implements OnInit {
 
   dataSource = new MatTableDataSource<ProductoPedido>();
 
-  constructor(private ticketSync: PosService, private dataService: DataService, public dialog: MatDialog) { }
+  constructor(
+    private ticketSync: PosService,
+    private dataService: DataService,
+    private loadingService: LoadingService,
+    public dialog: MatDialog
+  ) { }
 
   ngOnInit() {
     this.ticketSync.currentTicket.subscribe(data => this.ticket = data);
     this.ticketSync.currentTotal.subscribe(total => this.cartTotal = total);
     this.ticketSync.currentCartNum.subscribe(num => this.cartNumItems);
 
-    if (this.dataService.productos.length) {
-      this.products = this.dataService.productos;
-      this.loadData();
-    } else {
-      this.getData();
-    }
-    // this.products[0] = this.db.getDrink();
-    // this.products[1] = this.db.getFood();
-  }
+    this.loadingService.toggleLoading();
 
-  getData() {
-    // this.isLoading = true;
     this.dataService.getAsync(URL_STOCK.GET_ALL, this.dataService.productos).subscribe(
       data => {
         for (let index = 0; index < this.productTypes.length; index++) {
@@ -108,23 +103,10 @@ export class PosComponent implements OnInit {
           }
         });
 
-        this.loadData();
-      },
-      error => {
-        console.log(error);
-        // this.isLoading = false;
+        this.loadingService.toggleLoading();
       }
     );
   }
-
-  loadData() {
-    // this.dataSource = new MatTableDataSource<Pedido>();
-    // this.dataSource.data = this.pedidos;
-    // this.dataSource.paginator = this.paginator;
-    // this.dataSource.sort = this.sort;
-    // this.isLoading = false;
-  }
-
 
   addToCheck(item: Productos) {
     // If the item already exists, add 1 to quantity
