@@ -84,7 +84,6 @@ export class PactarEntregaComponent {
     public dialog: MatDialog, private router: Router) {
     this.route.queryParams.subscribe(params => {
         if (params.idventa) {
-          debugger;
           this.idventa = JSON.parse(params.idventa);
           //this.venta.pedido = JSON.parse(params.pedido);
           const dialogRef = this.dialog.open(DialogAdvertenciaComponent, {
@@ -176,7 +175,7 @@ export class PactarEntregaComponent {
           end: newEnd
         };
 
-        this.updateEvent(eventoNuevo);
+        this.notificarCambio(eventoNuevo);
         return {
           ...event,
           start: newStart,
@@ -185,6 +184,23 @@ export class PactarEntregaComponent {
       }
       return iEvent;
     });
+  }
+
+  notificarCambio(event: CalendarEvent) {
+    // debugger;
+    this.updateEvent(event);
+
+    // const dialogRef = this.dialog.open(DialogConfirmarCambioFechaComponent, {
+    //   width: '500px', disableClose: true,
+    //   data: { event: event }
+    // });
+
+    // dialogRef.afterClosed().subscribe(result => {
+    //   if (result) {
+    //     return this.opcionSeleccionada = true;
+    //   }
+    //   return this.opcionSeleccionada = false;
+    // });
   }
 
   refreshView(): void {
@@ -226,9 +242,7 @@ export class PactarEntregaComponent {
   }
 
   updateEvent(event: CalendarEvent): void {
-    if (!this.venta) {
-      this.venta = this.allVentas.find(x => x.id == event.id);
-    }
+    this.venta = this.allVentas.find(x => x.id == event.id);
     this.venta.agenda = event;
     this.dataService.postAsync('ventas/UpdateVenta', this.venta).subscribe(
       data2 => {
