@@ -50,9 +50,8 @@ export class ConfirmacionComponent {
         if (data[0]) {
           this.selectedFiles = null;
           const navigationExtras: NavigationExtras = {
-            queryParams: { pedido: JSON.stringify(this.ventas)}
+            queryParams: { idventa: JSON.stringify(data[0])}
           };
-
           this.router.navigate(['agenda'], navigationExtras);
         }
       },

@@ -6,7 +6,7 @@
     <div mat-dialog-content fxLayout="column">
     <mat-form-field class="full-width">
       <label>Cliente</label>
-      <input matInput type="text" [(ngModel)]="venta.cliente.razonSocial">
+      <input matInput type="text" readonly [(ngModel)]="venta.cliente.razonSocial">
     </mat-form-field>
     <mat-form-field class="full-width">
         <label>Codigo de Venta:</label>
@@ -14,7 +14,7 @@
     </mat-form-field>
     <mat-form-field class="full-width">
         <label>Responsable:</label>
-        <input matInput type="text" readonly [(ngModel)]="venta.usuario">
+        <input matInput type="text" readonly [(ngModel)]="venta.pedido.usuario">
     </mat-form-field>
     <mat-form-field class="full-width">
       <label>Direccion:</label>
@@ -31,7 +31,7 @@
     </mat-form-field> -->
     <mat-form-field>
         <label>NroVenta:</label>
-        <input matInput type="text" [(ngModel)]="venta.id">
+        <input matInput type="text" readonly [(ngModel)]="venta.id">
     </mat-form-field>
     <div class="modal-footer">
       <button type="button" mat-button class="btn btn-outline-secondary" (click)="guardarEnvio()">
