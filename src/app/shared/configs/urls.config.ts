@@ -37,7 +37,8 @@ const URL_CLIENTES = {
 // API VENTAS
 const URL_VENTAS = {
   GET_ALL: 'ventas/GetAllVentas',
-  GET_ALL_ENTREGAS: 'ventas/GetAllEntregas'
+  GET_ALL_ENTREGAS: 'ventas/GetAllEntregas',
+  UPDATE_VENTAS: 'ventas/UpdateVenta'
 };
 // API PROVEEDORES
 const URL_PROVEEDORES = {

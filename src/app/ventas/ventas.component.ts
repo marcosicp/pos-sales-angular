@@ -69,7 +69,7 @@ export class VentasComponent implements OnInit {
 
   pactarEntrega(venta: Venta) {
     const navigationExtras: NavigationExtras = {
-        queryParams: { pedido: JSON.stringify(venta)}
+      queryParams: { idventa: JSON.stringify(venta.id)}
     };
     this.router.navigate(['agenda'], navigationExtras);
   }

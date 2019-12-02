@@ -17,9 +17,14 @@ export class DialogEditarEntregaComponent implements OnInit {
   observacion: Text;
   fecha: Date;
   venta = new Venta;
+  entregaRealizada: boolean;
 
-  constructor(public dialogRef: MatDialogRef<DialogEditarEntregaComponent>, @Inject(MAT_DIALOG_DATA) public data: any) {
+  constructor(
+    public dialogRef: MatDialogRef<DialogEditarEntregaComponent>,
+    @Inject(MAT_DIALOG_DATA) public data: any
+  ) {
     this.venta = data.venta;
+    this.entregaRealizada = this.venta.agenda.start < this.setDateToday();
   }
 
   ngOnInit() {
@@ -32,5 +37,14 @@ export class DialogEditarEntregaComponent implements OnInit {
 
   onNoClick() {
     this.dialogRef.close(false);
+  }
+
+  setDateToday(): Date {
+    const date = new Date();
+    date.setHours(0);
+    date.setMinutes(0);
+    date.setSeconds(0);
+    date.setMilliseconds(0);
+    return date;
   }
 }
