@@ -49,11 +49,10 @@ export class ConfirmacionComponent {
       data => {
         if (data[0]) {
           this.selectedFiles = null;
-          // const navigationExtras: NavigationExtras = {
-          //   queryParams: { pedido: JSON.stringify(this.ventas)}
-          // };
-
-          this.router.navigate(['ventas']);
+          const navigationExtras: NavigationExtras = {
+            queryParams: { idventa: JSON.stringify(data[0])}
+          };
+          this.router.navigate(['agenda'], navigationExtras);
         }
       },
       error => {
@@ -63,5 +62,4 @@ export class ConfirmacionComponent {
 
     this.selectedFiles = null;
   }
-
 }
