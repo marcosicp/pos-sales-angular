@@ -1,19 +1,24 @@
 import { Component, ChangeDetectionStrategy, ViewChild, TemplateRef, NgZone, Inject, ViewEncapsulation } from '@angular/core';
+import { Router, ActivatedRoute } from '@angular/router';
+import { MatDialog, MAT_DIALOG_DATA } from '@angular/material';
 import { startOfDay, endOfDay, subDays, addDays, endOfMonth, isSameDay, isSameMonth, addHours } from 'date-fns';
 import { Subject } from 'rxjs';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { CalendarEvent, CalendarEventAction, CalendarEventTimesChangedEvent, CalendarView, CalendarMonthViewDay, DAYS_OF_WEEK } from 'angular-calendar';
-import { DialogEditarEntregaComponent } from '../dialogs/dialog-editar-entrega/dialog-editar-entrega.component';
-import { MatDialog, MAT_DIALOG_DATA } from '@angular/material';
-import { Router, ActivatedRoute } from '@angular/router';
 import { CalendarEventActionsComponent } from 'angular-calendar/modules/common/calendar-event-actions.component';
-import { DialogAdvertenciaComponent } from '../dialogs/dialog-advertencia/dialog-advertencia.component';
+// ENTIDADES
 import { Venta } from '../shared/models/venta.model';
+// SERVICIOS
+import { LoadingService } from '../shared/services/loading.service';
+import { DataService } from '../core/services/data.service';
+// CONFIGURACIONES
+import { URL_VENTAS } from '../shared/configs/urls.config';
+// DIALOGOS
+import { DialogConfirmarCambioFechaComponent } from '../dialogs/dialog-confirmar-cambio-fecha/dialog-confirmar-cambio-fecha.component';
+import { DialogAdvertenciaComponent } from '../dialogs/dialog-advertencia/dialog-advertencia.component';
+import { DialogEditarEntregaComponent } from '../dialogs/dialog-editar-entrega/dialog-editar-entrega.component';
 import { DialogOperacionOkComponent } from '../dialogs/dialog-operacion-ok/dialog-operacion-ok.component';
 import { DialogSinConexionComponent } from '../dialogs/dialog-sin-conexion/dialog-sin-conexion.component';
-import { DataService } from '../core/services/data.service';
-import { URL_VENTAS } from '../shared/configs/urls.config';
-import { DialogConfirmarCambioFechaComponent } from '../dialogs/dialog-confirmar-cambio-fecha/dialog-confirmar-cambio-fecha.component';
 
 const colors: any = {
   red: {
@@ -87,8 +92,11 @@ export class PactarEntregaComponent {
     private dataService: DataService,
     private route: ActivatedRoute,
     public dialog: MatDialog,
+    private loadingService: LoadingService,
     private router: Router
   ) {
+    this.loadingService.toggleLoading();
+
     this.route.queryParams.subscribe(params => {
         if (params.idventa) {
           this.idventa = JSON.parse(params.idventa);
@@ -111,17 +119,13 @@ export class PactarEntregaComponent {
           data.forEach(element => {
             if (element.agenda != null) {
               element.agenda.id = element.id;
-              element.agenda.start = startOfDay(new Date(element.agenda.start));
-
-              if (element.agenda.start < Date.now()) {
-                element.agenda.title = element.agenda.title.replace('ENTREGA', 'ENTREGADO');
-                element.agenda.color.primary = '#a3a3a3';
-              }
+              element = this.setEventLabelAndColor(element);
 
               this.events.push(element.agenda);
             }
          });
 
+         this.loadingService.toggleLoading();
          this.refreshView();
         } else {
           const dialogRef = this.dialog.open(
@@ -129,6 +133,7 @@ export class PactarEntregaComponent {
             { width: '900px',  disableClose: true}
           );
 
+          this.loadingService.toggleLoading();
           dialogRef.afterClosed().subscribe(() => this.router.navigate(['welcome']));
         }
       },
@@ -240,6 +245,8 @@ export class PactarEntregaComponent {
           });
 
         this.updateEvent(this.venta.agenda);
+      } else {
+        this.refreshView();
       }
     });
   }
@@ -256,14 +263,41 @@ export class PactarEntregaComponent {
   }
 
   updateEvent(event: CalendarEvent): void {
-    this.venta = this.allVentas.find(x => x.id == event.id);
+    this.loadingService.toggleLoading();
+
+    this.venta = this.allVentas.find(x => x.id === event.id);
     this.venta.agenda = event;
-    this.dataService.postAsync('ventas/UpdateVenta', this.venta).subscribe(
-      data2 => {
-        const dialogRef = this.dialog.open(DialogOperacionOkComponent, { width: '600px' ,  disableClose: true });
-        dialogRef.afterClosed().subscribe(result => {
-          this.venta = new Venta();
-        });
+
+    this.dataService.postAsync(URL_VENTAS.UPDATE_VENTAS, this.venta).subscribe(
+      _data => {
+        this.loadingService.toggleLoading();
+
+        const dialogRef = this.dialog.open(
+          DialogOperacionOkComponent,
+          { width: '600px', disableClose: true }
+        );
+
+        dialogRef.afterClosed().subscribe(
+          () => {
+            this.loadingService.toggleLoading();
+
+            this.events = [];
+            this.allVentas.forEach(
+              element => {
+              if (element.agenda != null) {
+                element = element.id === _data.id ? _data : element;
+                element.agenda.id = element.id;
+                element = this.setEventLabelAndColor(element);
+
+                this.events.push(element.agenda);
+              }
+            });
+
+            this.loadingService.toggleLoading();
+            this.refreshView();
+            this.venta = new Venta();
+          }
+        );
       },
       error => {
         const dialogRef = this.dialog.open(DialogSinConexionComponent, { width: '600px' ,  disableClose: true });
@@ -301,6 +335,29 @@ export class PactarEntregaComponent {
 
   closeOpenMonthViewDay() {
     this.activeDayIsOpen = false;
+  }
+
+  setEventLabelAndColor(element: any) {
+    element.agenda.start = startOfDay(new Date(element.agenda.start));
+
+    if (element.agenda.start < this.setDateToday()) {
+      element.agenda.title = element.agenda.title.replace('ENTREGA', 'ENTREGADO');
+      element.agenda.color.primary = '#a3a3a3';
+    } else {
+      element.agenda.title = element.agenda.title.replace('ENTREGADO', 'ENTREGA');
+      element.agenda.color.primary = '#ad2121';
+    }
+
+    return element;
+  }
+
+  private setDateToday(): Date {
+    const date = new Date();
+    date.setHours(0);
+    date.setMinutes(0);
+    date.setSeconds(0);
+    date.setMilliseconds(0);
+    return date;
   }
 }
 
