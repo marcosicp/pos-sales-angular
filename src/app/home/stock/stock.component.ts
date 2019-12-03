@@ -38,6 +38,13 @@ export class StockComponent implements OnInit {
   searchButton = {
     placeHolder: this.headerTitles.map(item => this.tableHeaders[item].toLowerCase()).join(', ')
   };
+  otherButtons = [
+    {
+      icon: 'label',
+      label: 'Modificar precios',
+      buttonEvent: () => console.warn('vamos acade')
+    }
+  ];
   proveedores: string[];
 
   constructor(

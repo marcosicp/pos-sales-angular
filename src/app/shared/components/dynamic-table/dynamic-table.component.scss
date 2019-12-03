@@ -25,6 +25,14 @@
     background-color: #bac3f7;
     height: 90px;
 
+    .button-section {
+      button {
+        &:not(:first-of-type) {
+          margin-left: 10px;
+        }
+      }
+    }
+
     .search-section {
       margin-left: auto;
       margin-right: 5%;
