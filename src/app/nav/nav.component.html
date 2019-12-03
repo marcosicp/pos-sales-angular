@@ -18,25 +18,25 @@
     <mat-icon>event</mat-icon>
     <span>Agenda</span>
   </button>
-  <button mat-menu-item routerLink="/home">
-    <mat-icon>shopping_cart</mat-icon>
+  <button mat-menu-item routerLink="/caja">
+    <mat-icon>account_balance</mat-icon>
     <span>Caja</span>
   </button>
   <button mat-menu-item routerLink="/pedidos">
-    <mat-icon>history</mat-icon>
+    <mat-icon>shopping_cart</mat-icon>
     <span>Pedidos</span>
   </button>
   <button mat-menu-item routerLink="/ventas">
-    <mat-icon>assessment</mat-icon>
+    <mat-icon>assignment</mat-icon>
     <span>Ventas</span>
   </button>
   <button mat-menu-item routerLink="/stock">
     <mat-icon>category</mat-icon>
     <span>Stock</span>
   </button>
-  <button mat-menu-item [matMenuTriggerFor]="administracion">
-    <mat-icon>store</mat-icon>
-    <span>Administración</span>
+  <button mat-menu-item routerLink="/reportes">
+    <mat-icon>insert_chart</mat-icon>
+    <span>Reportes</span>
   </button>
   <button mat-menu-item routerLink="/proveedores">
     <mat-icon>business</mat-icon>
@@ -53,20 +53,5 @@
   <button mat-menu-item routerLink="/" (click)="logout()">
     <mat-icon>exit_to_app</mat-icon>
     <span>Cerrar sesion</span>
-  </button>
-</mat-menu>
-
-<mat-menu #administracion="matMenu">
-  <button mat-menu-item routerLink="/administracion">
-    <mat-icon>account_balance_wallet</mat-icon>
-    <span>Manejo de caja</span>
-  </button>
-  <button mat-menu-item routerLink="/movimientos">
-    <mat-icon>trending_up</mat-icon>
-    <span>Movimientos</span>
-  </button>
-  <button mat-menu-item routerLink="/reportes">
-    <mat-icon>insert_chart</mat-icon>
-    <span>Reportes</span>
   </button>
 </mat-menu>

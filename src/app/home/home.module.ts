@@ -25,6 +25,7 @@ import { ReportesComponent } from './reportes/reportes.component';
 import { ReporteGraficoComponent } from './reporte-grafico/reporte-grafico.component';
 // OTROS MODULOS
 import { SharedModule } from '../shared/shared.module';
+import { CajaComponent } from './caja/caja.component';
 
 @NgModule({
   imports: [
@@ -52,7 +53,8 @@ import { SharedModule } from '../shared/shared.module';
     StockComponent,
     ListaMovimientosComponent,
     ReportesComponent,
-    ReporteGraficoComponent
+    ReporteGraficoComponent,
+    CajaComponent
   ],
   entryComponents: [
     LineItemModalComponent

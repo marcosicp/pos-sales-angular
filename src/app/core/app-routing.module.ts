@@ -21,6 +21,7 @@ import { VentasComponent } from '../ventas/ventas.component';
 import { PactarEntregaComponent } from '../pactar-entrega/pactar-entrega.component';
 import { ListaMovimientosComponent } from '../home/lista-movimientos/lista-movimientos.component';
 import { ReportesComponent } from '../home/reportes/reportes.component';
+import { CajaComponent } from '../home/caja/caja.component';
 
 const appRoutes: Routes = [
   {
@@ -42,6 +43,10 @@ const appRoutes: Routes = [
     component: HomeComponent ,
     canActivate: [AuthGuard]
   }, {
+    path: 'caja',
+    component: CajaComponent,
+    canActivate: [AuthGuard]
+  },{
     path: 'agenda',
     component: PactarEntregaComponent ,
     canActivate: [AuthGuard]

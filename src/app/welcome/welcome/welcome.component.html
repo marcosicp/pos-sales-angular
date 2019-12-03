@@ -7,8 +7,8 @@
 
   <mat-grid-list cols="4" rowHeight="9:8">
     <mat-grid-tile>
-      <mat-card *ngIf="verEstado(); else notShow" routerLink="/home" fxLayout="column">
-        <mat-icon class="module-icon">shopping_cart</mat-icon>
+      <mat-card *ngIf="verEstado(); else notShow" routerLink="/caja" fxLayout="column">
+        <mat-icon class="module-icon">account_balance</mat-icon>
         <h1 class="module-title">Caja</h1>
       </mat-card>
       <ng-template #notShow>
@@ -20,13 +20,13 @@
     </mat-grid-tile>
     <mat-grid-tile>
       <mat-card routerLink="/pedidos" fxLayout="column">
-        <mat-icon class="module-icon">history</mat-icon>
+        <mat-icon class="module-icon">shopping_cart</mat-icon>
         <h1 class="module-title">Pedidos</h1>
       </mat-card>
     </mat-grid-tile>
     <mat-grid-tile>
       <mat-card routerLink="/ventas" fxLayout="column">
-        <mat-icon class="module-icon">assessment</mat-icon>
+        <mat-icon class="module-icon">assignment</mat-icon>
         <h1 class="module-title">Ventas</h1>
       </mat-card>
     </mat-grid-tile>
@@ -40,9 +40,9 @@
 
   <mat-grid-list cols="4" rowHeight="5:4">
     <mat-grid-tile>
-      <mat-card routerLink="/administracion" fxLayout="column">
-        <mat-icon class="module-icon">store</mat-icon>
-        <h1 class="module-title">Administración</h1>
+      <mat-card routerLink="/reportes" fxLayout="column">
+        <mat-icon class="module-icon">insert_chart</mat-icon>
+        <h1 class="module-title">Reportes</h1>
       </mat-card>
     </mat-grid-tile>
 
