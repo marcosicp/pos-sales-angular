@@ -6,21 +6,30 @@
     <mat-error>{{errorString('código')}}</mat-error>
   </mat-form-field>
   <mat-form-field class="full-width">
+    <label>Categoría</label>
+    <mat-select formControlName="categoria">
+      <mat-option *ngFor="let cat of categorias" [value]="cat">
+        {{cat.nombre}}
+      </mat-option>
+    </mat-select>
+    <mat-error>{{errorString('categoría')}}</mat-error>
+  </mat-form-field>
+  <mat-form-field class="full-width">
     <label>Nombre</label>
     <input matInput type="text" formControlName="nombre">
     <mat-error>{{errorString('nombre')}}</mat-error>
   </mat-form-field>
   <mat-form-field class="full-width">
     <label>Precio de compra</label>
-    <input matInput type="text" formControlName="precioCompra">
+    <input matInput type="number" formControlName="precioCompra">
     <mat-error>{{errorString('precio de compra')}}</mat-error>
   </mat-form-field>
   <mat-form-field class="full-width">
     <label>Precio de venta</label>
-    <input matInput type="text" formControlName="precioVenta">
+    <input matInput type="number" readonly [value]="calcularGanancia(producto)">
     <mat-error>{{errorString('precio de venta')}}</mat-error>
   </mat-form-field>
-  <mat-form-field class="full-width">
+  <mat-form-field class="full-width" *ngIf="!data.producto">
     <label>Stock inicial</label>
     <input matInput type="text" formControlName="cantidad">
     <mat-error>{{errorString('stock inicial')}}</mat-error>
@@ -38,11 +47,6 @@
       </mat-option>
     </mat-select>
     <mat-error>{{errorString('proveedor')}}</mat-error>
-  </mat-form-field>
-  <mat-form-field class="full-width">
-    <label>Categoria</label>
-    <input matInput type="text" formControlName="categoria">
-    <mat-error>{{errorString('categoria')}}</mat-error>
   </mat-form-field>
 </div>
 

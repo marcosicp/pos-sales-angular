@@ -47,6 +47,7 @@ export class StockComponent implements OnInit {
     }
   ];
   proveedores: string[];
+  categorias: any[];
 
   constructor(
     private router: Router,
@@ -67,9 +68,12 @@ export class StockComponent implements OnInit {
 
           dialogRef.afterClosed().subscribe(() => this.router.navigate(['welcome']));
         }
+
+        this.categorias = categoriasMock;
+
         data.forEach(
           item => {
-            item.precioVenta = item.precioCompra * (1 + ((categoriasMock.find(_item => _item.nombre === item.categoria || _item.nombre === 'OTROS')).ganancia / 100))
+            item.precioVenta = item.precioCompra * (1 + ((this.categorias.find(_item => _item.nombre === item.categoria || _item.nombre === 'OTROS')).ganancia / 100))
           }
         );
 
@@ -100,7 +104,8 @@ export class StockComponent implements OnInit {
       DialogStockAddEditComponent, {
         width: '900px',
         data: {
-          proveedores: this.proveedores
+          proveedores: this.proveedores,
+          categorias: this.categorias
         }
       }
     );
@@ -149,7 +154,8 @@ export class StockComponent implements OnInit {
           width: '900px',
           data: {
             producto: productoMod,
-            proveedores: this.proveedores
+            proveedores: this.proveedores,
+            categorias: this.categorias
           }
         }
       );
@@ -240,12 +246,12 @@ export class StockComponent implements OnInit {
       DialogEditarGananciasComponent, {
         width: '600px',
         disableClose: true,
-        data: categoriasMock
+        data: this.categorias
       }
     );
 
     dialogRef.afterClosed().subscribe(
-      result => console.warn(result)
+      result => this.categorias = result || this.categorias
     );
   }
 }

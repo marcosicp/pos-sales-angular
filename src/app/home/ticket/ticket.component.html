@@ -21,7 +21,7 @@
       <th>Eliminar</th>
     </tr>
     <tr *ngFor="let item of ticket" class="item">
-      <td><input style="width: 50%;" matInput type="number" min="1" (ngModelChange)="calcularTotal($event, item.id)" [(ngModel)]="item.cantidad"/> </td>
+      <td><input style="width: 50%;" matInput type="number" min="1" [max]="item.cantidad" (ngModelChange)="calcularTotal($event, item.id)" [(ngModel)]="item.cantidad"/> </td>
       <td>{{item.nombre}}</td>
       <td>{{item.peso | number: '1.2' | weightPipe}}</td>
       <td>{{item.precioCompra | currency: '$'}}</td>
