@@ -17,7 +17,6 @@ import { DialogOperacionOkComponent } from '../../dialogs/dialog-operacion-ok/di
 import { DialogSinConexionComponent } from '../../dialogs/dialog-sin-conexion/dialog-sin-conexion.component';
 import { DialogEditarGananciasComponent } from '../../dialogs/dialog-editar-ganancias/dialog-editar-ganancias.component';
 // MOCKS
-import mocks from '../../shared/mocks/stock.mock';
 import categoriasMock from '../../shared/mocks/categorias.mock';
 
 @Component({
@@ -68,6 +67,11 @@ export class StockComponent implements OnInit {
 
           dialogRef.afterClosed().subscribe(() => this.router.navigate(['welcome']));
         }
+        data.forEach(
+          item => {
+            item.precioVenta = item.precioCompra * (1 + ((categoriasMock.find(_item => _item.nombre === item.categoria || _item.nombre === 'OTROS')).ganancia / 100))
+          }
+        );
 
         this.dataSource.data = data;
         this.columnCells.opciones = [{
@@ -85,18 +89,6 @@ export class StockComponent implements OnInit {
         this.isLoading = false;
       }
     );
-
-    // USAR SOLO EN CASO DE NECESITAR MOCKS
-    // this.dataSource.data = mocks;
-    // this.columnCells.opciones = [{
-    //   buttonIcon: 'edit',
-    //   buttonLabel: 'Modificar',
-    //   buttonEvent: (prod) => this.editarProducto(prod)
-    // }, {
-    //   buttonIcon: 'delete',
-    //   buttonLabel: 'Eliminar',
-    //   buttonEvent: (prod) => this.eliminarProducto(prod)
-    // }];
 
     this.dataService.getAsync(URL_PROVEEDORES.GET_ALL, []).subscribe(
       data => this.proveedores = data.map(item => `${item.razonSocial} - ${item.cuil || ''}`)

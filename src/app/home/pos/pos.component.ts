@@ -52,6 +52,12 @@ export class PosComponent implements OnInit {
 
     this.dataService.getAsync(URL_STOCK.GET_ALL, this.dataService.productos).subscribe(
       data => {
+        data.forEach(
+          item => {
+            item.precioVenta = item.precioCompra * (1 + ((categoriasMock.find(_item => _item.nombre === item.categoria || _item.nombre === 'OTROS')).ganancia / 100))
+          }
+        )
+
         this.productTypes.forEach(
           (item, index) => {
             this.products[index] = [];
