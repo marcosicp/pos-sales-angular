@@ -15,8 +15,10 @@ import { DialogStockAumentarComponent } from '../../dialogs/dialog-stock-aumenta
 import { DialogConfirmarComponent } from '../../dialogs/dialog-confirmar/dialog-confirmar.component';
 import { DialogOperacionOkComponent } from '../../dialogs/dialog-operacion-ok/dialog-operacion-ok.component';
 import { DialogSinConexionComponent } from '../../dialogs/dialog-sin-conexion/dialog-sin-conexion.component';
+import { DialogEditarGananciasComponent } from '../../dialogs/dialog-editar-ganancias/dialog-editar-ganancias.component';
 // MOCKS
 import mocks from '../../shared/mocks/stock.mock';
+import categoriasMock from '../../shared/mocks/categorias.mock';
 
 @Component({
   selector: 'stock',
@@ -41,8 +43,8 @@ export class StockComponent implements OnInit {
   otherButtons = [
     {
       icon: 'label',
-      label: 'Modificar precios',
-      buttonEvent: () => console.warn('vamos acade')
+      label: 'Modificar márgenes',
+      buttonEvent: () => this.editarGanancias()
     }
   ];
   proveedores: string[];
@@ -239,5 +241,19 @@ export class StockComponent implements OnInit {
         );
       }
     });
+  }
+
+  editarGanancias() {
+    const dialogRef = this.dialog.open(
+      DialogEditarGananciasComponent, {
+        width: '600px',
+        disableClose: true,
+        data: categoriasMock
+      }
+    );
+
+    dialogRef.afterClosed().subscribe(
+      result => console.warn(result)
+    );
   }
 }

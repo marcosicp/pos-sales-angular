@@ -13,6 +13,8 @@ import { DialogOperacionOkComponent } from '../../dialogs/dialog-operacion-ok/di
 import { Pedido } from '../../shared/models/pedido.model';
 import { URL_STOCK } from '../../shared/configs/urls.config';
 import { LoadingService } from '../../shared/services/loading.service';
+// MOCKS
+import categoriasMock from '../../shared/mocks/categorias.mock';
 
 @Component({
   selector: 'app-pos',
@@ -21,8 +23,7 @@ import { LoadingService } from '../../shared/services/loading.service';
 })
 export class PosComponent implements OnInit {
   products = [];
-  productTypes = ['ARENA', 'GRANZA', 'CEMENTO', 'TIERRA', 'LADRILLOS', 'BOLSAS',
-                'VIGUETAS', 'TELGOPOR', 'LIJA', 'FERRETERIA', 'DISCOS', 'CINTAS', 'AUTOMOTOR', 'OTROS'];
+  productTypes = categoriasMock.sort((a, b) => a.nombre > b.nombre ? 1 : -1).map(item => item.nombre);
   ticket: Productos[];
   cartTotal = 0;
   cartNumItems = 0;
@@ -51,57 +52,11 @@ export class PosComponent implements OnInit {
 
     this.dataService.getAsync(URL_STOCK.GET_ALL, this.dataService.productos).subscribe(
       data => {
-        for (let index = 0; index < this.productTypes.length; index++) {
-          this.products[index] = [];
-        }
-
-        data.forEach(element => {
-
-          switch (element.categoria) {
-            case 'ARENA':
-              this.products[0].push(element);
-              break;
-            case 'GRANZA':
-              this.products[1].push(element);
-              break;
-            case 'CEMENTO':
-              this.products[2].push(element);
-              break;
-            case 'TIERRA':
-              this.products[3].push(element);
-              break;
-            case 'LADRILLOS':
-              this.products[4].push(element);
-              break;
-            case 'BOLSAS':
-              this.products[5].push(element);
-              break;
-            case 'VIGUETAS':
-              this.products[6].push(element);
-              break;
-            case 'TELGOPOR':
-              this.products[7].push(element);
-              break;
-            case 'LIJA':
-              this.products[8].push(element);
-              break;
-            case 'FERRETERIA':
-              this.products[9].push(element);
-              break;
-            case 'DISCOS':
-              this.products[10].push(element);
-              break;
-            case 'CINTAS':
-              this.products[11].push(element);
-              break;
-            case 'AUTOMOTOR':
-              this.products[12].push(element);
-              break;
-            default:
-                this.products[13].push(element);
-              break;
-          }
-        });
+        this.productTypes.forEach(
+          (item, index) => {
+            this.products[index] = [];
+            this.products[index].push(...data.filter(element => element.categoria === item))}
+        );
 
         this.loadingService.toggleLoading();
       }
