@@ -7,7 +7,7 @@
 
   <mat-tab-group>
     <mat-tab *ngFor="let categoria of products; let i = index"  label="{{productTypes[i]}}">
-      <div class="flex flex-direction-row flex-wrap menu justify-center" style="height: 400px;overflow: auto;">
+      <div class="flex flex-direction-row flex-wrap menu justify-center">
         <div *ngFor="let item of categoria" class="flex flex-direction-column item" (click)="addToCheck(item)">
           <div *ngIf="item.imagenUrl != null" [ngStyle]="{'background-image': 'url(' + item.imagenUrl + ')'}"  class="item-img"></div>
           <div *ngIf="item.imagenUrl == null" [ngStyle]="{'background-image': 'url(' + 'assets/icons/noimagen.jpg' + ')'}"  class="item-img"></div>

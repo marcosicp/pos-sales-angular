@@ -23,6 +23,7 @@ import { StockComponent } from './stock/stock.component';
 import { ListaMovimientosComponent } from './lista-movimientos/lista-movimientos.component';
 import { ReportesComponent } from './reportes/reportes.component';
 import { ReporteGraficoComponent } from './reporte-grafico/reporte-grafico.component';
+import { RegistroCompraComponent } from './registro-compra/registro-compra.component';
 // OTROS MODULOS
 import { SharedModule } from '../shared/shared.module';
 import { CajaComponent } from './caja/caja.component';
@@ -54,7 +55,8 @@ import { CajaComponent } from './caja/caja.component';
     ListaMovimientosComponent,
     ReportesComponent,
     ReporteGraficoComponent,
-    CajaComponent
+    CajaComponent,
+    RegistroCompraComponent
   ],
   entryComponents: [
     LineItemModalComponent

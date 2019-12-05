@@ -9,6 +9,7 @@ export class Productos {
     precioVenta: number;
     peso: number;
     cantidad: number;
+    cantidadComprada: number;
     marca: string;
     fechaModificacionPrecio: Date;
     descripcion: string;

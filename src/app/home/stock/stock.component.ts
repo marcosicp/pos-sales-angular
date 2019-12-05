@@ -44,6 +44,9 @@ export class StockComponent implements OnInit {
       icon: 'label',
       label: 'Modificar márgenes',
       buttonEvent: () => this.editarGanancias()
+    }, {
+      label: 'Registrar compra',
+      buttonEvent: () => this.registrarCompra()
     }
   ];
   proveedores: string[];
@@ -95,7 +98,7 @@ export class StockComponent implements OnInit {
     );
 
     this.dataService.getAsync(URL_PROVEEDORES.GET_ALL, []).subscribe(
-      data => this.proveedores = data.map(item => `${item.razonSocial} - ${item.cuil || ''}`)
+      data => this.proveedores = data.map(item => item.razonSocial)
     );
   }
 
@@ -253,5 +256,9 @@ export class StockComponent implements OnInit {
     dialogRef.afterClosed().subscribe(
       result => this.categorias = result || this.categorias
     );
+  }
+
+  registrarCompra() {
+    this.router.navigate(['registrar-compra']);
   }
 }

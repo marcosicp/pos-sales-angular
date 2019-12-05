@@ -5,25 +5,28 @@
   border: 1px solid $main-color;
   border-radius: 2px;
   box-shadow: 0 3px 6px rgba(0,0,0,0.16), 0 3px 6px rgba(0,0,0,0.23);
+  height: 90%;
+
+  .heading {
+    color: $main-color;
+    font-family: $main-font;
+    text-align: left;
+  }
 }
 
-.heading {
-  color: $main-color;
-  font-family: $main-font;
-}
-
-.table-header {
-  text-align: left;
-  font-family: $body-font;
-  font-weight: 700;
-}
-
-.items {
+.table-items {
   width: 100%;
-}
+  font-size: small;
 
-.item {
-  font-family: $body-font;
+  .table-header {
+    text-align: left;
+    font-family: $body-font;
+    font-weight: 700;
+  }
+
+  .item {
+    font-family: $body-font;
+  }
 }
 
 .del {

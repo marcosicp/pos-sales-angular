@@ -1,0 +1,70 @@
+<div class="row flex flex-direction-row justify-center add-margin content">
+  <div class="detalle-section add-margin">
+    <mat-card class="main-frame flex flex-direction-column justify-between">
+      <div class="ticket add-margin">
+        <mat-card-title class="heading">Proveedor:</mat-card-title>
+        <ng-select placeholder="Seleccione Cliente" [items]="proveedores" bindLabel="nombre" bindValue="id" [(ngModel)]="proveedor">
+          <ng-template ng-option-tmp let-item="item" let-search="searchTerm">
+            <div><span [ngOptionHighlight]="search">{{item.nombre}}</span></div>
+            <small><strong>Cuit:</strong> {{(item.cuit || item.cuil || '0') | cuilPipe}} | <strong>Razon Social:</strong> {{item.razonSocial}}</small>
+          </ng-template>
+        </ng-select>
+      </div>
+      <mat-card-title class="add-padding heading">Detalle de la compra</mat-card-title>
+      <table class="table-items">
+        <tr class="table-header">
+          <th style="width: 10%;">Cant</th>
+          <th>Item</th>
+          <th style="width: 10%;">Peso unitario</th>
+          <th>Precio compra</th>
+          <th>Monto Total</th>
+          <th style="width: 10%;">Peso Total</th>
+          <th>Eliminar</th>
+        </tr>
+        <tr *ngFor="let item of detalleCompra" class="item">
+          <td><input style="width: 50%;" matInput type="number" min="1" (ngModelChange)="calcularTotal($event, item.id)" [(ngModel)]="item.cantidadComprada"/> </td>
+          <td>{{item.nombre}}</td>
+          <td>{{item.peso | number: '1.2' | weightPipe}}</td>
+          <td>{{item.precioCompra | currency: '$'}}</td>
+          <td>{{item.precioCompra * item.cantidadComprada | currency: '$'}}</td>
+          <td>{{item.peso * item.cantidadComprada | number: '1.2' | weightPipe}}</td>
+          <td style="position: center;">
+            <mat-icon (click)="removeItem(item)" class="del">cancel</mat-icon></td>
+        </tr>
+      </table>
+      <mat-card-actions class="summary flex flex-direction-row align-items-center justify-between">
+        <h3>Peso: {{totalWeight() | number: '1.2' | weightPipe}}</h3>
+        <h3>T. Neto: {{totalAmount()*0.79 | currency: '$'}}</h3>
+        <h3>Iva: {{totalAmount()*0.21 | currency: '$'}}</h3>
+        <h3 class="total">T. Final: {{totalAmount() | currency: '$'}}</h3>
+        <div class="flex flex-direction-row buttons">
+          <button class="" mat-raised-button (click)="clearCart()">Limpiar</button>
+          <button class="checkout" mat-raised-button (click)="pay()">Pagar</button>
+        </div>
+      </mat-card-actions>
+    </mat-card>
+  </div>
+
+  <div class="productos add-margin">
+    <mat-card>
+      <mat-card-title class="add-padding heading">Selecionar Producto
+          <button
+            mat-raised-button
+            color="primary"
+            (click)="addProduct()"
+          >
+            <mat-icon>add</mat-icon>
+            Registrar producto
+          </button>
+        </mat-card-title>
+
+        <div class="flex flex-direction-row flex-wrap justify-center listado-productos">
+            <div *ngFor="let item of productosBuscados" class="flex flex-direction-column item" (click)="addToCheck(item)">
+              <div *ngIf="item.imagenUrl != null" [ngStyle]="{'background-image': 'url(' + item.imagenUrl + ')'}"  class="item-img"></div>
+              <div *ngIf="item.imagenUrl == null" [ngStyle]="{'background-image': 'url(' + 'assets/icons/noimagen.jpg' + ')'}"  class="item-img"></div>
+              <h4 class="item-name">{{item.nombre}}</h4>
+            </div>
+        </div>
+    </mat-card>
+  </div>
+</div>

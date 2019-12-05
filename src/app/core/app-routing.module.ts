@@ -22,6 +22,7 @@ import { PactarEntregaComponent } from '../pactar-entrega/pactar-entrega.compone
 import { ListaMovimientosComponent } from '../home/lista-movimientos/lista-movimientos.component';
 import { ReportesComponent } from '../home/reportes/reportes.component';
 import { CajaComponent } from '../home/caja/caja.component';
+import { RegistroCompraComponent } from '../home/registro-compra/registro-compra.component';
 
 const appRoutes: Routes = [
   {
@@ -81,7 +82,10 @@ const appRoutes: Routes = [
   }, {
     path: 'stock',
     component: StockComponent,
-    canActivate: [AuthGuard],
+    canActivate: [AuthGuard]
+  }, {
+    path: 'registrar-compra',
+    component: RegistroCompraComponent
   }, {
     path: 'ventas',
     component: VentasComponent,
