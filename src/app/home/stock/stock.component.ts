@@ -11,7 +11,6 @@ import { URL_STOCK, URL_PROVEEDORES } from '../../shared/configs/urls.config';
 import { TABLA_STOCK } from '../../shared/configs/table.config';
 // DIALOGOS
 import { DialogStockAddEditComponent } from '../../dialogs/dialog-stock-add-edit/dialog-stock-add-edit.component';
-import { DialogStockAumentarComponent } from '../../dialogs/dialog-stock-aumentar/dialog-stock-aumentar.component';
 import { DialogConfirmarComponent } from '../../dialogs/dialog-confirmar/dialog-confirmar.component';
 import { DialogOperacionOkComponent } from '../../dialogs/dialog-operacion-ok/dialog-operacion-ok.component';
 import { DialogSinConexionComponent } from '../../dialogs/dialog-sin-conexion/dialog-sin-conexion.component';
@@ -41,12 +40,13 @@ export class StockComponent implements OnInit {
   };
   otherButtons = [
     {
-      icon: 'label',
-      label: 'Modificar márgenes',
-      buttonEvent: () => this.editarGanancias()
-    }, {
+      icon: 'shopping_cart',
       label: 'Registrar compra',
       buttonEvent: () => this.registrarCompra()
+    }, {
+      icon: 'label',
+      label: 'Modificar ganancia',
+      buttonEvent: () => this.editarGanancias()
     }
   ];
   proveedores: string[];

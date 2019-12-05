@@ -11,11 +11,10 @@ import { URL_STOCK, URL_PROVEEDORES } from '../../shared/configs/urls.config';
 import { TABLA_STOCK } from '../../shared/configs/table.config';
 // DIALOGOS
 import { DialogStockAddEditComponent } from '../../dialogs/dialog-stock-add-edit/dialog-stock-add-edit.component';
-import { DialogStockAumentarComponent } from '../../dialogs/dialog-stock-aumentar/dialog-stock-aumentar.component';
 import { DialogConfirmarComponent } from '../../dialogs/dialog-confirmar/dialog-confirmar.component';
 import { DialogOperacionOkComponent } from '../../dialogs/dialog-operacion-ok/dialog-operacion-ok.component';
 import { DialogSinConexionComponent } from '../../dialogs/dialog-sin-conexion/dialog-sin-conexion.component';
-import { DialogEditarGananciasComponent } from '../../dialogs/dialog-editar-ganancias/dialog-editar-ganancias.component';
+import { DialogAdvertenciaComponent } from '../../dialogs/dialog-advertencia/dialog-advertencia.component';
 // MOCKS
 import categoriasMock from '../../shared/mocks/categorias.mock';
 
@@ -43,26 +42,60 @@ export class RegistroCompraComponent implements OnInit {
     this.categorias = categoriasMock;
 
     this.dataService.getAsync(URL_PROVEEDORES.GET_ALL, []).subscribe(
-      data => this.proveedores = data
+      data => {
+        this.proveedores = data;
+        this.loadingService.toggleLoading();
+      }
     );
-
-    this.dataService.getAsync(URL_STOCK.GET_ALL, []).subscribe(
-      data => this.productosBuscados = data.slice(0, 5)
-    );
-
-    this.loadingService.toggleLoading();
   }
 
-  calcularTotal = (cantidad: number, id: any) => cantidad * id;
+  poneleData = (modelId: any) => modelId && this.getProducts(modelId);
+
+  getProducts = modelId => {
+    this.loadingService.toggleLoading();
+
+    // ACA OBTENES EL ID (MODELID) DEL PROVEEDOR, HACES UNA LLAMADA PARA QUE VENGAN LOS PRODUCTOS Y WUALA, MAGIA
+    this.clearCart();
+
+    this.dataService.getAsync(URL_STOCK.GET_ALL, []).subscribe(
+      data => {
+        this.productosBuscados = data.slice(0, 5);
+        this.loadingService.toggleLoading();
+      }
+    );
+  }
+
+  removeItem(item: Productos) {
+    const itemFinded = this.detalleCompra.find(_item => item.id === _item.id);
+    const index = this.detalleCompra.indexOf(itemFinded);
+    this.detalleCompra.splice(index, 1);
+  }
 
   clearCart = () => this.detalleCompra = [];
 
-  pay = () => console.warn('hola vieja');
+  pay = () => {
+    if (!this.proveedor || !this.detalleCompra.length) {
+      const dialogConfig = !this.proveedor ?
+        {
+          title: 'Revisar proveedor',
+          confirmText: 'Por favor seleccione un proveedor para continuar.'
+        } : {
+          title: 'Sin productos',
+          confirmText: 'Debe incluir al menos un producto en el pedido.'
+        };
 
-  removeItem(item: Productos) {
-    const test = this.detalleCompra.find(_item => item.id === _item.id);
-    const hola = this.detalleCompra.indexOf(test);
-    this.detalleCompra.splice(hola, 1);
+      this.dialog.open(
+        DialogAdvertenciaComponent,
+        {
+          width: '600px',
+          disableClose: true,
+          data: dialogConfig
+        }
+      );
+    } else {
+      // ACA ES DONDE DEBERIA HACERSE EL CREATE DE LA COMPRA Y ACTUALZIARSE EL STOCK DE PRODUCTOS
+      // UNA VEZ HECHO TODO, MANDAR AL USUARIO AL STOCK DE NUEVO
+    }
   }
 
   addProduct = () => {
@@ -76,8 +109,25 @@ export class RegistroCompraComponent implements OnInit {
           categorias: this.categorias
         }
       }
-    )
-  };
+    );
+
+    dialogRef.afterClosed().subscribe(
+      result => {
+        if (result) {
+          const dialogResult = this.dialog.open(
+            DialogOperacionOkComponent,
+            {width: '600px', disableClose: true }
+          );
+
+          // UNA VEZ QUE REGISTRAS EL ARCHIVO, VOLVES A BUSCAR LOS PRODUCTOS O HACES UN PUSH
+          // LO QUE MAS SIRVA
+          dialogResult.afterClosed().subscribe(
+            () => this.getProducts(this.proveedor.id)
+          )
+        }
+      }
+    );
+  }
 
   addToCheck = (prod: Productos) => {
     const exist = this.detalleCompra.find(item => item.id === prod.id);

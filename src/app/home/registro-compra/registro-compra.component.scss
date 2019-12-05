@@ -9,6 +9,10 @@
     box-shadow: 0 3px 6px rgba(0,0,0,0.16), 0 3px 6px rgba(0,0,0,0.23);
     height: 90%;
 
+    .ticket {
+      margin-top: 1rem;
+    }
+
     .heading {
       color: $main-color;
       font-family: $main-font;
@@ -27,15 +31,28 @@
 
       .item {
         font-family: $body-font;
-      }
-    }
 
-    .del {
-      color: grey;
-    }
-    .del:hover {
-      color: black;
-      cursor: pointer;
+        td {
+          &:first-of-type {
+            input {
+              width: 50%;
+            }
+          }
+
+          &:last-of-type {
+            position: center;
+
+            .del {
+              color: grey;
+
+              &:hover {
+                color: black;
+                cursor: pointer;
+              }
+            }
+          }
+        }
+      }
     }
 
     .summary {
