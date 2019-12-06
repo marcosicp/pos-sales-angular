@@ -2,41 +2,49 @@
 <div [formGroup]="userForm" mat-dialog-content fxLayout="column">
   <mat-form-field class="full-width">
     <label>Nombre</label>
+    <span class="required">*</span>
     <input matInput type="text" formControlName="nombre">
     <mat-error>{{errorString('nombre')}}</mat-error>
   </mat-form-field>
   <mat-form-field class="full-width">
     <label>Apellido</label>
+    <span class="required">*</span>
     <input matInput type="text" formControlName="apellido">
     <mat-error>{{errorString('apellido')}}</mat-error>
   </mat-form-field>
   <mat-form-field class="full-width">
     <label>Email</label>
+    <span class="required">*</span>
     <input matInput type="text" formControlName="email">
     <mat-error>{{errorString('email')}}</mat-error>
   </mat-form-field>
   <mat-form-field class="full-width">
     <label>Teléfono</label>
+    <span class="required">*</span>
     <input matInput type="text" formControlName="telefono">
     <mat-error>{{errorString('telefono')}}</mat-error>
   </mat-form-field>
   <mat-form-field class="full-width">
     <label>Usuario</label>
+    <span class="required">*</span>
     <input matInput type="text" formControlName="usuario">
     <mat-error>{{errorString('usuario')}}</mat-error>
   </mat-form-field>
   <mat-form-field class="full-width" *ngIf="!data">
     <label>Contraseña</label>
+    <span class="required">*</span>
     <input matInput type="password" formControlName="password">
     <mat-error>{{errorString('contraseña')}}</mat-error>
   </mat-form-field>
   <mat-form-field class="full-width" *ngIf="!data">
     <label>Repetir contraseña</label>
+    <span class="required">*</span>
     <input matInput type="password" formControlName="repetirPass">
     <mat-error>{{errorString('repetir contraseña')}}</mat-error>
   </mat-form-field>
   <mat-form-field class="full-width">
     <label>Rol</label>
+    <span class="required">*</span>
     <mat-select formControlName="admin">
       <mat-option *ngFor="let rol of roles" [value]="rol.value">
         {{rol.name}}
