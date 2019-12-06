@@ -16,10 +16,10 @@ import { ProductoPedido } from '../../shared/models/producto-venta.model';
 import { URL_CLIENTES } from '../../shared/configs/urls.config';
 // DIALOGOS
 import { DialogCajaCerradaComponent } from '../../dialogs/dialog-caja-cerrada/dialog-caja-cerrada.component';
-import { DialogBuscarProductoComponent } from '../../dialogs/dialog-buscar-producto/dialog-buscar-producto.component';
 import { DialogSinConexionComponent } from '../../dialogs/dialog-sin-conexion/dialog-sin-conexion.component';
 import { DialogOperacionOkComponent } from '../../dialogs/dialog-operacion-ok/dialog-operacion-ok.component';
 import { DialogAdvertenciaComponent } from '../../dialogs/dialog-advertencia/dialog-advertencia.component';
+import { DialogConfirmarComponent } from '../../dialogs/dialog-confirmar/dialog-confirmar.component';
 
 @Component({
   selector: 'app-ticket',
@@ -315,4 +315,27 @@ export class TicketComponent implements OnInit {
       }
     }
   }
+
+  cerrar = () => {
+    if (this.hayDatos()) {
+      const dialogRef = this.dialog.open(
+        DialogConfirmarComponent, {
+          width: '600px',
+          disableClose: true,
+          data: {
+            title: 'Salir de la compra',
+            confirmText: '¿Esta seguro que desear salir? Tiene una compra todavía sin registrar'
+          }
+        }
+      );
+
+      dialogRef.afterClosed().subscribe(
+        result => result.confirm && this.router.navigate(['pedidos'])
+      );
+    } else {
+      this.router.navigate(['pedidos']);
+    }
+  }
+
+  hayDatos = () => this.clienteId || this.ticket.length;
 }

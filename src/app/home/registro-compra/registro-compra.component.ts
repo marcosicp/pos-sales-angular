@@ -73,7 +73,26 @@ export class RegistroCompraComponent implements OnInit {
     this.detalleCompra.splice(index, 1);
   }
 
-  cerrar = () => this.router.navigate(['stock']);
+  cerrar = () => {
+    if (this.proveedor || this.detalleCompra.length) {
+      const dialogRef = this.dialog.open(
+        DialogConfirmarComponent, {
+          width: '600px',
+          disableClose: true,
+          data: {
+            title: 'Salir del pedido',
+            confirmText: '¿Esta seguro que desear salir? Tiene pedido sin registrar todavía'
+          }
+        }
+      );
+
+      dialogRef.afterClosed().subscribe(
+        result => result.confirm && this.router.navigate(['stock'])
+      );
+    } else {
+      this.router.navigate(['stock']);
+    }
+  }
 
   clearCart = (clearAll: boolean = false) => {
     this.productosBuscados = [];
@@ -160,4 +179,6 @@ export class RegistroCompraComponent implements OnInit {
     return this.detalleCompra.length > 0 ?
       this.detalleCompra.map(item => item.peso * item.cantidadComprada).reduce((a, b) => a + b) : 0;
   }
+
+  hayDatos = () => this.proveedor || this.detalleCompra.length;
 }

@@ -12,36 +12,59 @@
   <table class="table-items">
     <tr class="table-header">
       <th style="width: 10%;">Cant</th>
-      <th>Item</th>
-      <th style="width: 10%;">Peso</th>
-      <th>PC</th>
-      <th>PV</th>
-      <th>$ Total</th>
-      <th style="width: 10%;">Kg Total</th>
+      <th>Producto</th>
+      <th style="width: 10%;">Peso unitario</th>
+      <th>Precio</th>
+      <th>Monto total</th>
+      <th style="width: 10%;">Peso Total</th>
       <th>Eliminar</th>
     </tr>
     <tr *ngFor="let item of ticket" class="item">
-      <td><input style="width: 50%;" matInput type="number" min="1" [max]="item.cantidad" (ngModelChange)="calcularTotal($event, item.id)" [(ngModel)]="item.cantidad"/> </td>
+      <td><input matInput type="number" min="1" [max]="item.cantidad" (ngModelChange)="calcularTotal($event, item.id)" [(ngModel)]="item.cantidad"/> </td>
       <td>{{item.nombre}}</td>
       <td>{{item.peso | number: '1.2' | weightPipe}}</td>
-      <td>{{item.precioCompra | currency: '$'}}</td>
       <td>{{item.precioVenta | currency: '$'}}</td>
       <td>{{item.precioVenta*item.cantidad | currency: '$'}}</td>
       <td>{{item.peso*item.cantidad | number: '1.2' | weightPipe}}</td>
       <td style="position: center;">
-        <!-- <mat-icon (click)="addItem(item)" class="del">control_point</mat-icon>
-        <mat-icon (click)="subtractOne(item)" class="del">indeterminate_check_box</mat-icon> -->
         <mat-icon (click)="removeItem(item)" class="del">cancel</mat-icon></td>
     </tr>
   </table>
-  <mat-card-actions class="summary flex flex-direction-row align-items-center justify-between">
-    <h3>Peso: {{cartPeso | number: '1.2' | weightPipe}}</h3>
-    <h3>T. Neto: {{cartTotal*0.79 | currency: '$'}}</h3>
-    <h3>Iva: {{cartTotal*0.21 | currency: '$'}}</h3>
-    <h3 class="total">T. Final: {{cartTotal | currency: '$'}}</h3>
+  <mat-card-actions class="summary flex flex-direction-column">
+    <div class="totals flex flex-direction-row justify-between">
+      <h3>P. Total: {{cartPeso | number: '1.2' | weightPipe}}</h3>
+      <h3>M. Neto: {{cartTotal*0.79 | currency: '$'}}</h3>
+      <h3>Iva: {{cartTotal*0.21 | currency: '$'}}</h3>
+      <h3 class="total">M. Final: {{cartTotal | currency: '$'}}</h3>
+    </div>
     <div class="flex flex-direction-row buttons">
-      <button class="" mat-raised-button (click)="clearCart()">Limpiar</button>
-      <button class="checkout" mat-raised-button (click)="checkout()">Cobrar</button>
+      <button
+        mat-raised-button
+        color="warn"
+        (click)="cerrar()"
+      >
+        <mat-icon>close</mat-icon>
+        Cancelar
+      </button>
+
+      <button
+        mat-raised-button
+        color="basic"
+        (click)="clearCart()"
+        [disabled]="!hayDatos()"
+      >
+        <mat-icon>check</mat-icon>
+        Limpiar
+      </button>
+
+      <button
+        mat-raised-button
+        color="primary"
+        (click)="checkout()"
+      >
+        <mat-icon>account_balance_wallet</mat-icon>
+        Cobrar
+      </button>
     </div>
   </mat-card-actions>
 </mat-card>
