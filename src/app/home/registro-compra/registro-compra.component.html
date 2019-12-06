@@ -1,5 +1,5 @@
 <div class="row flex flex-direction-row justify-center add-margin content">
-  <div class="detalle-section add-margin">
+  <div class="details-section add-margin">
     <mat-card class="main-frame flex flex-direction-column justify-between">
       <div class="ticket add-margin">
         <mat-card-title class="heading">Proveedor:</mat-card-title>
@@ -14,11 +14,11 @@
       <table class="table-items">
         <tr class="table-header">
           <th style="width: 10%;">Cant</th>
-          <th>Item</th>
+          <th>Producto</th>
           <th style="width: 10%;">Peso unitario</th>
           <th>Precio compra</th>
-          <th>Monto Total</th>
-          <th style="width: 10%;">Peso Total</th>
+          <th>Monto total</th>
+          <th style="width: 10%;">Peso total</th>
           <th>Eliminar</th>
         </tr>
         <tr *ngFor="let item of detalleCompra" class="item">
@@ -35,21 +35,47 @@
           </td>
         </tr>
       </table>
-      <mat-card-actions class="summary flex flex-direction-row align-items-center justify-between">
-        <h3>Peso: {{totalWeight() | number: '1.2' | weightPipe}}</h3>
-        <h3>T. Neto: {{totalAmount()*0.79 | currency: '$'}}</h3>
-        <h3>Iva: {{totalAmount()*0.21 | currency: '$'}}</h3>
-        <h3 class="total">T. Final: {{totalAmount() | currency: '$'}}</h3>
+      <mat-card-actions class="summary flex flex-direction-column">
+        <div class="totals flex flex-direction-row justify-between">
+          <h3>P. Total: {{totalWeight() | number: '1.2' | weightPipe}}</h3>
+          <h3>M. Neto: {{totalAmount()*0.79 | currency: '$'}}</h3>
+          <h3>Iva: {{totalAmount()*0.21 | currency: '$'}}</h3>
+          <h3>M. Final: {{totalAmount() | currency: '$'}}</h3>
+        </div>
         <div class="flex flex-direction-row buttons">
-          <button class="" mat-raised-button (click)="clearCart()">Limpiar</button>
-          <button class="checkout" mat-raised-button (click)="pay()">Pagar</button>
+          <button
+            mat-raised-button
+            color="warn"
+            (click)="cerrar()"
+          >
+            <mat-icon>close</mat-icon>
+            Cancelar
+          </button>
+
+          <button
+            mat-raised-button
+            color="basic"
+            (click)="clearCart(true)"
+          >
+            <mat-icon>check</mat-icon>
+            Limpiar
+          </button>
+
+          <button
+            mat-raised-button
+            color="primary"
+            (click)="pay()"
+          >
+            <mat-icon>account_balance_wallet</mat-icon>
+            Pagar
+          </button>
         </div>
       </mat-card-actions>
     </mat-card>
   </div>
 
-  <div class="productos add-margin">
-    <mat-card>
+  <div class="products-section add-margin">
+    <mat-card class="main-frame">
       <mat-card-title class="add-padding heading">Selecionar productos
         <button
           mat-raised-button

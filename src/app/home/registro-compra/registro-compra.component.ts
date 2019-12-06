@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material';
+import { Router } from '@angular/router';
 // MODELOS
 import { Productos } from '../../shared/models/producto.model';
 import { Proveedores } from '../../shared/models/proveedores.model';
@@ -31,6 +32,7 @@ export class RegistroCompraComponent implements OnInit {
   categorias: any[];
 
   constructor(
+    private router: Router,
     private dataService: DataService,
     private loadingService: LoadingService,
     private dialog: MatDialog
@@ -71,7 +73,15 @@ export class RegistroCompraComponent implements OnInit {
     this.detalleCompra.splice(index, 1);
   }
 
-  clearCart = () => this.detalleCompra = [];
+  cerrar = () => this.router.navigate(['stock']);
+
+  clearCart = (clearAll: boolean = false) => {
+    this.productosBuscados = [];
+    this.detalleCompra = [];
+    if (clearAll) {
+      this.proveedor = null;
+    }
+  }
 
   pay = () => {
     if (!this.proveedor || !this.detalleCompra.length) {

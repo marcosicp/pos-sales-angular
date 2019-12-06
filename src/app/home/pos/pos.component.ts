@@ -59,9 +59,7 @@ export class PosComponent implements OnInit {
         )
 
         this.productTypes.forEach(
-          (item, index) => {
-            this.products[index] = [];
-            this.products[index].push(...data.filter(element => element.categoria === item))}
+          (item, index) => this.products[index] = [...data.filter(element => element.categoria === item)]
         );
 
         this.loadingService.toggleLoading();

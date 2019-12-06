@@ -1,6 +1,6 @@
 @import '../../app.component.scss';
 
-.detalle-section {
+.details-section {
   .main-frame {
     min-width: 320px;
     min-height: 343px;
@@ -58,8 +58,25 @@
     .summary {
       margin-top: auto;
 
-      h3.total {
-        font-weight: bold;
+      .totals {
+        align-self: flex-end;
+
+        h3 {
+          margin: auto 10px;
+
+          &:last-of-type {
+            font-weight: bold;
+          }
+        }
+      }
+
+      .buttons {
+        align-self: flex-end;
+        margin-top: 10px;
+
+        button {
+          margin: auto 10px;
+        }
       }
     }
 
@@ -79,88 +96,84 @@
   }
 }
 
-.productos {
-  min-height: 343px;
-  border: 1px solid $main-color;
-  border-radius: 2px;
-  box-shadow: 0 3px 6px rgba(0,0,0,0.16), 0 3px 6px rgba(0,0,0,0.23);
-  height: 500px;
+.products-section {
+  .main-frame {
+    min-height: 343px;
+    border: 1px solid $main-color;
+    border-radius: 2px;
+    box-shadow: 0 3px 6px rgba(0,0,0,0.16), 0 3px 6px rgba(0,0,0,0.23);
+    height: 500px;
 
-  .heading {
-    color: $main-color;
-    font-family: $main-font;
-  }
-
-  .listado-productos {
-    height: 400px;
-    overflow: auto;
-    margin: 0.25rem;
-
-    .item {
-      margin: 0.75rem;
-      width: 21.5%;
-      height: 170px;
-      font-family: $body-font;
-      border: 1px grey solid;
-      border-radius: 10px;
-      box-shadow: 0 3px 6px rgba(0,0,0,0.16), 0 3px 6px rgba(0,0,0,0.23);
-      cursor: pointer;
-
-      &:hover {
-        background-color: grey;
-        color: white;
-        opacity: 0.6;
-      }
-
-      &:active {
-        background-color: grey;
-        color: white;
-        opacity: 0.8;
-      }
+    .heading {
+      color: $main-color;
+      font-family: $main-font;
     }
 
-    .item-img {
-      height: 100px;
-      width: 100%;
-      background-size: cover;
-      background-position: center;
-      border-radius: 10px;
-      border-bottom-left-radius: 0;
-      border-bottom-right-radius: 0;
-    }
+    .listado-productos {
+      height: 400px;
+      overflow: auto;
+      margin: 0.25rem;
 
-    .item-name {
-      text-align: center;
-      padding: 0.5rem;
-      font-size: smaller;
-      float:right;
-      width: calc(100% - 1.0em);
-      height:5.5em;
-      content:'';
+      .item {
+        margin: 0.75rem;
+        width: 21.5%;
+        height: 170px;
+        font-family: $body-font;
+        border: 1px grey solid;
+        border-radius: 10px;
+        box-shadow: 0 3px 6px rgba(0,0,0,0.16), 0 3px 6px rgba(0,0,0,0.23);
+        cursor: pointer;
+
+        &:hover {
+          background-color: grey;
+          color: white;
+          opacity: 0.6;
+        }
+
+        &:active {
+          background-color: grey;
+          color: white;
+          opacity: 0.8;
+        }
+      }
+
+      .item-img {
+        height: 100px;
+        width: 100%;
+        background-size: cover;
+        background-position: center;
+        border-radius: 10px;
+        border-bottom-left-radius: 0;
+        border-bottom-right-radius: 0;
+      }
+
+      .item-name {
+        text-align: center;
+        padding: 0.5rem;
+        font-size: smaller;
+        float:right;
+        width: calc(100% - 1.0em);
+        height:5.5em;
+        content:'';
+      }
     }
   }
 }
 
 @media screen and (min-width: 425px) {
-  .productos {
+  .products-section {
     width: 92%;
   }
-  .detalle-section {
-    width: 92%;
-  }
-  .bottom-content {
+  .details-section {
     width: 92%;
   }
 }
 
 @media screen and (min-width: 768px) {
-  .productos {
+  .products-section {
     width: 47%;
   }
-  .detalle-section {
+  .details-section {
     width: 47%;
-  }
-  .bottom-content {
-    width: 92%;
   }
 }
