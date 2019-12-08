@@ -323,8 +323,8 @@ export class TicketComponent implements OnInit {
           width: '600px',
           disableClose: true,
           data: {
-            title: 'Salir de la compra',
-            confirmText: '¿Esta seguro que desear salir? Tiene una compra todavía sin registrar'
+            title: 'Salir del pedido',
+            confirmText: '¿Esta seguro que desear salir? Los datos cargados del pedido se perderán'
           }
         }
       );

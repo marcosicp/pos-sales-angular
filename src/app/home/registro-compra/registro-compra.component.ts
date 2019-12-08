@@ -4,6 +4,8 @@ import { Router } from '@angular/router';
 // MODELOS
 import { Productos } from '../../shared/models/producto.model';
 import { Proveedores } from '../../shared/models/proveedores.model';
+import { Compra } from '../../shared/models/compra.model';
+import { Usuarios } from '../../shared/models/usuarios.model';
 // SERVICIOS
 import { DataService } from '../../core/services/data.service';
 import { LoadingService } from '../../shared/services/loading.service';
@@ -18,6 +20,8 @@ import { DialogSinConexionComponent } from '../../dialogs/dialog-sin-conexion/di
 import { DialogAdvertenciaComponent } from '../../dialogs/dialog-advertencia/dialog-advertencia.component';
 // MOCKS
 import categoriasMock from '../../shared/mocks/categorias.mock';
+// HEPLERS
+import fechaArg from '../../shared/helpers/date.helper';
 
 @Component({
   selector: 'app-registro-compra',
@@ -30,6 +34,7 @@ export class RegistroCompraComponent implements OnInit {
   detalleCompra: Productos[] = [];
   productosBuscados: Productos[] = [];
   categorias: any[];
+  usuario: Usuarios;
 
   constructor(
     private router: Router,
@@ -42,6 +47,7 @@ export class RegistroCompraComponent implements OnInit {
     this.loadingService.toggleLoading();
 
     this.categorias = categoriasMock;
+    this.usuario = JSON.parse(localStorage.getItem('currentUser'));
 
     this.dataService.getAsync(URL_PROVEEDORES.GET_ALL, []).subscribe(
       data => {
@@ -80,8 +86,8 @@ export class RegistroCompraComponent implements OnInit {
           width: '600px',
           disableClose: true,
           data: {
-            title: 'Salir del pedido',
-            confirmText: '¿Esta seguro que desear salir? Tiene pedido sin registrar todavía'
+            title: 'Salir de la compra',
+            confirmText: '¿Esta seguro que desear salir? Los datos cargados de la compra se perderán'
           }
         }
       );
@@ -122,8 +128,38 @@ export class RegistroCompraComponent implements OnInit {
         }
       );
     } else {
-      // ACA ES DONDE DEBERIA HACERSE EL CREATE DE LA COMPRA Y ACTUALZIARSE EL STOCK DE PRODUCTOS
-      // UNA VEZ HECHO TODO, MANDAR AL USUARIO AL STOCK DE NUEVO
+      const nuevaCompra = new Compra();
+
+      nuevaCompra.productosPedidos = this.detalleCompra;
+      nuevaCompra.total = this.totalAmount();
+      nuevaCompra.usuario = this.usuario.usuario.toString();
+      nuevaCompra.pesoTotal = this.totalWeight();
+      nuevaCompra.proveedorId = this.proveedor.toString();
+      nuevaCompra.fechaPedido = fechaArg();
+
+      this.loadingService.toggleLoading();
+      this.dataService.createAsync(URL_STOCK.ADD_COMPRA, nuevaCompra, []).subscribe(
+        () => {
+          this.loadingService.toggleLoading();
+
+          const dialogResult = this.dialog.open(
+            DialogOperacionOkComponent,
+            { width: '600px', disableClose: true }
+          );
+
+          dialogResult.afterClosed().subscribe(
+            () => this.router.navigate(['stock'])
+          );
+        },
+        error => {
+          this.loadingService.toggleLoading();
+
+          this.dialog.open(
+            DialogSinConexionComponent,
+            { width: '600px', disableClose: true }
+          );
+        }
+      );
     }
   }
 
@@ -180,5 +216,5 @@ export class RegistroCompraComponent implements OnInit {
       this.detalleCompra.map(item => item.peso * item.cantidadComprada).reduce((a, b) => a + b) : 0;
   }
 
-  hayDatos = () => this.proveedor || this.detalleCompra.length;
+  hayDatos = () => (this.proveedor || this.detalleCompra.length > 0);
 }

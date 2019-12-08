@@ -16,19 +16,19 @@ export class DialogEditarGananciasComponent implements OnInit {
     public dialogRef: MatDialogRef<any>,
     @Inject(MAT_DIALOG_DATA) public data?: any
   ) {
-    this.lista = new MatTableDataSource(data.sort((a, b) => a.nombre > b.nombre ? 1 : -1))
+    this.lista = new MatTableDataSource(data.sort((a, b) => a.nombre > b.nombre ? 1 : -1));
   }
 
   ngOnInit() {
   }
 
-  invalidList = () => this.lista.data.find(item => (!item.ganancia && item.ganancia !== 0) || item.ganancia < 0 || item.ganancia === '')
+  invalidList = () => this.lista.data.find(item => (!item.ganancia && item.ganancia !== 0) || item.ganancia < 0 || item.ganancia === '');
 
   guardar() {
-    this.dialogRef.close(this.data)
+    this.dialogRef.close(this.data);
   }
 
   cancelar() {
-    this.dialogRef.close(false)
+    this.dialogRef.close(false);
   }
 }

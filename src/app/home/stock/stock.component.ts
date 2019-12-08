@@ -254,7 +254,36 @@ export class StockComponent implements OnInit {
     );
 
     dialogRef.afterClosed().subscribe(
-      result => this.categorias = result || this.categorias
+      ganancias => {
+        if (ganancias) {
+          this.dataService.createAsync(
+            URL_STOCK.UPDATE_GANANCIAS,
+            ganancias,
+            this.categorias
+          ).subscribe(
+            result => {
+              this.loadingService.toggleLoading();
+
+              const dialogResult = this.dialog.open(
+                DialogOperacionOkComponent,
+                { width: '600px', disableClose: true }
+              );
+
+              dialogResult.afterClosed().subscribe(
+                () => this.categorias = result
+              );
+            },
+            error => {
+              this.loadingService.toggleLoading();
+
+              this.dialog.open(
+                DialogSinConexionComponent,
+                { width: '600px', disableClose: true }
+              );
+            }
+          );
+        }
+      }
     );
   }
 
