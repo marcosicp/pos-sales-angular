@@ -2,36 +2,43 @@
 <div [formGroup]="clientForm" mat-dialog-content fxLayout="column">
   <mat-form-field class="full-width">
     <label>Nombre</label>
+    <span class="required">*</span>
     <input matInput type="text" formControlName="nombre" maxlength="40">
     <mat-error>{{errorString('nombre')}}</mat-error>
   </mat-form-field>
   <mat-form-field class="full-width">
     <label>Razón Social</label>
+    <span class="required">*</span>
     <input matInput type="text" formControlName="razonSocial" maxlength="40">
     <mat-error>{{errorString('razon social')}}</mat-error>
   </mat-form-field>
   <mat-form-field class="full-width">
     <label>CUIL</label>
+    <span class="required">*</span>
     <input matInput type="text" formControlName="cuil" maxlength="15">
     <mat-error>{{errorString('cuil')}}</mat-error>
   </mat-form-field>
   <mat-form-field class="full-width">
-    <label>Telefono</label>
+    <label>Teléfono</label>
+    <span class="required">*</span>
     <input matInput type="text" formControlName="telefono" maxlength="15">
     <mat-error>{{errorString('telefono')}}</mat-error>
   </mat-form-field>
   <mat-form-field class="full-width">
     <label>Email</label>
+    <span class="required">*</span>
     <input matInput type="text" formControlName="email" maxlength="40">
     <mat-error>{{errorString('email')}}</mat-error>
   </mat-form-field>
   <mat-form-field class="full-width">
-    <label>Direccion</label>
+    <label>Dirección</label>
+    <span class="required">*</span>
     <input matInput type="text" formControlName="direccion" maxlength="70">
     <mat-error>{{errorString('direccion')}}</mat-error>
   </mat-form-field>
   <mat-form-field class="full-width">
     <label>Tipo de Factura</label>
+    <span class="required">*</span>
     <mat-select formControlName="tipoFactura">
       <mat-option *ngFor="let factura of facturas" [value]="factura.tipo">
         {{factura.tipo}}

@@ -2,47 +2,58 @@
 <div [formGroup]="productForm" mat-dialog-content fxLayout="column">
   <mat-form-field class="full-width">
     <label>Código</label>
-    <input matInput type="text" formControlName="codigo">
+    <span class="required">*</span>
+    <input matInput type="text" formControlName="codigoProv">
     <mat-error>{{errorString('código')}}</mat-error>
   </mat-form-field>
   <mat-form-field class="full-width">
+    <label>Categoría</label>
+    <span class="required">*</span>
+    <mat-select formControlName="categoria">
+      <mat-option *ngFor="let cat of categorias" [value]="cat">
+        {{cat.nombre}}
+      </mat-option>
+    </mat-select>
+    <mat-error>{{errorString('categoría')}}</mat-error>
+  </mat-form-field>
+  <mat-form-field class="full-width">
     <label>Nombre</label>
+    <span class="required">*</span>
     <input matInput type="text" formControlName="nombre">
     <mat-error>{{errorString('nombre')}}</mat-error>
   </mat-form-field>
   <mat-form-field class="full-width">
     <label>Precio de compra</label>
-    <input matInput type="text" formControlName="precioCompra">
+    <span class="required">*</span>
+    <input matInput type="number" formControlName="precioCompra">
     <mat-error>{{errorString('precio de compra')}}</mat-error>
   </mat-form-field>
   <mat-form-field class="full-width">
     <label>Precio de venta</label>
-    <input matInput type="text" formControlName="precioVenta">
+    <input matInput type="number" readonly [value]="calcularGanancia(producto)">
     <mat-error>{{errorString('precio de venta')}}</mat-error>
   </mat-form-field>
-  <mat-form-field class="full-width">
+  <mat-form-field class="full-width" *ngIf="!data.producto">
     <label>Stock inicial</label>
+    <span class="required">*</span>
     <input matInput type="text" formControlName="cantidad">
     <mat-error>{{errorString('stock inicial')}}</mat-error>
   </mat-form-field>
   <mat-form-field class="full-width">
     <label>Peso por unidad</label>
+    <span class="required">*</span>
     <input matInput type="text" formControlName="peso">
     <mat-error>{{errorString('peso por unidad')}}</mat-error>
   </mat-form-field>
   <mat-form-field class="full-width">
     <label>Proveedor</label>
+    <span class="required">*</span>
     <mat-select formControlName="proveedor">
       <mat-option *ngFor="let proveedor of proveedores" [value]="proveedor">
         {{proveedor}}
       </mat-option>
     </mat-select>
     <mat-error>{{errorString('proveedor')}}</mat-error>
-  </mat-form-field>
-  <mat-form-field class="full-width">
-    <label>Categoria</label>
-    <input matInput type="text" formControlName="categoria">
-    <mat-error>{{errorString('categoria')}}</mat-error>
   </mat-form-field>
 </div>
 

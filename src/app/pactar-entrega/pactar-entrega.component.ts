@@ -162,7 +162,7 @@ export class PactarEntregaComponent {
       this.venta = this.allVentas.find(x => x.id == this.idventa);
       if (day) {
         const evento: CalendarEvent = {
-          title: 'ENTREGA --> Direccion: ' + (( this.venta.direccion == null) ? '' :  this.venta.direccion),
+          title: 'ENTREGA --> Dirección: ' + (( this.venta.direccion == null) ? '' :  this.venta.direccion),
           start: startOfDay(new Date(day.date)),
           end: endOfDay(new Date(day.date)),
           color: colors.red,
@@ -239,8 +239,8 @@ export class PactarEntregaComponent {
       if (result) {
           this.events.forEach(evento => {
             if (evento.id === result.venta.id) {
-              evento.title = 'ENTREGA --> Direccion: ' + result.venta.direccion;
-              result.venta.agenda.title = 'ENTREGA --> Direccion: ' + result.venta.direccion;
+              evento.title = 'ENTREGA --> Dirección: ' + result.venta.direccion;
+              result.venta.agenda.title = 'ENTREGA --> Dirección: ' + result.venta.direccion;
             }
           });
 

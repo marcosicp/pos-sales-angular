@@ -21,6 +21,8 @@ const URL_STOCK = {
   ADD_STOCK: 'productos/AddProducto',
   UPDATE_STOCK: 'productos/UpdateProducto',
   DELETE_STOCK: 'productos/DeleteProducto',
+  ADD_COMPRA: 'productos/AddCompra',
+  UPDATE_GANANCIAS: 'productos/UpdateGanancias'
 };
 // API PEDIDOS
 const URL_PEDIDOS = {

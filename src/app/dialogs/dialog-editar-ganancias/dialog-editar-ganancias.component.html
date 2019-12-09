@@ -1,0 +1,59 @@
+<h2 mat-dialog-title fxLayout="column" >Modificar márgenes de ganancia</h2>
+<!-- <mat-card-subtitle>Hacé doble click sobre el producto que quieras incluir al pedido</mat-card-subtitle> -->
+<mat-dialog-content class="mat-typography">
+  <table mat-table [dataSource]="lista" class="mat-elevation-z8">
+    <ng-container matColumnDef="nombre">
+      <th mat-header-cell *matHeaderCellDef>Categoría</th>
+      <td mat-cell *matCellDef="let element"> {{element.nombre}} </td>
+    </ng-container>
+    <ng-container matColumnDef="ganancia">
+      <th mat-header-cell *matHeaderCellDef>Ganancia</th>
+      <td mat-cell *matCellDef="let element">
+        <input matInput type="number" [(ngModel)]="element.ganancia">
+      </td>
+    </ng-container>
+    <tr mat-header-row *matHeaderRowDef="displayedColumns; sticky: true"></tr>
+    <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+  </table>
+</mat-dialog-content>
+<mat-dialog-actions align="end">
+  <button
+    mat-raised-button
+    color="primary"
+    [disabled]="invalidList()"
+    (click)="guardar()"
+  >
+    <mat-icon>check</mat-icon>
+    Guardar
+  </button>
+
+  <button
+    mat-raised-button
+    color="warn"
+    (click)="cancelar()"
+  >
+    <mat-icon>close</mat-icon>
+    Cancelar
+  </button>
+</mat-dialog-actions>
+
+<style>
+  .my-full-screen-dialog .mat-dialog-container {
+    max-width: none;
+    width: 100vw;
+    height: 100vh;
+  }
+
+  .mat-form-field {
+    font-size: 14px;
+    width: 100%;
+  }
+
+  .mat-row {
+    cursor: pointer;
+  }
+
+  .mat-row:hover {
+    background: #CDD6D5;
+  }
+</style>

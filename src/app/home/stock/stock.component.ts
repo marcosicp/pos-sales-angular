@@ -11,12 +11,12 @@ import { URL_STOCK, URL_PROVEEDORES } from '../../shared/configs/urls.config';
 import { TABLA_STOCK } from '../../shared/configs/table.config';
 // DIALOGOS
 import { DialogStockAddEditComponent } from '../../dialogs/dialog-stock-add-edit/dialog-stock-add-edit.component';
-import { DialogStockAumentarComponent } from '../../dialogs/dialog-stock-aumentar/dialog-stock-aumentar.component';
 import { DialogConfirmarComponent } from '../../dialogs/dialog-confirmar/dialog-confirmar.component';
 import { DialogOperacionOkComponent } from '../../dialogs/dialog-operacion-ok/dialog-operacion-ok.component';
 import { DialogSinConexionComponent } from '../../dialogs/dialog-sin-conexion/dialog-sin-conexion.component';
+import { DialogEditarGananciasComponent } from '../../dialogs/dialog-editar-ganancias/dialog-editar-ganancias.component';
 // MOCKS
-import mocks from '../../shared/mocks/stock.mock';
+import categoriasMock from '../../shared/mocks/categorias.mock';
 
 @Component({
   selector: 'stock',
@@ -38,7 +38,19 @@ export class StockComponent implements OnInit {
   searchButton = {
     placeHolder: this.headerTitles.map(item => this.tableHeaders[item].toLowerCase()).join(', ')
   };
+  otherButtons = [
+    {
+      icon: 'shopping_cart',
+      label: 'Registrar compra',
+      buttonEvent: () => this.registrarCompra()
+    }, {
+      icon: 'label',
+      label: 'Modificar ganancia',
+      buttonEvent: () => this.editarGanancias()
+    }
+  ];
   proveedores: string[];
+  categorias: any[];
 
   constructor(
     private router: Router,
@@ -60,7 +72,9 @@ export class StockComponent implements OnInit {
           dialogRef.afterClosed().subscribe(() => this.router.navigate(['welcome']));
         }
 
-        this.dataSource.data = data;
+        this.categorias = categoriasMock;
+
+        this.dataSource.data = this.actualizarPrecios(data);
         this.columnCells.opciones = [{
           buttonIcon: 'edit',
           buttonLabel: 'Modificar',
@@ -77,20 +91,8 @@ export class StockComponent implements OnInit {
       }
     );
 
-    // USAR SOLO EN CASO DE NECESITAR MOCKS
-    // this.dataSource.data = mocks;
-    // this.columnCells.opciones = [{
-    //   buttonIcon: 'edit',
-    //   buttonLabel: 'Modificar',
-    //   buttonEvent: (prod) => this.editarProducto(prod)
-    // }, {
-    //   buttonIcon: 'delete',
-    //   buttonLabel: 'Eliminar',
-    //   buttonEvent: (prod) => this.eliminarProducto(prod)
-    // }];
-
     this.dataService.getAsync(URL_PROVEEDORES.GET_ALL, []).subscribe(
-      data => this.proveedores = data.map(item => `${item.razonSocial} - ${item.cuil || ''}`)
+      data => this.proveedores = data.map(item => item.razonSocial)
     );
   }
 
@@ -99,7 +101,8 @@ export class StockComponent implements OnInit {
       DialogStockAddEditComponent, {
         width: '900px',
         data: {
-          proveedores: this.proveedores
+          proveedores: this.proveedores,
+          categorias: this.categorias
         }
       }
     );
@@ -148,7 +151,8 @@ export class StockComponent implements OnInit {
           width: '900px',
           data: {
             producto: productoMod,
-            proveedores: this.proveedores
+            proveedores: this.proveedores,
+            categorias: this.categorias
           }
         }
       );
@@ -232,5 +236,58 @@ export class StockComponent implements OnInit {
         );
       }
     });
+  }
+
+  editarGanancias() {
+    const dialogRef = this.dialog.open(
+      DialogEditarGananciasComponent, {
+        width: '600px',
+        disableClose: true,
+        data: this.categorias
+      }
+    );
+
+    dialogRef.afterClosed().subscribe(
+      ganancias => {
+        if (ganancias) {
+          const dialogResult = this.dialog.open(
+            DialogOperacionOkComponent,
+            { width: '600px', disableClose: true }
+          );
+
+          dialogResult.afterClosed().subscribe(
+            () => {
+              this.loadingService.toggleLoading();
+              this.categorias = ganancias;
+
+              const newData = this.dataSource.data.map(
+                item => {
+                  item.precioVenta = item.precioCompra * (1 + ((this.categorias.find(_item => _item.nombre === item.categoria || _item.nombre === 'OTROS')).ganancia / 100))
+                  return item;
+                }
+              );
+
+              this.dataSource.data = [];
+              this.dataSource.data = newData;
+
+              this.loadingService.toggleLoading();
+            }
+          );
+        }
+      }
+    );
+  }
+
+  registrarCompra() {
+    this.router.navigate(['registrar-compra']);
+  }
+
+  actualizarPrecios = (data: Productos[]) => {
+    data.map(
+      item => item.precioVenta = item.precioCompra * (1 + ((this.categorias.find(_item => _item.nombre === item.categoria || _item.nombre === 'OTROS')).ganancia / 100))
+    );
+    console.warn(data[0])
+
+    return data;
   }
 }

@@ -5,40 +5,73 @@
   border: 1px solid $main-color;
   border-radius: 2px;
   box-shadow: 0 3px 6px rgba(0,0,0,0.16), 0 3px 6px rgba(0,0,0,0.23);
+  height: 90%;
+
+  .heading {
+    color: $main-color;
+    font-family: $main-font;
+    text-align: left;
+  }
 }
 
-.heading {
-  color: $main-color;
-  font-family: $main-font;
-}
-
-.table-header {
-  text-align: left;
-  font-family: $body-font;
-  font-weight: 700;
-}
-
-.items {
+.table-items {
   width: 100%;
-}
+  font-size: small;
 
-.item {
-  font-family: $body-font;
-}
+  .table-header {
+    text-align: left;
+    font-family: $body-font;
+    font-weight: 700;
+  }
 
-.del {
-  color: grey;
-}
-.del:hover {
-  color: black;
-  cursor: pointer;
+  .item {
+    font-family: $body-font;
+
+    td {
+      &:first-of-type {
+        input {
+          width: 50%;
+        }
+      }
+
+      &:last-of-type {
+        position: center;
+
+        .del {
+          color: grey;
+
+          &:hover {
+            color: black;
+            cursor: pointer;
+          }
+        }
+      }
+    }
+  }
 }
 
 .summary {
   margin-top: auto;
 
-  h3.total {
-    font-weight: bold;
+  .totals {
+    align-self: flex-end;
+
+    h3 {
+      margin: auto 10px;
+
+      &:last-of-type {
+        font-weight: bold;
+      }
+    }
+  }
+
+  .buttons {
+    align-self: flex-end;
+    margin-top: 10px;
+
+    button {
+      margin: auto 10px;
+    }
   }
 }
 

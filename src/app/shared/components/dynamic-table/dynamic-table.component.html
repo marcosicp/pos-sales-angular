@@ -8,17 +8,29 @@
   </div>
 
   <ng-container [style.visibility]="!isLoading ? 'visible' : 'hidden'">
-    <mat-toolbar *ngIf="addButton || searchButton">
-      <div fxLayout="row" fxLayoutGap="10px" *ngIf="addButton">
+    <mat-toolbar *ngIf="addButton || otherButtons || searchButton">
+      <div fxLayout="row" fxLayoutGap="10px" *ngIf="addButton" class="button-section">
         <button
           mat-flat-button
           color="primary"
           [disabled]="false"
           (click)="addButton.buttonEvent()"
         >
-        <mat-icon>add</mat-icon>
-        {{ addButton.label || "Registrar"}}
-      </button>
+          <mat-icon>add</mat-icon>
+          {{ addButton.label || "Registrar"}}
+        </button>
+
+        <ng-container *ngFor="let b of otherButtons">
+          <button
+            mat-flat-button
+            color="primary"
+            [disabled]="false"
+            (click)="b.buttonEvent()"
+          >
+            <mat-icon>{{b.icon || 'add'}}</mat-icon>
+            {{ b.label || "Otro botón"}}
+          </button>
+        </ng-container>
       </div>
       <div *ngIf="searchButton" class="search-section">
         <label>Buscar: </label>

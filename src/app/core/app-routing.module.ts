@@ -21,6 +21,8 @@ import { VentasComponent } from '../ventas/ventas.component';
 import { PactarEntregaComponent } from '../pactar-entrega/pactar-entrega.component';
 import { ListaMovimientosComponent } from '../home/lista-movimientos/lista-movimientos.component';
 import { ReportesComponent } from '../home/reportes/reportes.component';
+import { CajaComponent } from '../home/caja/caja.component';
+import { RegistroCompraComponent } from '../home/registro-compra/registro-compra.component';
 
 const appRoutes: Routes = [
   {
@@ -42,6 +44,10 @@ const appRoutes: Routes = [
     component: HomeComponent ,
     canActivate: [AuthGuard]
   }, {
+    path: 'caja',
+    component: CajaComponent,
+    canActivate: [AuthGuard]
+  },{
     path: 'agenda',
     component: PactarEntregaComponent ,
     canActivate: [AuthGuard]
@@ -76,7 +82,10 @@ const appRoutes: Routes = [
   }, {
     path: 'stock',
     component: StockComponent,
-    canActivate: [AuthGuard],
+    canActivate: [AuthGuard]
+  }, {
+    path: 'registrar-compra',
+    component: RegistroCompraComponent
   }, {
     path: 'ventas',
     component: VentasComponent,

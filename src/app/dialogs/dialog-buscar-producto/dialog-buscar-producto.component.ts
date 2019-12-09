@@ -1,6 +1,6 @@
 import { OnInit, Component } from '@angular/core';
 import { MatDialogRef, MatTableDataSource } from '@angular/material';
-import { DataService } from '../../../app/core/services/data.service';;
+import { DataService } from '../../../app/core/services/data.service';
 import { Productos } from '../../shared/models/producto.model';
 import { URL_STOCK } from '../../shared/configs/urls.config';
 
@@ -11,10 +11,13 @@ import { URL_STOCK } from '../../shared/configs/urls.config';
 })
 export class DialogBuscarProductoComponent implements OnInit {
 
-  displayedColumns: string[] = ['codigo', 'producto', 'cantidad', 'precioVenta'];
+  displayedColumns: string[] = ['codigoProv', 'producto', 'cantidad', 'precioVenta'];
   productos: MatTableDataSource<Productos>;
 
-  constructor(public dialogRef: MatDialogRef<DialogBuscarProductoComponent>, private comerciosService: DataService) { }
+  constructor(
+    public dialogRef: MatDialogRef<DialogBuscarProductoComponent>,
+    private comerciosService: DataService
+  ) { }
 
   ngOnInit() {
     if (this.comerciosService.productos && this.comerciosService.productos.length) {

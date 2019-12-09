@@ -18,6 +18,7 @@ export class DialogStockAddEditComponent implements OnInit {
   result: Productos[] = [];
   productForm: FormGroup;
   proveedores: string[];
+  categorias: [];
   errorString = (prop: string) => {
     const errorText = `Por favor complete el campo ${prop.toLocaleUpperCase()}`;
     switch (prop) {
@@ -41,28 +42,34 @@ export class DialogStockAddEditComponent implements OnInit {
   ) {
     this.producto = data.producto || new Productos();
     this.proveedores = data.proveedores;
+    this.categorias = data.categorias;
     this.dialogTitle = `${data.producto ? 'Modificar' : 'Registrar'} producto`;
   }
 
   ngOnInit() {
     this.productForm = new FormGroup(
       {
-        codigo: new FormControl(this.producto.codigo, [Validators.required, Validators.pattern(RegExpHelper.alphaNumeric)]),
+        codigoProv: new FormControl(this.producto.codigoProv, [Validators.required, Validators.pattern(RegExpHelper.alphaNumeric)]),
+        categoria: new FormControl(this.producto.categoria || 0, [Validators.required]),
         nombre: new FormControl(this.producto.nombre, [Validators.required, Validators.pattern(RegExpHelper.lettersSpace)]),
         precioCompra: new FormControl(this.producto.precioCompra, [Validators.required, Validators.pattern(RegExpHelper.numberDecimals)]),
-        precioVenta: new FormControl(this.producto.precioVenta, [Validators.required, Validators.pattern(RegExpHelper.numberDecimals)]),
         cantidad: new FormControl(this.producto.cantidad, [Validators.required, Validators.pattern(RegExpHelper.numbers)]),
         peso: new FormControl(this.producto.peso, [Validators.required, Validators.pattern(RegExpHelper.numberDecimals)]),
-        proveedor: new FormControl(this.producto.proveedor, [Validators.required]),
-        categoria: new FormControl(this.producto.categoria, [Validators.required]),
+        proveedor: new FormControl(this.producto.proveedorNombre, [Validators.required]),
       }
     );
+  }
+
+  calcularGanancia(producto: Productos) {
+    const {precioCompra, categoria} = this.productForm.value;
+    return ((precioCompra || producto.precioCompra) * (1 + (categoria.ganancia / 100) || 1)).toFixed(2);
   }
 
   guardar() {
     Object.keys(this.productForm.value).forEach(
       prop => this.producto[prop] = this.productForm.value[prop]
     );
+
     this.dialogRef.close(this.producto);
   }
 

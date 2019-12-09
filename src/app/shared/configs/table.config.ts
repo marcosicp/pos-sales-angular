@@ -12,10 +12,10 @@ const TABLA_STOCK = {
     opciones: 'Opciones'
   },
   cells: {
-    codigo: 'codigo',
+    codigo: 'codigoProv',
     categoria: 'categoria',
     nombre: 'nombre',
-    proveedor: 'proveedor',
+    proveedor: 'proveedorNombre',
     precioVenta: 'precioVenta',
     precioCompra: 'precioCompra',
     cantidad: 'cantidad',

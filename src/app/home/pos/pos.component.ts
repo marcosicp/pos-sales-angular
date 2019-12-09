@@ -13,6 +13,8 @@ import { DialogOperacionOkComponent } from '../../dialogs/dialog-operacion-ok/di
 import { Pedido } from '../../shared/models/pedido.model';
 import { URL_STOCK } from '../../shared/configs/urls.config';
 import { LoadingService } from '../../shared/services/loading.service';
+// MOCKS
+import categoriasMock from '../../shared/mocks/categorias.mock';
 
 @Component({
   selector: 'app-pos',
@@ -21,8 +23,7 @@ import { LoadingService } from '../../shared/services/loading.service';
 })
 export class PosComponent implements OnInit {
   products = [];
-  productTypes = ['ARENA', 'GRANZA', 'CEMENTO', 'TIERRA', 'LADRILLOS', 'BOLSAS',
-                'VIGUETAS', 'TELGOPOR', 'LIJA', 'FERRETERIA', 'DISCOS', 'CINTAS', 'AUTOMOTOR', 'OTROS'];
+  productTypes = categoriasMock.sort((a, b) => a.nombre > b.nombre ? 1 : -1).map(item => item.nombre);
   ticket: Productos[];
   cartTotal = 0;
   cartNumItems = 0;
@@ -51,57 +52,15 @@ export class PosComponent implements OnInit {
 
     this.dataService.getAsync(URL_STOCK.GET_ALL, this.dataService.productos).subscribe(
       data => {
-        for (let index = 0; index < this.productTypes.length; index++) {
-          this.products[index] = [];
-        }
-
-        data.forEach(element => {
-
-          switch (element.categoria) {
-            case 'ARENA':
-              this.products[0].push(element);
-              break;
-            case 'GRANZA':
-              this.products[1].push(element);
-              break;
-            case 'CEMENTO':
-              this.products[2].push(element);
-              break;
-            case 'TIERRA':
-              this.products[3].push(element);
-              break;
-            case 'LADRILLOS':
-              this.products[4].push(element);
-              break;
-            case 'BOLSAS':
-              this.products[5].push(element);
-              break;
-            case 'VIGUETAS':
-              this.products[6].push(element);
-              break;
-            case 'TELGOPOR':
-              this.products[7].push(element);
-              break;
-            case 'LIJA':
-              this.products[8].push(element);
-              break;
-            case 'FERRETERIA':
-              this.products[9].push(element);
-              break;
-            case 'DISCOS':
-              this.products[10].push(element);
-              break;
-            case 'CINTAS':
-              this.products[11].push(element);
-              break;
-            case 'AUTOMOTOR':
-              this.products[12].push(element);
-              break;
-            default:
-                this.products[13].push(element);
-              break;
+        data.forEach(
+          item => {
+            item.precioVenta = item.precioCompra * (1 + ((categoriasMock.find(_item => _item.nombre === item.categoria || _item.nombre === 'OTROS')).ganancia / 100))
           }
-        });
+        )
+
+        this.productTypes.forEach(
+          (item, index) => this.products[index] = [...data.filter(element => element.categoria === item)]
+        );
 
         this.loadingService.toggleLoading();
       }
@@ -140,7 +99,7 @@ export class PosComponent implements OnInit {
   }
 
   agregarProducto(value: string) {
-    const productoPedidoFiltro = this.productosPedido.filter(x => x.codigo === value);
+    const productoPedidoFiltro = this.productosPedido.filter(x => x.codigoProv === value);
     if (productoPedidoFiltro.length) {
       // existe en el ticket
       const productoPedido = productoPedidoFiltro[0];
@@ -158,7 +117,7 @@ export class PosComponent implements OnInit {
           nuevoProductoPedido.cantidad = 1;
           nuevoProductoPedido.id = agregarProd.id;
           nuevoProductoPedido.idProducto = agregarProd.id;
-          nuevoProductoPedido.codigo = agregarProd.codigo;
+          nuevoProductoPedido.codigoProv = agregarProd.codigo;
           nuevoProductoPedido.precioCompra = agregarProd.precioCosto;
           nuevoProductoPedido.precioVenta = agregarProd.precioVenta;
           nuevoProductoPedido.producto = agregarProd.producto;
@@ -184,7 +143,7 @@ export class PosComponent implements OnInit {
         this.actualizarVuelto();
 
         ;
-        const filtroProductos = this.productosPedido.filter(x => x.codigo === result.codigo);
+        const filtroProductos = this.productosPedido.filter(x => x.codigoProv === result.codigo);
         if (filtroProductos.length) {
           const productoPedido = filtroProductos[0];
           productoPedido.cantidad += 1;
@@ -192,7 +151,7 @@ export class PosComponent implements OnInit {
         } else {
           const nuevoProductoPedido = new ProductoPedido();
           nuevoProductoPedido.cantidad = 1;
-          nuevoProductoPedido.codigo = result.codigo;
+          nuevoProductoPedido.codigoProv = result.codigo;
           nuevoProductoPedido.idProducto = result.id;
           nuevoProductoPedido.precioCompra = result.precioCosto;
           nuevoProductoPedido.precioVenta = result.precioVenta;
