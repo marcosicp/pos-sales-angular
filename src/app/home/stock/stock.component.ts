@@ -74,13 +74,7 @@ export class StockComponent implements OnInit {
 
         this.categorias = categoriasMock;
 
-        data.forEach(
-          item => {
-            item.precioVenta = item.precioCompra * (1 + ((this.categorias.find(_item => _item.nombre === item.categoria || _item.nombre === 'OTROS')).ganancia / 100))
-          }
-        );
-
-        this.dataSource.data = data;
+        this.dataSource.data = this.actualizarPrecios(data);
         this.columnCells.opciones = [{
           buttonIcon: 'edit',
           buttonLabel: 'Modificar',
@@ -256,30 +250,27 @@ export class StockComponent implements OnInit {
     dialogRef.afterClosed().subscribe(
       ganancias => {
         if (ganancias) {
-          this.dataService.createAsync(
-            URL_STOCK.UPDATE_GANANCIAS,
-            ganancias,
-            this.categorias
-          ).subscribe(
-            result => {
+          const dialogResult = this.dialog.open(
+            DialogOperacionOkComponent,
+            { width: '600px', disableClose: true }
+          );
+
+          dialogResult.afterClosed().subscribe(
+            () => {
               this.loadingService.toggleLoading();
+              this.categorias = ganancias;
 
-              const dialogResult = this.dialog.open(
-                DialogOperacionOkComponent,
-                { width: '600px', disableClose: true }
+              const newData = this.dataSource.data.map(
+                item => {
+                  item.precioVenta = item.precioCompra * (1 + ((this.categorias.find(_item => _item.nombre === item.categoria || _item.nombre === 'OTROS')).ganancia / 100))
+                  return item;
+                }
               );
 
-              dialogResult.afterClosed().subscribe(
-                () => this.categorias = result
-              );
-            },
-            error => {
+              this.dataSource.data = [];
+              this.dataSource.data = newData;
+
               this.loadingService.toggleLoading();
-
-              this.dialog.open(
-                DialogSinConexionComponent,
-                { width: '600px', disableClose: true }
-              );
             }
           );
         }
@@ -289,5 +280,14 @@ export class StockComponent implements OnInit {
 
   registrarCompra() {
     this.router.navigate(['registrar-compra']);
+  }
+
+  actualizarPrecios = (data: Productos[]) => {
+    data.map(
+      item => item.precioVenta = item.precioCompra * (1 + ((this.categorias.find(_item => _item.nombre === item.categoria || _item.nombre === 'OTROS')).ganancia / 100))
+    );
+    console.warn(data[0])
+
+    return data;
   }
 }

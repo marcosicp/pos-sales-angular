@@ -167,11 +167,11 @@ export class ReporteGraficoComponent implements AfterViewInit {
                 break;
               }
               case 'stock': {
-                const {cantidad, codigo, nombre} = item;
+                const {cantidad, codigoProv, nombre} = item;
 
                 data.push({
                   id: data.length,
-                  valorX: `${codigo + ' - ' + nombre}`,
+                  valorX: `${codigoProv + ' - ' + nombre}`,
                   valorY: cantidad
                 });
 
@@ -180,7 +180,7 @@ export class ReporteGraficoComponent implements AfterViewInit {
               case 'productos': {
                 item.pedido.productosPedidos.forEach(
                   prod => {
-                    const {nombre, codigo, cantidad} = prod;
+                    const {nombre, codigoProv, cantidad} = prod;
                     const finded = data.find(obj => obj.valorX === nombre);
 
                     if (!finded) {
@@ -188,7 +188,7 @@ export class ReporteGraficoComponent implements AfterViewInit {
                         id: data.length,
                         valorX: nombre,
                         valorY: cantidad,
-                        _valorX: `${codigo} - ${nombre}`
+                        _valorX: `${codigoProv} - ${nombre}`
                       });
                     } else {
                       data[finded.id].valorY += cantidad;

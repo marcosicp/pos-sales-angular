@@ -11,7 +11,7 @@ import { URL_STOCK } from '../../shared/configs/urls.config';
 })
 export class DialogBuscarProductoComponent implements OnInit {
 
-  displayedColumns: string[] = ['codigo', 'producto', 'cantidad', 'precioVenta'];
+  displayedColumns: string[] = ['codigoProv', 'producto', 'cantidad', 'precioVenta'];
   productos: MatTableDataSource<Productos>;
 
   constructor(

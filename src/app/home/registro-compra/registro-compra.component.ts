@@ -61,13 +61,13 @@ export class RegistroCompraComponent implements OnInit {
 
   getProducts = modelId => {
     this.loadingService.toggleLoading();
-
-    // ACA OBTENES EL ID (MODELID) DEL PROVEEDOR, HACES UNA LLAMADA PARA QUE VENGAN LOS PRODUCTOS Y WUALA, MAGIA
     this.clearCart();
 
     this.dataService.getAsync(URL_STOCK.GET_ALL, []).subscribe(
       data => {
-        this.productosBuscados = data.slice(0, 5);
+        const proveedorNombre = this.proveedores.find(item => item.id === modelId).nombre.toUpperCase();
+
+        this.productosBuscados = data.filter(item => item.proveedorNombre.includes(proveedorNombre));
         this.loadingService.toggleLoading();
       }
     );
@@ -148,7 +148,7 @@ export class RegistroCompraComponent implements OnInit {
           );
 
           dialogResult.afterClosed().subscribe(
-            () => this.router.navigate(['stock'])
+            () => this.router.navigate(['stock']) // que traiga un booleano bien bonito
           );
         },
         error => {

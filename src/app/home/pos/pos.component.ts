@@ -99,7 +99,7 @@ export class PosComponent implements OnInit {
   }
 
   agregarProducto(value: string) {
-    const productoPedidoFiltro = this.productosPedido.filter(x => x.codigo === value);
+    const productoPedidoFiltro = this.productosPedido.filter(x => x.codigoProv === value);
     if (productoPedidoFiltro.length) {
       // existe en el ticket
       const productoPedido = productoPedidoFiltro[0];
@@ -117,7 +117,7 @@ export class PosComponent implements OnInit {
           nuevoProductoPedido.cantidad = 1;
           nuevoProductoPedido.id = agregarProd.id;
           nuevoProductoPedido.idProducto = agregarProd.id;
-          nuevoProductoPedido.codigo = agregarProd.codigo;
+          nuevoProductoPedido.codigoProv = agregarProd.codigo;
           nuevoProductoPedido.precioCompra = agregarProd.precioCosto;
           nuevoProductoPedido.precioVenta = agregarProd.precioVenta;
           nuevoProductoPedido.producto = agregarProd.producto;
@@ -143,7 +143,7 @@ export class PosComponent implements OnInit {
         this.actualizarVuelto();
 
         ;
-        const filtroProductos = this.productosPedido.filter(x => x.codigo === result.codigo);
+        const filtroProductos = this.productosPedido.filter(x => x.codigoProv === result.codigo);
         if (filtroProductos.length) {
           const productoPedido = filtroProductos[0];
           productoPedido.cantidad += 1;
@@ -151,7 +151,7 @@ export class PosComponent implements OnInit {
         } else {
           const nuevoProductoPedido = new ProductoPedido();
           nuevoProductoPedido.cantidad = 1;
-          nuevoProductoPedido.codigo = result.codigo;
+          nuevoProductoPedido.codigoProv = result.codigo;
           nuevoProductoPedido.idProducto = result.id;
           nuevoProductoPedido.precioCompra = result.precioCosto;
           nuevoProductoPedido.precioVenta = result.precioVenta;

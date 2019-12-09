@@ -49,13 +49,13 @@ export class DialogStockAddEditComponent implements OnInit {
   ngOnInit() {
     this.productForm = new FormGroup(
       {
-        codigo: new FormControl(this.producto.codigo, [Validators.required, Validators.pattern(RegExpHelper.alphaNumeric)]),
+        codigoProv: new FormControl(this.producto.codigoProv, [Validators.required, Validators.pattern(RegExpHelper.alphaNumeric)]),
         categoria: new FormControl(this.producto.categoria || 0, [Validators.required]),
         nombre: new FormControl(this.producto.nombre, [Validators.required, Validators.pattern(RegExpHelper.lettersSpace)]),
         precioCompra: new FormControl(this.producto.precioCompra, [Validators.required, Validators.pattern(RegExpHelper.numberDecimals)]),
         cantidad: new FormControl(this.producto.cantidad, [Validators.required, Validators.pattern(RegExpHelper.numbers)]),
         peso: new FormControl(this.producto.peso, [Validators.required, Validators.pattern(RegExpHelper.numberDecimals)]),
-        proveedor: new FormControl(this.producto.proveedor, [Validators.required]),
+        proveedor: new FormControl(this.producto.proveedorNombre, [Validators.required]),
       }
     );
   }
