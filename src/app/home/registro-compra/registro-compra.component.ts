@@ -51,7 +51,7 @@ export class RegistroCompraComponent implements OnInit {
 
     this.dataService.getAsync(URL_PROVEEDORES.GET_ALL, []).subscribe(
       data => {
-        this.proveedores = data;
+        this.proveedores = data.sort((a, b) => a.nombre < b.nombre ? -1 : 1);
         this.loadingService.toggleLoading();
       }
     );
@@ -170,7 +170,8 @@ export class RegistroCompraComponent implements OnInit {
         width: '900px',
         disableClose: true,
         data: {
-          proveedores: this.proveedores.map(item => `${item.razonSocial}`),
+          proveedores: this.proveedores.map(item => `${item.nombre}`),
+          proveedorRelacionado: this.proveedores.find(item => item.id === this.proveedor.toString()),
           categorias: this.categorias
         }
       }

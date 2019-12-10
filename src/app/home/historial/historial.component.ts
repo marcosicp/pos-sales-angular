@@ -78,7 +78,7 @@ export class HistorialComponent implements OnInit {
     const dialogRef = this.dialog.open(
       DialogVerItemsPedidoComponent,
       {
-        width: '900px',
+        width: '80%',
         disableClose: true,
         data: venta
       });

@@ -27,3 +27,10 @@ td:last-of-type,
 th:last-of-type {
   font-weight: bold;
 }
+
+tr.mat-footer-row {
+  td:nth-of-type(3),
+  td:nth-of-type(4) {
+    text-align-last: center;
+  }
+}
