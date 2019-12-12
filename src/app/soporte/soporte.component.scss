@@ -1,0 +1,43 @@
+mat-card {
+  margin-left: 15%;
+  width: 70%;
+  height: 50%;
+  display: flex;
+  background-color: #C3C8EA;
+  align-items: center;
+  cursor: pointer;
+
+  .module-icon {
+    padding-top: 10px;
+    padding-bottom: 20px;
+    padding-right: 30px;
+    padding-left: 0px;
+    color: white;
+    font-size: 60px;
+  }
+
+  h1.module-title {
+    margin-top: 25px;
+    font-size: 1.6em;
+    font-family: 'Hind Madurai';
+    font-weight: bold;
+  }
+}
+
+mat-grid-list {
+  :nth-child(n) {
+    mat-card {
+      margin-top: -20%;
+    }
+  }
+
+  &:not(:first-of-type) {
+    margin-top: -5%;
+
+    :nth-child(n) {
+      mat-card {
+        margin-top: -30%;
+      }
+    }
+  }
+}

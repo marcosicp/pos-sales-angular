@@ -1,7 +1,9 @@
 <div color="primary" class="navbar flex flex-direction-row align-items-center">
-  <div class="flex flex-direction-row titles">
-    <h1 routerLink="/welcome" class="title add-margin">Clinker Construcciones</h1>
-    <h2 class="subtitle add-margin"></h2>
+  <div class="flex flex-direction-row titles d-flex justify-content-center">
+    <img height="50px" style="padding-left: 4%;" src="../assets/icons/icontitle.png">
+    <h1 routerLink="/welcome" class="title add-margin">
+      Clinker Construcciones
+    </h1>
   </div>
 
   <div class="flex flex-direction-row config-section" *ngIf="showUser">
@@ -49,6 +51,10 @@
   <button mat-menu-item routerLink="/users">
     <mat-icon>supervisor_account</mat-icon>
     <span>Usuarios</span>
+  </button>
+  <button mat-menu-item routerLink="/soporte">
+    <mat-icon>info</mat-icon>
+    <span>Soporte Técnico</span>
   </button>
   <button mat-menu-item routerLink="/" (click)="logout()">
     <mat-icon>exit_to_app</mat-icon>

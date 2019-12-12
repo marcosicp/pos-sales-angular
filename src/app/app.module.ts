@@ -37,6 +37,8 @@ import { CalendarModule, DateAdapter } from 'angular-calendar';
 import { adapterFactory } from 'angular-calendar/date-adapters/date-fns';
 import { NgbModalModule } from '@ng-bootstrap/ng-bootstrap';
 import { registerLocaleData } from '@angular/common';
+import { SoporteComponent } from './soporte/soporte.component';
+
 
 registerLocaleData(localeAr, 'es-AR');
 
@@ -49,7 +51,8 @@ registerLocaleData(localeAr, 'es-AR');
     ConfirmacionComponent,
     VentasComponent,
     PactarEntregaComponent,
-    AcopiosComponent
+    AcopiosComponent,
+    SoporteComponent
   ],
   imports: [
     AppRoutingModule,

@@ -46,6 +46,7 @@
     "express-session": "^1.16.2",
     "flatpickr": "4.6.2",
     "ng2-charts": "^2.2.3",
+    "ng2-pdf-viewer": "^6.0.2",
     "ngx-custom-validators": "^8.0.0",
     "rrule": "2.6.2",
     "rxjs": "^6.5.2",

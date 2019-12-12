@@ -23,6 +23,7 @@ import { ListaMovimientosComponent } from '../home/lista-movimientos/lista-movim
 import { ReportesComponent } from '../home/reportes/reportes.component';
 import { CajaComponent } from '../home/caja/caja.component';
 import { RegistroCompraComponent } from '../home/registro-compra/registro-compra.component';
+import { SoporteComponent } from '../soporte/soporte.component';
 
 const appRoutes: Routes = [
   {
@@ -62,6 +63,10 @@ const appRoutes: Routes = [
   }, {
     path: 'confirmacion',
     component: ConfirmacionComponent ,
+    canActivate: [AuthGuard]
+  }, {
+    path: 'soporte',
+    component: SoporteComponent ,
     canActivate: [AuthGuard]
   }, {
     path: 'administracion',

@@ -8,6 +8,7 @@ import { RxReactiveFormsModule } from '@rxweb/reactive-form-validators';
 import { CustomFormsModule } from 'ngx-custom-validators';
 // IMPORT DE MODULES
 import { SharedModule } from '../shared/shared.module';
+import { PdfViewerModule } from 'ng2-pdf-viewer';
 // IMPORTS
 import { DialogAbrirCajaComponent } from './dialog-abrir-caja/dialog-abrir-caja.component';
 import { DialogGestionarProductoComponent } from './dialog-gestionar-producto/dialog-gestionar-producto.component';
@@ -29,6 +30,7 @@ import { DialogStockAddEditComponent } from './dialog-stock-add-edit/dialog-stoc
 import { DialogAdvertenciaComponent } from './dialog-advertencia/dialog-advertencia.component';
 import { DialogConfirmarCambioFechaComponent } from './dialog-confirmar-cambio-fecha/dialog-confirmar-cambio-fecha.component';
 import { DialogEditarGananciasComponent } from './dialog-editar-ganancias/dialog-editar-ganancias.component';
+import { DialogPDFComponent } from './dialog-pdf/dialog-pdf.component';
 
 @NgModule({
   imports: [
@@ -40,7 +42,8 @@ import { DialogEditarGananciasComponent } from './dialog-editar-ganancias/dialog
     CustomFormsModule,
     NgbModalModule,
     ReactiveFormsModule,
-    SharedModule
+    SharedModule,
+    PdfViewerModule
   ],
   declarations: [
     DialogAbrirCajaComponent,
@@ -62,7 +65,8 @@ import { DialogEditarGananciasComponent } from './dialog-editar-ganancias/dialog
     DialogCambiarPassComponent,
     DialogStockAddEditComponent,
     DialogAdvertenciaComponent,
-    DialogEditarGananciasComponent
+    DialogEditarGananciasComponent,
+    DialogPDFComponent
   ],
   entryComponents: [
     DialogAbrirCajaComponent,
@@ -84,7 +88,8 @@ import { DialogEditarGananciasComponent } from './dialog-editar-ganancias/dialog
     DialogCambiarPassComponent,
     DialogStockAddEditComponent,
     DialogAdvertenciaComponent,
-    DialogEditarGananciasComponent
+    DialogEditarGananciasComponent,
+    DialogPDFComponent
   ]
 })
 export class DialogsModule { }
