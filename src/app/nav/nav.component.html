@@ -1,4 +1,4 @@
-<div color="primary" class="navbar flex flex-direction-row align-items-center">
+<div *ngIf="showUser" color="primary" class="navbar flex flex-direction-row align-items-center">
   <div class="flex flex-direction-row titles d-flex justify-content-center">
     <img height="50px" style="padding-left: 4%;" src="../assets/icons/icontitle.png">
     <h1 routerLink="/welcome" class="title add-margin">
@@ -6,7 +6,7 @@
     </h1>
   </div>
 
-  <div class="flex flex-direction-row config-section" *ngIf="showUser">
+  <div class="flex flex-direction-row config-section">
     <span class="add-margin">{{showUser}}</span>
     <button mat-icon-button [matMenuTriggerFor]="menu">
       <mat-icon>settings</mat-icon>
