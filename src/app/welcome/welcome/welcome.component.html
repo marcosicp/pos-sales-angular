@@ -7,16 +7,17 @@
 
   <mat-grid-list cols="4" rowHeight="9:8">
     <mat-grid-tile>
-      <mat-card *ngIf="verEstado(); else notShow" routerLink="/caja" fxLayout="column">
+      <mat-card routerLink="/caja" fxLayout="column">
+      <!-- <mat-card *ngIf="verEstado(); else notShow" routerLink="/caja" fxLayout="column"> -->
         <mat-icon class="module-icon">account_balance</mat-icon>
         <h1 class="module-title">Caja</h1>
       </mat-card>
-      <ng-template #notShow>
+      <!-- <ng-template #notShow>
         <mat-card fxLayout="column">
           <mat-icon class="module-icon">cancel</mat-icon>
           <h1 class="module-title">Caja Cerrada</h1>
         </mat-card>
-      </ng-template>
+      </ng-template> -->
     </mat-grid-tile>
     <mat-grid-tile>
       <mat-card routerLink="/pedidos" fxLayout="column">
