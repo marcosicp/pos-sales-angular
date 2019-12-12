@@ -24,7 +24,6 @@
           <button
             mat-flat-button
             color="primary"
-            [disabled]="false"
             (click)="b.buttonEvent()"
           >
             <mat-icon>{{b.icon || 'add'}}</mat-icon>
@@ -159,7 +158,11 @@
 
               <mat-menu #menu="matMenu">
                 <ng-container *ngFor="let button of columnCells[column]">
-                  <button mat-menu-item (click)="button.buttonEvent(element)">
+                  <button
+                    mat-menu-item
+                    *ngIf="!button.canDisplay || button.canDisplay(element)"
+                    (click)="button.buttonEvent(element)"
+                  >
                       <mat-icon *ngIf="button.buttonIcon">{{button.buttonIcon}}</mat-icon>
                       {{button.buttonLabel}}
                     </button>

@@ -47,7 +47,6 @@ export class VentasComponent implements OnInit {
             DialogSinConexionComponent,
             { width: '900px',  disableClose: true}
           );
-
           dialogRef.afterClosed().subscribe(() => this.router.navigate(['welcome']));
         }
 
@@ -60,6 +59,7 @@ export class VentasComponent implements OnInit {
         {
           buttonIcon: 'event',
           buttonLabel: 'Pactar entrega',
+          canDisplay: (venta) => !venta.agenda,
           buttonEvent: (venta) => this.pactarEntrega(venta)
         }];
         this.isLoading = false;
@@ -75,16 +75,12 @@ export class VentasComponent implements OnInit {
   }
 
   verItems(pedido: any) {
-    const dialogRef = this.dialog.open(
+    this.dialog.open(
       DialogVerItemsPedidoComponent,
       {
         width: '80%',
         disableClose: true,
         data: pedido
       });
-
-    dialogRef.afterClosed().subscribe(result => {
-
-    });
   }
 }
