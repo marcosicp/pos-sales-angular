@@ -19,7 +19,7 @@
       </td>
     </ng-container>
     <ng-container matColumnDef="peso">
-      <th mat-header-cell *matHeaderCellDef>Peso untario</th>
+      <th mat-header-cell *matHeaderCellDef>Peso unitario</th>
       <td mat-cell *matCellDef="let element">
         <span>{{element.peso | number:'1.2' | weightPipe}}</span>
       </td>
@@ -28,7 +28,7 @@
       </td>
     </ng-container>
     <ng-container matColumnDef="precioVenta">
-      <th mat-header-cell *matHeaderCellDef>Precio untario</th>
+      <th mat-header-cell *matHeaderCellDef>Precio unitario</th>
       <td mat-cell *matCellDef="let element">
         <span>{{element.precioVenta | currency: '$'}}</span>
       </td>
@@ -37,7 +37,7 @@
       </td>
     </ng-container>
     <ng-container matColumnDef="pesoTotal">
-      <th mat-header-cell *matHeaderCellDef>Peso Total</th>
+      <th mat-header-cell *matHeaderCellDef>Peso total</th>
       <td mat-cell *matCellDef="let element">
         <span>{{element.pesoTotal | number:'1.2' | weightPipe}}</span>
       </td>

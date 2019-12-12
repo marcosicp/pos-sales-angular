@@ -103,8 +103,8 @@ export class PactarEntregaComponent {
           //this.venta.pedido = JSON.parse(params.pedido);
           const dialogRef = this.dialog.open(DialogAdvertenciaComponent, {
             width: '450px',
-            data: { title: 'Seleccione un dia para su entrega.',
-            confirmText: 'Recuerde que debe hacer doble click sobre el dia que considere conveniente.' }
+            data: { title: 'Seleccione un día para su entrega.',
+            confirmText: 'Recuerde que debe hacer doble click sobre el día que considere conveniente.' }
           });
         } else {
           this.venta = new Venta();
