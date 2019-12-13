@@ -5,6 +5,8 @@ import { DataService } from '../../core/services/data.service';
 import { ProductoPedido } from '../../shared/models/producto-venta.model';
 import { URL_STOCK, URL_PEDIDOS, URL_CLIENTES } from '../../shared/configs/urls.config';
 import { Upload } from '../../shared/models/upload.model';
+import { MatDialog } from '@angular/material';
+import { DialogAdvertenciaComponent } from '../../dialogs/dialog-advertencia/dialog-advertencia.component';
 
 @Component({
   selector: 'app-confirmacion',
@@ -22,7 +24,8 @@ export class ConfirmacionComponent {
   constructor(
     private route: ActivatedRoute,
     private router: Router,
-    private dataService: DataService
+    private dataService: DataService,
+    private dialog: MatDialog
   ) {
     this.route.queryParams.subscribe(params => {
       this.ventas = JSON.parse(params.pedido);
@@ -53,6 +56,18 @@ export class ConfirmacionComponent {
             queryParams: { idventa: JSON.stringify(data[0])}
           };
           this.router.navigate(['agenda'], navigationExtras);
+        } else {
+          this.dialog.open(
+            DialogAdvertenciaComponent,
+            {
+              width: '600px',
+              disableClose: true,
+              data: {
+                title: 'Problemas de stock',
+                confirmText: 'Uno de los productos agregados en el pedido tiene un stock menor de 50 unidades.'
+              }
+            }
+          );
         }
       },
       error => {

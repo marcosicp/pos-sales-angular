@@ -18,7 +18,7 @@ export class DialogStockAddEditComponent implements OnInit {
   result: Productos[] = [];
   productForm: FormGroup;
   proveedores: string[];
-  categorias: [];
+  categorias: any[];
   errorString = (prop: string) => {
     const errorText = `Por favor complete el campo ${prop.toLocaleUpperCase()}`;
     switch (prop) {
@@ -55,21 +55,21 @@ export class DialogStockAddEditComponent implements OnInit {
         precioCompra: new FormControl(this.producto.precioCompra, [Validators.required, Validators.pattern(RegExpHelper.numberDecimals)]),
         cantidad: new FormControl(this.producto.cantidad, [Validators.required, Validators.pattern(RegExpHelper.numbers)]),
         peso: new FormControl(this.producto.peso, [Validators.required, Validators.pattern(RegExpHelper.numberDecimals)]),
-        proveedor: new FormControl(this.producto.proveedorNombre, [Validators.required]),
+        proveedorNombre: new FormControl(this.producto.proveedorNombre, [Validators.required]),
       }
     );
   }
 
   calcularGanancia(producto: Productos) {
     const {precioCompra, categoria} = this.productForm.value;
-    return ((precioCompra || producto.precioCompra) * (1 + (categoria.ganancia / 100) || 1)).toFixed(2);
+    const ganancia = (categoria && this.categorias.find(item => item.nombre === categoria).ganancia) || 0;
+    return ((precioCompra || producto.precioCompra || 0) * (1 + (ganancia / 100) || 1)).toFixed(2);
   }
 
   guardar() {
     Object.keys(this.productForm.value).forEach(
       prop => this.producto[prop] = this.productForm.value[prop]
     );
-
     this.dialogRef.close(this.producto);
   }
 
