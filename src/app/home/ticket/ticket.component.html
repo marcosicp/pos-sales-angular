@@ -4,7 +4,7 @@
         <ng-select placeholder="Seleccione un cliente" [items]="clientes" bindLabel="nombre" bindValue="id" [(ngModel)]="clienteId">
           <ng-template ng-option-tmp let-item="item" let-search="searchTerm">
             <div><span [ngOptionHighlight]="search">{{item.nombre}}</span></div>
-            <small><strong>Cuit:</strong> {{item.cuit}} | <strong>Razon Social:</strong> {{item.razonSocial}}</small>
+            <small><strong>Cuit:</strong> {{(item.cuit || item.cuil) | cuilPipe}} | <strong>Razon Social:</strong> {{item.razonSocial}}</small>
           </ng-template>
         </ng-select>
     </div>
