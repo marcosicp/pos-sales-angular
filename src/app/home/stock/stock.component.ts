@@ -72,7 +72,7 @@ export class StockComponent implements OnInit {
           dialogRef.afterClosed().subscribe(() => this.router.navigate(['welcome']));
         }
 
-        this.categorias = categoriasMock;
+        this.categorias = categoriasMock.sort((a, b) => a.nombre > b.nombre ? 1 : -1);
 
         this.dataSource.data = this.actualizarPrecios(data);
         this.columnCells.opciones = [{
@@ -92,7 +92,7 @@ export class StockComponent implements OnInit {
     );
 
     this.dataService.getAsync(URL_PROVEEDORES.GET_ALL, []).subscribe(
-      data => this.proveedores = data.map(item => item.razonSocial)
+      data => this.proveedores = data.map(item => item.nombre)
     );
   }
 
@@ -286,7 +286,6 @@ export class StockComponent implements OnInit {
     data.map(
       item => item.precioVenta = item.precioCompra * (1 + ((this.categorias.find(_item => _item.nombre === item.categoria || _item.nombre === 'OTROS')).ganancia / 100))
     );
-    console.warn(data[0])
 
     return data;
   }

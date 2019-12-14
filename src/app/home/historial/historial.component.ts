@@ -8,8 +8,10 @@ import { DataService } from '../../core/services/data.service';
 // DIALOGOS
 import { DialogVerItemsPedidoComponent } from '../../dialogs/dialog-ver-items-venta/dialog-ver-items-venta.component';
 import { DialogSinConexionComponent } from '../../dialogs/dialog-sin-conexion/dialog-sin-conexion.component';
+import { DialogAdvertenciaComponent } from '../../dialogs/dialog-advertencia/dialog-advertencia.component';
 // CONFIGURACIONES
 import { URL_PEDIDOS } from '../../shared/configs/urls.config';
+import { URL_MOVIMIENTOS } from '../../shared/configs/urls.config';
 import { TABLA_PEDIDOS } from '../../shared/configs/table.config';
 
 @Component({
@@ -27,8 +29,9 @@ export class HistorialComponent implements OnInit {
   isLoading: boolean;
   addButton = {
     label: 'Registrar pedido',
-    buttonEvent: () => this.router.navigate(['home'])
+    buttonEvent: () => this.registrarPedido()
   };
+  cajaAbierta: boolean;
 
   constructor(
     private router: Router,
@@ -36,6 +39,7 @@ export class HistorialComponent implements OnInit {
     public dialog: MatDialog
   ) {
     this.isLoading = true;
+    this.consultarEstadoCaja();
   }
 
   ngOnInit() {
@@ -52,18 +56,39 @@ export class HistorialComponent implements OnInit {
 
         this.dataSource.data = data;
         this.columnCells.opciones = [{
-          buttonIcon: 'search',
-          buttonLabel: 'Ver detalle',
-          buttonEvent: (venta) => this.verItems(venta)
-        },
-        {
-          buttonIcon: 'done_all',
-          buttonLabel: 'Confirmar pedido',
-          buttonEvent: (venta) => this.confirmarPedido(venta)
-        }];
+            buttonIcon: 'search',
+            buttonLabel: 'Ver detalle',
+            buttonEvent: (venta) => this.verItems(venta)
+          }, {
+            buttonIcon: 'done_all',
+            buttonLabel: 'Confirmar pedido',
+            canDisplay: (venta) => venta.estado !== 'CONFIRMADO',
+            buttonEvent: (venta) => this.confirmarPedido(venta)
+          }];
         this.isLoading = false;
       }
     );
+
+
+  }
+
+  registrarPedido() {
+    if (this.cajaAbierta) {
+      this.router.navigate(['home']);
+    } else {
+      const dialogRef = this.dialog.open(
+        DialogAdvertenciaComponent, {
+          data: {
+            title: 'Caja cerrada',
+            confirmText: 'No se podrán registrar pedidos hasta que se abra la caja.'
+          }
+        }
+      );
+
+      dialogRef.afterOpened().subscribe(
+        () => this.consultarEstadoCaja()
+      );
+    }
   }
 
   public confirmarPedido(element: Venta) {
@@ -86,5 +111,17 @@ export class HistorialComponent implements OnInit {
     dialogRef.afterClosed().subscribe(result => {
 
     });
+  }
+
+  consultarEstadoCaja() {
+    this.comerciosService.getAsync(URL_MOVIMIENTOS.GET_ESTADO, []).subscribe(
+      result => this.cajaAbierta = result[0],
+      error => {
+        this.dialog.open(
+          DialogSinConexionComponent,
+          { width: '600px', disableClose: true }
+        );
+      }
+    );
   }
 }

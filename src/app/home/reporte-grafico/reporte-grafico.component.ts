@@ -171,7 +171,7 @@ export class ReporteGraficoComponent implements AfterViewInit {
 
                 data.push({
                   id: data.length,
-                  valorX: `${codigoProv + ' - ' + nombre}`,
+                  valorX: codigoProv ? `${codigoProv + ' - ' + nombre}` : `${nombre}`,
                   valorY: cantidad
                 });
 
@@ -188,7 +188,7 @@ export class ReporteGraficoComponent implements AfterViewInit {
                         id: data.length,
                         valorX: nombre,
                         valorY: cantidad,
-                        _valorX: `${codigoProv} - ${nombre}`
+                        _valorX: codigoProv ? `${codigoProv + ' - ' + nombre}` : `${nombre}`
                       });
                     } else {
                       data[finded.id].valorY += cantidad;

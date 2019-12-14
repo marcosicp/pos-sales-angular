@@ -135,7 +135,7 @@ const TABLA_VENTAS = {
     cliente: 'Cliente',
     responsable: 'Responsable',
     estado: 'Estado',
-    imprimioTicket: 'Se imprimio ticket',
+    agendado: 'Entrega pactada',
     total: 'Monto total',
     opciones: 'Opciones'
   },
@@ -144,7 +144,7 @@ const TABLA_VENTAS = {
     cliente: 'cliente.razonSocial',
     responsable: 'pedido.usuario',
     estado: 'pedido.estado',
-    imprimioTicket: 'imprimioTicket',
+    agendado: 'agenda',
     total: 'pedido.total',
     opciones: null,
   },
@@ -153,7 +153,7 @@ const TABLA_VENTAS = {
     cliente: null,
     responsable: null,
     estado: null,
-    imprimioTicket: 'boolean',
+    agendado: 'boolean',
     total: 'currency',
     opciones: null
   }

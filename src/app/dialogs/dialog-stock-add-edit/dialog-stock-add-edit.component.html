@@ -10,7 +10,7 @@
     <label>Categoría</label>
     <span class="required">*</span>
     <mat-select formControlName="categoria">
-      <mat-option *ngFor="let cat of categorias" [value]="cat">
+      <mat-option *ngFor="let cat of categorias" [value]="cat.nombre">
         {{cat.nombre}}
       </mat-option>
     </mat-select>
@@ -48,7 +48,7 @@
   <mat-form-field class="full-width">
     <label>Proveedor</label>
     <span class="required">*</span>
-    <mat-select formControlName="proveedor">
+    <mat-select formControlName="proveedorNombre">
       <mat-option *ngFor="let proveedor of proveedores" [value]="proveedor">
         {{proveedor}}
       </mat-option>
