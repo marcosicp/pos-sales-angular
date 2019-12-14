@@ -133,7 +133,12 @@ export class PosComponent implements OnInit {
   }
 
   buscarProducto() {
-    const dialogRef = this.dialog.open(DialogBuscarProductoComponent, { panelClass: 'my-full-screen-dialog', disableClose: true });
+    const dialogRef = this.dialog.open(
+      DialogBuscarProductoComponent, {
+        panelClass: 'my-full-screen-dialog',
+        width: '80%',
+        disableClose: true
+      });
 
     dialogRef.afterClosed().subscribe(result => {
       if (result) {
