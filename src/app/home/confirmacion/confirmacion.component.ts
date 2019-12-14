@@ -50,7 +50,7 @@ export class ConfirmacionComponent {
   confirmar() {
     this.dataService.postAsync(URL_PEDIDOS.CONFIRMAR, this.ventas).subscribe(
       data => {
-        if (data[0]) {
+        if (data[0] !== "False") {
           this.selectedFiles = null;
           const navigationExtras: NavigationExtras = {
             queryParams: { idventa: JSON.stringify(data[0])}
