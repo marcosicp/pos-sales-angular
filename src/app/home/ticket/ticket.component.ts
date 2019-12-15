@@ -245,12 +245,16 @@ export class TicketComponent implements OnInit {
           // nuevoPedido.usuarioVendio = this.usuario;
           this.nuevoPedido.productosPedidos = this.ticket;
           this.nuevoPedido.fechaPedido = new Date();
-          this.nuevoPedido.fechaPedido.setHours(this.nuevoPedido.fechaPedido.getHours() - 3)
+          this.nuevoPedido.fechaPedido.setHours(this.nuevoPedido.fechaPedido.getHours() - 3);
           this.nuevoPedido.total = this.cartTotal;
           this.nuevoPedido.usuario = this.usuario.usuario.toString();
           this.nuevoPedido.pesoTotal = this.cartPeso;
           this.nuevoPedido.clienteId = this.clienteId;
           this.nuevoPedido.imprimioTicket = true;
+
+          this.nuevoPedido.productosPedidos.forEach(pedido => {
+            pedido['imagenUrl'] = "";
+          });
 
           const venta = new Venta;
           venta.cliente = this.clientes.find(x => x.id === this.clienteId);
