@@ -14,9 +14,9 @@ export class DialogPDFComponent implements OnInit {
     debugger;
     // this.pdfSrc = data;
     if (data.action === 'Tesis') {
-      this.pdfSrc = '../assets/Clinker - Administración de Proyectos.pdf';
+      this.pdfSrc = '../assets/Clinker - Manual de Usuario.pdf';
     } else {
-      this.pdfSrc = '../assets/Clinker - Carpera de Tesis (2).pdf';
+      this.pdfSrc = '../assets/Clinker - Administración de Proyectos.pdf';
     }
    }
 
