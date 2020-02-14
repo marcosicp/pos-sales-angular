@@ -1,10 +1,10 @@
 import { Component, AfterContentInit, OnDestroy, ViewChild, ElementRef } from '@angular/core';
 import { Router } from '@angular/router';
 import { FormGroup, FormControl, Validators, FormGroupDirective } from '@angular/forms';
-// SERVICIOS
+// IMPORTAR SERVICIOS
 import { AuthService } from '../../core/services/auth.service';
 import { LoadingService } from '../../shared/services/loading.service';
-// STRINGS CONFIGURADOS PARA USER EN TODA LA APP
+// IMPORTAR STRINGS CONFIGURADOS PARA USAR EN TODA LA APP
 import strings from '../../shared/configs/strings.config';
 
 @Component({
@@ -18,6 +18,7 @@ export class LoginComponent implements AfterContentInit, OnDestroy {
   loginForm: FormGroup;
   error: string;
 
+  // EN EL CONSTRUCTOR SE CREA UN FORMULARIO DE LOGIN CON LOS DATOS A REVISAR (CON VALIDADORES DE REQUERIDO EN AMBOS CASOS)
   constructor(
     private router: Router,
     private authService: AuthService,
@@ -31,6 +32,9 @@ export class LoginComponent implements AfterContentInit, OnDestroy {
     );
   }
 
+  // CUANDO EL USUARIO SE LOGUEA, SE OBTIENEN LOS DATOS DEL FORMULARIO DE LOGIN, CAMBIA LA INTERFAZ Y SE CONSULTA LA API.
+  // EN CASO DE NO HABER INTERNET O LOGUEARSE CON EL USUARIO EQUIVOCADO, SE VUELVE A DAR FOCO EN EL USUARIO Y SE MUESTRA UN MSJ DE ERROR
+  // EN CASO DE ENTRAR BIEN, SE GUARDA EL USUARIO EN UNA VARIABLE DEL LOCALSTORAGE Y SE MANDA A LA PANTALLA DE BIENVENIDA
   userLogin() {
     if (this.loginForm.valid) {
       const { user, password } = this.loginForm.value;

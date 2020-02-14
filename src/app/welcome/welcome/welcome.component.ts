@@ -1,13 +1,13 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 import { Router } from '@angular/router';
 import { MatDialog } from '@angular/material';
-// SERVICIOS
+// IMPORTAR SERVICIOS
 import { DataService } from '../../core/services/data.service';
 import { LoadingService } from '../../shared/services/loading.service';
-// DIALOGOS
+// IMPORTAR DIALOGOS
 import { DialogSinConexionComponent } from '../../dialogs/dialog-sin-conexion/dialog-sin-conexion.component';
 import { DialogAdvertenciaComponent } from '../../dialogs/dialog-advertencia/dialog-advertencia.component';
-// CONFIGURACIONES
+// IMPORTAR CONFIGURACIONES
 import { URL_MOVIMIENTOS } from '../../shared/configs/urls.config';
 
 @Component({
@@ -15,7 +15,7 @@ import { URL_MOVIMIENTOS } from '../../shared/configs/urls.config';
   templateUrl: './welcome.component.html',
   styleUrls: ['./welcome.component.scss']
 })
-export class WelcomeComponent implements OnInit {
+export class WelcomeComponent {
   cajaAbierta = false;
 
   constructor(
@@ -27,9 +27,8 @@ export class WelcomeComponent implements OnInit {
     this.consultarEstadoCaja();
   }
 
-  ngOnInit() { }
-
-  test() {
+  // CHECKEA QUE LA CAJA ESTE CERRADA (SE INICIA EN EL CONSTRUCTOR), SI LO ESTA, APARECE UN CARTEL DE AVISO. CASO CONTRARIO, ENVIA A LA PANTALLA PARA AGREGAR UN PEDIDO
+  checkearCajaCerrada() {
     if (this.cajaAbierta) {
       this.router.navigate(['home']);
     } else {

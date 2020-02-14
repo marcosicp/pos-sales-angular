@@ -1,11 +1,12 @@
+// IMPORTAR MODULOS DE ANGULAR
 import { BrowserModule } from '@angular/platform-browser';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { NgModule, LOCALE_ID } from '@angular/core';
 import { HttpModule } from '@angular/http';
 import { HttpClientModule } from '@angular/common/http';
-// IMPORTAR COSAS DE SISTEMA
-import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { FlexLayoutModule } from '@angular/flex-layout';
+// IMPORTAR MODULOS DE SISTEMA
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { environment } from '../environments/environment';
 // IMPORTAR MODULOS
 import { AppRoutingModule } from './core/app-routing.module';
@@ -38,7 +39,6 @@ import { adapterFactory } from 'angular-calendar/date-adapters/date-fns';
 import { NgbModalModule } from '@ng-bootstrap/ng-bootstrap';
 import { registerLocaleData } from '@angular/common';
 import { SoporteComponent } from './soporte/soporte.component';
-
 
 registerLocaleData(localeAr, 'es-AR');
 
@@ -81,7 +81,9 @@ registerLocaleData(localeAr, 'es-AR');
     NgbModalModule,
     ServiceWorkerModule.register('/ngsw-worker.js', { enabled: environment.production })
   ],
-  providers: [{ provide: LOCALE_ID, useValue: 'es-AR' }],
+  providers: [
+    { provide: LOCALE_ID, useValue: 'es-AR' }
+  ],
   bootstrap: [
     AppComponent
   ]
