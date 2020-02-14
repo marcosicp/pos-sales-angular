@@ -1,15 +1,20 @@
 <div class="mat-elevation-z8 component-layout">
   <mat-card class="mat-elevation-z">
+    <!-- EN CASO DE NO HABER NIGUN TITULO, NO SE MOSTRA ESTE TEXTO-->
     <h1>{{tableTitle}}</h1>
   </mat-card>
 
+  <!-- ESTE DIV SE USARA PARA QUE EL USUARIO VEA UNA ANIMACION MIENTRAS SE CARGAN LOS DATOS DESDE EL LADO DE LA API -->
   <div class="loading-shade" [style.visibility]="isLoading ? 'visible' : 'hidden'">
     <mat-spinner></mat-spinner>
   </div>
 
+  <!-- EL CONTENEDOR SE MOSTRARA CON TODOS LOS DATOS CUANDO LA API TERMINE DE DEVOLVER LOS DATOS -->
   <ng-container [style.visibility]="!isLoading ? 'visible' : 'hidden'">
+    <!-- LA TOOLBAR SE MOSTRARA EN CASO QUE HAYA UN BOTON PARA AGREGAR REGISTROS, OTRO TIPO DE BOTON O LA BARRA DE BUSQUEDA -->
     <mat-toolbar *ngIf="addButton || otherButtons || searchButton">
       <div fxLayout="row" fxLayoutGap="10px" *ngIf="addButton" class="button-section">
+        <!-- EL BOTON DE AGREGAR TIENE SETEADO UN NOMBRE E ICONOS POR DEFECTO EN CASO DE NO SER AGREGADO -->
         <button
           mat-flat-button
           color="primary"
@@ -20,6 +25,7 @@
           {{ addButton.label || "Registrar"}}
         </button>
 
+        <!-- EN CASO DE HABERSE AGREGADO OTROS BOTONES, SE MOSTRAN CON UN NOMBRE E ICONOS POR DEFECTO EN CASO DE NO SER AGREGADOS -->
         <ng-container *ngFor="let b of otherButtons">
           <button
             mat-flat-button
@@ -31,6 +37,7 @@
           </button>
         </ng-container>
       </div>
+      <!-- BOTON DE BUSQUEDA -->
       <div *ngIf="searchButton" class="search-section">
         <label>Buscar: </label>
         <mat-form-field>
@@ -45,6 +52,7 @@
       </div>
     </mat-toolbar>
 
+    <!-- EN LA TABLA SE ASIGNAN EL DATASOURCE (LOS DATOS A MOSTRARSE), EL ORDENAMIENTO ORIGINAL (EN BASE A LA PRIMER PROPIEDAD QUE SE MOSTRARA EN LA PRIMER COLUMNA) EN ORDEN DESCENDENTE -->
     <table
       class="mat-elevation-z8 align-middle table-layout"
       mat-table
@@ -53,10 +61,16 @@
       [matSortActive]="headerTitles[0]"
       matSortDirection="desc"
     >
+      <!-- POR CADA TITULO DE COLUMNA, SE CREA UN NUEVO CONTENEDOR -->
       <ng-container *ngFor="let column of headerTitles">
+        <!-- CADA CONTENEDOR USARA LA PROPIEDAD LLAMADA COLUMN PARA ASIGNAR SU VALOR (COSAS DE ANGULAR MATERIAL) -->
         <ng-container [matColumnDef]="column">
+          <!-- CADA TABLE HEAD SE TOMARA CON EL VALOR DE LA COLUMNA DENTRO DEL OBJETO DE LOS ENCABEZADOS DE TABLA -->
           <th mat-header-cell *matHeaderCellDef mat-sort-header>{{tableHeaders[column]}}</th>
+          <!-- EN ESTA PARTE SE MUESTRA EL VALOR DEL ELEMENTO -->
           <td mat-cell *matCellDef="let element">
+            <!-- EN CASO QUE LA PROPIEDAD NO SEA UNA OPCION PARA MODIFICAR (ES DECIR, QUE SEA UN VALOR A MOSTRAR) SE HACE UN SWITCH DONDE CADA VALOR SE LO MODIFICA EN BASE A TIPO DE FORMATO ASIGNADO EN EL DOCUMENTO DE CONFIGURACION TABLE.CONFIG.TS -->
+            <!-- CADA SPAN TIENE UN TOOLTIP PARA MOSTRAR UN VALOR COMPLETO EN CASO QUE SU LARGO EXCEDA EL MAXIMO PERMITIDO POR COLUMNA Y RESOLUCION DE PANTALLA-->
             <ng-container *ngIf="column !== 'opciones'">
               <ng-container [ngSwitch]="formatTableCells[column]">
                 <span
@@ -151,6 +165,7 @@
                 </span>
               </ng-container>
             </ng-container>
+            <!-- EN CASO DE HABERSE CONFIGURADO OPCIONES PARA CADA REGISTRO, SE CREA UNA COLUMNA CON UN BOTON QUE DESPLEGARA UNA LISTA DE BOTONES (ESTOS PUDIENDO SER OCULTOS SI NO SE CUMPLE UNA PROPIEDAD EXPRESADA EN EL COMPONENTE DONDE SE HACEN LAS CONFIGURACIONS DE LAS OPCIONES) -->
             <ng-container *ngIf="column === 'opciones'" class="option-buttons">
               <button mat-icon-button [matMenuTriggerFor]="menu">
                 <mat-icon>settings</mat-icon>

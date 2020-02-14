@@ -1,3 +1,4 @@
+// OBJETO USADO PARA AYUDAR A LOS VALIDADORES QUE SOPORTEN USO DE EXPRESIONES REGULARES
 export default {
   alphaNumeric: /^[a-zA-Z0-9]*$/,
   lettersOnly: /^[a-zA-Z,.]*$/,

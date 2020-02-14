@@ -1,4 +1,5 @@
 import { Pipe, PipeTransform } from '@angular/core';
+// ESTE PIPE SE USA PARA TRANSFORMAR UN NUMERO DE 11 DIGITOS (MINIMO) A UN NUMERO DE CUIL/CUIT CON EL FORMATO XX-XXXXXXXX-X
 
 @Pipe({
   name: 'cuilPipe'
