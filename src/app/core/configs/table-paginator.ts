@@ -1,3 +1,4 @@
+// ARCHIVO USADO PARA CAMBIAR EL TEXTO DEL TABLE FOOTER EN ANGULAR MATERIAL AL ESPAÑOL
 import { MatPaginatorIntl } from '@angular/material';
 
 const espRangeLabel = (page: number, pageSize: number, length: number) => {

@@ -13,6 +13,10 @@ export class NavComponent implements AfterContentChecked{
     private auth: AuthService
   ) { }
 
+  /*
+    ME FIJO QUE HAYA UN USUARIO LOGUEADO EN EL SISTEMA. EN CASO DE NO HABERLO, QUITO EL NOMBRE DE
+    LA UI, CASO CONTRARIO LO MODIFICO CON EL NOMBRE DEL QUE SE LOGUEO
+  */
   ngAfterContentChecked() {
     this.auth.getUser.subscribe(
       user => {

@@ -1,5 +1,6 @@
 import { Component, AfterViewInit, Input } from '@angular/core';
 import { Router } from '@angular/router';
+import { MatDialog } from '@angular/material';
 // CHARTJS
 import { ChartOptions, ChartType, ChartDataSets } from 'chart.js';
 import * as pluginDataLabels from 'chartjs-plugin-datalabels';
@@ -9,7 +10,6 @@ import { DatePipe, CurrencyPipe, PercentPipe } from '@angular/common';
 // SERVICIOS
 import { DataService } from '../../core/services/data.service';
 import { LoadingService } from '../../shared/services/loading.service';
-import { MatDialog } from '@angular/material';
 // DIALOGOS
 import { DialogSinConexionComponent } from '../../dialogs/dialog-sin-conexion/dialog-sin-conexion.component';
 
@@ -17,11 +17,16 @@ import { DialogSinConexionComponent } from '../../dialogs/dialog-sin-conexion/di
   selector: 'app-reporte-grafico',
   templateUrl: './reporte-grafico.component.html',
   styleUrls: ['./reporte-grafico.component.scss'],
+  // SE INCLUYEN PIPES ESPECIFICOS PARA MODIFICAR LOS VALORES CUANDO SE MUESTREN AL USUARIO
   providers: [CurrencyPipe, PercentPipe, DatePipe]
 })
 export class ReporteGraficoComponent implements AfterViewInit {
   @Input() report = null;
 
+  /*
+    BARCHATOPTIONS ES UN ARCHIVO DE CONFIGURACION PARA LOS GRAFICOS QUE SE MOSTRARAN AL
+    USUARIO
+  */
   barChartOptions: ChartOptions = {
     responsive: true,
     scales: {
