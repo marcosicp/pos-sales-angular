@@ -5,13 +5,13 @@
     <label>Codigo de Venta:</label>
     <input matInput type="text" readonly [(ngModel)]="venta.id" />
   </mat-form-field>
-  <mat-form-field class="full-width">
+  <!-- <mat-form-field class="full-width">
     <label>Fecha de entrega:</label>
     <input matInput type="text" readonly [value]="venta.agenda.start | date: 'dd/MM/yyyy'" />
-  </mat-form-field>
+  </mat-form-field> -->
   <mat-form-field class="full-width">
     <label>Responsable:</label>
-    <input matInput type="text" readonly [(ngModel)]="venta.pedido.usuario" />
+    <input matInput type="text" readonly [(ngModel)]="venta.usuario" />
   </mat-form-field>
   <mat-form-field class="full-width">
     <label>Cliente:</label>
