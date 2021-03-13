@@ -52,11 +52,12 @@ export class StockComponent implements OnInit {
       icon: 'shopping_cart',
       label: 'Registrar compra',
       buttonEvent: () => this.registrarCompra()
-    }, {
-      icon: 'label',
-      label: 'Modificar ganancia',
-      buttonEvent: () => this.editarGanancias()
-    }
+    },
+    // {
+    //   icon: 'label',
+    //   label: 'Modificar ganancia',
+    //   buttonEvent: () => this.editarGanancias()
+    // }
   ];
   proveedores: string[];
   categorias: any[];
@@ -91,7 +92,7 @@ export class StockComponent implements OnInit {
 
         this.categorias = categoriasMock.sort((a, b) => a.nombre > b.nombre ? 1 : -1);
 
-        this.dataSource.data = this.actualizarPrecios(data);
+        this.dataSource.data = data;
         this.columnCells.opciones = [{
           buttonIcon: 'edit',
           buttonLabel: 'Modificar',
@@ -198,7 +199,6 @@ export class StockComponent implements OnInit {
         newProducto => {
           if (newProducto) {
             this.loadingService.toggleLoading();
-
             this.dataService.updateAsync(
               URL_STOCK.UPDATE_STOCK,
               newProducto,
@@ -335,11 +335,11 @@ export class StockComponent implements OnInit {
     this.router.navigate(['registrar-compra']);
   }
 
-  actualizarPrecios = (data: Productos[]) => {
-    data.map(
-      item => item.precioVenta = item.precioCompra * (1 + ((this.categorias.find(_item => _item.nombre === item.categoria || _item.nombre === 'OTROS')).ganancia / 100))
-    );
+  // actualizarPrecios = (data: Productos[]) => {
+  //   data.map(
+  //     item => item.precioVenta = item.precioCompra * (1 + ((this.categorias.find(_item => _item.nombre === item.categoria || _item.nombre === 'OTROS')).ganancia / 100))
+  //   );
 
-    return data;
-  }
+  //   return data;
+  // }
 }

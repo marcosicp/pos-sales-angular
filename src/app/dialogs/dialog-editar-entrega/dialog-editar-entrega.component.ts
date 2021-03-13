@@ -24,7 +24,6 @@ export class DialogEditarEntregaComponent implements OnInit {
     @Inject(MAT_DIALOG_DATA) public data: any
   ) {
     this.venta = data.venta;
-    this.entregaRealizada = this.venta.agenda.start < this.setDateToday();
   }
 
   ngOnInit() {

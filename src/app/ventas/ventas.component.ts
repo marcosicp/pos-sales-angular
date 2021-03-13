@@ -71,25 +71,20 @@ export class VentasComponent implements OnInit {
         this.columnCells.opciones = [{
           buttonIcon: 'search',
           buttonLabel: 'Ver detalle',
-          buttonEvent: (venta) => this.verItems(venta.pedido)
+          buttonEvent: (venta) => this.verItems(venta)
         },
-        {
-          buttonIcon: 'event',
-          buttonLabel: 'Pactar entrega',
-          canDisplay: (venta) => !venta.agenda,
-          buttonEvent: (venta) => this.pactarEntrega(venta)
-        }];
+        ];
         this.isLoading = false;
       },
     );
   }
 
-  pactarEntrega(venta: Venta) {
-    const navigationExtras: NavigationExtras = {
-      queryParams: { idventa: JSON.stringify(venta.id)}
-    };
-    this.router.navigate(['agenda'], navigationExtras);
-  }
+  // pactarEntrega(venta: Venta) {
+  //   const navigationExtras: NavigationExtras = {
+  //     queryParams: { idventa: JSON.stringify(venta.id)}
+  //   };
+  //   this.router.navigate(['agenda'], navigationExtras);
+  // }
 
   verItems(pedido: any) {
     this.dialog.open(

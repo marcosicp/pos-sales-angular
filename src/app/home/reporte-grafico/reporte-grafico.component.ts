@@ -183,7 +183,7 @@ export class ReporteGraficoComponent implements AfterViewInit {
                 break;
               }
               case 'productos': {
-                item.pedido.productosPedidos.forEach(
+                item.productosPedidos.forEach(
                   prod => {
                     const {nombre, codigoProv, cantidad} = prod;
                     const finded = data.find(obj => obj.valorX === nombre);

@@ -8,10 +8,12 @@ export class Pedido {
     pagoCon: number;
     fechaPedido: Date;
     pesoTotal: number;
+    descuento: number;
     clienteId: string;
     cliente: Clientes;
     fechaModificacion: Date;
     usuario: string;
     estado: string;
+    tipoTransaccion: string;
     imprimioTicket: boolean;
 }

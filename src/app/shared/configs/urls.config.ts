@@ -3,7 +3,7 @@
 // TAMBIEN SE PUEDE LLAMAR CADA API POR SEPARADO
 import BaseConfig from './base.config';
 
-const isProd = true;
+const isProd = false;
 const URL_BASE = isProd ?
   BaseConfig.URL_PROD : BaseConfig.URL_LOCAL;
 
@@ -21,16 +21,12 @@ const URL_USUARIOS = {
 const URL_STOCK = {
   HOME: 'productos',
   GET_ALL: 'productos/GetAllProductos',
+  GET_ALL_CATEGORIAS: 'productos/GetAllCategorias',
   ADD_STOCK: 'productos/AddProducto',
   UPDATE_STOCK: 'productos/UpdateProducto',
   DELETE_STOCK: 'productos/DeleteProducto',
   ADD_COMPRA: 'productos/AddCompra',
   UPDATE_GANANCIAS: 'productos/UpdateGanancias'
-};
-// API PEDIDOS
-const URL_PEDIDOS = {
-  GET_ALL: 'pedidos/GetAllPedidos',
-  CONFIRMAR: 'pedidos/ConfirmarPedido'
 };
 // API CLIENTES
 const URL_CLIENTES = {
@@ -64,7 +60,6 @@ export {
   URL_BASE,
   URL_USUARIOS,
   URL_STOCK,
-  URL_PEDIDOS,
   URL_PROVEEDORES,
   URL_CLIENTES,
   URL_VENTAS,

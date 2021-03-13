@@ -22,6 +22,7 @@ import { DialogAdvertenciaComponent } from '../../dialogs/dialog-advertencia/dia
 import categoriasMock from '../../shared/mocks/categorias.mock';
 // HEPLERS
 import fechaArg from '../../shared/helpers/date.helper';
+import { FormControl } from '@angular/forms';
 
 @Component({
   selector: 'app-registro-compra',
@@ -35,6 +36,10 @@ export class RegistroCompraComponent implements OnInit {
   productosBuscados: Productos[] = [];
   categorias: any[];
   usuario: Usuarios;
+  descuento: 0;
+  DescuentoFormControl = new FormControl('', [
+
+  ]);
 
   constructor(
     private router: Router,
@@ -133,7 +138,7 @@ export class RegistroCompraComponent implements OnInit {
       nuevaCompra.productosPedidos = this.detalleCompra;
       nuevaCompra.total = this.totalAmount();
       nuevaCompra.usuario = this.usuario.usuario.toString();
-      nuevaCompra.pesoTotal = this.totalWeight();
+      // nuevaCompra.pesoTotal = this.totalWeight();
       nuevaCompra.proveedorId = this.proveedor.toString();
       nuevaCompra.fechaPedido = fechaArg();
 
@@ -212,10 +217,10 @@ export class RegistroCompraComponent implements OnInit {
       this.detalleCompra.map(item => item.precioCompra * item.cantidadComprada).reduce((a, b) => a + b) : 0;
   }
 
-  totalWeight = () => {
-    return this.detalleCompra.length > 0 ?
-      this.detalleCompra.map(item => item.peso * item.cantidadComprada).reduce((a, b) => a + b) : 0;
-  }
+  // totalWeight = () => {
+  //   return this.detalleCompra.length > 0 ?
+  //     this.detalleCompra.map(item => item.peso * item.cantidadComprada).reduce((a, b) => a + b) : 0;
+  // }
 
   hayDatos = () => (this.proveedor || this.detalleCompra.length > 0);
 }

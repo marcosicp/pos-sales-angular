@@ -37,10 +37,10 @@
       </table>
       <mat-card-actions class="summary flex flex-direction-column">
         <div class="totals flex flex-direction-row justify-between">
-          <h3>P. Total: {{totalWeight() | number: '1.2' | weightPipe}}</h3>
-          <h3>M. Neto: {{totalAmount()*0.79 | currency: '$'}}</h3>
+          <!-- <h3>P. Total: {{totalWeight() | number: '1.2' | weightPipe}}</h3> -->
+          <!-- <h3>M. Neto: {{totalAmount()*0.79 | currency: '$'}}</h3> -->
           <h3>Iva: {{totalAmount()*0.21 | currency: '$'}}</h3>
-          <h3>M. Final: {{totalAmount() | currency: '$'}}</h3>
+          <h3>Total: {{totalAmount() | currency: '$'}}</h3>
         </div>
         <div class="flex flex-direction-row buttons">
           <button

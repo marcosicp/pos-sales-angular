@@ -11,8 +11,6 @@ export class DialogPDFComponent implements OnInit {
   pdfSrc = "";
 
   constructor(@Inject(MAT_DIALOG_DATA) public data: any) {
-    debugger;
-    // this.pdfSrc = data;
     if (data.action === 'Tesis') {
       this.pdfSrc = '../assets/Clinker - Manual de Usuario.pdf';
     } else {

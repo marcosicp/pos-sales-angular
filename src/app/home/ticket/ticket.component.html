@@ -1,67 +1,94 @@
 <mat-card class="ticket-section flex flex-direction-column justify-between">
-    <div class="ticket add-margin">
-        <mat-card-title class="heading">Cliente: </mat-card-title>
-        <ng-select placeholder="Seleccione un cliente" [items]="clientes" bindLabel="nombre" bindValue="id" [(ngModel)]="clienteId">
-          <ng-template ng-option-tmp let-item="item" let-search="searchTerm">
-            <div><span [ngOptionHighlight]="search">{{item.nombre}}</span></div>
-            <small><strong>Cuit:</strong> {{(item.cuit || item.cuil) | cuilPipe}} | <strong>Razon Social:</strong> {{item.razonSocial}}</small>
-          </ng-template>
-        </ng-select>
-    </div>
+  <div class="ticket add-margin">
+    <mat-card-title class="heading">Cliente: </mat-card-title>
+    <ng-select placeholder="Seleccione un cliente" [items]="clientes" bindLabel="nombre" bindValue="id"
+      [(ngModel)]="clienteId">
+      <ng-template ng-option-tmp let-item="item" let-search="searchTerm">
+        <div><span [ngOptionHighlight]="search">{{item.nombre}}</span></div>
+        <small><strong>Cuit:</strong> {{(item.cuit || item.cuil) | cuilPipe}} | <strong>Razon Social:</strong>
+          {{item.razonSocial}}</small>
+      </ng-template>
+    </ng-select>
+  </div>
   <mat-card-title class="add-padding heading">Detalle del pedido</mat-card-title>
-  <table class="table-items">
-    <tr class="table-header">
-      <th style="width: 10%;">Cant</th>
-      <th>Producto</th>
-      <th style="width: 10%;">Peso unitario</th>
-      <th>Precio</th>
-      <th>Monto total</th>
-      <th style="width: 10%;">Peso total</th>
-      <th>Eliminar</th>
-    </tr>
-    <tr *ngFor="let item of ticket" class="item">
-      <td><input matInput type="number" min="1" [max]="item.cantidad" (ngModelChange)="calcularTotal($event, item.id)" [(ngModel)]="item.cantidad"/> </td>
-      <td>{{item.nombre}}</td>
-      <td>{{item.peso | number: '1.2' | weightPipe}}</td>
-      <td>{{item.precioVenta | currency: '$'}}</td>
-      <td>{{item.precioVenta*item.cantidad | currency: '$'}}</td>
-      <td>{{item.peso*item.cantidad | number: '1.2' | weightPipe}}</td>
-      <td style="position: center;">
-        <mat-icon (click)="removeItem(item)" class="del">cancel</mat-icon></td>
-    </tr>
-  </table>
+
+  <div style="height:200px; overflow:auto;">
+    <table class="table-items fixedcol" cellspacing="0" cellpadding="1" border="1">
+      <tr class="table-header">
+        <th style="width: 12%;">Cant</th>
+        <th>Producto</th>
+        <th>Precio</th>
+        <th>Monto total</th>
+        <th>Eliminar</th>
+      </tr>
+      <tr *ngFor="let item of ticket" class="item">
+        <td><input matInput type="number" min="1" [max]="item.cantidad" (ngModelChange)="calcularTotal($event, item.id)"
+            [(ngModel)]="item.cantidad" /> </td>
+        <td>{{item.nombre}}</td>
+        <!-- <td>{{item.peso | number: '1.2' | weightPipe}}</td> -->
+        <td>{{item.precioVenta | currency: '$'}}</td>
+        <td>{{item.precioVenta*item.cantidad | currency: '$'}}</td>
+        <!-- <td>{{item.peso*item.cantidad | number: '1.2' | weightPipe}}</td> -->
+        <td style="position: center;">
+          <mat-icon (click)="removeItem(item)" class="del">cancel</mat-icon>
+        </td>
+      </tr>
+    </table>
+  </div> 
+
+  <div style="height:20%;">
+    <table cellspacing="0" cellpadding="1" border="1">
+      <tr>
+        <td></td>
+        <td>
+          <h3>Iva?: {{cartTotal*0.21 | currency: '$'}}</h3>
+        </td>
+        <td>
+          <h3 class="total">Total: {{cartTotal | currency: '$'}}</h3>
+        </td>
+      </tr>
+      <tr style="background-color: white; height:2px;">
+        <td></td>
+        <td>
+          <h3>Descuento:
+            <mat-form-field style="width: 25%;">
+              <input matInput [(ngModel)]="descuento" name="descuentoName" (change)="calcularDescuento()"
+                #descuentoName="ngModel" type="number">
+            </mat-form-field>
+          </h3>
+        </td>
+        <td>
+          <h3>PagaCon: $
+            <mat-form-field style="width: 25%;">
+              <input matInput [(ngModel)]="pagaCon" name="pagaConName"
+                #pagaConName="ngModel" type="number">
+            </mat-form-field>
+          </h3>
+        </td>
+      </tr>
+      <tr >
+        <td></td>
+        <td></td>
+        <td>
+          <h3>Vuelto: {{ this.pagaCon == 0 ? 0 : this.pagaCon - this.cartTotal   | currency: '$'}}</h3>
+        </td>
+      </tr>
+    </table>
+  </div>
+
   <mat-card-actions class="summary flex flex-direction-column">
-    <div class="totals flex flex-direction-row justify-between">
-      <h3>P. Total: {{cartPeso | number: '1.2' | weightPipe}}</h3>
-      <h3>M. Neto: {{cartTotal*0.79 | currency: '$'}}</h3>
-      <h3>Iva: {{cartTotal*0.21 | currency: '$'}}</h3>
-      <h3 class="total">M. Final: {{cartTotal | currency: '$'}}</h3>
-    </div>
     <div class="flex flex-direction-row buttons">
-      <button
-        mat-raised-button
-        color="warn"
-        (click)="cerrar()"
-      >
+      <button mat-raised-button color="warn" (click)="cerrar()">
         <mat-icon>close</mat-icon>
         Cancelar
       </button>
 
-      <button
-        mat-raised-button
-        color="basic"
-        (click)="clearCart()"
-        [disabled]="!hayDatos()"
-      >
+      <button mat-raised-button color="basic" (click)="clearCart()" [disabled]="!hayDatos()">
         <mat-icon>check</mat-icon>
         Limpiar
       </button>
 
-      <button
-        mat-raised-button
-        color="primary"
-        (click)="checkout()"
-      >
+      <button mat-raised-button color="primary" (click)="checkout()">
         <mat-icon>account_balance_wallet</mat-icon>
         Cobrar
       </button>

@@ -41,10 +41,10 @@
           <input matInput disabled type="text" [value]="ventas.total | currency:'$'" />
         </mat-form-field>
 
-        <mat-form-field>
+        <!-- <mat-form-field>
           <label>Peso total</label>
           <input matInput type="text" disabled [value]="ventas.pesoTotal | number : '1.2' | weightPipe" />
-        </mat-form-field>
+        </mat-form-field> -->
 
         <div class="file-upload">
           <label>Si paga por medio de transferencia, por favor adjuntar comprobante de transacción.</label>
@@ -70,7 +70,7 @@
       <button
         mat-raised-button
         color="warn"
-        routerLink="/pedidos/"
+        routerLink="/ventas/"
       >
         <mat-icon>close</mat-icon>
         Cancelar

@@ -6,7 +6,7 @@ import { AuthGuard } from './guards/auth.guard';
 import { AdminGuard } from './guards/admin.guard';
 // COMPONENTES
 import { WelcomeComponent } from '../welcome/welcome/welcome.component';
-import { ConfirmacionComponent } from '../home/confirmacion/confirmacion.component';
+// import { ConfirmacionComponent } from '../home/confirmacion/confirmacion.component';
 import { HomeComponent } from '../home/home/home.component';
 import { PageNotFoundComponent } from '../page-not-found/page-not-found.component';
 import { LoginComponent } from '../welcome/login/login.component';
@@ -18,7 +18,7 @@ import { HistorialComponent } from '../home/historial/historial.component';
 import { ClientesComponent } from '../home/clientes/clientes.component';
 import { ProveedoresComponent } from '../home/proveedores/proveedores.component';
 import { VentasComponent } from '../ventas/ventas.component';
-import { PactarEntregaComponent } from '../pactar-entrega/pactar-entrega.component';
+// import { PactarEntregaComponent } from '../pactar-entrega/pactar-entrega.component';
 import { ListaMovimientosComponent } from '../home/lista-movimientos/lista-movimientos.component';
 import { ReportesComponent } from '../home/reportes/reportes.component';
 import { CajaComponent } from '../home/caja/caja.component';
@@ -48,11 +48,13 @@ const appRoutes: Routes = [
     path: 'caja',
     component: CajaComponent,
     canActivate: [AuthGuard]
-  },{
-    path: 'agenda',
-    component: PactarEntregaComponent ,
-    canActivate: [AuthGuard]
-  }, {
+  },
+  // {
+  //   path: 'agenda',
+  //   component: PactarEntregaComponent ,
+  //   canActivate: [AuthGuard]
+  // }, 
+  {
     path: 'clientes',
     component: ClientesComponent ,
     canActivate: [AuthGuard]
@@ -60,11 +62,13 @@ const appRoutes: Routes = [
     path: 'proveedores',
     component: ProveedoresComponent ,
     canActivate: [AuthGuard]
-  }, {
-    path: 'confirmacion',
-    component: ConfirmacionComponent ,
-    canActivate: [AuthGuard]
-  }, {
+  }, 
+  // {
+  //   path: 'confirmacion',
+  //   component: ConfirmacionComponent ,
+  //   canActivate: [AuthGuard]
+  // }, 
+  {
     path: 'soporte',
     component: SoporteComponent ,
     canActivate: [AuthGuard]

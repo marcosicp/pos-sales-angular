@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 // CONFIGURACIONES
-import { URL_VENTAS, URL_STOCK, URL_PEDIDOS } from '../../shared/configs/urls.config';
+import { URL_VENTAS, URL_STOCK } from '../../shared/configs/urls.config';
 
 @Component({
   selector: 'app-reportes',
@@ -27,14 +27,14 @@ export class ReportesComponent {
       itemX: 'Mes',
       label: 'Total'
     },
-    pedidos: {
-      maxItems: 12,
-      tabLabel: 'Pedidos sin entregar por mes',
-      type: 'pedidos',
-      url: URL_PEDIDOS.GET_ALL,
-      itemX: 'Mes',
-      label: 'Pedidos'
-    },
+    // pedidos: {
+    //   maxItems: 12,
+    //   tabLabel: 'Pedidos sin entregar por mes',
+    //   type: 'pedidos',
+    //   url: URL_PEDIDOS.GET_ALL,
+    //   itemX: 'Mes',
+    //   label: 'Pedidos'
+    // },
     stock: {
       maxItems: 12,
       tabLabel: 'Productos con menor stock',

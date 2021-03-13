@@ -1,43 +1,13 @@
 export default [{
-    nombre: 'ARENA',
-    ganancia: 30
+    nombre: 'CONGELADOS',
+    
   }, {
-    nombre: 'GRANZA',
-    ganancia: 30
+    nombre: 'LACTEOS',
+    
   }, {
-    nombre: 'CEMENTO',
-    ganancia: 30
+    nombre: 'GRANOS',
+    
   }, {
-    nombre: 'TIERRA',
-    ganancia: 30
-  }, {
-    nombre: 'LADRILLOS',
-    ganancia: 30
-  }, {
-    nombre: 'BOLSAS',
-    ganancia: 30
-  }, {
-    nombre: 'VIGUETAS',
-    ganancia: 30
-  }, {
-    nombre: 'TELGOPOR',
-    ganancia: 30
-  }, {
-    nombre: 'LIJA',
-    ganancia: 30
-  }, {
-    nombre: 'FERRETERIA',
-    ganancia: 30
-  }, {
-    nombre: 'DISCOS',
-    ganancia: 30
-  }, {
-    nombre: 'CINTAS',
-    ganancia: 30
-  }, {
-    nombre: 'AUTOMOTOR',
-    ganancia: 30
-  }, {
-    nombre: 'OTROS',
-    ganancia: 30
-  }];
+    nombre: 'KIOSKO',
+    
+  }, ];

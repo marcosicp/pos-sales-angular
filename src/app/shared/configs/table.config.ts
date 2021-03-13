@@ -16,7 +16,8 @@ const TABLA_STOCK = {
     precioVenta: 'Precio de venta',
     precioCompra: 'Precio de compra',
     cantidad: 'Unidades disponibles',
-    peso: 'Peso en Kg',
+    ganancia: 'Ganancia',
+    // peso: 'Peso en Kg',
     opciones: 'Opciones'
   },
   cells: {
@@ -27,7 +28,8 @@ const TABLA_STOCK = {
     precioVenta: 'precioVenta',
     precioCompra: 'precioCompra',
     cantidad: 'cantidad',
-    peso: 'peso',
+    // peso: 'peso',
+    ganancia: 'ganancia',
     opciones: null
   },
   format: {
@@ -38,7 +40,8 @@ const TABLA_STOCK = {
     precioVenta: 'currency',
     precioCompra: 'currency',
     cantidad: null,
-    peso: 'weight',
+    ganancia: null,
+    // peso: 'weight',
     opciones: null
   }
 };
@@ -140,26 +143,28 @@ const TABLA_VENTAS = {
   title: 'Ventas',
   headers: {
     creado: 'Fecha de venta',
-    cliente: 'Cliente',
+    // cliente: 'Cliente',
     responsable: 'Responsable',
-    estado: 'Estado',
-    agendado: 'Entrega pactada',
+    pagoCon: 'Pago Con',
+    descuento: 'Descuento',
     total: 'Monto total',
     opciones: 'Opciones'
   },
   cells: {
     creado: 'creado',
-    cliente: 'cliente.razonSocial',
-    responsable: 'pedido.usuario',
-    estado: 'pedido.estado',
-    agendado: 'agenda',
-    total: 'pedido.total',
+    // cliente: 'cliente.razonSocial',
+    responsable: 'usuario',
+    pagoCon: 'pagoCon',
+    descuento: 'descuento',
+    total: 'total',
     opciones: null,
   },
   format: {
     creado: 'date',
-    cliente: null,
+    // cliente: null,
     responsable: null,
+    pagoCon: 'currency',
+    descuento: null,
     estado: null,
     agendado: 'boolean',
     total: 'currency',

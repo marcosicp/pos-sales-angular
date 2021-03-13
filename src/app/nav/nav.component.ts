@@ -18,12 +18,14 @@ export class NavComponent implements AfterContentChecked{
     LA UI, CASO CONTRARIO LO MODIFICO CON EL NOMBRE DEL QUE SE LOGUEO
   */
   ngAfterContentChecked() {
+    ;
     this.auth.getUser.subscribe(
       user => {
         if (!user) {
           this.showUser = null;
         } else {
           const {nombre, apellido} = JSON.parse(user);
+          if(nombre == undefined || apellido == undefined) this.logout();
           this.showUser = `Hola ${nombre} ${apellido}`;
         }
       }

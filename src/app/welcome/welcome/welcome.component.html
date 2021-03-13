@@ -1,34 +1,35 @@
 <app-notification></app-notification>
 <div class="container">
-  <mat-grid-list cols="4" rowHeight="9:8">
+  <mat-grid-list cols="3" rowHeight="3:2">
       <mat-grid-tile></mat-grid-tile>
-    <mat-grid-tile>
+    <!-- <mat-grid-tile>
       <mat-card routerLink="/agenda" fxLayout="column">
         <mat-icon class="module-icon">event</mat-icon>
         <h1 class="module-title">Agenda</h1>
       </mat-card>
-    </mat-grid-tile>
+    </mat-grid-tile> -->
     <mat-grid-tile>
       <mat-card (click)="checkearCajaCerrada()" fxLayout="column">
         <mat-icon class="module-icon">add</mat-icon>
-        <h1 class="module-title">Registrar pedido</h1>
+        <h1 class="module-title">POS</h1>
+      </mat-card>
+    </mat-grid-tile>
+    <mat-grid-tile>
+      <mat-card routerLink="/caja" fxLayout="column">
+        <mat-icon class="module-icon">account_balance</mat-icon>
+        <h1 class="module-title">Estado de Caja</h1>
       </mat-card>
     </mat-grid-tile>
   </mat-grid-list>
 
-  <mat-grid-list cols="4" rowHeight="9:8">
-    <mat-grid-tile>
-      <mat-card routerLink="/caja" fxLayout="column">
-        <mat-icon class="module-icon">account_balance</mat-icon>
-        <h1 class="module-title">Caja</h1>
-      </mat-card>
-    </mat-grid-tile>
-    <mat-grid-tile>
+  <mat-grid-list cols="3" rowHeight="3:2">
+    
+    <!-- <mat-grid-tile>
       <mat-card routerLink="/pedidos" fxLayout="column">
         <mat-icon class="module-icon">shopping_cart</mat-icon>
         <h1 class="module-title">Pedidos</h1>
       </mat-card>
-    </mat-grid-tile>
+    </mat-grid-tile> -->
     <mat-grid-tile>
       <mat-card routerLink="/ventas" fxLayout="column">
         <mat-icon class="module-icon">assignment</mat-icon>
@@ -41,9 +42,15 @@
         <h1 class="module-title">Stock</h1>
       </mat-card>
     </mat-grid-tile>
+    <mat-grid-tile>
+      <mat-card routerLink="/proveedores" fxLayout="column">
+        <mat-icon class="module-icon">business</mat-icon>
+        <h1 class="module-title">Proveedores</h1>
+      </mat-card>
+    </mat-grid-tile>
   </mat-grid-list>
 
-  <mat-grid-list cols="4" rowHeight="5:4">
+  <mat-grid-list cols="3" rowHeight="3:2">
     <mat-grid-tile>
       <mat-card routerLink="/reportes" fxLayout="column">
         <mat-icon class="module-icon">insert_chart</mat-icon>
@@ -51,12 +58,7 @@
       </mat-card>
     </mat-grid-tile>
 
-    <mat-grid-tile>
-      <mat-card routerLink="/proveedores" fxLayout="column">
-        <mat-icon class="module-icon">business</mat-icon>
-        <h1 class="module-title">Proveedores</h1>
-      </mat-card>
-    </mat-grid-tile>
+
 
     <mat-grid-tile>
       <mat-card routerLink="/clientes" fxLayout="column">

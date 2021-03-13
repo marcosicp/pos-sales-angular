@@ -29,8 +29,8 @@ export class DialogStockAddEditComponent implements OnInit {
         return `${errorText} sólo con letras (se pueden usar espacios)`;
       case 'precio de venta':
       case 'precio de compra':
-      case 'peso por unidad':
-        return `${errorText} sólo con números y hasta 2 decimales`;
+      // case 'peso por unidad':
+      //   return `${errorText} sólo con números y hasta 2 decimales`;
       default:
         return `${errorText}, es obligatorio`;
     }
@@ -53,18 +53,19 @@ export class DialogStockAddEditComponent implements OnInit {
         categoria: new FormControl(this.producto.categoria || 0, [Validators.required]),
         nombre: new FormControl(this.producto.nombre, [Validators.required, Validators.pattern(RegExpHelper.lettersSpace)]),
         precioCompra: new FormControl(this.producto.precioCompra, [Validators.required, Validators.pattern(RegExpHelper.numberDecimals)]),
+        precioVenta: new FormControl(this.producto.precioVenta, [Validators.required, Validators.pattern(RegExpHelper.numberDecimals)]),
         cantidad: new FormControl(this.producto.cantidad, [Validators.required, Validators.pattern(RegExpHelper.numbers)]),
-        peso: new FormControl(this.producto.peso, [Validators.required, Validators.pattern(RegExpHelper.numberDecimals)]),
+        // peso: new FormControl(this.producto.peso, [Validators.required, Validators.pattern(RegExpHelper.numberDecimals)]),
         proveedorNombre: new FormControl(this.producto.proveedorNombre, [Validators.required]),
       }
     );
   }
 
-  calcularGanancia(producto: Productos) {
-    const {precioCompra, categoria} = this.productForm.value;
-    const ganancia = (categoria && this.categorias.find(item => item.nombre === categoria).ganancia) || 0;
-    return ((precioCompra || producto.precioCompra || 0) * (1 + (ganancia / 100) || 1)).toFixed(2);
-  }
+  // calcularGanancia(producto: Productos) {
+  //   const {precioCompra, categoria} = this.productForm.value;
+  //   const ganancia = (categoria && this.categorias.find(item => item.nombre === categoria).ganancia) || 0;
+  //   return ((precioCompra || producto.precioCompra || 0) * (1 + (ganancia / 100) || 1)).toFixed(2);
+  // }
 
   guardar() {
     Object.keys(this.productForm.value).forEach(

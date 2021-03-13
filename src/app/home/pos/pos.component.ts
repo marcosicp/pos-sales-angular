@@ -27,7 +27,7 @@ export class PosComponent implements OnInit {
   ticket: Productos[];
   cartTotal = 0;
   cartNumItems = 0;
-  cartPeso = 0;
+  // cartPeso = 0;
   items;
   productosPedido: ProductoPedido[] = [];
   total = 0;
@@ -54,7 +54,7 @@ export class PosComponent implements OnInit {
       data => {
         data.forEach(
           item => {
-            item.precioVenta = item.precioCompra * (1 + ((categoriasMock.find(_item => _item.nombre === item.categoria || _item.nombre === 'OTROS')).ganancia / 100))
+            // item.precioVenta = item.precioCompra * (1 + ((categoriasMock.find(_item => _item.nombre === item.categoria || _item.nombre === 'OTROS')).ganancia / 100))
           }
         )
 
@@ -65,6 +65,24 @@ export class PosComponent implements OnInit {
         this.loadingService.toggleLoading();
       }
     );
+
+
+    // this.dataService.getAsync(URL_STOCK.GET_ALL_CATEGORIAS, this.dataService.productos).subscribe(
+    //   data => {
+    //     data.forEach(
+    //       item => {
+    //         item.precioVenta = item.precioCompra * (1 + ((categoriasMock.find(_item => _item.nombre === item.categoria || _item.nombre === 'OTROS')).ganancia / 100))
+    //       }
+    //     )
+
+    //     this.productTypes.forEach(
+    //       (item, index) => this.products[index] = [...data.filter(element => element.categoria === item)]
+    //     );
+
+    //     this.loadingService.toggleLoading();
+    //   }
+
+    // );
   }
 
   addToCheck(item: Productos) {
@@ -86,15 +104,15 @@ export class PosComponent implements OnInit {
     // Multiply item price by item quantity, add to total
     this.ticket.forEach(function(item: Productos) {
       total += (item.precioVenta * item.cantidad);
-      peso += (item.peso * item.cantidad);
+      // peso += (item.peso * item.cantidad);
       cartNum += item.cantidad;
     });
     this.cartTotal = total;
     this.cartNumItems = cartNum;
-    this.cartPeso = peso;
+    // this.cartPeso = peso;
     this.ticketSync.updateNumItems(this.cartNumItems);
     this.ticketSync.updateTotal(this.cartTotal);
-    this.ticketSync.updatePeso(this.cartPeso);
+    // this.ticketSync.updatePeso(this.cartPeso);
 
   }
 
@@ -184,48 +202,55 @@ export class PosComponent implements OnInit {
           // nuevaPedido.usuarioVendio = this.usuario;
           nuevaPedido.productosPedidos = this.productosPedido;
           nuevaPedido.fechaPedido = new Date();
+          
           nuevaPedido.fechaPedido.setHours(nuevaPedido.fechaPedido.getHours() - 3)
           nuevaPedido.total = this.total;
           nuevaPedido.imprimioTicket = true;
 
         if (result === true) {
+          nuevaPedido.tipoTransaccion = 'Efectivo';
           // Guardar venta
-          this.dataService.createAsync('ventas', nuevaPedido, ventaOk).subscribe(
-            data => {
-              const dialogRef = this.dialog.open(DialogOperacionOkComponent, { width: '600px' ,  disableClose: true });
-              dialogRef.afterClosed().subscribe(result => {
-                // Imprimir ticket
-              this.resetear();
-              // this.openSnackBar('Imprimiendo ticket!', 'Aguarde');
-              });
-            },
-            error => {
-              const dialogRef = this.dialog.open(DialogSinConexionComponent, { width: '600px' ,  disableClose: true });
-              dialogRef.afterClosed().subscribe(result => {
-
-              });
-            }
-          );
-        } else if (result === false) {
-          // Guardar venta sin ticket
-          nuevaPedido.imprimioTicket = false;
-          this.dataService.createAsync('ventas', nuevaPedido, ventaOk).subscribe(
-            data => {
-              const dialogRef = this.dialog.open(DialogOperacionOkComponent, { width: '600px' ,  disableClose: true });
-              dialogRef.afterClosed().subscribe(result => {
-                this.resetear();
-                // this.openSnackBar('Pedido guardada!', 'Gracias');
-              });
-
-            },
-            error => {
-              const dialogRef = this.dialog.open(DialogSinConexionComponent, { width: '600px' ,  disableClose: true });
-              dialogRef.afterClosed().subscribe(result => {
-
-              });
-            }
-          );
+          
+        } else {
+          nuevaPedido.tipoTransaccion = 'Tarjeta';
         }
+
+        this.dataService.createAsync('ventas', nuevaPedido, ventaOk).subscribe(
+          data => {
+            const dialogRef = this.dialog.open(DialogOperacionOkComponent, { width: '600px' ,  disableClose: true });
+            dialogRef.afterClosed().subscribe(result => {
+              // Imprimir ticket
+            this.resetear();
+            // this.openSnackBar('Imprimiendo ticket!', 'Aguarde');
+            });
+          },
+          error => {
+            const dialogRef = this.dialog.open(DialogSinConexionComponent, { width: '600px' ,  disableClose: true });
+            dialogRef.afterClosed().subscribe(result => {
+
+            });
+          }
+        );
+        // else if (result === false) {
+        //   // Guardar venta sin ticket
+        //   nuevaPedido.imprimioTicket = false;
+        //   this.dataService.createAsync('ventas', nuevaPedido, ventaOk).subscribe(
+        //     data => {
+        //       const dialogRef = this.dialog.open(DialogOperacionOkComponent, { width: '600px' ,  disableClose: true });
+        //       dialogRef.afterClosed().subscribe(result => {
+        //         this.resetear();
+        //         // this.openSnackBar('Pedido guardada!', 'Gracias');
+        //       });
+
+        //     },
+        //     error => {
+        //       const dialogRef = this.dialog.open(DialogSinConexionComponent, { width: '600px' ,  disableClose: true });
+        //       dialogRef.afterClosed().subscribe(result => {
+
+        //       });
+        //     }
+        //   );
+        // }
       });
     }
   }

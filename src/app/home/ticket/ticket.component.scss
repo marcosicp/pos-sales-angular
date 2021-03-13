@@ -88,3 +88,12 @@ tr:nth-child(even) {
   margin-right: 0.75rem;
   background-color: rgb(214, 102, 102);
 }
+
+
+.fixedcol table th {
+  position: -webkit-sticky; // this is for all Safari (Desktop & iOS), not for Chrome
+  position: sticky;
+  top: 0;
+  z-index: 10; // any positive value, layer order is global
+  background: #fff;
+}

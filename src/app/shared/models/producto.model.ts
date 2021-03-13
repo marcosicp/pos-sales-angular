@@ -7,8 +7,9 @@ export class Productos {
     imagenUrl: string;
     precioCompra: number;
     precioVenta: number;
-    peso: number;
+    // peso: number;
     cantidad: number;
+    ganacia: number;
     cantidadComprada: number;
     marca: string;
     fechaModificacionPrecio: Date;

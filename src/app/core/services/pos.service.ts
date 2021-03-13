@@ -14,8 +14,8 @@ export class PosService {
   private cartTotal = 0;
   private cartTotalSource = new BehaviorSubject<number>(this.cartTotal);
 
-  private cartPeso = 0;
-  private cartPesoSource = new BehaviorSubject<number>(this.cartPeso);
+  // private cartPeso = 0;
+  // private cartPesoSource = new BehaviorSubject<number>(this.cartPeso);
 
   private cartNumItems = 0;
   private cartNumSource = new BehaviorSubject<number>(this.cartNumItems);
@@ -25,7 +25,7 @@ export class PosService {
 
   currentTicket = this.ticketSource.asObservable();
   currentTotal = this.cartTotalSource.asObservable();
-  currentPeso = this.cartPesoSource.asObservable();
+  // currentPeso = this.cartPesoSource.asObservable();
   currentCartNum = this.cartNumSource.asObservable();
   currentClienteId = this.clienteIdSource.asObservable();
 
@@ -39,9 +39,9 @@ export class PosService {
     this.cartTotalSource.next(total);
   }
 
-  updatePeso(peso: number) {
-    this.cartPesoSource.next(peso);
-  }
+  // updatePeso(peso: number) {
+  //   this.cartPesoSource.next(peso);
+  // }
 
   updateNumItems(num: number) {
     this.cartNumSource.next(num);

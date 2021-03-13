@@ -10,7 +10,7 @@ import { DialogVerItemsPedidoComponent } from '../../dialogs/dialog-ver-items-ve
 import { DialogSinConexionComponent } from '../../dialogs/dialog-sin-conexion/dialog-sin-conexion.component';
 import { DialogAdvertenciaComponent } from '../../dialogs/dialog-advertencia/dialog-advertencia.component';
 // CONFIGURACIONES
-import { URL_PEDIDOS } from '../../shared/configs/urls.config';
+import { URL_VENTAS } from '../../shared/configs/urls.config';
 import { URL_MOVIMIENTOS } from '../../shared/configs/urls.config';
 import { TABLA_PEDIDOS } from '../../shared/configs/table.config';
 
@@ -60,7 +60,7 @@ export class HistorialComponent implements OnInit {
     CUANDO SE LES HAGA CLICK (ESA LOGICA FUNCIONA EN ESTE COMPONENTE, NO EN LA TABLA)
   */
   ngOnInit() {
-    this.comerciosService.getAsync(URL_PEDIDOS.GET_ALL, []).subscribe(
+    this.comerciosService.getAsync(URL_VENTAS.GET_ALL, []).subscribe(
       data => {
         if (!data) {
           const dialogRef = this.dialog.open(
@@ -80,7 +80,7 @@ export class HistorialComponent implements OnInit {
             buttonIcon: 'done_all',
             buttonLabel: 'Confirmar pedido',
             canDisplay: (venta) => venta.estado !== 'CONFIRMADO',
-            buttonEvent: (venta) => this.confirmarPedido(venta)
+            // buttonEvent: (venta) => this.confirmarPedido(venta)
           }];
         this.isLoading = false;
       }
@@ -108,13 +108,13 @@ export class HistorialComponent implements OnInit {
     }
   }
 
-  public confirmarPedido(element: Venta) {
-    const navigationExtras: NavigationExtras = {
-        queryParams: { pedido: JSON.stringify(element)}
-    };
+  // public confirmarPedido(element: Venta) {
+  //   const navigationExtras: NavigationExtras = {
+  //       queryParams: { pedido: JSON.stringify(element)}
+  //   };
 
-    this.router.navigate(['confirmacion'], navigationExtras);
-  }
+  //   this.router.navigate(['confirmacion'], navigationExtras);
+  // }
 
   verItems(venta) {
     const dialogRef = this.dialog.open(

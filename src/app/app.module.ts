@@ -30,9 +30,9 @@ import { AppComponent } from './app.component';
 import { PageNotFoundComponent } from './page-not-found/page-not-found.component';
 import { NavComponent } from './nav/nav.component';
 import { LoadingScreenComponent } from './shared/components/loading-screen/loading-screen.component';
-import { ConfirmacionComponent } from './home/confirmacion/confirmacion.component';
+// import { ConfirmacionComponent } from './home/confirmacion/confirmacion.component';
 import { VentasComponent } from './ventas/ventas.component';
-import { PactarEntregaComponent } from './pactar-entrega/pactar-entrega.component';
+// import { PactarEntregaComponent } from './pactar-entrega/pactar-entrega.component';
 import { AcopiosComponent } from './acopios/acopios.component';
 import { CalendarModule, DateAdapter } from 'angular-calendar';
 import { adapterFactory } from 'angular-calendar/date-adapters/date-fns';
@@ -48,9 +48,9 @@ registerLocaleData(localeAr, 'es-AR');
     NavComponent,
     LoadingScreenComponent,
     PageNotFoundComponent,
-    ConfirmacionComponent,
+    // ConfirmacionComponent,
     VentasComponent,
-    PactarEntregaComponent,
+    // PactarEntregaComponent,
     AcopiosComponent,
     SoporteComponent
   ],

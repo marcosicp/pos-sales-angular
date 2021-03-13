@@ -7,15 +7,9 @@ export class Venta {
     id: string;
     codigo: string;
     productosVenta: ProductoPedido[];
-    pedido: Pedido;
-    idPedido: string;
     total: number;
     pagoCon: number;
-    pesoTotal: number;
-    fechaVenta: Date;
-    fechaPedido: Date;
-    vuelto: number;
-    fechaModificacion: Date;
+    descuento: number;
     usuario: string;
     clienteId: string;
     cliente: Clientes;
@@ -23,7 +17,7 @@ export class Venta {
     observacion: string;
     imprimioTicket: boolean;
     creado: Date;
-    estado: string;
+    editado: Date;
+    tipoTransaccion: string;
     imagenUrl: string;
-    agenda: CalendarEvent;
 }
