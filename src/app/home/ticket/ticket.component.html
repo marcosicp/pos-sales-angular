@@ -71,7 +71,7 @@
         </td>
         <td>
           <h3>Tipo Venta: 
-            <mat-select style="width: 65%;" [(value)]="tipoTransaccion" (selectionChange)="actualizarTipoTransaccion($event)">
+            <mat-select style="width: 65%;" [(value)]="tipoTransaccion" (selectionChange)="actualizarTipoTransaccion()">
               <mat-option value="TRANSFERENCIA">TRANSFERENCIA</mat-option>
               <mat-option value="EFECTIVO">EFECTIVO</mat-option>
               <mat-option value="1 CUOTA">1 CUOTA</mat-option>
