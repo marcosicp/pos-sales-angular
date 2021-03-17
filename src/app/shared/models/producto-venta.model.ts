@@ -1,6 +1,7 @@
 export class ProductoPedido {
   id: string;
-  codigoProv: string;
+  // codigoProv: string;
+  codigo: string;
   idProducto: string;
   producto: string;
   cantidad: number;

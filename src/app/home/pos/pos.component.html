@@ -1,11 +1,43 @@
-<mat-card class="pos-section" style="height: 500px;">
-  <mat-card-title class="add-padding heading">Selecionar Producto
-      <button mat-button (click)="buscarProducto()">
+<mat-card class="pos-section flex flex-direction-column justify-between">
+  <mat-card-title class="heading">Selecionar Producto
+    <!-- <button mat-button (click)="buscarProducto()">
         <mat-icon>search</mat-icon>
-      </button>
+      </button> -->
   </mat-card-title>
+  <!-- 
+  <mat-tab-group> -->
+  <mat-form-field>
+    <input matInput (keyup)="applyFilter($event.target.value)" placeholder="Buscar">
+  </mat-form-field>
 
-  <mat-tab-group>
+  <div style="overflow:auto;">
+    <table style="width: 100%;height: 490px;" matSort  class="table-items fixedcol" mat-table [dataSource]="productos" >
+      <ng-container matColumnDef="producto">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header> Producto </th>
+        <td mat-cell *matCellDef="let element"> {{element.nombre}} </td>
+      </ng-container>
+
+      <ng-container matColumnDef="cantidad" >
+        <th mat-header-cell *matHeaderCellDef mat-sort-header> Unidades </th>
+        <td mat-cell *matCellDef="let element"> {{element.cantidad}} </td>
+      </ng-container>
+
+      <ng-container matColumnDef="codigo">
+        <th mat-header-cell *matHeaderCellDef> Codigo </th>
+        <td mat-cell *matCellDef="let element"> {{element.codigo}} </td>
+      </ng-container>
+
+      <ng-container matColumnDef="precioVenta" >
+        <th mat-header-cell *matHeaderCellDef mat-sort-header> Precio </th>
+        <td mat-cell *matCellDef="let element"> {{element.precioVenta | currency: '$'}} </td>
+      </ng-container>
+
+      <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+      <tr mat-row *matRowDef="let row; columns: displayedColumns;" (dblclick)="selectRow(row)"></tr>
+    </table>
+    <mat-paginator [pageSizeOptions]="[10]" showFirstLastButtons></mat-paginator>
+  </div>
+  <!--       
     <mat-tab *ngFor="let categoria of products; let i = index"  label="{{productTypes[i]}}">
       <div class="flex flex-direction-row flex-wrap menu justify-center">
         <div *ngFor="let item of categoria" class="flex flex-direction-column item" (click)="addToCheck(item)">
@@ -15,5 +47,5 @@
         </div>
       </div>
     </mat-tab>
-  </mat-tab-group>
+  </mat-tab-group> -->
 </mat-card>

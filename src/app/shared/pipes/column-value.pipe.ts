@@ -15,6 +15,6 @@ export class ColumnValuePipe implements PipeTransform {
       element[findValueInObject] :
       element[findValueInObject[0]][findValueInObject[1]];
 
-    return value ? value : '-';
+    return value ? value : 0;
   }
 }

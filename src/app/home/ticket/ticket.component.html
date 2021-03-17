@@ -34,7 +34,7 @@
         </td>
       </tr>
     </table>
-  </div> 
+  </div>
 
   <div style="height:20%;">
     <table cellspacing="0" cellpadding="1" border="1">
@@ -44,15 +44,15 @@
           <h3>Iva?: {{cartTotal*0.21 | currency: '$'}}</h3>
         </td>
         <td>
-          <h3 class="total">Total: {{cartTotal | currency: '$'}}</h3>
+          <h3 class="total">Total: {{ (descuento == 0 ? cartTotal : cartTotal - cartTotal * (descuento / 100)) | currency: '$'}}</h3>
         </td>
       </tr>
       <tr style="background-color: white; height:2px;">
         <td></td>
         <td>
-          <h3>Descuento:
+          <h3>Descuento: %
             <mat-form-field style="width: 25%;">
-              <input matInput [(ngModel)]="descuento" name="descuentoName" (change)="calcularDescuento()"
+              <input matInput [(ngModel)]="descuento" name="descuentoName"
                 #descuentoName="ngModel" type="number">
             </mat-form-field>
           </h3>
@@ -60,17 +60,39 @@
         <td>
           <h3>PagaCon: $
             <mat-form-field style="width: 25%;">
-              <input matInput [(ngModel)]="pagaCon" name="pagaConName"
-                #pagaConName="ngModel" type="number">
+              <input matInput [(ngModel)]="pagaCon" name="pagaConName" #pagaConName="ngModel" type="number">
             </mat-form-field>
           </h3>
         </td>
       </tr>
-      <tr >
-        <td></td>
-        <td></td>
+      <tr>
         <td>
-          <h3>Vuelto: {{ this.pagaCon == 0 ? 0 : this.pagaCon - this.cartTotal   | currency: '$'}}</h3>
+         
+        </td>
+        <td>
+          <h3>Tipo Venta: 
+            <mat-select style="width: 65%;" [(value)]="tipoTransaccion" (selectionChange)="actualizarTipoTransaccion($event)">
+              <mat-option value="TRANSFERENCIA">TRANSFERENCIA</mat-option>
+              <mat-option value="EFECTIVO">EFECTIVO</mat-option>
+              <mat-option value="1 CUOTA">1 CUOTA</mat-option>
+              <mat-option value="3 CUOTAS">3 CUOTAS</mat-option>
+              <mat-option value="MERCADO PAGO">MERCADO PAGO</mat-option>
+              <mat-option value="CUENTA CORRIENTE">CUENTA CORRIENTE</mat-option>
+            </mat-select>
+          <!-- <ng-select [items]="clientes" bindLabel="nombre" bindValue="id"
+            [(ngModel)]="clienteId">
+            <ng-template ng-option-tmp let-item="item" let-search="searchTerm">
+              <div><span [ngOptionHighlight]="search">{{item.nombre}}</span></div>
+              <small><strong>Cuit:</strong> {{(item.cuit || item.cuil) | cuilPipe}} | <strong>Razon Social:</strong>
+                {{item.razonSocial}}</small>
+            </ng-template>
+          </ng-select> -->
+        </h3>
+         
+        
+        </td>
+        <td>
+          <h3>Vuelto: {{ this.pagaCon == 0 ? 0 : this.pagaCon - this.cartTotal | currency: '$'}}</h3>
         </td>
       </tr>
     </table>

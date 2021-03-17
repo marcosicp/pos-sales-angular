@@ -18,15 +18,7 @@
         <span>{{totals.cantidad}}</span>
       </td>
     </ng-container>
-    <!-- <ng-container matColumnDef="peso">
-      <th mat-header-cell *matHeaderCellDef>Peso unitario</th>
-      <td mat-cell *matCellDef="let element">
-        <span>{{element.peso | number:'1.2' | weightPipe}}</span>
-      </td>
-      <td mat-footer-cell *matFooterCellDef>
-        <span>-</span>
-      </td>
-    </ng-container> -->
+   
     <ng-container matColumnDef="precioVenta">
       <th mat-header-cell *matHeaderCellDef>Precio unitario</th>
       <td mat-cell *matCellDef="let element">
@@ -36,40 +28,14 @@
         <span>-</span>
       </td>
     </ng-container>
-    <!-- <ng-container matColumnDef="pesoTotal">
-      <th mat-header-cell *matHeaderCellDef>Peso total</th>
-      <td mat-cell *matCellDef="let element">
-        <span>{{element.pesoTotal | number:'1.2' | weightPipe}}</span>
-      </td>
-      <td mat-footer-cell *matFooterCellDef>
-        <span>{{totals.pesoTotal | number:'1.2' | weightPipe}}</span>
-      </td>
-    </ng-container> -->
-    <!-- <ng-container matColumnDef="montoNeto">
-      <th mat-header-cell *matHeaderCellDef>Monto neto</th>
-      <td mat-cell *matCellDef="let element">
-        <span>{{element.montoNeto | currency: '$'}}</span>
-      </td>
-      <td mat-footer-cell *matFooterCellDef>
-        <span>{{totals.montoNeto | currency: '$'}}</span>
-      </td>
-    </ng-container> -->
-    <!-- <ng-container matColumnDef="iva">
-      <th mat-header-cell *matHeaderCellDef>Iva</th>
-      <td mat-cell *matCellDef="let element">
-        <span>{{element.iva | currency: '$'}}</span>
-      </td>
-      <td mat-footer-cell *matFooterCellDef>
-        <span>{{totals.iva | currency: '$'}}</span>
-      </td>
-    </ng-container> -->
+    
     <ng-container matColumnDef="montoFinal">
       <th mat-header-cell *matHeaderCellDef>Monto final</th>
       <td mat-cell *matCellDef="let element">
         <span>{{element.montoFinal}}</span>
       </td>
       <td mat-footer-cell *matFooterCellDef>
-        <span>{{totals.montoFinal}}</span>
+        <span style="padding-left: 65%">{{totals.montoFinal}}</span>
       </td>
     </ng-container>
     <tr mat-header-row *matHeaderRowDef="displayedColumns; sticky: true;"></tr>

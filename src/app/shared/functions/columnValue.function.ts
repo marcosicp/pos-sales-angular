@@ -9,5 +9,5 @@ export default (element: any, columns: any, cellValue: any) => {
     element[findValueInObject] :
     element[findValueInObject[0]][findValueInObject[1]];
 
-  return value || '-';
+  return value || 0;
 };

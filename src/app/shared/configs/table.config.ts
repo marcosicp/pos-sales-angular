@@ -16,12 +16,12 @@ const TABLA_STOCK = {
     precioVenta: 'Precio de venta',
     precioCompra: 'Precio de compra',
     cantidad: 'Unidades disponibles',
-    ganancia: 'Ganancia',
+    // ganancia: 'Ganancia',
     // peso: 'Peso en Kg',
     opciones: 'Opciones'
   },
   cells: {
-    codigo: 'codigoProv',
+    codigo: 'codigo',
     categoria: 'categoria',
     nombre: 'nombre',
     proveedor: 'proveedorNombre',
@@ -29,7 +29,7 @@ const TABLA_STOCK = {
     precioCompra: 'precioCompra',
     cantidad: 'cantidad',
     // peso: 'peso',
-    ganancia: 'ganancia',
+    // ganancia: 'ganancia',
     opciones: null
   },
   format: {
@@ -40,7 +40,7 @@ const TABLA_STOCK = {
     precioVenta: 'currency',
     precioCompra: 'currency',
     cantidad: null,
-    ganancia: null,
+    // ganancia: null,
     // peso: 'weight',
     opciones: null
   }
@@ -101,7 +101,7 @@ const TABLA_CLIENTES = {
     nombre: null,
     razonSocial: null,
     cuil: 'cuil',
-    telefono: 'phone',
+    telefono: null,
     email: null,
     direccion: null,
     opciones: null
@@ -132,7 +132,7 @@ const TABLA_PROVEEDORES = {
     nombre: null,
     razonSocial: null,
     cuil: 'cuil',
-    telefono: 'phone',
+    telefono: null,
     email: null,
     direccion: null,
     opciones: null
@@ -145,6 +145,7 @@ const TABLA_VENTAS = {
     creado: 'Fecha de venta',
     // cliente: 'Cliente',
     responsable: 'Responsable',
+    tipoTransaccion: 'Tipo Venta',
     pagoCon: 'Pago Con',
     descuento: 'Descuento',
     total: 'Monto total',
@@ -154,6 +155,7 @@ const TABLA_VENTAS = {
     creado: 'creado',
     // cliente: 'cliente.razonSocial',
     responsable: 'usuario',
+    tipoTransaccion: 'tipoTransaccion',
     pagoCon: 'pagoCon',
     descuento: 'descuento',
     total: 'total',
@@ -163,8 +165,9 @@ const TABLA_VENTAS = {
     creado: 'date',
     // cliente: null,
     responsable: null,
+    tipoTransaccion: null,
     pagoCon: 'currency',
-    descuento: null,
+    descuento: 'percent',
     estado: null,
     agendado: 'boolean',
     total: 'currency',

@@ -17,9 +17,9 @@
         <!-- EL BOTON DE AGREGAR TIENE SETEADO UN NOMBRE E ICONOS POR DEFECTO EN CASO DE NO SER AGREGADO -->
         <button
           mat-flat-button
-          color="primary"
           [disabled]="false"
           (click)="addButton.buttonEvent()"
+          style="background-color: #fbc033"
         >
           <mat-icon>add</mat-icon>
           {{ addButton.label || "Registrar"}}
@@ -29,7 +29,7 @@
         <ng-container *ngFor="let b of otherButtons">
           <button
             mat-flat-button
-            color="primary"
+            style="background-color: #fbc033"
             (click)="b.buttonEvent()"
           >
             <mat-icon>{{b.icon || 'add'}}</mat-icon>
@@ -92,6 +92,16 @@
                     columnValue: columnCells: column |
                     number:'1.2'
                   }}
+                </span>
+                <span
+                  *ngSwitchCase="'percent'"
+                  [matTooltip]="initTooltip(element, columnCells, column)"
+                >
+                  {{
+                    element |
+                    columnValue: columnCells: column 
+                    
+                  }} %
                 </span>
                 <span
                   *ngSwitchCase="'date'"
