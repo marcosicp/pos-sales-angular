@@ -4,7 +4,7 @@
     <input matInput type="text" placeholder="Nombre del producto *" [(ngModel)]="producto.producto">
   </mat-form-field>
   <mat-form-field class="full-width">
-    <input matInput type="text" placeholder="Código *" [(ngModel)]="producto.codigoProv">
+    <input matInput type="text" placeholder="Código *" [(ngModel)]="producto.codigo">
   </mat-form-field>
   <mat-form-field class="full-width">
     <input matInput type="number" placeholder="Stock *" [(ngModel)]="producto.cantidad">
@@ -22,7 +22,7 @@
   </mat-form-field>
 </div>
 <div mat-dialog-actions>
-  <button mat-button (click)="onSaveUpdate()" [disabled]="!producto.producto || !producto.codigoProv || !producto.cantidad || !producto.marca || !producto.precioVenta || !producto.precioCompra">
+  <button mat-button (click)="onSaveUpdate()" [disabled]="!producto.producto || !producto.codigo || !producto.cantidad || !producto.marca || !producto.precioVenta || !producto.precioCompra">
     {{producto.producto ? 'Actualizar' : 'Guardar'}}
   </button>
   <button mat-button (click)="onNoClick()">Cancelar</button>
