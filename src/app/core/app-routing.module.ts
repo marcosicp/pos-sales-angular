@@ -80,11 +80,13 @@ const appRoutes: Routes = [
     path: 'movimientos',
     component: ListaMovimientosComponent,
     canActivate: [AuthGuard],
-  }, {
-    path: 'pedidos',
-    component: HistorialComponent ,
-    canActivate: [AuthGuard]
-  }, {
+  },
+  //  {
+  //   path: 'pedidos',
+  //   component: HistorialComponent ,
+  //   canActivate: [AuthGuard]
+  // },
+   {
     path: 'users',
     component: UsersComponent,
     canActivate: [AuthGuard],

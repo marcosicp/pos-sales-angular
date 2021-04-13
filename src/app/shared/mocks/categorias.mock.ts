@@ -1,13 +1,21 @@
-export default [{
-    nombre: 'CONGELADOS',
-    
-  }, {
-    nombre: 'LACTEOS',
-    
-  }, {
-    nombre: 'GRANOS',
-    
-  }, {
-    nombre: 'KIOSKO',
-    
-  }, ];
+export default [
+  {
+    nombre: "PRODUCTO TERMINADO",
+  },
+  {
+    nombre: "PRODUCTO ELABORADO",
+  },
+  {
+    nombre: "CONGELADOS",
+  },
+  {
+    nombre: "LACTEOS",
+  },
+  
+  {
+    nombre: "GRANOS",
+  },
+  {
+    nombre: "KIOSKO",
+  },
+];

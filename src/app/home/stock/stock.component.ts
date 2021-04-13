@@ -47,18 +47,18 @@ export class StockComponent implements OnInit {
   searchButton = {
     placeHolder: this.headerTitles.map(item => this.tableHeaders[item].toLowerCase()).join(', ')
   };
-  otherButtons = [
-    {
-      icon: 'shopping_cart',
-      label: 'Registrar compra',
-      buttonEvent: () => this.registrarCompra()
-    },
-    // {
-    //   icon: 'label',
-    //   label: 'Modificar ganancia',
-    //   buttonEvent: () => this.editarGanancias()
-    // }
-  ];
+  // otherButtons = [
+  //   {
+  //     icon: 'shopping_cart',
+  //     label: 'Registrar compra',
+  //     buttonEvent: () => this.registrarCompra()
+  //   },
+  //   // {
+  //   //   icon: 'label',
+  //   //   label: 'Modificar ganancia',
+  //   //   buttonEvent: () => this.editarGanancias()
+  //   // }
+  // ];
   proveedores: string[];
   categorias: any[];
 
@@ -329,10 +329,6 @@ export class StockComponent implements OnInit {
         }
       }
     );
-  }
-
-  registrarCompra() {
-    this.router.navigate(['registrar-compra']);
   }
 
   // actualizarPrecios = (data: Productos[]) => {

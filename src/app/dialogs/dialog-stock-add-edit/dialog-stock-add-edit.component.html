@@ -28,6 +28,7 @@
     <input matInput type="number" formControlName="precioCompra">
     <mat-error>{{errorString('precio de compra')}}</mat-error>
   </mat-form-field>
+
   <mat-form-field class="full-width">
     <label>Precio de venta</label>
     <span class="required">*</span>
@@ -39,6 +40,19 @@
     <input matInput type="number" readonly [value]="calcularGanancia(producto)">
     <mat-error>{{errorString('precio de venta')}}</mat-error>
   </mat-form-field> -->
+
+  <!-- <mat-form-field class="full-width">
+    <label>Fecha Vencimiento</label>
+    <input type="datetime" matInput formControlName="fechaVencimiento" />
+  </mat-form-field> -->
+
+  <mat-form-field appearance="fill">
+    <mat-label>Fecha Vencimiento</mat-label>
+    <input matInput [matDatepicker]="picker" formControlName="fechaVencimiento" >
+    <mat-datepicker-toggle matSuffix [for]="picker" ></mat-datepicker-toggle>
+    <mat-datepicker #picker></mat-datepicker>
+  </mat-form-field>
+
   <mat-form-field class="full-width" *ngIf="!data.producto">
     <label>Stock inicial</label>
     <span class="required">*</span>

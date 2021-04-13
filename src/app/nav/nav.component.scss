@@ -1,5 +1,9 @@
 @import '../app.component.scss';
 
+*:focus {
+  outline: none;
+}
+
 .navbar {
   min-height: 3rem;
   background-color: $main-color;

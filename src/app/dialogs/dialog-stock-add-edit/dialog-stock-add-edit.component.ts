@@ -54,6 +54,7 @@ export class DialogStockAddEditComponent implements OnInit {
         nombre: new FormControl(this.producto.nombre, [Validators.required, Validators.pattern(RegExpHelper.lettersSpace)]),
         precioCompra: new FormControl(this.producto.precioCompra, [Validators.required, Validators.pattern(RegExpHelper.numberDecimals)]),
         precioVenta: new FormControl(this.producto.precioVenta, [Validators.required, Validators.pattern(RegExpHelper.numberDecimals)]),
+        fechaVencimiento: new FormControl(this.producto.fechaVencimiento),
         cantidad: new FormControl(this.producto.cantidad, [Validators.required, Validators.pattern(RegExpHelper.numberDecimals)]),
         // peso: new FormControl(this.producto.peso, [Validators.required, Validators.pattern(RegExpHelper.numberDecimals)]),
         proveedorNombre: new FormControl(this.producto.proveedorNombre, [Validators.required]),
@@ -68,6 +69,7 @@ export class DialogStockAddEditComponent implements OnInit {
   // }
 
   guardar() {
+    
     Object.keys(this.productForm.value).forEach(
       prop => this.producto[prop] = this.productForm.value[prop]
     );

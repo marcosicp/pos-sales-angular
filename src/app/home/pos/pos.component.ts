@@ -114,6 +114,7 @@ export class PosComponent implements OnInit, AfterViewInit {
     } else {
       var prodTicket = Object.assign({}, item);
       prodTicket.cantidad = 1;
+      prodTicket.descuento = 0;
       this.ticket.push(prodTicket);
     }
     this.calculateTotal();

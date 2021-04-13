@@ -42,7 +42,7 @@ export class TicketComponent implements OnInit {
   productosPedido: ProductoPedido[] = [];
   total = 0;
   descuento = 0;
-  tipoTransaccion: string = "TRANSFERENCIA";
+  tipoTransaccion: string = "EFECTIVO";
   // pesoTotal = 0;
   clienteId: string = null;
   usuario: Usuarios;
@@ -104,7 +104,6 @@ export class TicketComponent implements OnInit {
     }
     this.syncTicket();
     this.calcularTotal(null, null);
-    // this.calculatePeso();
   }
 
   calcularVuelto() {
@@ -199,6 +198,33 @@ export class TicketComponent implements OnInit {
     }
   }
 
+  calcularDesc(desc: number, id: any) {
+    let total = 0;
+
+    if (desc != null && desc != 0) {
+      // Multiply item price by item quantity, add to total
+      this.ticket.forEach(function (item: Productos) {
+        if (id === item.id) {
+          total += (item.precioVenta * item.cantidad) - desc ;
+        } else {
+          total += item.precioVenta * item.cantidad;
+        }
+      });
+      this.cartTotal = total;
+      this.cartTotalOriginal = total;
+
+      // Sync total with ticketSync service.
+      this.ticketSync.updateTotal(this.cartTotal);
+    } else {
+      // Multiply item price by item quantity, add to total
+      this.ticket.forEach(function (item: Productos) {
+        total += item.precioVenta * item.cantidad;
+      });
+      this.cartTotal = total;
+      this.ticketSync.updateTotal(this.cartTotal);
+    }
+  }
+
   // Remove all items from cart
   clearCart() {
     // Reduce back to initial quantity (1 vs 0 for re-add)
@@ -212,6 +238,7 @@ export class TicketComponent implements OnInit {
   }
 
   syncTicket() {
+    
     this.ticketSync.changeTicket(this.ticket);
   }
 

@@ -138,13 +138,14 @@ export class RegistroCompraComponent implements OnInit {
       nuevaCompra.productosPedidos = this.detalleCompra;
       nuevaCompra.total = this.totalAmount();
       nuevaCompra.usuario = this.usuario.usuario.toString();
-      // nuevaCompra.pesoTotal = this.totalWeight();
       nuevaCompra.proveedorId = this.proveedor.toString();
       nuevaCompra.fechaPedido = fechaArg();
 
       this.loadingService.toggleLoading();
+      
       this.dataService.createAsync(URL_STOCK.ADD_COMPRA, nuevaCompra, []).subscribe(
         () => {
+          
           this.loadingService.toggleLoading();
 
           const dialogResult = this.dialog.open(

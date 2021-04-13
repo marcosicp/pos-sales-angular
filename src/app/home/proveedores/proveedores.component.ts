@@ -45,6 +45,18 @@ export class ProveedoresComponent implements OnInit {
   searchButton = {
     placeHolder: this.headerTitles.map(item => this.tableHeaders[item].toLowerCase()).join(', ')
   };
+  otherButtons = [
+    {
+      icon: 'shopping_cart',
+      label: 'Registrar compra',
+      buttonEvent: () => this.registrarCompra()
+    },
+    // {
+    //   icon: 'label',
+    //   label: 'Modificar ganancia',
+    //   buttonEvent: () => this.editarGanancias()
+    // }
+  ];
 
   constructor(
     private router: Router,
@@ -90,6 +102,9 @@ export class ProveedoresComponent implements OnInit {
     );
   }
 
+  registrarCompra() {
+    this.router.navigate(['registrar-compra']);
+  }
   /*
       PRIMERO SE CREA UN DIALOGO PARA CREAR UN NUEVO REGISTRO. UNA VEZ
     TERMINADO DICHO REGISTRO, SE FIJA QUE HAYA INGRESADO UN REGISTRO COMPLETO
