@@ -42,7 +42,7 @@ export class TicketComponent implements OnInit {
   productosPedido: ProductoPedido[] = [];
   total = 0;
   descuento = 0;
-  tipoTransaccion: string = "EFECTIVO";
+  tipoTransaccion: string = "DEBITO";
   // pesoTotal = 0;
   clienteId: string = null;
   usuario: Usuarios;
@@ -259,6 +259,9 @@ export class TicketComponent implements OnInit {
       case "EFECTIVO":
        this.cartTotal = total - (total * 0.05);
       break;
+      case "DEBITO":
+       this.cartTotal = total + (total * 0.05);
+      break;
       case "1 CUOTA":
         this.cartTotal = total + (total * 0.10);
       break;
@@ -269,10 +272,10 @@ export class TicketComponent implements OnInit {
         this.cartTotal = total + (total * 0.08);
       break;
       case "CUENTA CORRIENTE":
-        this.cartTotal = total;
+        this.cartTotal = total + (total * 0.05);
       break;
       case "TRANSFERENCIA":
-        this.cartTotal = total;
+        this.cartTotal = total + (total * 0.05);
         break;
     }
     this.cartTotal
