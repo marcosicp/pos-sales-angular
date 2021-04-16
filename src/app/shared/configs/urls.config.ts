@@ -3,7 +3,7 @@
 // TAMBIEN SE PUEDE LLAMAR CADA API POR SEPARADO
 import BaseConfig from './base.config';
 
-const isProd = false;
+const isProd = true;
 const URL_BASE = isProd ?
   BaseConfig.URL_PROD : BaseConfig.URL_LOCAL;
 
