@@ -1,3 +1,4 @@
+import { ConfiguracionComponent } from './home/configuracion/configuracion.component';
 // IMPORTAR MODULOS DE ANGULAR
 import { BrowserModule } from '@angular/platform-browser';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
@@ -31,7 +32,7 @@ import { PageNotFoundComponent } from './page-not-found/page-not-found.component
 import { NavComponent } from './nav/nav.component';
 import { LoadingScreenComponent } from './shared/components/loading-screen/loading-screen.component';
 // import { ConfirmacionComponent } from './home/confirmacion/confirmacion.component';
-import { VentasComponent } from './ventas/ventas.component';
+import { VentasComponent } from './home/ventas/ventas.component';
 // import { PactarEntregaComponent } from './pactar-entrega/pactar-entrega.component';
 import { AcopiosComponent } from './acopios/acopios.component';
 import { CalendarModule, DateAdapter } from 'angular-calendar';
@@ -48,9 +49,8 @@ registerLocaleData(localeAr, 'es-AR');
     NavComponent,
     LoadingScreenComponent,
     PageNotFoundComponent,
-    // ConfirmacionComponent,
     VentasComponent,
-    // PactarEntregaComponent,
+    ConfiguracionComponent,
     AcopiosComponent,
     SoporteComponent
   ],

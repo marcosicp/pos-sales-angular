@@ -98,10 +98,10 @@ export class RegistroCompraComponent implements OnInit {
       );
 
       dialogRef.afterClosed().subscribe(
-        result => result.confirm && this.router.navigate(['stock'])
+        result => result.confirm && this.router.navigate(['proveedores'])
       );
     } else {
-      this.router.navigate(['stock']);
+      this.router.navigate(['proveedores']);
     }
   }
 
@@ -154,7 +154,7 @@ export class RegistroCompraComponent implements OnInit {
           );
 
           dialogResult.afterClosed().subscribe(
-            () => this.router.navigate(['stock']) // que traiga un booleano bien bonito
+            () => this.router.navigate(['proveedores']) // que traiga un booleano bien bonito
           );
         },
         error => {

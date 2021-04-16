@@ -45,7 +45,32 @@
       <tr>
         <td></td>
         <td>
-          <h3>Iva?: {{cartTotal*0.21 | currency: '$'}}</h3>
+          <!-- <h3>Iva?: {{cartTotal*0.21 | currency: '$'}}</h3> -->
+          <h3>Tipo Venta: 
+            <mat-select [(value)]="tipoTransaccion"  style="width: 50%;text-align: center"
+            (selectionChange)="actualizarTipoTransaccion()">
+              <mat-option
+              style="text-align: center"
+              value="TRANSFERENCIA">TRANSFERENCIA</mat-option>
+              <mat-option 
+              style="text-align: center"
+              value="EFECTIVO">EFECTIVO</mat-option>
+              <mat-option 
+              style="text-align: center"
+              value="DEBITO">DEBITO</mat-option>
+              <mat-option 
+              style="text-align: center"
+              value="1 CUOTA">1 CUOTA</mat-option>
+              <mat-option 
+              style="text-align: center"
+              value="3 CUOTAS">3 CUOTAS</mat-option>
+              <mat-option 
+              style="text-align: center"
+              value="MERCADO PAGO">MERCADO PAGO</mat-option>
+              <mat-option style="text-align: center"
+              value="CUENTA CORRIENTE">CUENTA CORRIENTE</mat-option>
+            </mat-select>
+        </h3>
         </td>
         <td>
           <h3 class="total">Total: {{ (descuento == 0 ? cartTotal : cartTotal - cartTotal * (descuento / 100)) | currency: '$'}}</h3>
@@ -54,17 +79,21 @@
       <tr style="background-color: white; height:2px;">
         <td></td>
         <td>
-          <h3>Descuento: %
+          <h3>Descuento: 
             <mat-form-field style="width: 25%;">
               <input matInput [(ngModel)]="descuento" name="descuentoName"
-                #descuentoName="ngModel" type="number">
+              style="text-align: center"
+                #descuentoName="ngModel" type="number"><span matSuffix>%</span>
             </mat-form-field>
           </h3>
         </td>
         <td>
-          <h3>PagaCon: $
+          <h3>PagaCon:
+            <span matPrefix>$</span>
             <mat-form-field style="width: 25%;">
-              <input matInput [(ngModel)]="pagaCon" name="pagaConName" #pagaConName="ngModel" type="number">
+              <input matInput [(ngModel)]="pagaCon" 
+              style="text-align: center"
+              name="pagaConName" #pagaConName="ngModel" type="number">
             </mat-form-field>
           </h3>
         </td>
@@ -74,25 +103,7 @@
          
         </td>
         <td>
-          <h3>Tipo Venta: 
-            <mat-select style="width: 65%;" [(value)]="tipoTransaccion" (selectionChange)="actualizarTipoTransaccion()">
-              <mat-option value="TRANSFERENCIA">TRANSFERENCIA</mat-option>
-              <mat-option value="EFECTIVO">EFECTIVO</mat-option>
-              <mat-option value="DEBITO">DEBITO</mat-option>
-              <mat-option value="1 CUOTA">1 CUOTA</mat-option>
-              <mat-option value="3 CUOTAS">3 CUOTAS</mat-option>
-              <mat-option value="MERCADO PAGO">MERCADO PAGO</mat-option>
-              <mat-option value="CUENTA CORRIENTE">CUENTA CORRIENTE</mat-option>
-            </mat-select>
-          <!-- <ng-select [items]="clientes" bindLabel="nombre" bindValue="id"
-            [(ngModel)]="clienteId">
-            <ng-template ng-option-tmp let-item="item" let-search="searchTerm">
-              <div><span [ngOptionHighlight]="search">{{item.nombre}}</span></div>
-              <small><strong>Cuit:</strong> {{(item.cuit || item.cuil) | cuilPipe}} | <strong>Razon Social:</strong>
-                {{item.razonSocial}}</small>
-            </ng-template>
-          </ng-select> -->
-        </h3>
+          
          
         
         </td>

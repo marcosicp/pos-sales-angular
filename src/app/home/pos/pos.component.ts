@@ -1,3 +1,4 @@
+import { Venta } from './../../shared/models/venta.model';
 import {
   Component,
   OnInit,
@@ -23,7 +24,6 @@ import { DialogCajaCerradaComponent } from "../../dialogs/dialog-caja-cerrada/di
 import { DialogBuscarProductoComponent } from "../../dialogs/dialog-buscar-producto/dialog-buscar-producto.component";
 import { DialogSinConexionComponent } from "../../dialogs/dialog-sin-conexion/dialog-sin-conexion.component";
 import { DialogOperacionOkComponent } from "../../dialogs/dialog-operacion-ok/dialog-operacion-ok.component";
-import { Pedido } from "../../shared/models/pedido.model";
 import { URL_STOCK } from "../../shared/configs/urls.config";
 import { LoadingService } from "../../shared/services/loading.service";
 // MOCKS
@@ -155,27 +155,21 @@ export class PosComponent implements OnInit, AfterViewInit {
       });
 
       dialogRef.afterClosed().subscribe((result) => {
-        const nuevaPedido = new Pedido();
-        const ventaOk = [Pedido];
+        const nuevaVenta = new Venta();
+        const ventaOk = [Venta];
 
-        // nuevaPedido.usuarioVendio = this.usuario;
-        nuevaPedido.productosPedidos = this.productosPedido;
-        nuevaPedido.fechaPedido = new Date();
-
-        nuevaPedido.fechaPedido.setHours(
-          nuevaPedido.fechaPedido.getHours() - 3
-        );
-        nuevaPedido.total = this.total;
-        nuevaPedido.imprimioTicket = true;
+        nuevaVenta.productosVenta = this.productosPedido;
+        nuevaVenta.total = this.total;
+        nuevaVenta.imprimioTicket = false;
 
         if (result === true) {
-          nuevaPedido.tipoTransaccion = "Efectivo";
+          nuevaVenta.tipoTransaccion = "Efectivo";
           // Guardar venta
         } else {
-          nuevaPedido.tipoTransaccion = "Tarjeta";
+          nuevaVenta.tipoTransaccion = "Tarjeta";
         }
 
-        this.dataService.createAsync("ventas", nuevaPedido, ventaOk).subscribe(
+        this.dataService.createAsync("ventas", nuevaVenta, ventaOk).subscribe(
           (data) => {
             const dialogRef = this.dialog.open(DialogOperacionOkComponent, {
               width: "600px",

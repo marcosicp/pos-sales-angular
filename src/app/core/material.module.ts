@@ -33,7 +33,8 @@ import {
   MatTooltipModule,
   MatTreeModule,
   MatStepperModule,
-  MatPaginatorIntl
+  MatPaginatorIntl,
+  MatBadgeModule
 } from '@angular/material';
 import { CdkTableModule } from '@angular/cdk/table';
 import { A11yModule } from '@angular/cdk/a11y';
@@ -70,6 +71,7 @@ import { paginatorEsp } from './configs/table-paginator';
     MatRippleModule,
     MatSelectModule,
     MatSidenavModule,
+    MatBadgeModule,
     MatSlideToggleModule,
     MatSliderModule,
     MatSnackBarModule,

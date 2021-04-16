@@ -1,3 +1,4 @@
+import { ConfiguracionComponent } from './../home/configuracion/configuracion.component';
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterModule, Routes } from '@angular/router';
@@ -14,10 +15,9 @@ import { ResetPasswordComponent } from '../welcome/reset-password/reset-password
 import { AdministracionComponent  } from '../../app/home/administracion/administracion.component';
 import { UsersComponent  } from '../admin/users/users.component';
 import { StockComponent } from '../home/stock/stock.component';
-import { HistorialComponent } from '../home/historial/historial.component';
 import { ClientesComponent } from '../home/clientes/clientes.component';
 import { ProveedoresComponent } from '../home/proveedores/proveedores.component';
-import { VentasComponent } from '../ventas/ventas.component';
+import { VentasComponent } from '../home/ventas/ventas.component';
 // import { PactarEntregaComponent } from '../pactar-entrega/pactar-entrega.component';
 import { ListaMovimientosComponent } from '../home/lista-movimientos/lista-movimientos.component';
 import { ReportesComponent } from '../home/reportes/reportes.component';
@@ -49,11 +49,11 @@ const appRoutes: Routes = [
     component: CajaComponent,
     canActivate: [AuthGuard]
   },
-  // {
-  //   path: 'agenda',
-  //   component: PactarEntregaComponent ,
-  //   canActivate: [AuthGuard]
-  // }, 
+  {
+    path: 'configuracion',
+    component: ConfiguracionComponent ,
+    canActivate: [AuthGuard]
+  }, 
   {
     path: 'clientes',
     component: ClientesComponent ,

@@ -1,0 +1,58 @@
+
+<mat-toolbar style="text-align: center;display: inline-block;padding-top: 1%;">
+  <label style="margin-left: 2%;">
+    <span>VENTAS DEL DIA --> </span>
+  </label>
+  <label>
+    <span>TOTAL: ${{totalVentasHoy}} </span>
+  </label>
+  <label style="margin-left: 2%;">
+    <span>MERCADO PAGO: ${{totalVentasMercadoPagoHoy}}</span>
+  </label>
+  <label style="margin-left: 2%;">
+    <span>TRANSFERENCIAS: $ {{totalVentasTransferenciaHoy}} </span>
+  </label>
+   <label style="margin-left: 2%;">
+    <span>1 CUOTA: ${{totalVentasUnaCuotaHoy}}</span>
+  </label>
+  <label style="margin-left: 2%;">
+    <span>EFECTIVO: ${{totalVentasEfectivoHoy}}</span>
+  </label>
+  <label style="margin-left: 2%;">
+    <span >CUENTA CORRIENTE: ${{totalVentasCuentaCorrienteHoy}}</span>
+  </label>
+</mat-toolbar>
+
+<mat-toolbar style="text-align: center;display: inline-block;padding-top: 1%;">
+  <label style="margin-left: 2%;">
+    <span>VENTAS DEL MES --> </span>
+  </label>
+  <label style="margin-left: 2%;">
+    <span>TOTAL: ${{totalVentasMes}}</span>
+  </label>
+  <label style="margin-left: 2%;">
+    <span>MERCADO PAGO: ${{totalVentasMercadoPagoMes}}</span>
+  </label>
+  <label style="margin-left: 2%;">
+    <span>TRANSFERENCIAS: $ {{totalVentasTransferenciaMes}} </span>
+  </label>
+   <label style="margin-left: 2%;">
+    <span>1 CUOTA: ${{totalVentasUnaCuotaMes}}</span>
+  </label>
+  <label style="margin-left: 2%;">
+    <span>EFECTIVO: ${{totalVentasEfectivoMes}}</span>
+  </label>
+  <label style="margin-left: 2%;">
+    <span >CUENTA CORRIENTE: ${{totalVentasCuentaCorrienteMes}}</span>
+  </label>
+</mat-toolbar>
+
+<dynamic-table
+  [tableTitle]="tableTitle"
+  [dataSource]="dataSource"
+  [headerTitles]="headerTitles"
+  [tableHeaders]="tableHeaders"
+  [columnCells]="columnCells"
+  [formatTableCells]="formatTableCells"
+  [isLoading]="isLoading">
+</dynamic-table>

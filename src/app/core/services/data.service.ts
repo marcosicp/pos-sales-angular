@@ -36,6 +36,20 @@ export class DataService {
       );
   })
 
+  getOneAsync = (uri: string, data: any) => Observable.create(observer => {
+    this.http.get(`${URL_BASE}/${uri}`)
+      .subscribe(
+        data => {
+          observer.next(data);
+          observer.complete();
+        },
+        error => {
+          observer.next(false);
+          observer.complete();
+        }
+      );
+  })
+
   createAsync = (uri: string, object: any, dataCollection: any[]) => Observable.create(observer => {
     this.http.post(`${URL_BASE}/${uri}`, object)
       .subscribe(result => {

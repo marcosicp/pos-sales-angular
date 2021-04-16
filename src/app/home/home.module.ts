@@ -15,7 +15,6 @@ import { PosComponent } from './pos/pos.component';
 import { TicketComponent } from './ticket/ticket.component';
 import { HomeComponent } from './home/home.component';
 import { LineItemModalComponent } from './history/line-item-modal/line-item-modal.component';
-import { TransactionsComponent } from './transactions/transactions.component';
 import { ReportsComponent } from './reports/reports.component';
 import { LineChartComponent } from './reports/line-chart/line-chart.component';
 import { AdministracionComponent } from './administracion/administracion.component';
@@ -45,7 +44,6 @@ import { CajaComponent } from './caja/caja.component';
     PosComponent,
     HistorialComponent,
     HistoryComponent,
-    TransactionsComponent,
     ReportsComponent,
     LineChartComponent,
     AdministracionComponent,

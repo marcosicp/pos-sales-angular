@@ -1,0 +1,77 @@
+<div class="card-container mat-elevation">
+  <mat-card class="add-margin" style="text-align: center;">
+    <mat-card-title>Configuración</mat-card-title>
+    <mat-card-content>
+      <form fxLayout="column" [formGroup]="configForm">
+        <div>
+          <mat-grid-list cols="4" rowHeight="3:1">
+            <mat-grid-tile>
+              <h3>Efectivo: </h3>
+              <mat-form-field class="full-width">
+                <input matInput type="number"
+                placeholder="Descuento"
+                [(ngModel)]="configuracion.efectivo" formControlName="efectivo">
+              </mat-form-field><span matSuffix>%</span>
+            </mat-grid-tile>
+            <mat-grid-tile>
+              <h3>1 Cuota: </h3>
+              <mat-form-field class="full-width">
+                <input matInput [(ngModel)]="configuracion.unaCuota" type="number" formControlName="unaCuota">
+              </mat-form-field><span matSuffix>%</span>
+            </mat-grid-tile>
+            <mat-grid-tile>
+              <h3>3 Cuota: </h3>
+              <mat-form-field class="full-width">
+                <input matInput [(ngModel)]="configuracion.tresCuotas" type="number" formControlName="tresCuotas">
+              </mat-form-field><span matSuffix>%</span>
+            </mat-grid-tile>
+
+            <mat-grid-tile>
+              <h3>Transferencia: </h3>
+              <mat-form-field class="full-width">
+                <input matInput [(ngModel)]="configuracion.transferencia" type="number" formControlName="transferencia">
+              </mat-form-field><span matSuffix>%</span>
+            </mat-grid-tile>
+
+            <mat-grid-tile>
+              <h3>Debito: </h3>
+              <mat-form-field class="full-width">
+                <input matInput [(ngModel)]="configuracion.debito" type="number" formControlName="debito">
+              </mat-form-field><span matSuffix>%</span>
+            </mat-grid-tile>
+
+            <mat-grid-tile>
+              <h3>MercadoPago: </h3>
+              <mat-form-field class="full-width">
+                <input matInput [(ngModel)]="configuracion.mercadoPago" type="number" formControlName="mercadoPago">
+              </mat-form-field><span matSuffix>%</span>
+            </mat-grid-tile>
+
+            <mat-grid-tile>
+              <h3>Cuenta Corriente: </h3>
+              <mat-form-field class="full-width">
+                <input matInput [(ngModel)]="configuracion.cuentaCorriente" type="number"
+                  formControlName="cuentaCorriente">
+              </mat-form-field><span matSuffix>%</span>
+            </mat-grid-tile>
+          </mat-grid-list>
+        </div>
+      </form>
+    </mat-card-content>
+
+    <mat-card-actions style="align-items: center;" class="summary flex flex-direction-column">
+      <div class="flex flex-direction-row buttons" >
+        <button mat-raised-button color="primary" (click)="guardar(configuracion)">
+          <mat-icon>account_balance_wallet</mat-icon>
+          GUARDAR
+        </button>
+
+        <button mat-raised-button color="warn" routerLink="/welcome/">
+          <mat-icon>close</mat-icon>
+          VOLVER
+        </button>
+        
+      </div>
+    </mat-card-actions>
+  </mat-card>
+</div>

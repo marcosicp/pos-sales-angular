@@ -5,7 +5,6 @@ import { MatDialog, MatSelectChange } from "@angular/material";
 // MODELOS
 import { Productos } from "../../shared/models/producto.model";
 import { Usuarios } from "../../shared/models/usuarios.model";
-import { Pedido } from "../../shared/models/pedido.model";
 import { Clientes } from "../../shared/models/clientes.model";
 import { Venta } from "../../shared/models/venta.model";
 // SERVICIOS
@@ -13,13 +12,14 @@ import { PosService } from "../../core/services/pos.service";
 import { DataService } from "../../core/services/data.service";
 import { ProductoPedido } from "../../shared/models/producto-venta.model";
 // URLS
-import { URL_CLIENTES } from "../../shared/configs/urls.config";
+import { URL_CLIENTES, URL_CONFIGURACION } from "../../shared/configs/urls.config";
 // DIALOGOS
 import { DialogCajaCerradaComponent } from "../../dialogs/dialog-caja-cerrada/dialog-caja-cerrada.component";
 import { DialogSinConexionComponent } from "../../dialogs/dialog-sin-conexion/dialog-sin-conexion.component";
 import { DialogOperacionOkComponent } from "../../dialogs/dialog-operacion-ok/dialog-operacion-ok.component";
 import { DialogAdvertenciaComponent } from "../../dialogs/dialog-advertencia/dialog-advertencia.component";
 import { DialogConfirmarComponent } from "../../dialogs/dialog-confirmar/dialog-confirmar.component";
+import { Configuracion } from "../../../app/shared/models/configuracion.model";
 
 @Component({
   selector: "app-ticket",
@@ -29,11 +29,11 @@ import { DialogConfirmarComponent } from "../../dialogs/dialog-confirmar/dialog-
 export class TicketComponent implements OnInit {
   clientes: Clientes[] = [];
   clientesResponse: Clientes[] = [];
+  configuracion: Configuracion = new Configuracion();
   ticket: Productos[] = [];
 
   cartTotal = 0;
   cartTotalOriginal = 0;
-  // cartPeso = 0;
   cartNumItems = 0;
   pagaCon = 0;
   vuelto = 0;
@@ -43,10 +43,9 @@ export class TicketComponent implements OnInit {
   total = 0;
   descuento = 0;
   tipoTransaccion: string = "DEBITO";
-  // pesoTotal = 0;
   clienteId: string = null;
   usuario: Usuarios;
-  nuevoPedido: Pedido;
+  nuevoPedido: Venta;
 
   constructor(
     private router: Router,
@@ -78,15 +77,31 @@ export class TicketComponent implements OnInit {
         }
       );
 
+    this.dataService
+      .getOneAsync(URL_CONFIGURACION.GET_ALL, {})
+      .subscribe(
+        (data) => {
+          this.configuracion = data;
+        },
+        (error) => {
+          const dialogRef = this.dialog.open(DialogSinConexionComponent, {
+            width: "600px",
+            disableClose: true,
+          });
+          dialogRef.afterClosed().subscribe(() => {});
+          console.log(error);
+        }
+      );
     this.ticketSync.currentTicket.subscribe((data) => (this.ticket = data));
-    this.ticketSync.currentTotal.subscribe((total) => (this.cartTotal = total));
-    // this.ticketSync.currentPeso.subscribe(pesoTotal => this.cartPeso = pesoTotal);
+    this.ticketSync.currentTotal.subscribe((total) => {
+      this.cartTotal = total;
+      this.actualizarTipoTransaccion();
+    } );
     this.ticketSync.currentCartNum.subscribe(
       (num) => (this.cartNumItems = num)
     );
 
     this.ticketSync.currentClienteId.subscribe((cli) => (this.clienteId = cli));
-
     this.usuario = JSON.parse(localStorage.getItem("currentUser"));
   }
 
@@ -163,39 +178,36 @@ export class TicketComponent implements OnInit {
       this.ticket.forEach(function (item: Productos) {
         if (id === item.id) {
           total += item.precioVenta * cantidad;
-          // peso += (item.peso * cantidad);
           cartitems += cantidad;
         } else {
           total += item.precioVenta * item.cantidad;
-          // peso += (item.peso * item.cantidad);
           cartitems += item.cantidad;
         }
       });
       this.cartTotal = total;
       this.cartTotalOriginal = total;
-      // this.cartPeso = peso;
       this.cartNumItems = cartitems;
 
       // Sync total with ticketSync service.
       this.ticketSync.updateNumItems(this.cartNumItems);
       this.ticketSync.updateTotal(this.cartTotal);
-      // this.ticketSync.updatePeso(this.cartPeso);
     } else {
       // Multiply item price by item quantity, add to total
       this.ticket.forEach(function (item: Productos) {
         total += item.precioVenta * item.cantidad;
-        // peso += (item.peso * item.cantidad);
         cartitems += item.cantidad;
       });
+      
       this.cartTotal = total;
-      // this.cartPeso = peso;
       this.cartNumItems = cartitems;
 
       // Sync total with ticketSync service.
       this.ticketSync.updateNumItems(this.cartNumItems);
+
       this.ticketSync.updateTotal(this.cartTotal);
-      // this.ticketSync.updatePeso(this.cartPeso);
     }
+
+    this.actualizarTipoTransaccion();
   }
 
   calcularDesc(desc: number, id: any) {
@@ -238,7 +250,6 @@ export class TicketComponent implements OnInit {
   }
 
   syncTicket() {
-    
     this.ticketSync.changeTicket(this.ticket);
   }
 
@@ -257,25 +268,25 @@ export class TicketComponent implements OnInit {
     });
     switch(this.tipoTransaccion){
       case "EFECTIVO":
-       this.cartTotal = total - (total * 0.05);
+      this.cartTotal = total - (total * (this.configuracion.efectivo / 100));
       break;
       case "DEBITO":
-       this.cartTotal = total + (total * 0.05);
+       this.cartTotal = total + (total * (this.configuracion.debito / 100));
       break;
       case "1 CUOTA":
-        this.cartTotal = total + (total * 0.10);
+        this.cartTotal = total + (total * (this.configuracion.unaCuota / 100));
       break;
       case "3 CUOTAS":
-        this.cartTotal = total + (total * 0.15);
+        this.cartTotal = total + (total * (this.configuracion.tresCuotas / 100));
       break;
       case "MERCADO PAGO":
-        this.cartTotal = total + (total * 0.08);
+        this.cartTotal = total + (total * (this.configuracion.mercadoPago / 100));
       break;
       case "CUENTA CORRIENTE":
-        this.cartTotal = total + (total * 0.05);
+        this.cartTotal = total + (total * (this.configuracion.cuentaCorriente / 100));
       break;
       case "TRANSFERENCIA":
-        this.cartTotal = total + (total * 0.05);
+        this.cartTotal = total + (total * (this.configuracion.transferencia / 100));
         break;
     }
     this.cartTotal
@@ -322,24 +333,16 @@ export class TicketComponent implements OnInit {
       });
       dialogRef.afterClosed().subscribe((result) => {
         if (result.confirm) {
-          const ventaOk = [Pedido];
-          this.nuevoPedido = new Pedido();
-          this.nuevoPedido.productosPedidos = this.ticket;
+          const ventaOk = [Venta];
+          this.nuevoPedido = new Venta();
+          this.nuevoPedido.productosVenta = this.ticket;
           this.nuevoPedido.tipoTransaccion = this.tipoTransaccion;
-          this.nuevoPedido.fechaPedido = new Date();
-          this.nuevoPedido.fechaPedido.setHours(
-            this.nuevoPedido.fechaPedido.getHours() - 3
-          );
           this.nuevoPedido.total = this.cartTotal;
           this.nuevoPedido.usuario = this.usuario.usuario.toString();
           this.nuevoPedido.clienteId = this.clienteId;
           this.nuevoPedido.descuento = this.descuento;
           this.nuevoPedido.pagoCon = this.pagaCon;
           this.nuevoPedido.imprimioTicket = true;
-
-          this.nuevoPedido.productosPedidos.forEach((pedido) => {
-            pedido["imagenUrl"] = "";
-          });
 
           const venta = new Venta();
           venta.cliente = this.clientes.find((x) => x.id === this.clienteId);
@@ -383,10 +386,10 @@ export class TicketComponent implements OnInit {
       dialogRef
         .afterClosed()
         .subscribe(
-          (result) => result.confirm && this.router.navigate(["pedidos"])
+          (result) => result.confirm && this.router.navigate(["welcome"])
         );
     } else {
-      this.router.navigate(["pedidos"]);
+      this.router.navigate(["welcome"]);
     }
   };
 

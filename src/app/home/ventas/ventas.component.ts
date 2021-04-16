@@ -1,17 +1,18 @@
 import { Component, OnInit} from '@angular/core';
 import { MatDialog, MatTableDataSource } from '@angular/material';
 import { Router, NavigationExtras } from '@angular/router';
+
 // MODELOS
-import { Venta } from '../shared/models/venta.model';
-import { ProductoPedido } from '../shared/models/producto-venta.model';
+import { Venta } from '../../shared/models/venta.model';
+import { ProductoPedido } from '../../shared/models/producto-venta.model';
 // SERVICIOS
-import { DataService } from '../core/services/data.service';
+import { DataService } from '../../core/services/data.service';
 // DIALOGOS
-import { DialogVerItemsPedidoComponent } from '../dialogs/dialog-ver-items-venta/dialog-ver-items-venta.component';
-import { DialogSinConexionComponent } from '../dialogs/dialog-sin-conexion/dialog-sin-conexion.component';
+import { DialogVerItemsPedidoComponent } from '../../dialogs/dialog-ver-items-venta/dialog-ver-items-venta.component';
+import { DialogSinConexionComponent } from '../../dialogs/dialog-sin-conexion/dialog-sin-conexion.component';
 // CONFIGURACIONES
-import { URL_VENTAS } from '../shared/configs/urls.config';
-import { TABLA_VENTAS } from '../shared/configs/table.config';
+import { URL_MOVIMIENTOS, URL_VENTAS } from '../../shared/configs/urls.config';
+import { TABLA_VENTAS } from '../../shared/configs/table.config';
 
 @Component({
   selector: 'app-ventas',
@@ -19,6 +20,23 @@ import { TABLA_VENTAS } from '../shared/configs/table.config';
   styleUrls: ['./ventas.component.scss']
 })
 export class VentasComponent implements OnInit {
+  totalVentasMes: number = 0;
+  totalVentasHoy: number = 0;
+  totalVentasTransferenciaMes: number = 0;
+  totalVentasMercadoPagoMes: number = 0;
+  totalVentasUnaCuotaMes: number = 0;
+  totalVentasTresCuotasMes: number = 0;
+  totalVentasDebitoMes: number = 0;
+  totalVentasCuentaCorrienteMes: number = 0;
+  totalVentasEfectivoMes: number = 0;
+  totalVentasTransferenciaHoy: number = 0;
+  totalVentasMercadoPagoHoy: number = 0;
+  totalVentasUnaCuotaHoy: number = 0;
+  totalVentasTresCuotasHoy: number = 0;
+  totalVentasDebito: number = 0;
+  totalVentasCuentaCorrienteHoy: number = 0;
+  totalVentasEfectivoHoy: number = 0;
+
   ventas: Venta[];
   total: number;
   productosVenta: ProductoPedido[] = [];
@@ -75,6 +93,55 @@ export class VentasComponent implements OnInit {
         },
         ];
         this.isLoading = false;
+      },
+    );
+
+    this.comerciosService.getOneAsync(URL_VENTAS.GET_VENTAS_HOY, []).subscribe(
+      data => {
+        this.totalVentasHoy = data;
+      },
+    );
+
+    this.comerciosService.getOneAsync(URL_VENTAS.GET_VENTAS_MERCADOPAGO_MES, []).subscribe(
+      data => {
+        this.totalVentasMercadoPagoMes = data;
+      },
+    );
+
+    this.comerciosService.getOneAsync(URL_VENTAS.GET_VENTAS_MES, []).subscribe(
+      data => {
+        this.totalVentasMes = data;
+      },
+    );
+
+    this.comerciosService.getOneAsync(URL_VENTAS.GET_VENTAS_TRANSFERENCIA_HOY, []).subscribe(
+      data => {
+        this.totalVentasTransferenciaMes = data;
+      },
+    );
+
+
+    this.comerciosService.getOneAsync(URL_VENTAS.GET_VENTAS_CUENTACORRIENTE_HOY, []).subscribe(
+      data => {
+        this.totalVentasHoy = data;
+      },
+    );
+
+    this.comerciosService.getOneAsync(URL_VENTAS.GET_VENTAS_MERCADOPAGO_HOY, []).subscribe(
+      data => {
+        this.totalVentasMercadoPagoMes = data;
+      },
+    );
+
+    this.comerciosService.getOneAsync(URL_VENTAS.GET_VENTAS_EFECTIVO_HOY, []).subscribe(
+      data => {
+        this.totalVentasMes = data;
+      },
+    );
+
+    this.comerciosService.getOneAsync(URL_VENTAS.GET_VENTAS_EFECTIVO_MES, []).subscribe(
+      data => {
+        this.totalVentasTransferenciaMes = data;
       },
     );
   }

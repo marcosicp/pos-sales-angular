@@ -1,5 +1,4 @@
 import { ProductoPedido } from '../../shared/models/producto-venta.model';
-import { Pedido } from '../../shared/models/pedido.model';
 import { Clientes } from './clientes.model';
 import { CalendarEvent } from 'angular-calendar';
 

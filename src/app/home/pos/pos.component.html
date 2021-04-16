@@ -37,15 +37,4 @@
     </table>
     <mat-paginator [pageSizeOptions]="[10]" showFirstLastButtons></mat-paginator>
   </div>
-  <!--       
-    <mat-tab *ngFor="let categoria of products; let i = index"  label="{{productTypes[i]}}">
-      <div class="flex flex-direction-row flex-wrap menu justify-center">
-        <div *ngFor="let item of categoria" class="flex flex-direction-column item" (click)="addToCheck(item)">
-          <div *ngIf="item.imagenUrl != null" [ngStyle]="{'background-image': 'url(' + item.imagenUrl + ')'}"  class="item-img"></div>
-          <div *ngIf="item.imagenUrl == null" [ngStyle]="{'background-image': 'url(' + 'assets/icons/noimagen.jpg' + ')'}"  class="item-img"></div>
-          <h4 class="item-name">{{item.nombre}}</h4>
-        </div>
-      </div>
-    </mat-tab>
-  </mat-tab-group> -->
 </mat-card>
