@@ -27,13 +27,13 @@ export class VentasComponent implements OnInit {
   totalVentasUnaCuotaMes: number = 0;
   totalVentasTresCuotasMes: number = 0;
   totalVentasDebitoMes: number = 0;
+  totalVentasDebitoHoy: number = 0;
   totalVentasCuentaCorrienteMes: number = 0;
   totalVentasEfectivoMes: number = 0;
   totalVentasTransferenciaHoy: number = 0;
   totalVentasMercadoPagoHoy: number = 0;
   totalVentasUnaCuotaHoy: number = 0;
   totalVentasTresCuotasHoy: number = 0;
-  totalVentasDebito: number = 0;
   totalVentasCuentaCorrienteHoy: number = 0;
   totalVentasEfectivoHoy: number = 0;
 
@@ -101,57 +101,80 @@ export class VentasComponent implements OnInit {
         this.totalVentasHoy = data;
       },
     );
-
-    this.comerciosService.getOneAsync(URL_VENTAS.GET_VENTAS_MERCADOPAGO_MES, []).subscribe(
-      data => {
-        this.totalVentasMercadoPagoMes = data;
-      },
-    );
-
     this.comerciosService.getOneAsync(URL_VENTAS.GET_VENTAS_MES, []).subscribe(
       data => {
         this.totalVentasMes = data;
       },
     );
 
-    this.comerciosService.getOneAsync(URL_VENTAS.GET_VENTAS_TRANSFERENCIA_HOY, []).subscribe(
+    this.comerciosService.getOneAsync(URL_VENTAS.GET_VENTAS_EFECTIVO_HOY, []).subscribe(
       data => {
-        this.totalVentasTransferenciaMes = data;
+        this.totalVentasEfectivoHoy = data;
+      },
+    );
+    this.comerciosService.getOneAsync(URL_VENTAS.GET_VENTAS_EFECTIVO_MES, []).subscribe(
+      data => {
+        this.totalVentasEfectivoMes = data;
       },
     );
 
-
-    this.comerciosService.getOneAsync(URL_VENTAS.GET_VENTAS_CUENTACORRIENTE_HOY, []).subscribe(
-      data => {
-        this.totalVentasHoy = data;
-      },
-    );
-
-    this.comerciosService.getOneAsync(URL_VENTAS.GET_VENTAS_MERCADOPAGO_HOY, []).subscribe(
+    this.comerciosService.getOneAsync(URL_VENTAS.GET_VENTAS_MERCADOPAGO_MES, []).subscribe(
       data => {
         this.totalVentasMercadoPagoMes = data;
       },
     );
-
-    this.comerciosService.getOneAsync(URL_VENTAS.GET_VENTAS_EFECTIVO_HOY, []).subscribe(
+    this.comerciosService.getOneAsync(URL_VENTAS.GET_VENTAS_MERCADOPAGO_HOY, []).subscribe(
       data => {
-        this.totalVentasMes = data;
+        this.totalVentasMercadoPagoHoy = data;
       },
     );
 
-    this.comerciosService.getOneAsync(URL_VENTAS.GET_VENTAS_EFECTIVO_MES, []).subscribe(
+
+    this.comerciosService.getOneAsync(URL_VENTAS.GET_VENTAS_DEBITO_HOY, []).subscribe(
+      data => {
+        this.totalVentasDebitoHoy = data;
+      },
+    );
+    this.comerciosService.getOneAsync(URL_VENTAS.GET_VENTAS_DEBITO_MES, []).subscribe(
+      data => {
+        this.totalVentasDebitoMes = data;
+      },
+    );
+
+
+    this.comerciosService.getOneAsync(URL_VENTAS.GET_VENTAS_UNACUOTA_DIA, []).subscribe(
+      data => {
+        this.totalVentasUnaCuotaHoy = data;
+      },
+    );
+    this.comerciosService.getOneAsync(URL_VENTAS.GET_VENTAS_UNACUOTA_MES, []).subscribe(
+      data => {
+        this.totalVentasUnaCuotaMes = data;
+      },
+    );
+
+    this.comerciosService.getOneAsync(URL_VENTAS.GET_VENTAS_TRESCUOTAS_DIA, []).subscribe(
+      data => {
+        this.totalVentasTresCuotasHoy = data;
+      },
+    );
+    this.comerciosService.getOneAsync(URL_VENTAS.GET_VENTAS_TRESCUOTAS_MES, []).subscribe(
+      data => {
+        this.totalVentasTresCuotasMes = data;
+      },
+    );
+
+    this.comerciosService.getOneAsync(URL_VENTAS.GET_VENTAS_TRANSFERENCIA_HOY, []).subscribe(
+      data => {
+        this.totalVentasTransferenciaHoy = data;
+      },
+    );
+    this.comerciosService.getOneAsync(URL_VENTAS.GET_VENTAS_TRANSFERENCIA_MES, []).subscribe(
       data => {
         this.totalVentasTransferenciaMes = data;
       },
     );
   }
-
-  // pactarEntrega(venta: Venta) {
-  //   const navigationExtras: NavigationExtras = {
-  //     queryParams: { idventa: JSON.stringify(venta.id)}
-  //   };
-  //   this.router.navigate(['agenda'], navigationExtras);
-  // }
 
   verItems(pedido: any) {
     this.dialog.open(

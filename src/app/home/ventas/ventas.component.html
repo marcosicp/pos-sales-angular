@@ -1,58 +1,78 @@
+<mat-card class="add-margin" style=" display: flex;
+  justify-content: center; text-align: center;
+  align-items: center;">
 
-<mat-toolbar style="text-align: center;display: inline-block;padding-top: 1%;">
-  <label style="margin-left: 2%;">
-    <span>VENTAS DEL DIA --> </span>
-  </label>
-  <label>
-    <span>TOTAL: ${{totalVentasHoy}} </span>
-  </label>
-  <label style="margin-left: 2%;">
-    <span>MERCADO PAGO: ${{totalVentasMercadoPagoHoy}}</span>
-  </label>
-  <label style="margin-left: 2%;">
-    <span>TRANSFERENCIAS: $ {{totalVentasTransferenciaHoy}} </span>
-  </label>
-   <label style="margin-left: 2%;">
-    <span>1 CUOTA: ${{totalVentasUnaCuotaHoy}}</span>
-  </label>
-  <label style="margin-left: 2%;">
-    <span>EFECTIVO: ${{totalVentasEfectivoHoy}}</span>
-  </label>
-  <label style="margin-left: 2%;">
-    <span >CUENTA CORRIENTE: ${{totalVentasCuentaCorrienteHoy}}</span>
-  </label>
-</mat-toolbar>
+  <mat-card-content>
+    <h2 style="text-align: center">VENTAS DEL DÍA</h2>
+    <div fxLayout="row" fxLayoutGap="12px" class="flex flex-direction-column" [style.margin-top]="'12px'">
+        <mat-card-content>
+          <div fxLayout="row" fxLayoutGap="12px" [style.margin-top]="'12px'">
+            <mat-card>
+              <div class="mat-body-2">TOTAL<br /> ${{totalVentasHoy}}</div>
+            </mat-card>
+            <mat-card>
+              <div class="mat-body-2">EFECTIVO <br />${{totalVentasEfectivoHoy}}</div>
+            </mat-card>
+            <mat-card>
+              <div class="mat-body-2">DEBITO <br /> ${{totalVentasDebitoHoy}}</div>
+            </mat-card>
+            <mat-card>
+              <div class="mat-body-2"> MERCADO PAGO <br />${{totalVentasMercadoPagoHoy}}</div>
+            </mat-card>
+            <mat-card>
+              <div class="mat-body-2">TRANSFERENCIAS <br />${{totalVentasTransferenciaHoy}} </div>
+            </mat-card>
+            <mat-card>
+              <div class="mat-body-2">1 CUOTA <br />${{totalVentasUnaCuotaHoy}}</div>
+            </mat-card>
+            <mat-card>
+              <div class="mat-body-2"> 3 CUOTAS <br />${{totalVentasTresCuotasHoy}}</div>
+            </mat-card>
+            <mat-card>
+              <div class="mat-body-2">CUENTA CORRIENTE <br />${{totalVentasCuentaCorrienteHoy}} </div>
+            </mat-card>
+          </div>
+        </mat-card-content>
+    </div>
+  </mat-card-content>
+</mat-card>
 
-<mat-toolbar style="text-align: center;display: inline-block;padding-top: 1%;">
-  <label style="margin-left: 2%;">
-    <span>VENTAS DEL MES --> </span>
-  </label>
-  <label style="margin-left: 2%;">
-    <span>TOTAL: ${{totalVentasMes}}</span>
-  </label>
-  <label style="margin-left: 2%;">
-    <span>MERCADO PAGO: ${{totalVentasMercadoPagoMes}}</span>
-  </label>
-  <label style="margin-left: 2%;">
-    <span>TRANSFERENCIAS: $ {{totalVentasTransferenciaMes}} </span>
-  </label>
-   <label style="margin-left: 2%;">
-    <span>1 CUOTA: ${{totalVentasUnaCuotaMes}}</span>
-  </label>
-  <label style="margin-left: 2%;">
-    <span>EFECTIVO: ${{totalVentasEfectivoMes}}</span>
-  </label>
-  <label style="margin-left: 2%;">
-    <span >CUENTA CORRIENTE: ${{totalVentasCuentaCorrienteMes}}</span>
-  </label>
-</mat-toolbar>
+<mat-card style=" display: flex;
+  justify-content: center; text-align: center;
+  align-items: center;">
+    <mat-card-content>
+      <h2 style="text-align: center">VENTAS DEL MES</h2>
+      <div fxLayout="row" fxLayoutGap="12px" [style.margin-top]="'12px'">
 
-<dynamic-table
-  [tableTitle]="tableTitle"
-  [dataSource]="dataSource"
-  [headerTitles]="headerTitles"
-  [tableHeaders]="tableHeaders"
-  [columnCells]="columnCells"
-  [formatTableCells]="formatTableCells"
+        <mat-card>
+          <div class="mat-body-2">TOTAL<br /> ${{totalVentasMes}}</div>
+        </mat-card>
+        <mat-card>
+          <div class="mat-body-2">EFECTIVO <br />${{totalVentasEfectivoMes}}</div>
+        </mat-card>
+        <mat-card>
+          <div class="mat-body-2">DEBITO <br /> ${{totalVentasDebitoMes}}</div>
+        </mat-card>
+        <mat-card>
+          <div class="mat-body-2"> MERCADO PAGO <br />${{totalVentasMercadoPagoMes}}</div>
+        </mat-card>
+        <mat-card>
+          <div class="mat-body-2">TRANSFERENCIAS <br />${{totalVentasTransferenciaMes}} </div>
+        </mat-card>
+        <mat-card>
+          <div class="mat-body-2">1 CUOTA <br />${{totalVentasUnaCuotaMes}}</div>
+        </mat-card>
+        <mat-card>
+          <div class="mat-body-2"> 3 CUOTAS <br />${{totalVentasTresCuotasMes}}</div>
+        </mat-card>
+        <mat-card>
+          <div class="mat-body-2">CUENTA CORRIENTE <br />${{totalVentasCuentaCorrienteMes}} </div>
+        </mat-card>
+      </div>
+    </mat-card-content>
+</mat-card>
+
+<dynamic-table [tableTitle]="tableTitle" [dataSource]="dataSource" [headerTitles]="headerTitles"
+  [tableHeaders]="tableHeaders" [columnCells]="columnCells" [formatTableCells]="formatTableCells"
   [isLoading]="isLoading">
 </dynamic-table>

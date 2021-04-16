@@ -11,6 +11,7 @@ import { Venta } from "../../shared/models/venta.model";
 import { PosService } from "../../core/services/pos.service";
 import { DataService } from "../../core/services/data.service";
 import { ProductoPedido } from "../../shared/models/producto-venta.model";
+import { LoadingService } from '../../shared/services/loading.service';
 // URLS
 import { URL_CLIENTES, URL_CONFIGURACION } from "../../shared/configs/urls.config";
 // DIALOGOS
@@ -31,7 +32,7 @@ export class TicketComponent implements OnInit {
   clientesResponse: Clientes[] = [];
   configuracion: Configuracion = new Configuracion();
   ticket: Productos[] = [];
-
+  isLoading: boolean;
   cartTotal = 0;
   cartTotalOriginal = 0;
   cartNumItems = 0;
@@ -51,12 +52,14 @@ export class TicketComponent implements OnInit {
     private router: Router,
     private ticketSync: PosService,
     private dataService: DataService,
+    private loadingService: LoadingService,
     public dialog: MatDialog
   ) {
     this.clienteId = null;
   }
 
   ngOnInit() {
+    this.loadingService.toggleLoading();
     this.dataService
       .getAsync(URL_CLIENTES.GET_ALL, this.clientesResponse)
       .subscribe(
@@ -103,6 +106,7 @@ export class TicketComponent implements OnInit {
 
     this.ticketSync.currentClienteId.subscribe((cli) => (this.clienteId = cli));
     this.usuario = JSON.parse(localStorage.getItem("currentUser"));
+    this.loadingService.toggleLoading();
   }
 
   updateClienteId(cliente: any) {
@@ -333,6 +337,7 @@ export class TicketComponent implements OnInit {
       });
       dialogRef.afterClosed().subscribe((result) => {
         if (result.confirm) {
+          this.loadingService.toggleLoading();
           const ventaOk = [Venta];
           this.nuevoPedido = new Venta();
           this.nuevoPedido.productosVenta = this.ticket;
@@ -349,6 +354,7 @@ export class TicketComponent implements OnInit {
         
           this.dataService.createAsync('ventas/AddVenta', this.nuevoPedido, ventaOk).subscribe(
             data => {
+              this.loadingService.toggleLoading();
               this.nuevoPedido = data[1];
               // tslint:disable-next-line: no-shadowed-variable
               const dialogRef = this.dialog.open(DialogOperacionOkComponent, { width: '600px' ,  disableClose: true });
@@ -356,7 +362,7 @@ export class TicketComponent implements OnInit {
 
               this.resetear();
               this.clearCart();
-
+              
               });
             },
             error => {

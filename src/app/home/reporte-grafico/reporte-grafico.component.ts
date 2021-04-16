@@ -183,7 +183,8 @@ export class ReporteGraficoComponent implements AfterViewInit {
                 break;
               }
               case 'productos': {
-                item.productosPedidos.forEach(
+                if(item.productosVenta !=null){
+                item.productosVenta.forEach(
                   prod => {
                     const {nombre, codigoProv, cantidad} = prod;
                     const finded = data.find(obj => obj.valorX === nombre);
@@ -193,13 +194,14 @@ export class ReporteGraficoComponent implements AfterViewInit {
                         id: data.length,
                         valorX: nombre,
                         valorY: cantidad,
-                        _valorX: codigoProv ? `${codigoProv + ' - ' + nombre}` : `${nombre}`
+                        _valorX: nombre
                       });
                     } else {
                       data[finded.id].valorY += cantidad;
                     }
                   }
                 );
+              }
               }
             }
           }
