@@ -3,7 +3,7 @@
     <mat-card class="main-frame flex flex-direction-column justify-between">
       <div class="ticket add-margin">
         <mat-card-title class="heading">Proveedor:</mat-card-title>
-        <ng-select placeholder="Seleccione un proveedor" [items]="proveedores" bindLabel="nombre" bindValue="id" [(ngModel)]="proveedor" (ngModelChange)="poneleData($event)">
+        <ng-select placeholder="Seleccione un proveedor" [items]="proveedores" bindLabel="nombre" [(ngModel)]="proveedor" (ngModelChange)="poneleData($event)">
           <ng-template ng-option-tmp let-item="item" let-search="searchTerm">
             <div><span [ngOptionHighlight]="search">{{item.nombre}}</span></div>
             <small><strong>Cuit:</strong> {{(item.cuit || item.cuil || '0') | cuilPipe}} | <strong>Razon Social:</strong> {{item.razonSocial}}</small>
@@ -24,10 +24,10 @@
             <input matInput type="number" min="1" [(ngModel)]="item.cantidadComprada"/>
           </td>
           <td>{{item.nombre}}</td>
-          <td>{{item.peso | number: '1.2' | weightPipe}}</td>
+          <!-- <td>{{item.peso | number: '1.2' | weightPipe}}</td> -->
           <td>{{item.precioCompra | currency: '$'}}</td>
           <td>{{item.precioCompra * item.cantidadComprada | currency: '$'}}</td>
-          <td>{{item.peso * item.cantidadComprada | number: '1.2' | weightPipe}}</td>
+          <!-- <td>{{item.peso * item.cantidadComprada | number: '1.2' | weightPipe}}</td> -->
           <td>
             <mat-icon (click)="removeItem(item)" class="del">cancel</mat-icon>
           </td>

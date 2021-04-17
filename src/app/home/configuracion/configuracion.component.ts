@@ -7,7 +7,6 @@ import { Router, NavigationExtras } from "@angular/router";
 // SERVICIOS
 import { DataService } from "../../core/services/data.service";
 // DIALOGOS
-import { DialogVerItemsPedidoComponent } from "../../dialogs/dialog-ver-items-venta/dialog-ver-items-venta.component";
 import { DialogSinConexionComponent } from "../../dialogs/dialog-sin-conexion/dialog-sin-conexion.component";
 // CONFIGURACIONES
 import {
@@ -17,7 +16,7 @@ import {
 import { FormControl, FormGroup, Validators } from "@angular/forms";
 
 @Component({
-  selector: "app-ventas",
+  selector: "app-configuracion",
   templateUrl: "./configuracion.component.html",
   styleUrls: ["./configuracion.component.scss"],
 })
@@ -59,12 +58,12 @@ export class ConfiguracionComponent implements OnInit {
   }
 
   guardar(config: any) {
-    debugger;
+    
     this.comerciosService
       .postAsync(URL_CONFIGURACION.UPDATE_CONFIGURACION, config)
       .subscribe((data) => {
         if (!data) {
-          debugger;
+          
           const dialogRef = this.dialog.open(DialogSinConexionComponent, {
             width: "900px",
             disableClose: true,

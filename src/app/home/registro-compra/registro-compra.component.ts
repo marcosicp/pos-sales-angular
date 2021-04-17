@@ -62,16 +62,15 @@ export class RegistroCompraComponent implements OnInit {
     );
   }
 
-  poneleData = (modelId: any) => modelId && this.getProducts(modelId);
+  poneleData = (unProveedor: any) => unProveedor && this.getProducts(unProveedor);
 
-  getProducts = modelId => {
+  getProducts = unProveedor => {
     this.loadingService.toggleLoading();
     this.clearCart();
 
     this.dataService.getAsync(URL_STOCK.GET_ALL, []).subscribe(
       data => {
-        const proveedorNombre = this.proveedores.find(item => item.id === modelId).nombre.toUpperCase();
-
+        const proveedorNombre = this.proveedores.find(item => item.id === unProveedor.id).nombre.toUpperCase();
         this.productosBuscados = data.filter(item => item.proveedorNombre.includes(proveedorNombre));
         this.loadingService.toggleLoading();
       }
@@ -135,11 +134,14 @@ export class RegistroCompraComponent implements OnInit {
     } else {
       const nuevaCompra = new Compra();
 
-      nuevaCompra.productosPedidos = this.detalleCompra;
+      nuevaCompra.productosCompra = this.detalleCompra;
       nuevaCompra.total = this.totalAmount();
       nuevaCompra.usuario = this.usuario.usuario.toString();
-      nuevaCompra.proveedorId = this.proveedor.toString();
-      nuevaCompra.fechaPedido = fechaArg();
+      nuevaCompra.cuil = this.proveedor.cuil; 
+      nuevaCompra.nombreProveedor = this.proveedor.nombre; 
+      nuevaCompra.razonSocial = this.proveedor.razonSocial;
+      nuevaCompra.proveedorId = this.proveedor.id; 
+      nuevaCompra.fechaCompra = fechaArg();
 
       this.loadingService.toggleLoading();
       

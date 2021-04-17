@@ -13,7 +13,7 @@ const URL_USUARIOS = {
   ADD_USUARIO: 'usuarios/AddUsuario',
   UPDATE_USUARIO: 'usuarios/UpdateUsuario',
   DELETE_USUARIO: 'usuarios/DeleteUsuario',
-  EMAIL_LOGIN: 'usuarios/login',
+  EMAIL_LOGIN: 'login/Login',
   MODIFY_PASS: 'usuarios/CambiarPass',
   RESET_PASS: 'usuarios/ResetPass'
 };
@@ -67,6 +67,7 @@ const URL_CONFIGURACION = {
 // API PROVEEDORES
 const URL_PROVEEDORES = {
   GET_ALL: 'proveedores/GetAllProveedores',
+  GET_ALL_COMPRAS_PROVEEDORES: 'proveedores/GetAllComprasProveedores',
   ADD_PROVEEDOR: 'proveedores/AddProveedor',
   UPDATE_PROVEEDOR: 'proveedores/UpdateProveedor',
   DELETE_PROVEEDOR: 'proveedores/DeleteProveedor'

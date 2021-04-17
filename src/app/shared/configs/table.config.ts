@@ -111,6 +111,40 @@ const TABLA_CLIENTES = {
   }
 };
 
+const TABLA_COMPRAS_PROVEEDORES = {
+  title: 'Compras a Proveedores',
+  headers: {
+    nombreProveedor: 'Nombre',
+    razonSocial: 'Razón Social',
+    cuil: 'CUIL',
+    total: 'Monto',
+    usuario: 'Usuario',
+    tipoTransaccion: 'Tipo Compra',
+    fechaCompra: 'Fecha Compra',
+    opciones: 'Opciones'
+  },
+  cells: {
+    nombreProveedor: 'nombreProveedor',
+    razonSocial: 'razonSocial',
+    cuil: 'cuil',
+    total: 'total',
+    usuario: 'usuario',
+    tipoTransaccion: 'tipoTransaccion',
+    fechaCompra: 'fechaCompra',
+    opciones: null
+  },
+  format: {
+    nombreProveedor: null,
+    razonSocial: null,
+    cuil: null,
+    total: 'currency',
+    usuario: null,
+    tipoTransaccion: null,
+    fechaCompra: 'date',
+    opciones: null
+  }
+};
+
 const TABLA_PROVEEDORES = {
   title: 'Proveedores',
   headers: {
@@ -240,6 +274,7 @@ export  {
   TABLA_CLIENTES,
   TABLA_PROVEEDORES,
   TABLA_VENTAS,
+  TABLA_COMPRAS_PROVEEDORES,
   TABLA_PEDIDOS,
   TABLA_MOVIMIENTOS
 };

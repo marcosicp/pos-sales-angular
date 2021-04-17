@@ -1,12 +1,16 @@
+
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 // IMPORTAR MODULOS
 import { AppRoutingModule } from '../core/app-routing.module';
 import { FlexLayoutModule } from '@angular/flex-layout';
 import { NgSelectModule } from '@ng-select/ng-select';
 import { ChartsModule } from 'ng2-charts';
 // COMPONENTES
+import { ComprasProveedoresComponent } from './compras-proveedores/compras-proveedores.component';
+import { VentasComponent } from './ventas/ventas.component';
+import { ConfiguracionComponent } from './configuracion/configuracion.component';
 import { HistorialComponent } from './historial/historial.component';
 import { ClientesComponent } from './clientes/clientes.component';
 import { ProveedoresComponent } from './proveedores/proveedores.component';
@@ -33,6 +37,7 @@ import { CajaComponent } from './caja/caja.component';
     AppRoutingModule,
     FormsModule,
     FlexLayoutModule,
+    ReactiveFormsModule,
     NgSelectModule,
     SharedModule,
     ChartsModule
@@ -40,12 +45,15 @@ import { CajaComponent } from './caja/caja.component';
   declarations: [
     HomeComponent,
     TicketComponent,
+    VentasComponent,
     LineItemModalComponent,
     PosComponent,
     HistorialComponent,
     HistoryComponent,
+    ConfiguracionComponent,
     ReportsComponent,
     LineChartComponent,
+    ComprasProveedoresComponent,
     AdministracionComponent,
     ClientesComponent,
     ProveedoresComponent,

@@ -3,10 +3,13 @@ import { Proveedores } from './proveedores.model';
 
 export class Compra {
     id: string;
-    productosPedidos: ProductoPedido[];
+    productosCompra: ProductoPedido[];
     total: number;
-    fechaPedido: Date;
+    cuil: string;
+    nombreProveedor: string;
+    fechaCompra: Date;
     pesoTotal: number;
     proveedorId: string;
+    razonSocial: string;
     usuario: string;
 }

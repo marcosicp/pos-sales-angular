@@ -44,15 +44,17 @@ export class LoginComponent implements AfterContentInit, OnDestroy {
         userResult => {
           this.loadingService.toggleLoading();
 
-          if (!userResult) {
-            this.error = strings.noInternet;
+          if (userResult == null) {
+            this.error = "USUARIO NO ENCONTRADO";
             this.focusOnUser();
-          } else if (userResult.email === null || userResult.email === '') {
+          }
+           else if (userResult == false) {
             this.error = strings.badLogin;
             this.focusOnUser();
-          } else {
-            this.error = null;
-
+          } 
+          if (userResult && userResult.token) {
+            // store user details and jwt token in local storage to keep user logged in between page refreshes
+            localStorage.setItem('TokenInfo', JSON.stringify(user));
             localStorage.setItem('currentUser', JSON.stringify(userResult));
             this.router.navigate(['/welcome']);
           }

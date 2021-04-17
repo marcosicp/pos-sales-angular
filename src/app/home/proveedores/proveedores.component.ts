@@ -51,11 +51,11 @@ export class ProveedoresComponent implements OnInit {
       label: 'Registrar compra',
       buttonEvent: () => this.registrarCompra()
     },
-    // {
-    //   icon: 'label',
-    //   label: 'Modificar ganancia',
-    //   buttonEvent: () => this.editarGanancias()
-    // }
+    {
+      icon: 'label',
+      label: 'Todas las compras',
+      buttonEvent: () => this.verTodasLasComprasProveedores()
+    }
   ];
 
   constructor(
@@ -103,8 +103,13 @@ export class ProveedoresComponent implements OnInit {
   }
 
   registrarCompra() {
-    this.router.navigate(['registrar-compra']);
+    this.router.navigate(['proveedores/registrar-compra']);
   }
+
+  verTodasLasComprasProveedores() {
+    this.router.navigate(['proveedores/compras-proveedores']);
+  }
+
   /*
       PRIMERO SE CREA UN DIALOGO PARA CREAR UN NUEVO REGISTRO. UNA VEZ
     TERMINADO DICHO REGISTRO, SE FIJA QUE HAYA INGRESADO UN REGISTRO COMPLETO

@@ -1,3 +1,4 @@
+import { DialogVerItemsCompraComponent } from './dialog-ver-items-compra/dialog-ver-items-compra.component';
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
@@ -58,6 +59,7 @@ import { DialogPDFComponent } from './dialog-pdf/dialog-pdf.component';
     DialogOperacionOkComponent,
     DialogSinConexionComponent,
     DialogVerItemsPedidoComponent,
+    DialogVerItemsCompraComponent,
     DialogEditarEntregaComponent,
     DialogProveedoresAddEditComponent,
     DialogClienteAddEditComponent,
@@ -82,6 +84,7 @@ import { DialogPDFComponent } from './dialog-pdf/dialog-pdf.component';
     DialogOperacionOkComponent,
     DialogSinConexionComponent,
     DialogVerItemsPedidoComponent,
+    DialogVerItemsCompraComponent,
     DialogProveedoresAddEditComponent,
     DialogClienteAddEditComponent,
     DialogUsuarioAddEditComponent,

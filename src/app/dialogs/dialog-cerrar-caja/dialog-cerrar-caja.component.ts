@@ -44,7 +44,7 @@ export class DialogCerrarCajaComponent implements OnInit {
     this.authService.getUser.subscribe((_data: any) => {
       this.usuario = JSON.parse(_data);
     });
-    debugger;
+    
     this.montoAntesCierre = data;
   }
 
@@ -72,7 +72,7 @@ export class DialogCerrarCajaComponent implements OnInit {
       []
     ).subscribe(
       result => {
-        debugger;
+        
         this.montoAntesCierre = result.monto;
       }
     );

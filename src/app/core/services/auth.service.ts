@@ -52,7 +52,7 @@ export class AuthService {
   }
 
   public isAuthenticated(): boolean {
-    const user = localStorage.getItem('currentUser');
+    const user = localStorage.getItem('TokenInfo');
     // Check whether the token is expired and return
     // true or false
     return user != null;
