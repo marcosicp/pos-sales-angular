@@ -9,8 +9,7 @@
     "lint": "ng lint",
     "e2e": "ng e2e",
     "start": "node ./bin/www",
-    "web": "ng serve --o",
-    "postinstall": "ngcc"
+    "web": "ng serve --o"
   },
   "private": true,
   "engines": {
