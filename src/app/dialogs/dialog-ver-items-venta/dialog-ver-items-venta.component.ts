@@ -31,18 +31,16 @@ export class DialogVerItemsPedidoComponent {
     @Inject(MAT_DIALOG_DATA) public data: any
   ) {
     const estado = data.estado === "CONFIRMADO";
-    this.dialogTitle = `Listado de productos ${
-      estado ? "vendidos" : "pedidos"
-    }`;
+    this.dialogTitle = "Listado de productos vendidos";
 
-    data.productosPedidos.forEach((producto) => {
+    data.productosVenta.forEach((producto) => {
       // producto['pesoTotal'] = producto.cantidad * producto.peso;
       producto["montoFinal"] = producto.precioVenta * producto.cantidad;
       // producto['iva'] = producto.montoFinal * 0.21;
       // producto['montoNeto'] = producto.montoFinal - producto.iva;
     });
 
-    this.dataSource.data = data.productosPedidos;
+    this.dataSource.data = data.productosVenta;
 
     this.totals = {
       cantidad: this.calculateTotal("cantidad"),

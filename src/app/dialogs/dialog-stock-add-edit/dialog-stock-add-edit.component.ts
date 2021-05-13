@@ -52,10 +52,10 @@ export class DialogStockAddEditComponent implements OnInit {
         codigo: new FormControl(this.producto.codigo, [Validators.required, Validators.pattern(RegExpHelper.alphaNumeric)]),
         categoria: new FormControl(this.producto.categoria || 0, [Validators.required]),
         nombre: new FormControl(this.producto.nombre, [Validators.required, Validators.pattern(RegExpHelper.lettersSpace)]),
-        precioCompra: new FormControl(this.producto.precioCompra, [Validators.required, Validators.pattern(RegExpHelper.numberDecimals)]),
-        precioVenta: new FormControl(this.producto.precioVenta, [Validators.required, Validators.pattern(RegExpHelper.numberDecimals)]),
+        precioCompra: new FormControl(this.producto.precioCompra.toFixed(2), [Validators.required, Validators.pattern(RegExpHelper.numberDecimals)]),
+        precioVenta: new FormControl(this.producto.precioVenta.toFixed(2), [Validators.required, Validators.pattern(RegExpHelper.numberDecimals)]),
         fechaVencimiento: new FormControl(this.producto.fechaVencimiento),
-        cantidad: new FormControl(this.producto.cantidad, [Validators.required, Validators.pattern(RegExpHelper.numberDecimals)]),
+        cantidad: new FormControl(this.producto.cantidad),
         // peso: new FormControl(this.producto.peso, [Validators.required, Validators.pattern(RegExpHelper.numberDecimals)]),
         proveedorNombre: new FormControl(this.producto.proveedorNombre, [Validators.required]),
       }

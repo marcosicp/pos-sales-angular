@@ -85,7 +85,9 @@ export class VentasComponent implements OnInit {
           dialogRef.afterClosed().subscribe(() => this.router.navigate(['welcome']));
         }
 
+
         this.dataSource.data = data;
+        // this.dataSource.data.sort((a : any, b: any) => b.creado - a.creado)
         this.columnCells.opciones = [{
           buttonIcon: 'search',
           buttonLabel: 'Ver detalle',

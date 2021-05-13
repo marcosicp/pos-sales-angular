@@ -17,8 +17,7 @@ const TABLA_STOCK = {
     precioCompra: 'Precio de compra',
     fechaVencimiento: 'Vencimiento',
     cantidad: 'Unidades disponibles',
-    // ganancia: 'Ganancia',
-    // peso: 'Peso en Kg',
+    editado: 'Editado',
     opciones: 'Opciones'
   },
   cells: {
@@ -30,8 +29,7 @@ const TABLA_STOCK = {
     precioCompra: 'precioCompra',
     fechaVencimiento: 'fechaVencimiento',
     cantidad: 'cantidad',
-    // peso: 'peso',
-    // ganancia: 'ganancia',
+    editado: 'fechaVencimiento',
     opciones: null
   },
   format: {
@@ -43,8 +41,7 @@ const TABLA_STOCK = {
     precioCompra: 'currency',
     fechaVencimiento: 'date',
     cantidad: null,
-    // ganancia: null,
-    // peso: 'weight',
+    editado: 'date',
     opciones: null
   }
 };
@@ -114,23 +111,23 @@ const TABLA_CLIENTES = {
 const TABLA_COMPRAS_PROVEEDORES = {
   title: 'Compras a Proveedores',
   headers: {
+    fechaCompra: 'Fecha Compra',
     nombreProveedor: 'Nombre',
     razonSocial: 'Razón Social',
     cuil: 'CUIL',
     total: 'Monto',
     usuario: 'Usuario',
     tipoTransaccion: 'Tipo Compra',
-    fechaCompra: 'Fecha Compra',
     opciones: 'Opciones'
   },
   cells: {
+    fechaCompra: 'fechaCompra',
     nombreProveedor: 'nombreProveedor',
     razonSocial: 'razonSocial',
     cuil: 'cuil',
     total: 'total',
     usuario: 'usuario',
     tipoTransaccion: 'tipoTransaccion',
-    fechaCompra: 'fechaCompra',
     opciones: null
   },
   format: {

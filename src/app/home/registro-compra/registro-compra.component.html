@@ -16,16 +16,19 @@
           <th style="width: 10%;">Cant</th>
           <th>Producto</th>
           <th>Precio compra</th>
+          <th style="width: 30%;">Nuevo Precio compra</th>
           <th>Monto total</th>
           <th>Eliminar</th>
         </tr>
         <tr *ngFor="let item of detalleCompra" class="item">
           <td>
-            <input matInput type="number" min="1" [(ngModel)]="item.cantidadComprada"/>
+            <input matInput type="number" style="background-color: lightgoldenrodyellow;"  min="1" [(ngModel)]="item.cantidadComprada"/>
           </td>
           <td>{{item.nombre}}</td>
-          <!-- <td>{{item.peso | number: '1.2' | weightPipe}}</td> -->
           <td>{{item.precioCompra | currency: '$'}}</td>
+          <td>
+            <input style="width: 50%;background-color: lightgoldenrodyellow;" matInput type="number" min="0" [(ngModel)]="item.precioCompraNuevo"/>
+          </td>
           <td>{{item.precioCompra * item.cantidadComprada | currency: '$'}}</td>
           <!-- <td>{{item.peso * item.cantidadComprada | number: '1.2' | weightPipe}}</td> -->
           <td>
@@ -75,7 +78,7 @@
 
   <div class="products-section add-margin">
     <mat-card class="main-frame">
-      <mat-card-title class="add-padding heading">Selecionar productos
+      <mat-card-title class="heading">Seleccionar Productos
         <button
           mat-raised-button
           [disabled]="!this.proveedor"
@@ -85,13 +88,39 @@
         </button>
       </mat-card-title>
 
-      <div class="flex flex-direction-row flex-wrap justify-center listado-productos">
+      <mat-form-field>
+        <input matInput (keyup)="applyFilter($event.target.value)" placeholder="Buscar">
+      </mat-form-field>
+
+      <div class="example-container" style="overflow:auto;">
+        <table matSort mat-table [dataSource]="productos" style="max-height: 40% !important;" >
+          <ng-container matColumnDef="codigo">
+            <th mat-header-cell *matHeaderCellDef> Codigo </th>
+            <td mat-cell *matCellDef="let element"> {{element.codigo}} </td>
+          </ng-container>
+          <ng-container matColumnDef="nombre">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header> Producto </th>
+            <td mat-cell *matCellDef="let element"> {{element.nombre}} </td>
+          </ng-container>
+    
+          <ng-container matColumnDef="precioCompra" >
+            <th mat-header-cell *matHeaderCellDef mat-sort-header> Precio </th>
+            <td mat-cell *matCellDef="let element"> {{element.precioCompra | currency: '$'}} </td>
+          </ng-container>
+    
+          <tr mat-header-row *matHeaderRowDef="displayedColumns; sticky: true"></tr>
+          <tr mat-row *matRowDef="let row; columns: displayedColumns;" (dblclick)="addToCheck(row)"></tr>
+        </table>
+        <mat-paginator [pageSizeOptions]="[10]" showFirstLastButtons></mat-paginator>
+      </div>
+
+      <!-- <div class="flex flex-direction-row flex-wrap justify-center listado-productos">
         <div *ngFor="let item of productosBuscados" class="flex flex-direction-column item" (click)="addToCheck(item)">
           <div *ngIf="item.imagenUrl != null" [ngStyle]="{'background-image': 'url(' + item.imagenUrl + ')'}"  class="item-img"></div>
           <div *ngIf="item.imagenUrl == null" [ngStyle]="{'background-image': 'url(' + 'assets/icons/noimagen.jpg' + ')'}"  class="item-img"></div>
           <h4 class="item-name">{{item.nombre}}</h4>
         </div>
-      </div>
+      </div> -->
     </mat-card>
   </div>
 </div>

@@ -10,7 +10,7 @@
     height: 90%;
 
     .ticket {
-      margin-top: 1rem;
+      margin-top: 0rem;
     }
 
     .heading {
@@ -176,4 +176,12 @@
   .details-section {
     width: 47%;
   }
+}
+.example-container {
+  height: 400px;
+  overflow: auto;
+}
+
+input[type=number]::-webkit-inner-spin-button {
+  opacity: 1;
 }

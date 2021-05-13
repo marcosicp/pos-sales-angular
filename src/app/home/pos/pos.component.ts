@@ -213,7 +213,5 @@ export class PosComponent implements OnInit, AfterViewInit {
       }
     }
   }
-  // syncTicket() {
-  //   this.ticketSync.changeTicket(this.ticket);
-  // }
+
 }

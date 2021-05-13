@@ -12,10 +12,10 @@ import { LoadingService } from '../../shared/services/loading.service';
 import { URL_PROVEEDORES } from '../../shared/configs/urls.config';
 import { TABLA_COMPRAS_PROVEEDORES, TABLA_PROVEEDORES } from '../../shared/configs/table.config';
 // DIALOGOS
-import { DialogConfirmarComponent } from '../../dialogs/dialog-confirmar/dialog-confirmar.component';
-import { DialogProveedoresAddEditComponent } from '../../dialogs/dialog-proveedores-add-edit/dialog-proveedores-add-edit.component';
-import { DialogSinConexionComponent } from '../../dialogs/dialog-sin-conexion/dialog-sin-conexion.component';
-import { DialogOperacionOkComponent } from '../../dialogs/dialog-operacion-ok/dialog-operacion-ok.component';
+// import { DialogConfirmarComponent } from '../../dialogs/dialog-confirmar/dialog-confirmar.component';
+// import { DialogProveedoresAddEditComponent } from '../../dialogs/dialog-proveedores-add-edit/dialog-proveedores-add-edit.component';
+// import { DialogSinConexionComponent } from '../../dialogs/dialog-sin-conexion/dialog-sin-conexion.component';
+// import { DialogOperacionOkComponent } from '../../dialogs/dialog-operacion-ok/dialog-operacion-ok.component';
 
 @Component({
   selector: 'app-compras-proveedores',
