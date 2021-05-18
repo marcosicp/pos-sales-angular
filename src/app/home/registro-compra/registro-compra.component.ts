@@ -85,7 +85,6 @@ export class RegistroCompraComponent implements OnInit {
   };
 
   applyFilter(filterValue: string) {
-    debugger;
     this.productos.filter = filterValue.trim().toLowerCase();
   }
 

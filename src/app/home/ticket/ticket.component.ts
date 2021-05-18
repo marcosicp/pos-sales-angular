@@ -292,6 +292,8 @@ export class TicketComponent implements OnInit {
       case "TRANSFERENCIA":
         this.cartTotal = total + (total * (this.configuracion.transferencia / 100));
         break;
+      default: 
+        break;
     }
     this.cartTotal
   }

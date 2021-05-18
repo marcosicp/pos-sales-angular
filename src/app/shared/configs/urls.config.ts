@@ -3,7 +3,7 @@
 // TAMBIEN SE PUEDE LLAMAR CADA API POR SEPARADO
 import BaseConfig from './base.config';
 
-const isProd = true;
+const isProd = false;
 const URL_BASE = isProd ?
   BaseConfig.URL_PROD : BaseConfig.URL_LOCAL;
 
@@ -42,6 +42,7 @@ const URL_VENTAS = {
   GET_VENTAS_MES: 'ventas/GetTotalVentasMes',
   GET_VENTAS_MERCADOPAGO_MES: 'ventas/GetTotalVentasMercadoPagoMes',
   GET_VENTAS_TRANSFERENCIA_MES: 'ventas/GetTotalVentasTransferenciaMes',
+  GET_VENTAS_PY_MES: 'ventas/GetTotalVentasPedidosYaMes',
   GET_VENTAS_EFECTIVO_MES: 'ventas/GetTotalVentasEfectivoMes',
   GET_VENTAS_UNACUOTA_MES: 'ventas/GetTotalVentasUnaCuotaMes',
   GET_VENTAS_TRESCUOTAS_MES: 'ventas/GetTotalVentasTresCuotasMes',
@@ -49,6 +50,7 @@ const URL_VENTAS = {
   GET_VENTAS_CUENTACORRIENTE_MES: 'ventas/GetTotalVentasCuentaCorrienteMes',
 
   GET_VENTAS_HOY: 'ventas/GetTotalVentasHoy',
+  GET_VENTAS_PY_HOY: 'ventas/GetTotalVentasPedidosYaHoy',
   GET_VENTAS_MERCADOPAGO_HOY: 'ventas/GetTotalVentasMercadoPagoHoy',
   GET_VENTAS_TRANSFERENCIA_HOY: 'ventas/GetTotalVentasTransferenciaHoy',
   GET_VENTAS_UNACUOTA_DIA: 'ventas/GetTotalVentasUnaCuotaHoy',

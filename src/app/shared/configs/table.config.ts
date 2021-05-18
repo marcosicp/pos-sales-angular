@@ -199,7 +199,7 @@ const TABLA_VENTAS = {
     creado: 'date',
     // cliente: null,
     responsable: null,
-    tipoTransaccion: null,
+    tipoTransaccion: 'tipoTransaccion',
     pagoCon: 'currency',
     descuento: 'percent',
     estado: null,

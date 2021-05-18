@@ -15,23 +15,14 @@
     <mat-toolbar *ngIf="addButton || otherButtons || searchButton">
       <div fxLayout="row" fxLayoutGap="10px" *ngIf="addButton" class="button-section">
         <!-- EL BOTON DE AGREGAR TIENE SETEADO UN NOMBRE E ICONOS POR DEFECTO EN CASO DE NO SER AGREGADO -->
-        <button
-          mat-flat-button
-          [disabled]="false"
-          (click)="addButton.buttonEvent()"
-          style="background-color: #fbc033"
-        >
+        <button mat-flat-button [disabled]="false" (click)="addButton.buttonEvent()" style="background-color: #fbc033">
           <mat-icon>add</mat-icon>
           {{ addButton.label || "Registrar"}}
         </button>
 
         <!-- EN CASO DE HABERSE AGREGADO OTROS BOTONES, SE MOSTRAN CON UN NOMBRE E ICONOS POR DEFECTO EN CASO DE NO SER AGREGADOS -->
         <ng-container *ngFor="let b of otherButtons">
-          <button
-            mat-flat-button
-            style="background-color: #fbc033"
-            (click)="b.buttonEvent()"
-          >
+          <button mat-flat-button style="background-color: #fbc033" (click)="b.buttonEvent()">
             <mat-icon>{{b.icon || 'add'}}</mat-icon>
             {{ b.label || "Otro botón"}}
           </button>
@@ -41,26 +32,15 @@
       <div *ngIf="searchButton" class="search-section">
         <label>Buscar: </label>
         <mat-form-field>
-          <input
-            matInput
-            type="text"
-            class="search-input"
-            [placeholder]="searchButton.placeHolder"
-            (keyup)=searchData($event.target.value)
-          >
+          <input matInput type="text" class="search-input" [placeholder]="searchButton.placeHolder"
+            (keyup)=searchData($event.target.value)>
         </mat-form-field>
       </div>
     </mat-toolbar>
 
     <!-- EN LA TABLA SE ASIGNAN EL DATASOURCE (LOS DATOS A MOSTRARSE), EL ORDENAMIENTO ORIGINAL (EN BASE A LA PRIMER PROPIEDAD QUE SE MOSTRARA EN LA PRIMER COLUMNA) EN ORDEN DESCENDENTE -->
-    <table
-      class="mat-elevation-z8 align-middle table-layout"
-      mat-table
-      [dataSource]="dataSource"
-      matSort
-      [matSortActive]="headerTitles[0]"
-      matSortDirection="desc"
-    >
+    <table class="mat-elevation-z8 align-middle table-layout" mat-table [dataSource]="dataSource" matSort
+      [matSortActive]="headerTitles[0]" matSortDirection="desc">
       <!-- POR CADA TITULO DE COLUMNA, SE CREA UN NUEVO CONTENEDOR -->
       <ng-container *ngFor="let column of headerTitles">
         <!-- CADA CONTENEDOR USARA LA PROPIEDAD LLAMADA COLUMN PARA ASIGNAR SU VALOR (COSAS DE ANGULAR MATERIAL) -->
@@ -73,85 +53,69 @@
             <!-- CADA SPAN TIENE UN TOOLTIP PARA MOSTRAR UN VALOR COMPLETO EN CASO QUE SU LARGO EXCEDA EL MAXIMO PERMITIDO POR COLUMNA Y RESOLUCION DE PANTALLA-->
             <ng-container *ngIf="column !== 'opciones'">
               <ng-container [ngSwitch]="formatTableCells[column]">
-                <span
-                  *ngSwitchCase="'currency'"
-                  [matTooltip]="initTooltip(element, columnCells, column) | currency:'$'"
-                >
+                <span *ngSwitchCase="'currency'"
+                  [matTooltip]="initTooltip(element, columnCells, column) | currency:'$'">
                   {{
-                    element |
-                    columnValue: columnCells: column |
-                    currency:'$'
+                  element |
+                  columnValue: columnCells: column |
+                  currency:'$'
                   }}
                 </span>
-                <span
-                  *ngSwitchCase="'number'"
-                  [matTooltip]="initTooltip(element, columnCells, column) | number:'1.2'"
-                >
+                <span *ngSwitchCase="'number'" [matTooltip]="initTooltip(element, columnCells, column) | number:'1.2'">
                   {{
-                    element |
-                    columnValue: columnCells: column |
-                    number:'1.2'
+                  element |
+                  columnValue: columnCells: column |
+                  number:'1.2'
                   }}
                 </span>
-                <span
-                  *ngSwitchCase="'percent'"
-                  [matTooltip]="initTooltip(element, columnCells, column)"
-                >
+                <span *ngSwitchCase="'percent'" [matTooltip]="initTooltip(element, columnCells, column)">
                   {{
-                    element |
-                    columnValue: columnCells: column 
-                    
+                  element |
+                  columnValue: columnCells: column
+
                   }} %
                 </span>
-                <span
-                  *ngSwitchCase="'date'"
-                  [matTooltip]="initTooltip(element, columnCells, column) | date:'short'"
-                >
+                <span *ngSwitchCase="'date'" [matTooltip]="initTooltip(element, columnCells, column) | date:'short'">
                   {{
-                    element |
-                    columnValue: columnCells: column |
-                    date:'short'
+                  element |
+                  columnValue: columnCells: column |
+                  date:'short'
                   }}
                 </span>
-                <span
-                  *ngSwitchCase="'boolean'"
-                  [matTooltip]="initTooltip(element, columnCells, column) | booleanPipe"
-                >
+                <span *ngSwitchCase="'boolean'" [matTooltip]="initTooltip(element, columnCells, column) | booleanPipe">
                   {{
-                    element |
-                    columnValue: columnCells: column |
-                    booleanPipe
+                  element |
+                  columnValue: columnCells: column |
+                  booleanPipe
                   }}
                 </span>
-                <span
-                  *ngSwitchCase="'phone'"
-                  [matTooltip]="initTooltip(element, columnCells, column) | phonePipe"
-                >
+                <span *ngSwitchCase="'phone'" [matTooltip]="initTooltip(element, columnCells, column) | phonePipe">
                   {{
-                    element |
-                    columnValue: columnCells: column |
-                    phonePipe
+                  element |
+                  columnValue: columnCells: column |
+                  phonePipe
                   }}
                 </span>
-                <span
-                  *ngSwitchCase="'cuil'"
-                  [matTooltip]="initTooltip(element, columnCells, column) | cuilPipe"
-                >
+                <span *ngSwitchCase="'cuil'" [matTooltip]="initTooltip(element, columnCells, column) | cuilPipe">
                   {{
-                    element |
-                    columnValue: columnCells: column |
-                    cuilPipe
+                  element |
+                  columnValue: columnCells: column |
+                  cuilPipe
                   }}
                 </span>
-                <span
-                  *ngSwitchCase="'role'"
-                  [matTooltip]="initTooltip(element, columnCells, column) | userRolePipe"
-                >
+                <span *ngSwitchCase="'role'" [matTooltip]="initTooltip(element, columnCells, column) | userRolePipe">
                   {{
-                    element |
-                    columnValue: columnCells: column |
-                    userRolePipe
+                  element |
+                  columnValue: columnCells: column |
+                  userRolePipe
                   }}
+                </span>
+                <span *ngSwitchCase="'tipoTransaccion'" [matTooltip]="initTooltip(element, columnCells, column) ">
+                  {{
+                  element |
+                  columnValue: columnCells: column
+                  }}<mat-icon *ngIf="element.pendiente" style="vertical-align: sub;color: red" aria-hidden="false"
+                    aria-label="Pendiente">access_time</mat-icon>
                 </span>
                 <!-- <span
                   *ngSwitchCase="'weight'"
@@ -164,13 +128,10 @@
                     weightPipe
                   }}
                 </span> -->
-                <span
-                  *ngSwitchDefault
-                  [matTooltip]="initTooltip(element, columnCells, column)"
-                >
+                <span *ngSwitchDefault [matTooltip]="initTooltip(element, columnCells, column)">
                   {{
-                    element |
-                    columnValue: columnCells: column
+                  element |
+                  columnValue: columnCells: column
                   }}
                 </span>
               </ng-container>
@@ -183,14 +144,21 @@
 
               <mat-menu #menu="matMenu">
                 <ng-container *ngFor="let button of columnCells[column]">
-                  <button
-                    mat-menu-item
-                    *ngIf="!button.canDisplay || button.canDisplay(element)"
-                    (click)="button.buttonEvent(element)"
-                  >
-                      <mat-icon *ngIf="button.buttonIcon">{{button.buttonIcon}}</mat-icon>
-                      {{button.buttonLabel}}
-                    </button>
+                  
+                  <button mat-menu-item
+                    *ngIf="(!button.canDisplay || button.canDisplay(element)) && button.buttonLabel != 'NOTIFICAR PAGO'"
+                    (click)="button.buttonEvent(element)">
+                    <mat-icon *ngIf="button.buttonIcon">{{button.buttonIcon}}</mat-icon>
+                    {{button.buttonLabel}}{{columnCells.length}}
+                  </button>
+
+                  <button *ngIf="(!button.canDisplay || button.canDisplay(element)) && 
+                                element.pendiente == true && 
+                                button.buttonLabel === 'NOTIFICAR PAGO'"
+                    mat-menu-item (click)="button.buttonEvent(element)">
+                    <mat-icon *ngIf="button.buttonIcon">check_circle_outline</mat-icon>
+                    NOTIFICAR PAGO
+                  </button>
                 </ng-container>
               </mat-menu>
             </ng-container>
