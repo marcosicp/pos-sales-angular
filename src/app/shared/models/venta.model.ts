@@ -18,5 +18,7 @@ export class Venta {
     creado: Date;
     editado: Date;
     tipoTransaccion: string;
+    pendiente: boolean;
+    fechaLiquidacion: Date;
     imagenUrl: string;
 }

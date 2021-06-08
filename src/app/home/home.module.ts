@@ -1,3 +1,4 @@
+import { CuentasCorrientesComponent } from './proveedores/cuentas-corrientes/cuentas-corrientes.component';
 
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
@@ -53,6 +54,7 @@ import { CajaComponent } from './caja/caja.component';
     ConfiguracionComponent,
     ReportsComponent,
     LineChartComponent,
+    CuentasCorrientesComponent,
     ComprasProveedoresComponent,
     AdministracionComponent,
     ClientesComponent,

@@ -44,9 +44,11 @@ export class DialogStockAddEditComponent implements OnInit {
     this.proveedores = data.proveedores;
     this.categorias = data.categorias;
     this.dialogTitle = `${data.producto ? 'Modificar' : 'Registrar'} producto`;
+    
   }
 
   ngOnInit() {
+    
     this.productForm = new FormGroup(
       {
         codigo: new FormControl(this.producto.codigo, [Validators.required, Validators.pattern(RegExpHelper.alphaNumeric)]),
@@ -59,7 +61,11 @@ export class DialogStockAddEditComponent implements OnInit {
         // peso: new FormControl(this.producto.peso, [Validators.required, Validators.pattern(RegExpHelper.numberDecimals)]),
         proveedorNombre: new FormControl(this.producto.proveedorNombre, [Validators.required]),
       }
+
     );
+
+    // this.productForm.patchValue({proveedorNombre: this.producto.proveedorNombre});
+    // this.productForm.get('')
   }
 
   // calcularGanancia(producto: Productos) {
@@ -69,7 +75,6 @@ export class DialogStockAddEditComponent implements OnInit {
   // }
 
   guardar() {
-    
     Object.keys(this.productForm.value).forEach(
       prop => this.producto[prop] = this.productForm.value[prop]
     );

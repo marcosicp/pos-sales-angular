@@ -55,6 +55,11 @@ export class ProveedoresComponent implements OnInit {
       icon: 'label',
       label: 'Todas las compras',
       buttonEvent: () => this.verTodasLasComprasProveedores()
+    },
+    {
+      icon: 'label',
+      label: 'Cuentas Corrientas',
+      buttonEvent: () => this.verCuentasCorrientes()
     }
   ];
 
@@ -108,6 +113,10 @@ export class ProveedoresComponent implements OnInit {
 
   verTodasLasComprasProveedores() {
     this.router.navigate(['proveedores/compras-proveedores']);
+  }
+
+  verCuentasCorrientes() {
+    this.router.navigate(['proveedores/cuentas-corrientes']);
   }
 
   /*

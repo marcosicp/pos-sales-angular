@@ -1,0 +1,64 @@
+<div class="row flex flex-direction-row justify-center add-margin content">
+  <div class="details-section add-margin">
+    <mat-card class="main-frame flex flex-direction-column justify-between" style="justify-content: flex-start;">
+      <mat-card-title class="heading">Seleccione para ver estado de cuenta:</mat-card-title>
+      <mat-card-content style="height: 30%">
+        <mat-tab-group>
+          <mat-tab label="Proveedores">
+            <mat-list>
+              <mat-list-item *ngFor="let folder of proveedores" (click)="poneleData(folder)">
+                <mat-icon mat-list-icon>folder</mat-icon>
+                <h4 mat-line>{{folder.nombre}}</h4>
+                <p mat-line> {{folder.cuil | cuilPipe }} </p>
+              </mat-list-item>
+            </mat-list>
+          </mat-tab>
+          <mat-tab label="Clientes">
+            <mat-list>
+              <mat-list-item *ngFor="let note of clientes" (click)="poneleData(note)">
+                <mat-icon mat-list-icon>note</mat-icon>
+                <h4 mat-line>{{note.apellido}} {{note.nombre}}</h4>
+                <p mat-line> {{note.dni}} </p>
+              </mat-list-item>
+            </mat-list>
+          </mat-tab>
+        </mat-tab-group>
+      </mat-card-content>
+    </mat-card>
+  </div>
+
+  <div class="products-section add-margin">
+    <mat-card class="main-frame">
+      <mat-card-title class="heading">Seleccionar Venta
+      </mat-card-title>
+
+      <div class="example-container" style="overflow:auto;">
+        <mat-list>
+          <mat-list-item *ngFor="let compra of proveedorBuscados">
+            <mat-accordion style="margin-top:24%;width: -webkit-fill-available;">
+              <mat-expansion-panel >
+                <mat-expansion-panel-header>
+                  <mat-panel-title>
+                    Total Compra: ${{ compra.total }}
+                  </mat-panel-title>
+                  <mat-panel-description>
+                    Fecha Compra {{ compra.fechaCompra | date }}
+                  </mat-panel-description>
+                </mat-expansion-panel-header>
+
+                <!-- <mat-icon mat-list-icon>folder</mat-icon> -->
+                <h4 mat-line> Items: {{ compra.productosCompra.length }}</h4>
+                <p mat-line *ngFor="let productos of compra.productosCompra">
+                  {{ productos.nombre }} </p>
+                <mat-action-row>
+                  <button mat-raised-button color="warn" (click)="liquidar(compra)">Liquidar</button>
+                </mat-action-row>
+              </mat-expansion-panel>
+            </mat-accordion>
+          </mat-list-item>
+        </mat-list>
+      </div>
+
+    </mat-card>
+  </div>
+</div>

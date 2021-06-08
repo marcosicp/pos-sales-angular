@@ -1,3 +1,4 @@
+import { CuentasCorrientesComponent } from './home/proveedores/cuentas-corrientes/cuentas-corrientes.component';
 import { HomeComponent } from './home/home/home.component';
 // IMPORTAR MODULOS DE ANGULAR
 import { BrowserModule } from '@angular/platform-browser';

@@ -7,6 +7,7 @@ export class Productos {
     idProducto: string;
     imagenUrl: string;
     precioCompra: number;
+    precioNuevoCompra: number;
     precioVenta: number;
     descuento: number;
     cantidad: number;

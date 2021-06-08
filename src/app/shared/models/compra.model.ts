@@ -12,4 +12,5 @@ export class Compra {
     proveedorId: string;
     razonSocial: string;
     usuario: string;
+    tipoTransaccion: string;
 }

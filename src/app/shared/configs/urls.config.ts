@@ -70,6 +70,8 @@ const URL_CONFIGURACION = {
 const URL_PROVEEDORES = {
   GET_ALL: 'proveedores/GetAllProveedores',
   GET_ALL_COMPRAS_PROVEEDORES: 'proveedores/GetAllComprasProveedores',
+  GET_ALL_COMPRAS_PROVEEDORES_CC: 'proveedores/GetAllComprasProveedoresCC',
+  CONFIRMAR_COMPRA_PROVEEDORE_CC: 'proveedores/ConfirmarCompraProveedoreCC',
   ADD_PROVEEDOR: 'proveedores/AddProveedor',
   UPDATE_PROVEEDOR: 'proveedores/UpdateProveedor',
   DELETE_PROVEEDOR: 'proveedores/DeleteProveedor'

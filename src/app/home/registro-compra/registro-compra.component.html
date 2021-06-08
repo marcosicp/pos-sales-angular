@@ -11,7 +11,7 @@
         </ng-select>
       </div>
       <mat-card-title class="add-padding heading">Detalle de la compra</mat-card-title>
-      <table class="table-items">
+      <table class="table-items" style="width: 100%">
         <tr class="table-header">
           <th style="width: 10%;">Cant</th>
           <th>Producto</th>
@@ -27,7 +27,7 @@
           <td>{{item.nombre}}</td>
           <td>{{item.precioCompra | currency: '$'}}</td>
           <td>
-            <input style="width: 50%;background-color: lightgoldenrodyellow;" matInput type="number" min="0" [(ngModel)]="item.precioCompraNuevo"/>
+            <input style="width: 50%;background-color: lightgoldenrodyellow;" matInput type="number" min="0" [(ngModel)]="item.precioNuevoCompra"/>
           </td>
           <td>{{item.precioCompra * item.cantidadComprada | currency: '$'}}</td>
           <!-- <td>{{item.peso * item.cantidadComprada | number: '1.2' | weightPipe}}</td> -->
@@ -41,6 +41,33 @@
           <!-- <h3>P. Total: {{totalWeight() | number: '1.2' | weightPipe}}</h3> -->
           <!-- <h3>M. Neto: {{totalAmount()*0.79 | currency: '$'}}</h3> -->
           <!-- <h3>Iva: {{totalAmount()*0.21 | currency: '$'}}</h3> -->
+          <h3>Tipo Venta: 
+            <mat-select [(value)]="tipoTransaccion"  style="text-align: center">
+              <mat-option style="text-align: center"
+              value="CUENTA CORRIENTE">CUENTA CORRIENTE</mat-option>
+              <mat-option 
+              style="text-align: center"
+              value="EFECTIVO">EFECTIVO</mat-option>
+              <mat-option
+              style="text-align: center"
+              value="TRANSFERENCIA">TRANSFERENCIA</mat-option>
+             
+              <mat-option 
+              style="text-align: center"
+              value="DEBITO">DEBITO</mat-option>
+              <mat-option 
+              style="text-align: center"
+              value="1 CUOTA">1 CUOTA</mat-option>
+              <mat-option 
+              style="text-align: center"
+              value="3 CUOTAS">3 CUOTAS</mat-option>
+              <mat-option 
+              style="text-align: center"
+              value="MERCADO PAGO">MERCADO PAGO</mat-option>
+             
+           
+            </mat-select>
+        </h3>
           <h3>Total: {{totalAmount() | currency: '$'}}</h3>
         </div>
         <div class="flex flex-direction-row buttons">
