@@ -1,31 +1,34 @@
-import { Component, OnInit } from "@angular/core";
-import { NgSelectConfig } from "@ng-select/ng-select";
-import { Router, NavigationExtras } from "@angular/router";
-import { MatDialog, MatSelectChange } from "@angular/material";
+import { Component, OnInit } from '@angular/core';
+import { NgSelectConfig } from '@ng-select/ng-select';
+import { Router, NavigationExtras } from '@angular/router';
+import { MatDialog, MatSelectChange } from '@angular/material';
 // MODELOS
-import { Productos } from "../../shared/models/producto.model";
-import { Usuarios } from "../../shared/models/usuarios.model";
-import { Clientes } from "../../shared/models/clientes.model";
-import { Venta } from "../../shared/models/venta.model";
+import { Productos } from '../../shared/models/producto.model';
+import { Usuarios } from '../../shared/models/usuarios.model';
+import { Clientes } from '../../shared/models/clientes.model';
+import { Venta } from '../../shared/models/venta.model';
 // SERVICIOS
-import { PosService } from "../../core/services/pos.service";
-import { DataService } from "../../core/services/data.service";
-import { ProductoPedido } from "../../shared/models/producto-venta.model";
+import { PosService } from '../../core/services/pos.service';
+import { DataService } from '../../core/services/data.service';
+import { ProductoPedido } from '../../shared/models/producto-venta.model';
 import { LoadingService } from '../../shared/services/loading.service';
 // URLS
-import { URL_CLIENTES, URL_CONFIGURACION } from "../../shared/configs/urls.config";
+import {
+  URL_CLIENTES,
+  URL_CONFIGURACION,
+} from '../../shared/configs/urls.config';
 // DIALOGOS
-import { DialogCajaCerradaComponent } from "../../dialogs/dialog-caja-cerrada/dialog-caja-cerrada.component";
-import { DialogSinConexionComponent } from "../../dialogs/dialog-sin-conexion/dialog-sin-conexion.component";
-import { DialogOperacionOkComponent } from "../../dialogs/dialog-operacion-ok/dialog-operacion-ok.component";
-import { DialogAdvertenciaComponent } from "../../dialogs/dialog-advertencia/dialog-advertencia.component";
-import { DialogConfirmarComponent } from "../../dialogs/dialog-confirmar/dialog-confirmar.component";
-import { Configuracion } from "../../../app/shared/models/configuracion.model";
+import { DialogCajaCerradaComponent } from '../../dialogs/dialog-caja-cerrada/dialog-caja-cerrada.component';
+import { DialogSinConexionComponent } from '../../dialogs/dialog-sin-conexion/dialog-sin-conexion.component';
+import { DialogOperacionOkComponent } from '../../dialogs/dialog-operacion-ok/dialog-operacion-ok.component';
+import { DialogAdvertenciaComponent } from '../../dialogs/dialog-advertencia/dialog-advertencia.component';
+import { DialogConfirmarComponent } from '../../dialogs/dialog-confirmar/dialog-confirmar.component';
+import { Configuracion } from '../../../app/shared/models/configuracion.model';
 
 @Component({
-  selector: "app-ticket",
-  templateUrl: "./ticket.component.html",
-  styleUrls: ["./ticket.component.scss"],
+  selector: 'app-ticket',
+  templateUrl: './ticket.component.html',
+  styleUrls: ['./ticket.component.scss'],
 })
 export class TicketComponent implements OnInit {
   clientes: Clientes[] = [];
@@ -43,7 +46,7 @@ export class TicketComponent implements OnInit {
   productosPedido: ProductoPedido[] = [];
   total = 0;
   descuento = 0;
-  tipoTransaccion: string = "DEBITO";
+  tipoTransaccion = 'DEBITO';
   clienteId: string = null;
   usuario: Usuarios;
   nuevoPedido: Venta;
@@ -66,13 +69,13 @@ export class TicketComponent implements OnInit {
         (data) => {
           this.clientes = data;
           this.clientes.forEach((unCliente) => {
-            unCliente.displayName = unCliente.nombre + " " + unCliente.cuit;
+            unCliente.displayName = unCliente.nombre + ' ' + unCliente.cuit;
           });
           this.clienteId = null;
         },
         (error) => {
           const dialogRef = this.dialog.open(DialogSinConexionComponent, {
-            width: "600px",
+            width: '600px',
             disableClose: true,
           });
           dialogRef.afterClosed().subscribe(() => {});
@@ -80,32 +83,30 @@ export class TicketComponent implements OnInit {
         }
       );
 
-    this.dataService
-      .getOneAsync(URL_CONFIGURACION.GET_ALL, {})
-      .subscribe(
-        (data) => {
-          this.configuracion = data;
-        },
-        (error) => {
-          const dialogRef = this.dialog.open(DialogSinConexionComponent, {
-            width: "600px",
-            disableClose: true,
-          });
-          dialogRef.afterClosed().subscribe(() => {});
-          console.log(error);
-        }
-      );
+    this.dataService.getOneAsync(URL_CONFIGURACION.GET_ALL, {}).subscribe(
+      (data) => {
+        this.configuracion = data;
+      },
+      (error) => {
+        const dialogRef = this.dialog.open(DialogSinConexionComponent, {
+          width: '600px',
+          disableClose: true,
+        });
+        dialogRef.afterClosed().subscribe(() => {});
+        console.log(error);
+      }
+    );
     this.ticketSync.currentTicket.subscribe((data) => (this.ticket = data));
     this.ticketSync.currentTotal.subscribe((total) => {
       this.cartTotal = total;
       this.actualizarTipoTransaccion();
-    } );
+    });
     this.ticketSync.currentCartNum.subscribe(
       (num) => (this.cartNumItems = num)
     );
 
     this.ticketSync.currentClienteId.subscribe((cli) => (this.clienteId = cli));
-    this.usuario = JSON.parse(localStorage.getItem("currentUser"));
+    this.usuario = JSON.parse(localStorage.getItem('currentUser'));
     this.loadingService.toggleLoading();
   }
 
@@ -159,7 +160,7 @@ export class TicketComponent implements OnInit {
   }
 
   calcularDescuento() {
-    var total = 0;
+    let total = 0;
     this.ticket.forEach(function (item: Productos) {
       total += item.precioVenta * item.cantidad;
     });
@@ -169,7 +170,6 @@ export class TicketComponent implements OnInit {
     } else {
       this.cartTotal = total;
     }
-
   }
 
   // Calculate cart total
@@ -201,7 +201,7 @@ export class TicketComponent implements OnInit {
         total += item.precioVenta * item.cantidad;
         cartitems += item.cantidad;
       });
-      
+
       this.cartTotal = total;
       this.cartNumItems = cartitems;
 
@@ -221,7 +221,7 @@ export class TicketComponent implements OnInit {
       // Multiply item price by item quantity, add to total
       this.ticket.forEach(function (item: Productos) {
         if (id === item.id) {
-          total += (item.precioVenta * item.cantidad) - desc ;
+          total += item.precioVenta * item.cantidad - desc;
         } else {
           total += item.precioVenta * item.cantidad;
         }
@@ -262,50 +262,65 @@ export class TicketComponent implements OnInit {
     this.cartTotal = 0;
     this.descuento = 0;
     this.pagaCon = 0;
-    this.tipoTransaccion= "EFECTIVO";
+    this.tipoTransaccion = 'EFECTIVO';
   }
 
-  actualizarTipoTransaccion(){
-    var total = 0;
+  actualizarTipoTransaccion() {
+    let total = 0;
     this.ticket.forEach(function (item: Productos) {
       total += item.precioVenta * item.cantidad;
     });
-    switch(this.tipoTransaccion){
-      case "EFECTIVO":
-      this.cartTotal = total - (total * (this.configuracion.efectivo / 100));
-      break;
-      case "DEBITO":
-       this.cartTotal = total + (total * (this.configuracion.debito / 100));
-      break;
-      case "1 CUOTA":
-        this.cartTotal = total + (total * (this.configuracion.unaCuota / 100));
-      break;
-      case "3 CUOTAS":
-        this.cartTotal = total + (total * (this.configuracion.tresCuotas / 100));
-      break;
-      case "MERCADO PAGO":
-        this.cartTotal = total + (total * (this.configuracion.mercadoPago / 100));
-      break;
-      case "CUENTA CORRIENTE":
-        this.cartTotal = total + (total * (this.configuracion.cuentaCorriente / 100));
-      break;
-      case "TRANSFERENCIA":
-        this.cartTotal = total + (total * (this.configuracion.transferencia / 100));
+    switch (this.tipoTransaccion) {
+      case 'EFECTIVO':
+        this.cartTotal = total - total * (this.configuracion.efectivo / 100);
         break;
-      default: 
+      case 'DEBITO':
+        this.cartTotal = total + total * (this.configuracion.debito / 100);
+        break;
+      case '1 CUOTA':
+        this.cartTotal = total + total * (this.configuracion.unaCuota / 100);
+        break;
+      case '3 CUOTAS':
+        this.cartTotal = total + total * (this.configuracion.tresCuotas / 100);
+        break;
+      case 'MERCADO PAGO':
+        this.cartTotal = total + total * (this.configuracion.mercadoPago / 100);
+        break;
+      case 'CUENTA CORRIENTE':
+        this.cartTotal =
+          total + total * (this.configuracion.cuentaCorriente / 100);
+        break;
+      case 'TRANSFERENCIA':
+        this.cartTotal =
+          total + total * (this.configuracion.transferencia / 100);
+        break;
+      default:
         break;
     }
-    this.cartTotal
+
+    this.cartTotal = Number.parseFloat(this.cartTotal.toFixed(2));
+  }
+
+  getVuelto() {
+    return this.descuento === 0 ? (this.pagaCon - this.cartTotal).toFixed(2) : Number.parseFloat(
+          (this.pagaCon - this.cartTotal * (this.descuento / 100)).toFixed(2)
+        );
+  }
+
+  getTotal() {  // this.descuento == 0 ? this.cartTotal : this.cartTotal - this.cartTotal * (this.descuento / 100)
+    return  this.descuento === 0 ? this.cartTotal.toFixed(2)  : Number.parseFloat(
+          (this.cartTotal - this.cartTotal * (this.descuento / 100)).toFixed(2)
+        );
   }
 
   validarCliente() {
-    if (this.clienteId == null || this.clienteId == "") {
+    if (this.clienteId == null || this.clienteId == '') {
       const dialogRef = this.dialog.open(DialogAdvertenciaComponent, {
-        width: "600px",
+        width: '600px',
         disableClose: true,
         data: {
-          title: "Revisar Cliente",
-          confirmText: "Por favor seleccione un cliente para continuar.",
+          title: 'Revisar Cliente',
+          confirmText: 'Por favor seleccione un cliente para continuar.',
         },
       });
       dialogRef.afterClosed().subscribe(() => {});
@@ -319,21 +334,21 @@ export class TicketComponent implements OnInit {
     // if (this.validarCliente()){
     if (this.ticket.length === 0) {
       const dialogRef = this.dialog.open(DialogAdvertenciaComponent, {
-        width: "600px",
+        width: '600px',
         disableClose: true,
         data: {
-          title: "Sin productos",
-          confirmText: "Debe incluir al menos un producto en el pedido.",
+          title: 'Sin productos',
+          confirmText: 'Debe incluir al menos un producto en el pedido.',
         },
       });
       dialogRef.afterClosed().subscribe(() => {});
       return;
     } else {
       const dialogRef = this.dialog.open(DialogConfirmarComponent, {
-        width: "900px",
+        width: '900px',
         data: {
-          title: "CONFIRMAR VENTA",
-          confirmText: "Presione Aceptar para confirmar esta venta",
+          title: 'CONFIRMAR VENTA',
+          confirmText: 'Presione Aceptar para confirmar esta venta',
         },
         disableClose: true,
       });
@@ -353,26 +368,31 @@ export class TicketComponent implements OnInit {
 
           const venta = new Venta();
           venta.cliente = this.clientes.find((x) => x.id === this.clienteId);
-        
-          this.dataService.createAsync('ventas/AddVenta', this.nuevoPedido, ventaOk).subscribe(
-            data => {
-              this.loadingService.toggleLoading();
-              this.nuevoPedido = data[1];
-              // tslint:disable-next-line: no-shadowed-variable
-              const dialogRef = this.dialog.open(DialogOperacionOkComponent, { width: '600px' ,  disableClose: true });
-              dialogRef.afterClosed().subscribe(result => {
 
-              this.resetear();
-              this.clearCart();
-              
-              });
-            },
-            error => {
-              const dialogRef = this.dialog.open(DialogSinConexionComponent, { width: '600px' ,  disableClose: true });
-              dialogRef.afterClosed().subscribe(result => {
-              });
-            }
-          );
+          this.dataService
+            .createAsync('ventas/AddVenta', this.nuevoPedido, ventaOk)
+            .subscribe(
+              (data) => {
+                this.loadingService.toggleLoading();
+                this.nuevoPedido = data[1];
+                // tslint:disable-next-line: no-shadowed-variable
+                const dialogRef = this.dialog.open(DialogOperacionOkComponent, {
+                  width: '600px',
+                  disableClose: true,
+                });
+                dialogRef.afterClosed().subscribe((result) => {
+                  this.resetear();
+                  this.clearCart();
+                });
+              },
+              (error) => {
+                const dialogRef = this.dialog.open(DialogSinConexionComponent, {
+                  width: '600px',
+                  disableClose: true,
+                });
+                dialogRef.afterClosed().subscribe((result) => {});
+              }
+            );
         }
       });
     }
@@ -382,24 +402,24 @@ export class TicketComponent implements OnInit {
   cerrar = () => {
     if (this.hayDatos()) {
       const dialogRef = this.dialog.open(DialogConfirmarComponent, {
-        width: "600px",
+        width: '600px',
         disableClose: true,
         data: {
-          title: "Salir del pedido",
+          title: 'Salir del pedido',
           confirmText:
-            "¿Esta seguro que desear salir? Los datos cargados del pedido se perderán",
+            '¿Esta seguro que desear salir? Los datos cargados del pedido se perderán',
         },
       });
 
       dialogRef
         .afterClosed()
         .subscribe(
-          (result) => result.confirm && this.router.navigate(["welcome"])
+          (result) => result.confirm && this.router.navigate(['welcome'])
         );
     } else {
-      this.router.navigate(["welcome"]);
+      this.router.navigate(['welcome']);
     }
-  };
+  }
 
   hayDatos = () => this.clienteId || this.ticket.length;
 }
